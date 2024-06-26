@@ -9,7 +9,8 @@ public class InfiniteForest : MonoBehaviour
     public GameObject[] roadSegments; // Array dei segmenti di strada
     public float segmentLength = 10.0f; // Lunghezza di ogni segmento
     public Transform vehicle; // Riferimento al veicolo
-    public float SpaceNewPosition = 200;
+
+    public float SpaceNewPosition = 20f;
     void Update()
     {
         foreach (GameObject segment in roadSegments)
@@ -19,7 +20,7 @@ public class InfiniteForest : MonoBehaviour
             {
                 // Calcola la nuova posizione del segmento
                 Vector3 newPos = segment.transform.position;
-                newPos.z += (SpaceNewPosition * 3)-5; // Sposta il segmento in avanti
+                newPos.z += SpaceNewPosition * 3; // Sposta il segmento in avanti
                 segment.transform.position = newPos; // Applica la nuova posizione
             }
         }

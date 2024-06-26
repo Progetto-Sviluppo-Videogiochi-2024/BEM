@@ -7,12 +7,12 @@ public class VanScript : MonoBehaviour
 {
 
 
-    public float speed = 5f; // Velocità di movimento del van
+    public float speed = 40f; // Velocità di movimento del van
 
     void Update()
     {
         // Aggiorna la posizione del van
-        transform.position += Vector3.forward * speed * 3 * Time.deltaTime;
+        transform.position += Vector3.forward * speed * 10 * Time.deltaTime;
     }
     /*public Transform ruota_avanti_destra;
         void Update()

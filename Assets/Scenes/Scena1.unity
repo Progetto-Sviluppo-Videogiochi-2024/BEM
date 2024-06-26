@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.25834215, g: 0.5624254, b: 0.55613744, a: 1}
+  m_IndirectSpecularColor: {r: 0.2581687, g: 0.5622766, b: 0.55641997, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -510,7 +510,7 @@ Transform:
   m_GameObject: {fileID: 451148271}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -380, y: 0, z: -59}
+  m_LocalPosition: {x: -331, y: 0, z: -59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -844,13 +844,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.03575723, y: -0.8345881, z: -0.007258796, w: 0.54966486}
+  m_LocalRotation: {x: 0.035548847, y: -0.8194882, z: -0.008218772, w: 0.5719334}
   m_LocalPosition: {x: 3.6, y: 1.29, z: 2.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1332414098}
-  m_LocalEulerAnglesHint: {x: 1.558, y: -113.315, z: -3.881}
+  m_LocalEulerAnglesHint: {x: 1.558, y: -110.229, z: -3.881}
 --- !u!1001 &966293664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -994,7 +994,7 @@ Transform:
   m_GameObject: {fileID: 998007099}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -382, y: 0, z: 244}
+  m_LocalPosition: {x: -331, y: 0, z: 244}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1765,7 +1765,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1982716954}
-  - component: {fileID: 1982716953}
+  - component: {fileID: 1982716955}
   m_Layer: 0
   m_Name: ForestManager
   m_TagString: Untagged
@@ -1773,23 +1773,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1982716953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1982716952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 543d05f396c532e44bf745eb2e5cbb9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roadSegments:
-  - {fileID: 451148271}
-  - {fileID: 998007099}
-  segmentLength: 400
-  vehicle: {fileID: 1332414098}
 --- !u!4 &1982716954
 Transform:
   m_ObjectHideFlags: 0
@@ -1805,6 +1788,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1982716955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982716952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce1060fdcf0cc843a93d37a1197fca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roadSegments:
+  - {fileID: 998007099}
+  - {fileID: 451148271}
+  segmentLength: 450
+  vehicle: {fileID: 1332414098}
+  SpaceNewPosition: 200
 --- !u!1001 &1999321633
 PrefabInstance:
   m_ObjectHideFlags: 0
