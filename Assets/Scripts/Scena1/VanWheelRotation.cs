@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class VanWheelRotation : MonoBehaviour
 {
-
     public Transform frontLeftWheel;
     public Transform frontRightWheel;
     public Transform rearLeftWheel;
     public Transform rearRightWheel;
 
     public float rotationSpeed = 360f; // degrees per second
+    public bool isRotating = false;
 
     void Update()
     {
@@ -24,6 +24,10 @@ public class VanWheelRotation : MonoBehaviour
         frontRightWheel.Rotate(Vector3.right, rotationAmount);
         rearLeftWheel.Rotate(Vector3.right, rotationAmount);
         rearRightWheel.Rotate(Vector3.right, rotationAmount);
-    }
 
+        if (!isRotating)
+        {
+            isRotating = true;
+        }
+    }
 }
