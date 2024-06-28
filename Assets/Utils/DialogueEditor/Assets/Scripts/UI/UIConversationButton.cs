@@ -194,7 +194,7 @@ namespace DialogueEditor
 
                 case eButtonType.End:
                     {
-                        TextMesh.text = "Prosegui (End)";
+                        TextMesh.text = "Prossima scena";
                         TextMesh.font = endFont;
                     }
                     break;

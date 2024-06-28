@@ -7,7 +7,7 @@ public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textDisplay;
     public string[] sentences;
-    public float typingSpeed;
+    public float typingSpeed = -4f;
     private int index;
 
     // Start is called before the first frame update
