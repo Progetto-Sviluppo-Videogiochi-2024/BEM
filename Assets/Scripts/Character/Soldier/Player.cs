@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Animator playerAnim;
-    public Rigidbody playerRigid;
-    public float w_speed, wb_speed, olw_speed, rn_speed, ro_speed;
-    public bool walking;
-    public Transform playerTrans;
+    public Animator playerAnim; // Animator del player
+    public Rigidbody playerRigid; // Rigidbody del player
+    public float idleTimeThreshold = 3.0f; // Tempo in secondi per considerare il giocatore inattivo
+    private float elapsedTime = 0.0f; // Tempo trascorso da quando il giocatore ha smesso di muoversi
+    private Vector3 lastPosition; // Ultima posizione del giocatore
+    private bool isIdleTriggerActivated = false; // Trigger booleano per controllare se il giocatore è inattivo
+    public float w_speed, wb_speed, olw_speed, rn_speed, ro_speed; // Velocità di movimento, velocità di corsa, velocità di rotazione
+    public bool walking; // Flag per il movimento del player
+    public Transform playerTrans; // Trasform del player
+
+    void Start()
+    {
+        lastPosition = transform.position;
+    }
 
     void FixedUpdate()
     {
@@ -26,39 +35,50 @@ public class Player : MonoBehaviour
     void Update()
     {
         /* Per le animazioni del player */
-        if (Input.GetKeyDown(KeyCode.W))
+        if (isIdle()) // Se il giocatore è inattivo per un certo periodo di tempo (idleTimeThreshold)
         {
-            playerAnim.SetTrigger("walk");
-            playerAnim.ResetTrigger("idle");
+            playerAnim.ResetTrigger("JogForward");
+            playerAnim.ResetTrigger("JogBackward");
+            playerAnim.ResetTrigger("Running");
+            playerAnim.SetTrigger("Inactive");
+            //steps1.SetActive(false);
+            //steps2.SetActive(false);
+        }
+        if (Input.GetKeyDown(KeyCode.W)) // Se il giocatore preme il tasto W per muoversi in avanti
+        {
+            playerAnim.ResetTrigger("Inactive");
+            playerAnim.ResetTrigger("Idle");
+            playerAnim.SetTrigger("JogForward");
             walking = true;
             //steps1.SetActive(true); suono dei passi
         }
-        if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKeyUp(KeyCode.W)) // Se il giocatore rilascia il tasto W per smettere di muoversi in avanti
         {
-            playerAnim.ResetTrigger("walk");
-            playerAnim.SetTrigger("idle");
+            playerAnim.ResetTrigger("JogForward");
+            playerAnim.SetTrigger("Idle");
             walking = false;
             //steps1.SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S)) // Se il giocatore preme il tasto S per muoversi all'indietro
         {
-            playerAnim.SetTrigger("run_backward");
-            playerAnim.ResetTrigger("idle");
+            playerAnim.ResetTrigger("Inactive");
+            playerAnim.ResetTrigger("Idle");
+            playerAnim.SetTrigger("JogBackward");
             //steps1.SetActive(true);
         }
-        if (Input.GetKeyUp(KeyCode.S))
+        if (Input.GetKeyUp(KeyCode.S)) // Se il giocatore rilascia il tasto S per smettere di muoversi all'indietro
         {
-            playerAnim.ResetTrigger("run_backward");
-            playerAnim.SetTrigger("idle");
+            playerAnim.ResetTrigger("JogBackward");
+            playerAnim.SetTrigger("Idle");
             //steps1.SetActive(false);
         }
 
         /* Per la rotazione del player */
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A)) // Se il giocatore preme il tasto A per ruotare a sinistra
         {
             playerTrans.Rotate(0, -ro_speed * Time.deltaTime, 0);
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D)) // Se il giocatore preme il tasto D per ruotare a destra
         {
             playerTrans.Rotate(0, ro_speed * Time.deltaTime, 0);
         }
@@ -66,22 +86,46 @@ public class Player : MonoBehaviour
         /* Per lo sprint (corsa) del player */
         if (walking == true)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift)) // Se il giocatore preme il tasto Shift sinistro per correre
             {
                 //steps1.SetActive(false);
                 //steps2.SetActive(true);
                 w_speed = w_speed + rn_speed;
-                playerAnim.SetTrigger("run_forward");
-                playerAnim.ResetTrigger("walk");
+                playerAnim.ResetTrigger("JogForward");
+                playerAnim.SetTrigger("Running");
             }
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+            if (Input.GetKeyUp(KeyCode.LeftShift)) // Se il giocatore rilascia il tasto Shift sinistro per smettere di correre
             {
                 //steps1.SetActive(true);
                 //steps2.SetActive(false);
                 w_speed = olw_speed;
-                playerAnim.ResetTrigger("run_forward");
-                playerAnim.SetTrigger("walk");
+                playerAnim.ResetTrigger("Running");
+                playerAnim.SetTrigger("JogForward");
             }
         }
+    }
+
+    bool isIdle()
+    {
+        // Controlla se il giocatore si è mosso o se il tempo trascorso ha già superato la soglia
+        if (transform.position != lastPosition)
+        {
+            elapsedTime = 0.0f; // Reimposta il timer se il giocatore si muove
+            isIdleTriggerActivated = false; // Reimposta il trigger
+        }
+        else
+        {
+            elapsedTime += Time.deltaTime; // Incrementa il timer se il giocatore non si muove
+        }
+
+        lastPosition = transform.position; // Aggiorna l'ultima posizione
+
+        // Controlla se il tempo trascorso supera la soglia
+        if (elapsedTime >= idleTimeThreshold && !isIdleTriggerActivated)
+        {
+            isIdleTriggerActivated = true; // Imposta il trigger booleano a true
+            return true; // Il giocatore è inattivo
+        }
+        return false; // Il giocatore è attivo
     }
 }
