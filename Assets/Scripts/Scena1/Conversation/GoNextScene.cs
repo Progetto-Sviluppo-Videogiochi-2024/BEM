@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ChangeScene : MonoBehaviour
+public class GoNextScene : MonoBehaviour
 {
-    public string sceneName;
+    [SerializeField] string sceneName;
 
-    void OnTriggerEnter(Collider other)
+    // Update is called once per frame
+    void Update()
     {
-        if (other.CompareTag("Player"))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             SceneManager.LoadScene(sceneName);
         }
