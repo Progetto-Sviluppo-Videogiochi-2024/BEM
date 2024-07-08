@@ -90,12 +90,13 @@ public class Player : MonoBehaviour
             {
                 //steps1.SetActive(false);
                 //steps2.SetActive(true);
-                w_speed = w_speed + rn_speed;
+                w_speed = w_speed + rn_speed*2f;
                 playerAnim.ResetTrigger("JogForward");
                 playerAnim.SetTrigger("Running");
             }
             if (Input.GetKeyUp(KeyCode.LeftShift)) // Se il giocatore rilascia il tasto Shift sinistro per smettere di correre
             {
+                
                 //steps1.SetActive(true);
                 //steps2.SetActive(false);
                 w_speed = olw_speed;
