@@ -25,12 +25,41 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             playerRigid.velocity = transform.forward * w_speed * Time.deltaTime;
+            
         }
         if (Input.GetKey(KeyCode.S))
         {
             playerRigid.velocity = -transform.forward * wb_speed * Time.deltaTime;
         }
     }
+
+
+    //Da implemenetare con il file di Christian
+    /*
+    private void ComputeVelocity()
+    {
+        Vector3 direction = Vector3.zero;
+        if (Input.GetKey(KeyCode.W)) direction += Vector3.forward;
+        if (Input.GetKey(KeyCode.S)) direction += Vector3.back;
+        //if (Input.GetKey(KeyCode.A)) direction += Vector3.left;
+        //if (Input.GetKey(KeyCode.D)) direction += Vector3.right;
+
+        direction = direction.normalized;
+
+        Vector3 forwardDirection = mainCamera.transform.forward;
+        forwardDirection.y = 0; // Mantenere il movimento orizzontale
+        forwardDirection = forwardDirection.normalized;
+
+        Vector3 rightDirection = mainCamera.transform.right;
+        rightDirection.y = 0; // Mantenere il movimento orizzontale
+        rightDirection = rightDirection.normalized;
+
+        Vector3 moveDirection = forwardDirection * direction.z + rightDirection * direction.x;
+
+        if (playerAnim.GetBool("isAim")) playerRigid.velocity = aimMoveSpeed * Time.deltaTime * moveDirection;
+        else playerRigid.velocity = Time.deltaTime * w_speed * moveDirection;
+    }
+    */
 
     void Update()
     {
