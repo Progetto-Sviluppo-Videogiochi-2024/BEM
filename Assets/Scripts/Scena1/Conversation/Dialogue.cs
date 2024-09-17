@@ -1,32 +1,31 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class Dialogue : MonoBehaviour
 {
-    public TextMeshProUGUI textDisplay;
-    public string[] sentences;
-    public float typingSpeed = -4f;
-    private int index;
+    [Header("Dialogue Properties")]
+    public TextMeshProUGUI textDisplay; // Variabile per il testo
+    public string[] sentences; // Array di frasi
+    public float typingSpeed = -4f; // Velocità di scrittura
+    private int index; // Indice per le frasi
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Inizializza il testo e avvia la conversazione
         textDisplay.text = string.Empty;
         StartDialogue();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) // Se 'Spacebar', passa alla frase successiva
         {
-            if (textDisplay.text == sentences[index])
+            if (textDisplay.text == sentences[index]) // Se il testo è uguale alla frase corrente
             {
                 NextSentence();
             }
-            else
+            else // Se il testo non è uguale alla frase corrente
             {
                 StopAllCoroutines();
                 textDisplay.text = sentences[index];
@@ -42,7 +41,7 @@ public class Dialogue : MonoBehaviour
 
     IEnumerator TypeLine()
     {
-        foreach(char letter in sentences[index].ToCharArray())
+        foreach (char letter in sentences[index].ToCharArray())
         {
             textDisplay.text += letter;
             yield return new WaitForSeconds(typingSpeed);
@@ -51,7 +50,7 @@ public class Dialogue : MonoBehaviour
 
     void NextSentence()
     {
-        if(index < sentences.Length - 1)
+        if (index < sentences.Length - 1)
         {
             index++;
             textDisplay.text = string.Empty;

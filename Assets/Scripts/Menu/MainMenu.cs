@@ -6,7 +6,7 @@ using TMPro;
 public class MainMenu : MonoBehaviour
 {
     [Header("Game Settings")]
-    [SerializeField] private string sceneName; // Nome della scena da caricare
+    [SerializeField] private string loadSceneName; // Nome della scena da caricare
 
     [Header("UI Glitch Settings")]
     [SerializeField] private Color glitchColor = Color.red; // Colore del glitch
@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour
     private Quaternion originalRotation; // Rotazione originale del testo
 
     [Header("Audio Settings")]
-    [SerializeField] private AudioClip backgroundMusic; // Clip audio per la musica di sottofondo
+    [SerializeField] private AudioClip audioClip; // Clip audio per la musica di sottofondo
     private AudioSource audioSource; // AudioSource per la musica di sottofondo
 
     void Start()
@@ -50,7 +50,7 @@ public class MainMenu : MonoBehaviour
     {
         // Ferma la musica quando si avvia il gioco
         StopAudio();
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(loadSceneName);
     }
 
     public void QuitGame()
@@ -58,6 +58,28 @@ public class MainMenu : MonoBehaviour
         // Ferma la musica e chiudi il gioco
         StopAudio();
         Application.Quit();
+    }
+
+    private void PlayAudio()
+    {
+        // Aggiungi un componente AudioSource se non esiste
+        audioSource = gameObject.AddComponent<AudioSource>();
+
+        // Imposta il clip audio
+        audioSource.clip = audioClip;
+
+        // Configura l'AudioSource
+        audioSource.loop = true; // Imposta loop su true per riprodurre l'audio in loop
+        audioSource.playOnAwake = true;
+
+        // Riproduci l'audio
+        audioSource.Play();
+    }
+
+    public void StopAudio()
+    {
+        // Interrompi l'audio
+        audioSource.Stop();
     }
 
     private void CreateGlitchText()
@@ -110,27 +132,5 @@ public class MainMenu : MonoBehaviour
             }
             else yield break; // Interrompe il ciclo se l'elemento TextMeshProUGUI non è stato assegnato
         }
-    }
-
-    private void PlayAudio()
-    {
-        // Aggiungi un componente AudioSource se non esiste
-        audioSource = gameObject.AddComponent<AudioSource>();
-
-        // Imposta il clip audio
-        audioSource.clip = backgroundMusic;
-
-        // Configura l'AudioSource
-        audioSource.loop = true; // Imposta loop su true per riprodurre l'audio in loop
-        audioSource.playOnAwake = true;
-
-        // Riproduci l'audio
-        audioSource.Play();
-    }
-
-    public void StopAudio()
-    {
-        // Interrompi l'audio
-        audioSource.Stop();
     }
 }

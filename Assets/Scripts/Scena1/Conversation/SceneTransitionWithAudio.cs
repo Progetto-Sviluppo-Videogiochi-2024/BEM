@@ -3,59 +3,63 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransitionWithAudio : MonoBehaviour
 {
+    [Header("Scene Transition Properties")]
     [SerializeField] private string nextSceneName; // Nome della scena successiva
+
+    [Header("Audio Properties")]
     [SerializeField] private AudioSource audioSource; // Variabile per AudioSource
-    [SerializeField] private AudioClip startAudioClip; // Clip audio da riprodurre all'inizio della scena
+    [SerializeField] private AudioClip audioClip; // Clip audio da riprodurre all'inizio della scena
     [SerializeField] private float audioVolume; // Volume dell'audio
     private bool isMuted = false; // Stato di mutamento dell'audio
 
-    // Start is called before the first frame update
     void Start()
     {
-        // Non aggiungere un nuovo AudioSource se non è assegnato, ma avvisa se non è stato assegnato
-        if (audioSource == null)
-        {
-            Debug.LogWarning("AudioSource non assegnato nello script. Assegna un AudioSource tramite l'Inspector.");
-            return;
-        }
-
-        // Imposta il clip audio e altre proprietà solo se l'AudioSource è stato assegnato
-        if (startAudioClip != null)
-        {
-            audioSource.clip = startAudioClip;
-            audioSource.playOnAwake = false; // Imposta su false se non vuoi che l'audio parta automaticamente
-            audioSource.loop = false; // Imposta su true se vuoi che il clip audio si ripeta
-            audioSource.volume = audioVolume; // Imposta il volume molto basso
-            audioSource.Play(); // Avvia la riproduzione dell'audio
-        }
-        else
-        {
-            Debug.LogWarning("AudioClip non assegnato allo script.");
-        }
+        PlayAudio();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab)) // Se 'Tab'
         {
             SceneManager.LoadScene(nextSceneName);
         }
 
-        // Controlla se il tasto 'M' o 'm' viene premuto
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M)) // Se 'M'/'m'
         {
             ToggleMute();
+        }
+    }
+
+    // Metodo per avviare l'audio
+    private void PlayAudio()
+    {
+        if (audioSource == null) // Se l'AudioSource non è assegnato
+        {
+            Debug.LogWarning("AudioSource don't assigned to the script. Please assign it in the inspector.");
+            return;
+        }
+
+        if (audioClip != null) // Se la clip audio è stata assegnata
+        {
+            audioSource.clip = audioClip; // Per impostare la clip audio
+            audioSource.playOnAwake = false; // Per evitare la riproduzione automatica
+            audioSource.loop = false; // Per evitare la ripetizione
+            audioSource.volume = audioVolume; // Per impostare il volume
+            audioSource.Play(); // Per avviarlo
+        }
+        else // Se la clip audio non è stata assegnata
+        {
+            Debug.LogWarning("AudioClip don't assigned to the script. Please assign it in the inspector.");
         }
     }
 
     // Metodo per mutare o riattivare l'audio
     private void ToggleMute()
     {
-        isMuted = !isMuted; // Inverte lo stato di mutamento
-        if (audioSource != null)
+        isMuted = !isMuted;
+        if (audioSource != null) // Se l'AudioSource è assegnato
         {
-            audioSource.mute = isMuted; // Imposta la muta per l'AudioSource
+            audioSource.mute = isMuted;
         }
     }
 }
