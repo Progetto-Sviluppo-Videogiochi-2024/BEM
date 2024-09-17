@@ -3,9 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransitionWithAudio : MonoBehaviour
 {
-    [Header("Scene Transition Properties")]
-    [SerializeField] private string nextSceneName; // Nome della scena successiva
-
     [Header("Audio Properties")]
     [SerializeField] private AudioSource audioSource; // Variabile per AudioSource
     [SerializeField] private AudioClip audioClip; // Clip audio da riprodurre all'inizio della scena
@@ -21,7 +18,7 @@ public class SceneTransitionWithAudio : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab)) // Se 'Tab'
         {
-            SceneManager.LoadScene(nextSceneName);
+            SceneManager.LoadScene(GetComponent<ConversationCharacters>().GetNextScene()); // Per caricare la scena successiva
         }
 
         if (Input.GetKeyDown(KeyCode.M)) // Se 'M'/'m'
