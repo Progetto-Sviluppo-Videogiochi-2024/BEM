@@ -21,7 +21,7 @@ public class SceneTransitionWithAudio : MonoBehaviour
             SceneManager.LoadScene(GetComponent<ConversationCharacters>().GetNextScene()); // Per caricare la scena successiva
         }
 
-        if (Input.GetKeyDown(KeyCode.M)) // Se 'M'/'m'
+        if (Input.GetKeyDown(KeyCode.M)) // Se 'M'
         {
             ToggleMute();
         }

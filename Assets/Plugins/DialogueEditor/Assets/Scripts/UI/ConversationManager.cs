@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace DialogueEditor
@@ -38,6 +37,7 @@ namespace DialogueEditor
         public Sprite OptionImage;
         public bool OptionImageSliced;
         public bool AllowMouseInteraction;
+        public string nextNameScene; // Nome della scena successiva // TODO: aggiunto
 
         // Non-User facing 
         // Not exposed via custom inspector

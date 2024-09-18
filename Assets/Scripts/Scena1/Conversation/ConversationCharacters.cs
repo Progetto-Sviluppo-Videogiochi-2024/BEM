@@ -74,18 +74,18 @@ public class ConversationCharacters : MonoBehaviour
     {
         ConversationManager.Instance.EndConversation();
 
-        if (nameScene != null && nameScene == SceneManager.GetActiveScene().name) // Se quella attuale
+        /*if (nameScene != null && nameScene == SceneManager.GetActiveScene().name) // Se quella attuale
         {
             StartCoroutine(WaitAndChangeScene());
-        }
+        }*/
     }
 
     // Coroutine per aspettare e cambiare scena
-    private IEnumerator WaitAndChangeScene()
+    /*private IEnumerator WaitAndChangeScene()
     {
         yield return new WaitForSeconds(4f); // Aspetta il tempo stabilito
         SceneManager.LoadScene(GetNextScene()); // Cambia scena con la successiva
-    }
+    }*/
 
     // Ottieni il nome della scena successiva (supponendo che le scene siano numerate con un numero alla fine e sequenziali cioè ordinate crescentemente)
     public string GetNextScene()

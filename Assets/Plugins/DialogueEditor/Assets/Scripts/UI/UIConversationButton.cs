@@ -30,7 +30,7 @@ namespace DialogueEditor
 
         // Node data
         private eButtonType m_buttonType;
-        private ConversationNode m_node;    
+        private ConversationNode m_node;
 
         // Hovering 
         private float m_hoverT = 0.0f;
@@ -62,7 +62,7 @@ namespace DialogueEditor
                 }
                 Vector3 size = Vector3.one;
                 float ease = EaseOutQuart(normalised);
-                
+
 
                 switch (m_hoverState)
                 {
@@ -222,6 +222,12 @@ namespace DialogueEditor
 
                 case eButtonType.End:
                     ConversationManager.Instance.EndButtonSelected();
+
+                    if (!string.IsNullOrEmpty(ConversationManager.Instance.nextNameScene)) // TODO: aggiunto per farli cambiare scena se è la fine della conversazione e il parametro nextNameScene è settato in ConversationManager dall'inspector unity
+                    {
+                        UnityEngine.SceneManagement.SceneManager.LoadScene(ConversationManager.Instance.nextNameScene);
+                    }
+
                     break;
             }
         }
