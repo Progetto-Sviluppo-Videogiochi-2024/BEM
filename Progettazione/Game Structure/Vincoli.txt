@@ -1,0 +1,34 @@
+# Vincoli:
+    ## Caratteristiche Gioco:
+        - Personaggi specifici in zone specifiche
+        - Scelta di aree esplorabili tra quelle accessibili? marco -> impedimenti (copilot: fisici, porte chiuse, ecc.)
+        - Scambio di oggetti inammissibile tra personaggi
+        - Ricompense possibili tramite
+            -- quest, rompicapi, cassaforti (codice sparso da qualche parte nel gioco o ?)
+            -- porte chiuse (chiavi sparse per il gioco)
+            -- oggetti nascosti (indizi per trovarli)
+        - Presenza di nemici (mutanti, soldati) in aree esplorabili
+        - Interazione con il gioco: Single Player
+        - Oggetti esauribili e non
+        - NPC con dialoghi e quest secondarie
+        - Crafting di oggetti
+            -- possibile solo tra oggetti craftabili (ricette sparse per il gioco)
+                --- slot con selezione evidente (colorati tipo) per loro
+
+    ## Giocatore:
+        - Salute: ?
+            -- se la salute è 0, il personaggio muore
+            -- rigenerazione auto ogni tot secondi uno slot, oggetti curativi oppure? 
+        - Stamina: ?
+            -- se la stamina è 0, il personaggio non può attaccare
+        - Sanità mentale: ?
+        - Armi:
+            -- Melee: corpo a corpo (armi bianche: coltello, mazza, bastone, ascia)
+                --- combo per attacchi (due ripetuti?)
+                --- consuma stamina per ogni tipo di attacco
+                --- coltello in stealth mode per killare nemici silenziosamente (consuma meno stamina?)
+                    ---- Non consente di essere scoperti dai nemici
+            -- Ranged: a distanza (armi da fuoco, da lancio)
+                --- tempo di ricarica
+                --- munizioni da raccogliere e limitate
+                --- quelle da lancio sse raccolte?
