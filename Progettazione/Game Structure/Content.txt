@@ -1,32 +1,24 @@
 # Componenti
   ## 1. Personaggio
-    - Salute: indica la barra di vita del personaggio
-    - Stamina: indica la barra di stanchezza del personaggio
-      -- se la stamina è a 0, il personaggio non può attaccare
-      -- ogni azione costa della stamina e la quantità di stamina persa dipende dall'azione
-      -- la stamina si rigenera di una determinata quantità ogni tot secondi in cui il personaggio non compie azioni come corre, attacca, ecc.
+    - Salute: comprensibili dal giocatore e dalla GUI
+    - Stamina: comprensibili dal giocatore e dalla GUI
     - Inventario: lista di oggetti che il personaggio ha nello zaino
       -- gli oggetti possono essere utilizzabili o equipaggiamento
       -- gli oggetti utilizzabili possono essere usati per curare il personaggio, aumentare la stamina e la sanità mentale.
-    - Sanità mentale: indica la salute mentale del personaggio
-      -- se la sanità mentale è a 0, il personaggio rimane paralizzato (diventa inattivo) per un determinato periodo di tempo e non può compiere azioni
-        --- in alternativa, richiede che il personaggio attivo si avvicini con un oggetto per curarlo
-        --- se il personaggio inattivo viene attaccato, subisce danno
-          ---- ma se muore, non è più utilizzabile e il personaggio attivo perde della sanità mentale
+    - Sanità mentale: audio e dipende dagli HP del personaggio
     - Equipaggiamento: lista di oggetti che il personaggio ha equipaggiato
       -- esempi di oggetti utilizzabili: Cibo, bevande, medicinali, sigaretta, armi da fuoco, ecc.
     - Azioni: lista di azioni che il personaggio può compiere
       -- esempi: Attacco, Corri, Cammina, Ispeziona, Zaino (Raccogli e usa oggetto, Equipaggia oggetto...), ecc.
 
   ## Mostri
-    - Nome: indica il nome del mostro (visibile al personaggio)
     - Salute: indica la barra di vita del mostro (invisibile al personaggio)
     - Attacco: indica la forza dell'attacco con cui il mostro attacca il personaggio
     - Difesa: indica la resistenza del mostro agli attacchi del personaggio
     - Velocità: indica la velocità di movimento del mostro
     - Abilità: lista di abilità speciali che il mostro può utilizzare durante gli scontri
-      -- esempi: Lancio di proiettili, attacco a distanza, rigenerazione della salute, ecc.
-    - Ricompensa: indica la ricompensa (oggetti, punti esperienza, monete, ecc.) che il personaggio riceve dopo aver sconfitto il mostro
+      -- esempi: attacco a distanza, rigenerazione della salute, ecc.
+    - Ricompensa: indica la ricompensa (delle munizioni) che il personaggio riceve dopo aver sconfitto il mostro
     - Comportamento: indica il comportamento del mostro durante gli scontri
       -- esempi: Attacco aggressivo, difesa, fuga, attacco a distanza, ecc.
     - Livello: indica il livello di difficoltà del mostro
@@ -34,5 +26,3 @@
     - Immagine: indica l'immagine o l'icona che rappresenta il mostro nel gioco
     - Suono: indica il suono associato al mostro (es. grugnito, urla, ecc.)
     - Animazione: indica l'animazione associata al mostro (es. movimenti, attacchi, ecc.)
-
-# Content livello 1
