@@ -1,0 +1,26 @@
+						*La stanza di Stefano*
+
+DINAMICHE:
+
+Stefano si sveglia e parte un monologo: 
+"Oh cazzo! Sono in ritardo.."
+"Devo preparare lo zaino"
+< Finestra modale che dice all'utente di premere 'M' accedere alla lista delle attività > 
+< L'utente ora sa cosa deve prendere >
+< Finestra modale che dice all'utente che con SPACEBAR può raccogliere gli oggetti a lui vicini >
+< Dopo che l'utente ha raccolto tutti gli oggetti>
+" Devo spegnere la radio " se l'utente prova ad uscire dalla porta senza averlo fatto
+< Finestra modale che dice all'utente che può interagire con la radio >
+< Sopra la radio compare un tooltip che mostra l'azione che il personaggio può effettuare con l'oggetto/NPC > (DA IMPLEMENTARE) >
+ - Possibile implementazione per il tooltip: https://chatgpt.com/share/66e87c59-326c-8006-bb89-3dac4e4e8a86
+< Dopo che stefano ha spento la radio, potrà uscire dalla porta e quindi viene avviata scena1>
+
+COSA CI SERVE:
+- Creazione della stanza (ricerca di nuovi assets)
+- Dialoghi
+- Risoluzione RayCast oppure utilizzo di una camera fissa su un muro
+- Implementazione della funzione per poter interagire con gli oggetti 
+- Implementazione del tooltip
+
+
+
