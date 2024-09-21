@@ -1,18 +1,12 @@
-# Oggetti del gioco:
+# Oggetti del gioco: CONSUMABILI
     ## 1. Giocatore
-        - Item: consumabili e non consumabili (ambedue equipaggiabili o non equipaggiabili)
-            -- equipaggiabili: armi...
+        - Item: consumabili e non consumabili (ambedue equipaggiabili)
+            -- equipaggiabili:
+	    - armi...
                 --- da mischia: coltelli, asce, mazze
                 --- da fuoco:
                     ---- corto raggio: pistole, fucili a pompa (non automatici)
                     ---- medio raggio: fucili d'assalto (automatici)
-            -- non equipaggiabili:
-                --- proiettili (inseriti nella ricarica)
-                --- chiavi (usabili interagendo con la loro porta)
-                --- documenti (solo aprire per leggerli)
-                --- armi da lancio: coltelli, bottiglie
-
-        ### 1.1 Consumabili - Non equipaggiabili
             - Medicinali: recupera la salute del giocatore
                 -- medikit: tutta la salute
                 -- bende: parte della salute
@@ -21,8 +15,12 @@
             - Sigaretta/Beroni: aumenta sanità mentale
             - Armi da lancio: coltelli, bottiglie, ecc.
             - Proiettili: munizioni per armi da fuoco
-            - Chiavi: apre porte chiuse (una sola porta per chiave)
-
+	    - RisultatoDelCrafting: oggetto creato
+	    - armi da lancio: coltelli, bottiglie
+            
+	    -- non equipaggiabili:
+                --- proiettili (inseriti nella ricarica)
+            
         ### 1.2 Equipaggiabili
                 - Armi da fuoco: pistola, fucile, mitragliatrice
                 - Armi bianche: coltello, spada, mazza, ascia
@@ -31,10 +29,11 @@
             - Oggetti nascosti: per sbloccare trofei
             - Ricette per crafting: raccolte per creare oggetti
             - Documenti: raccolti per scoprire la storia del gioco
+	    - Chiavi: apre porte chiuse (una sola porta per chiave)  X
 
-Per i collezionabili: oggetti nascosti, ricette, documenti
 
-Per i consumabili: medicinali, cibo, bevande, sigarette, armi da lancio, proiettili, chiavi
+Per i collezionabili: oggetti nascosti, ricette, documenti, chiavi
 
-Per gli equipaggiabili: solo le armi? (dipende se il medikit decidiamo di metterlo come consumabile dal menu o equipaggabile e visibile dal giocatore nella GUI)
-vanno bene ???
+Per i consumabili: medicinali, cibo, bevande, sigarette, armi da lancio, proiettili, 
+
+Per gli equipaggiabili: tutti gli oggetti (tranne i collezionabili)
