@@ -1,39 +1,26 @@
 # Oggetti del gioco: CONSUMABILI
     ## 1. Giocatore
-        - Item: consumabili e non consumabili (ambedue equipaggiabili)
-            -- equipaggiabili:
-	    - armi...
-                --- da mischia: coltelli, asce, mazze
-                --- da fuoco:
-                    ---- corto raggio: pistole, fucili a pompa (non automatici)
-                    ---- medio raggio: fucili d'assalto (automatici)
-            - Medicinali: recupera la salute del giocatore
-                -- medikit: tutta la salute
-                -- bende: parte della salute
-            - Cibo: recupera la stamina del giocatore
-            - Bevande: recupera la stamina del giocatore
-            - Sigaretta/Beroni: aumenta sanità mentale
-            - Armi da lancio: coltelli, bottiglie, ecc.
-            - Proiettili: munizioni per armi da fuoco
-	    - RisultatoDelCrafting: oggetto creato
-	    - armi da lancio: coltelli, bottiglie
+        ### 1.1 Oggetti: consumabili e non consumabili
+            -- Equipaggiabili:
+                --- Armi...
+                    ---- da mischia: coltelli, asce, mazze
+                    ---- da fuoco:
+                        ----- corto raggio: pistole, fucili a pompa (non automatici)
+                        ----- medio raggio: fucili d'assalto (automatici)
+                --- Medicinali: recupera la salute del giocatore
+                    ---- medikit: tutta la salute
+                    ---- bende: parte della salute
+                    ---- craftItem: oggetto creato con crafting dai fiori, ad es 
+                --- Cibo: recupera la stamina del giocatore
+                --- Bevande: recupera la stamina del giocatore
+                --- Sigaretta/Beroni: aumenta sanità mentale
+                --- craftItem: oggetto creato dal crafting
             
-	    -- non equipaggiabili:
-                --- proiettili (inseriti nella ricarica)
-            
-        ### 1.2 Equipaggiabili
-                - Armi da fuoco: pistola, fucile, mitragliatrice
-                - Armi bianche: coltello, spada, mazza, ascia
-
-        ### 1.3 Collezionabili
-            - Oggetti nascosti: per sbloccare trofei
-            - Ricette per crafting: raccolte per creare oggetti
-            - Documenti: raccolti per scoprire la storia del gioco
-	    - Chiavi: apre porte chiuse (una sola porta per chiave)  X
-
-
-Per i collezionabili: oggetti nascosti, ricette, documenti, chiavi
-
-Per i consumabili: medicinali, cibo, bevande, sigarette, armi da lancio, proiettili, 
-
-Per gli equipaggiabili: tutti gli oggetti (tranne i collezionabili)
+            -- Non equipaggiabili:
+                --- Armi da lancio?: coltelli, bottiglie ecc.
+                --- Proiettili: munizioni per le armi da fuoco (inseriti nella ricarica)
+                --- Collezionabili
+                    ---- Oggetti nascosti: per sbloccare trofei
+                    ---- Ricette per crafting: raccolte per creare oggetti
+                    ---- Documenti: raccolti per scoprire la storia del gioco
+                    ---- Chiavi: apre porte chiuse (una sola porta per chiave) X
