@@ -30,23 +30,27 @@
                 --- consuma stamina per ogni tipo di attacco
                 --- coltello in stealth mode per killare nemici silenziosamente e non farsi individuare dai nemici?
                     ---- Non consente di essere scoperti dai nemici?
-            -- Ranged: a distanza (armi da fuoco, da lancio)
+            -- Ranged: a distanza (armi da fuoco)
                 --- tempo di ricarica
                 --- munizioni da raccogliere e limitate
-                --- quelle da lancio sse raccolte
-                    ---- invisibili nella GUI di gioco
                 --- automatici e non automatici
+            -- Armi da lancio: sassi, bottiglie ecc.
+                --- per attirare/attaccare nemici o distrarli
 
     ## Inventario:
         - Oggetti:
+            -- quantità limitata
+                --- dipende dallo spazio disponibile nell'inventario
             -- consumabili e non consumabili
             -- equipaggiabili/non equipaggiabili
-                --- armi, armi da lancio?, quelli_di_usa
+                --- armi, quelli_di_usa
             -- utilizzabili
                 --- medikit, bende, soluzioni curative, cibo, bevande, sigarette
             -- ispezionabili
                 --- pop up con informazioni sull'oggetto
             -- scartabili
+                --- una quantità in meno dell'oggetto nell'inventario
+            -- rimuovibili
                 --- eliminati dall'inventario (non recuperabili)
         - Collezionabili:
             -- craftabili
