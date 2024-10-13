@@ -26,3 +26,4 @@
     - Immagine: indica l'immagine o l'icona che rappresenta il mostro nel gioco
     - Suono: indica il suono associato al mostro (es. grugnito, urla, ecc.)
     - Animazione: indica l'animazione associata al mostro (es. movimenti, attacchi, ecc.)
+
