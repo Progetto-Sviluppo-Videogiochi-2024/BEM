@@ -1,5 +1,4 @@
 # Componenti
-<<<<<<< Updated upstream
   ## Player
     - Salute: comprensibili dal giocatore e dalla GUI
     - Stamina: comprensibili dal giocatore e dalla GUI
@@ -11,8 +10,6 @@
       -- esempi di oggetti utilizzabili: Cibo, bevande, medicinali, sigaretta, armi da fuoco, ecc.
     - Azioni: lista di azioni che il personaggio può compiere
       -- esempi: Attacco, Corri, Cammina, Ispeziona, Zaino (Raccogli e usa oggetto, Equipaggia oggetto...), ecc.
-=======
->>>>>>> Stashed changes
 
 ## 1. Personaggio
 - **Salute:** Comprensibili dal giocatore e dalla GUI.
