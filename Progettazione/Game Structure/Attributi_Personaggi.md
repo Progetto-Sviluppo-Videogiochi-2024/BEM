@@ -1,5 +1,5 @@
 # Componenti
-  ## 1. Personaggio
+  ## Player
     - Salute: comprensibili dal giocatore e dalla GUI
     - Stamina: comprensibili dal giocatore e dalla GUI
     - Inventario: lista di oggetti che il personaggio ha nello zaino
