@@ -25,7 +25,7 @@
 - **R**: ricarica arma
 
 ## Combattimento Arma Melee
-*(DA DEFINIRE)*
+**CLICK_SINISTRO**: attacca
 
 ## Oggetti
 *(Se equipaggiato)*
