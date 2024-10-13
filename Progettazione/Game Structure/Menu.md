@@ -7,8 +7,10 @@
 - Esci dal Gioco
 
 ## GamePlay Menù
-- Accesso all'Inventario del Personaggio
-- Opzioni Main Menù
+- Torna al Menu Principale
+- Carica Partita Salvata (Opzionale)
+- Opzioni (Main Menù)
+- Esci dal gioco
 
 ## GameOver Menù
 - Ricomincia dall'Ultimo Checkpoint
