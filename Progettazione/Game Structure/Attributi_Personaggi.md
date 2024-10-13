@@ -1,17 +1,4 @@
-# Componenti
-  ## Player
-    - Salute: comprensibili dal giocatore e dalla GUI
-    - Stamina: comprensibili dal giocatore e dalla GUI
-    - Inventario: lista di oggetti che il personaggio ha nello zaino
-      -- gli oggetti possono essere utilizzabili o equipaggiamento
-      -- gli oggetti utilizzabili possono essere usati per curare il personaggio, aumentare la stamina e la sanità mentale.
-    - Sanità mentale: audio e dipende dagli HP del personaggio
-    - Equipaggiamento: lista di oggetti che il personaggio ha equipaggiato
-      -- esempi di oggetti utilizzabili: Cibo, bevande, medicinali, sigaretta, armi da fuoco, ecc.
-    - Azioni: lista di azioni che il personaggio può compiere
-      -- esempi: Attacco, Corri, Cammina, Ispeziona, Zaino (Raccogli e usa oggetto, Equipaggia oggetto...), ecc.
-
-## 1. Personaggio
+## Player
 - **Salute:** Comprensibili dal giocatore e dalla GUI.
 - **Stamina:** Comprensibili dal giocatore e dalla GUI.
 - **Inventario:** Lista di oggetti che il personaggio ha nello zaino.
@@ -23,7 +10,7 @@
 - **Azioni:** Lista di azioni che il personaggio può compiere.
   - Esempi: Attacco, Corri, Cammina, Ispeziona, Zaino (Raccogli e usa oggetto, Equipaggia oggetto...), ecc.
 
-## 2. Mostri
+## Mostri
 - **Salute:** Indica la barra di vita del mostro (invisibile al personaggio).
 - **Attacco:** Indica la forza dell'attacco con cui il mostro attacca il personaggio.
 - **Difesa:** Indica la resistenza del mostro agli attacchi del personaggio.
