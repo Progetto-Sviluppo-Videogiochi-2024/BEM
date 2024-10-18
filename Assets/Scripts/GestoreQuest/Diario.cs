@@ -6,12 +6,16 @@ using DialogueEditor;
 public class Diario : MonoBehaviour
 {
     public List<string> missioniAttive = new List<string>();
-    public List<string> missioniCompletate = new List<string>(); // Lista per le missioni completate
+    public List<string> missioniCompletate = new List<string>();
     public GameObject missionPrefab;
     public Transform content;
     public GameObject scrollView;
 
     private bool diarioVisibile = false;
+
+    // Definizione del delegato
+    public delegate void MissionCompletedDelegate(string missione);
+    public event MissionCompletedDelegate OnMissionCompleted;
 
     void Start()
     {
@@ -39,18 +43,25 @@ public class Diario : MonoBehaviour
         }
     }
 
+    // Metodo modificato per gestire missioni duplicate
     public void AggiungiMissione(string missione)
     {
-        if (!missioniAttive.Contains(missione))
+        // Cerca una missione esistente che contiene lo stesso testo (ignorando il numero di dialoghi)
+        string missioneBase = missione.Split('(')[0].Trim(); // Ottieni solo la parte del titolo, escludendo i numeri
+        for (int i = 0; i < missioniAttive.Count; i++)
         {
-            missioniAttive.Add(missione);
-            Debug.Log("Nuova missione aggiunta: " + missione);
-            AggiornaDiarioUI();
+            if (missioniAttive[i].StartsWith(missioneBase))
+            {
+                missioniAttive[i] = missione; // Aggiorna la missione esistente
+                AggiornaDiarioUI(); // Aggiorna l'interfaccia utente
+                return;
+            }
         }
-        else
-        {
-            Debug.Log("La missione è già nel diario: " + missione);
-        }
+
+        // Se la missione non è presente, la aggiunge
+        missioniAttive.Add(missione);
+        Debug.Log("Nuova missione aggiunta: " + missione);
+        AggiornaDiarioUI();
     }
 
     public void CompletaMissione(string missione)
@@ -58,10 +69,12 @@ public class Diario : MonoBehaviour
         if (missioniAttive.Contains(missione))
         {
             missioniAttive.Remove(missione);
-            missioniCompletate.Add(missione); // Aggiunge la missione alla lista delle completate
+            missioniCompletate.Add(missione);
             Debug.Log("Missione completata: " + missione);
             AggiornaDiarioUI();
-            //AggiornaParametriDialogo();
+
+            // Invoca l'evento per notificare il completamento della missione
+            OnMissionCompleted?.Invoke(missione);
         }
         else
         {
@@ -113,7 +126,7 @@ public class Diario : MonoBehaviour
             }
         }
 
-        // Se non ci sono missioni attive, mostra "Nessuna attività"
+        // Se non ci sono missioni attive o completate, mostra "Nessuna attività"
         if (missioniAttive.Count == 0 && missioniCompletate.Count == 0)
         {
             GameObject missionObj = Instantiate(missionPrefab, content);
@@ -128,17 +141,4 @@ public class Diario : MonoBehaviour
             }
         }
     }
-
-    // public void AggiornaParametriDialogo()
-    // {
-    //     foreach (string missione in missioniCompletate)
-    //     {
-    //         ConversationManager.Instance.SetBool(missione + "completata", true);
-    //     }
-
-    //     foreach (string missione in missioniAttive)
-    //     {
-    //         ConversationManager.Instance.SetBool(missione + "completata", false);
-    //     }
-    // }
 }
