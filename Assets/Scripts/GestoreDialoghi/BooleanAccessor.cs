@@ -8,46 +8,49 @@ public class BooleanAccessor : MonoBehaviour
     // Singleton
     public static BooleanAccessor istance;
 
-    // Bools di Cubo
-    bool assegnata = false;
-    bool detto = false;
+    // Bools di Jackob
+    bool cartello = false;
+    bool tolto = false;
 
-    // Bool di Sfera
-    bool cuboChat = false;
+    // Bools Uomo Baita
+    bool acqua = false;
+    bool acquaDone = false;
+
 
     //E' necessario che tutte le variabili booleane create nel dialogue editor siano settate a false.
     public void SetBoolOnDialogueE(string nomeBool)
     {
-        if (nomeBool == "assegnata")
+        switch (nomeBool)
         {
-            assegnata = true;
-        }
-        if (nomeBool == "detto")
-        {
-            detto = true;
-        }
-        if (nomeBool == "cuboChat")
-        {
-            cuboChat = true;
+            case "cartello":
+                cartello = true;
+                break;
+            case "tolto":
+                tolto = true;
+                break;
+            case "acqua":
+                acqua = true;
+                break;
+            case "acquaDone":
+                acquaDone = true;
+                break;
+            default:
+                Debug.LogWarning("BooleanAccessor: nomeBool non riconosciuto - " + nomeBool);
+                break;
         }
     }
 
     //Permette agli scripts dei dialoghi di poter accedere alle variabili booleane globali
     public bool GetBoolFromThis(string nomeBool)
     {
-        if (nomeBool == "assegnata")
+        return nomeBool switch
         {
-            return assegnata;
-        }
-        if (nomeBool == "detto")
-        {
-            return detto;
-        }
-        if (nomeBool == "cuboChat")
-        {
-            return cuboChat;
-        }
-        return false;
+            "cartello" => cartello,
+            "tolto" => tolto,
+            "acqua" => acqua,
+            "acquaDone" => acquaDone,
+            _ => false,
+        };
     }
 
     void Awake()
@@ -70,11 +73,10 @@ public class BooleanAccessor : MonoBehaviour
     // void Update()
     // {
     //     //Debug per vedere se i valori delle variabili booleane globali
-    //     if (Input.GetKeyDown(KeyCode.S))
+    //     if (Input.GetKeyDown(KeyCode.K))
     //     {
-    //         Debug.Log("assegnata " + assegnata);
-    //         Debug.Log("detto " + detto);
-    //         Debug.Log("cuboChat " + cuboChat);
+    //         Debug.Log("cartello " + cartello);
+    //         Debug.Log("tolto " + tolto);
     //     }
     // }
 

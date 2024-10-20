@@ -39,13 +39,13 @@ public class scena2 : MonoBehaviour
         // Assegna il numero di dialoghi eseguiti in base alle missioni completate nel diario
         dialoghiEseguiti = diario.missioniCompletate.Count;
 
-        diario.AggiungiMissione("Esplora la foresta (Conversazioni: " + dialoghiEseguiti + "/" + dialoghiTotali + ")");
+        diario.AggiungiMissione("Esplora la foresta (" + dialoghiEseguiti + "/" + dialoghiTotali + ")");
     }
 
     // Metodo per aggiornare i dialoghi eseguiti
     private void AggiornaDialoghiEseguiti(string missione)
     {
         dialoghiEseguiti = diario.missioniCompletate.Count;
-        diario.AggiungiMissione("Esplora la foresta (Conversazioni " + dialoghiEseguiti + "/" + dialoghiTotali + ")");
+        diario.AggiungiMissione("Esplora la foresta (" + dialoghiEseguiti + "/" + dialoghiTotali + ")");
     }
 }

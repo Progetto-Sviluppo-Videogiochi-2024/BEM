@@ -46,8 +46,10 @@ public class Diario : MonoBehaviour
     // Metodo modificato per gestire missioni duplicate
     public void AggiungiMissione(string missione)
     {
-        // Cerca una missione esistente che contiene lo stesso testo (ignorando il numero di dialoghi)
+        // Cerca una missione esistente nella lista delle attive
         string missioneBase = missione.Split('(')[0].Trim(); // Ottieni solo la parte del titolo, escludendo i numeri
+        
+        // Controlla se la missione è già presente nelle missioni attive
         for (int i = 0; i < missioniAttive.Count; i++)
         {
             if (missioniAttive[i].StartsWith(missioneBase))
@@ -58,11 +60,22 @@ public class Diario : MonoBehaviour
             }
         }
 
-        // Se la missione non è presente, la aggiunge
+        // Controlla se la missione è già stata completata
+        for (int i = 0; i < missioniCompletate.Count; i++)
+        {
+            if (missioniCompletate[i].StartsWith(missioneBase))
+            {
+                Debug.Log("La missione '" + missioneBase + "' è già stata completata.");
+                return; // Non aggiunge la missione se è già completata
+            }
+        }
+
+        // Se la missione non è presente né nelle attive né nelle completate, la aggiunge
         missioniAttive.Add(missione);
         Debug.Log("Nuova missione aggiunta: " + missione);
         AggiornaDiarioUI();
     }
+
 
     public void CompletaMissione(string missione)
     {
