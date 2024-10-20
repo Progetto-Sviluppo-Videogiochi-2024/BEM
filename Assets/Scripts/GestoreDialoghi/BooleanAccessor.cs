@@ -16,6 +16,10 @@ public class BooleanAccessor : MonoBehaviour
     bool acqua = false;
     bool acquaDone = false;
 
+    //Bools Gaia
+    bool fiore = false;
+    bool soluzione = false;
+
 
     //E' necessario che tutte le variabili booleane create nel dialogue editor siano settate a false.
     public void SetBoolOnDialogueE(string nomeBool)
@@ -34,6 +38,12 @@ public class BooleanAccessor : MonoBehaviour
             case "acquaDone":
                 acquaDone = true;
                 break;
+            case "fiore":
+                fiore = true;
+                break;
+            case "soluzione":
+                soluzione = true;
+                break;
             default:
                 Debug.LogWarning("BooleanAccessor: nomeBool non riconosciuto - " + nomeBool);
                 break;
@@ -49,6 +59,8 @@ public class BooleanAccessor : MonoBehaviour
             "tolto" => tolto,
             "acqua" => acqua,
             "acquaDone" => acquaDone,
+            "fiore" => fiore,
+            "soluzione" => soluzione,
             _ => false,
         };
     }

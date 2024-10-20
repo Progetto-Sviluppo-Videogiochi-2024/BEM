@@ -6,9 +6,13 @@ public class scena2 : MonoBehaviour
 {
     public Diario diario; // Oggetto che si occupa di gestire le missioni
     public int dialoghiTotali = 5; // Numero di dialoghi totali
+    public int dialoghiEseguiti; // Numero di dialoghi eseguiti 
     public int documentiTotali = 2; // Numero di documenti totali
     public int documentiRaccolti = 0; // Numero di documenti raccolti
-    public int dialoghiEseguiti; // Numero di dialoghi eseguiti 
+
+    public int violeTotali = 15; // Numero di viole totali
+    public int violeRaccolte = 0; // Numero di viole raccolte
+
 
     private void OnEnable()
     {
