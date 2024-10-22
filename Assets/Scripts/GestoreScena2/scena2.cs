@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class scena2 : MonoBehaviour
+public class Scena2 : MonoBehaviour
 {
     public Diario diario; // Oggetto che si occupa di gestire le missioni
     public int dialoghiTotali = 5; // Numero di dialoghi totali

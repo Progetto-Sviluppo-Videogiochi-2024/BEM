@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -13,6 +12,8 @@ public class Player : MonoBehaviour
     public float w_speed, wb_speed, olw_speed, rn_speed, ro_speed; // Velocità di movimento, velocità di corsa, velocità di rotazione
     public bool walking; // Flag per il movimento del player
     public Transform playerTrans; // Trasform del player
+    private bool canFill = false; // Flag se si può riempire il secchio
+    [HideInInspector] public TaskBucketBaita taskBucketBaita = null; // Referenza al componente TaskBucketBaita
 
     void Start()
     {
@@ -25,14 +26,13 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             playerRigid.velocity = transform.forward * w_speed * Time.deltaTime;
-            
+
         }
         if (Input.GetKey(KeyCode.S))
         {
             playerRigid.velocity = -transform.forward * wb_speed * Time.deltaTime;
         }
     }
-
 
     //Da implemenetare con il file di Christian
     /*
@@ -63,6 +63,13 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (taskBucketBaita != null) Debug.Log("Secchio equipaggiato");
+        if (taskBucketBaita != null && canFill && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)))
+        {
+            taskBucketBaita.Fill();
+            canFill = false;
+        }
+
         /* Per le animazioni del player */
         if (isIdle()) // Se il giocatore è inattivo per un certo periodo di tempo (idleTimeThreshold)
         {
@@ -119,13 +126,13 @@ public class Player : MonoBehaviour
             {
                 //steps1.SetActive(false);
                 //steps2.SetActive(true);
-                w_speed = w_speed + rn_speed*2f;
+                w_speed = w_speed + rn_speed * 2f;
                 playerAnim.ResetTrigger("JogForward");
                 playerAnim.SetTrigger("Running");
             }
             if (Input.GetKeyUp(KeyCode.LeftShift)) // Se il giocatore rilascia il tasto Shift sinistro per smettere di correre
             {
-                
+
                 //steps1.SetActive(true);
                 //steps2.SetActive(false);
                 w_speed = olw_speed;
@@ -157,5 +164,13 @@ public class Player : MonoBehaviour
             return true; // Il giocatore è inattivo
         }
         return false; // Il giocatore è attivo
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Lake") && SceneManager.GetActiveScene().name == "Scena2")
+        {
+            if (taskBucketBaita != null) canFill = true;
+        }
     }
 }

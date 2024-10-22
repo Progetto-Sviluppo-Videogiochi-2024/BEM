@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.25827748, g: 0.5624012, b: 0.55595773, a: 1}
+  m_IndirectSpecularColor: {r: 0.2582342, g: 0.56239456, b: 0.5560964, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -891,7 +891,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 71279085}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lago
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -916,6 +916,11 @@ Transform:
   - {fileID: 796262125}
   - {fileID: 680265130}
   - {fileID: 1286883417}
+  - {fileID: 838198757}
+  - {fileID: 1700143992}
+  - {fileID: 1364746746}
+  - {fileID: 1960669952}
+  - {fileID: 194752480}
   m_Father: {fileID: 356366670}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &71769339 stripped
@@ -2747,6 +2752,59 @@ Transform:
   - {fileID: 1953842903}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &194752479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 194752480}
+  - component: {fileID: 194752481}
+  m_Layer: 6
+  m_Name: Lago capsule8
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &194752480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194752479}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 455, y: 0, z: 15.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 71279085}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &194752481
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194752479}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 20.9
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &195460756
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3405,7 +3463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &227927188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3769,7 +3827,7 @@ GameObject:
   - component: {fileID: 250235572}
   - component: {fileID: 250235571}
   - component: {fileID: 250235570}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lago (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5517,6 +5575,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 980b9abdc9546fa4c9f2570caa609cbc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 602207073}
     - targetCorrespondingSourceObject: {fileID: 366175167995203695, guid: 980b9abdc9546fa4c9f2570caa609cbc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 188133995}
@@ -5527,6 +5588,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 980b9abdc9546fa4c9f2570caa609cbc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1265344025}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 980b9abdc9546fa4c9f2570caa609cbc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1265344026}
   m_SourcePrefab: {fileID: 100100000, guid: 980b9abdc9546fa4c9f2570caa609cbc, type: 3}
 --- !u!1001 &386659399
 PrefabInstance:
@@ -7636,6 +7700,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 149b70b364be9b64d9e331169f8b5c28, type: 3}
+--- !u!1 &602207072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 602207073}
+  m_Layer: 0
+  m_Name: RigLayer_Bucket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &602207073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602207072}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1265344024}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &603398278 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1456703055220044, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
@@ -8690,8 +8785,8 @@ GameObject:
   m_Component:
   - component: {fileID: 680265130}
   - component: {fileID: 680265131}
-  m_Layer: 0
-  m_Name: Lago capsule (2)
+  m_Layer: 6
+  m_Name: Lago capsule2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9389,7 +9484,7 @@ GameObject:
   - component: {fileID: 765794390}
   - component: {fileID: 765794389}
   - component: {fileID: 765794388}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lago
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9759,8 +9854,8 @@ GameObject:
   m_Component:
   - component: {fileID: 796262125}
   - component: {fileID: 796262127}
-  m_Layer: 0
-  m_Name: Lago capsule
+  m_Layer: 6
+  m_Name: Lago capsule1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10162,6 +10257,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2906742830765571359, guid: 78da2ace1ab76ce478600ebe37fa10fe, type: 3}
   m_PrefabInstance: {fileID: 835995484}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &838198756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 838198757}
+  - component: {fileID: 838198758}
+  m_Layer: 6
+  m_Name: Lago capsule4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &838198757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838198756}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 490.58, y: 0, z: 23.42}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 71279085}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &838198758
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838198756}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 20.9
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &840756938
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14886,6 +15034,22 @@ MonoBehaviour:
   - {fileID: 1402560633}
   - {fileID: 124703713}
   - {fileID: 1045454416}
+--- !u!114 &1265344026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265344022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RigLayers:
+  - m_Rig: {fileID: 0}
+    m_Active: 1
+  m_Effectors: []
 --- !u!1001 &1266775385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15094,8 +15258,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1286883417}
   - component: {fileID: 1286883418}
-  m_Layer: 0
-  m_Name: Lago capsule (1)
+  m_Layer: 6
+  m_Name: Lago capsule3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16012,6 +16176,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d1300d8179d31d4db8d139b9fba0447, type: 3}
+--- !u!1 &1364746745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1364746746}
+  - component: {fileID: 1364746747}
+  m_Layer: 6
+  m_Name: Lago capsule6
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1364746746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364746745}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 467.36, y: 0, z: 10.68}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 71279085}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1364746747
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364746745}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 20.9
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1367733747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20126,6 +20343,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdb30a236ae4ea146acc9d3bab111744, type: 3}
+--- !u!1 &1700143991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1700143992}
+  - component: {fileID: 1700143993}
+  m_Layer: 6
+  m_Name: Lago capsule5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1700143992
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700143991}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 497.12, y: 0, z: 21.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 71279085}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1700143993
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700143991}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 20.9
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1701061215
 GameObject:
   m_ObjectHideFlags: 0
@@ -20992,6 +21262,7 @@ MonoBehaviour:
   ro_speed: 90
   walking: 0
   playerTrans: {fileID: 1785673022}
+  taskBucketBaita: {fileID: 0}
 --- !u!54 &1785673018
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21100,8 +21371,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785673016}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.84964126, z: -0, w: 0.5273612}
-  m_LocalPosition: {x: 25.8, y: 0.4820404, z: -41.8}
+  m_LocalRotation: {x: -0, y: -0.41845426, z: -0, w: 0.9082379}
+  m_LocalPosition: {x: 138, y: 0.4820404, z: -191.04}
   m_LocalScale: {x: 0.406, y: 0.9216, z: 0.21620001}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21109,7 +21380,7 @@ Transform:
   - {fileID: 1265344024}
   - {fileID: 582198902}
   m_Father: {fileID: 2034416796}
-  m_LocalEulerAnglesHint: {x: 0, y: -116.345, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -49.474, z: 0}
 --- !u!1 &1788424516
 GameObject:
   m_ObjectHideFlags: 0
@@ -23156,6 +23427,83 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdb30a236ae4ea146acc9d3bab111744, type: 3}
+--- !u!1001 &1951618600
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2071794508304674206, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 374.482
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071794508304674206, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 100.102
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071794508304674206, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 113.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071794508304674206, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071794508304674206, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000021855694
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071794508304674206, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071794508304674206, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071794508304674206, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071794508304674206, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071794508304674206, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124528559038639817, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_Size.x
+      value: 0.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124528559038639817, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_Size.z
+      value: 0.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124528559038639817, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5031941881770179836, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_Name
+      value: Bucket
+      objectReference: {fileID: 0}
+    - target: {fileID: 6899675171891600762, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103892161155106875, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
+      propertyPath: weaponHolder
+      value: 
+      objectReference: {fileID: 429290519}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 79d366dd4992b8647b7d3dc3ff12bbaa, type: 3}
 --- !u!1 &1953842902
 GameObject:
   m_ObjectHideFlags: 0
@@ -23205,6 +23553,59 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1456703055220044, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
   m_PrefabInstance: {fileID: 2040652919}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1960669951
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1960669952}
+  - component: {fileID: 1960669953}
+  m_Layer: 6
+  m_Name: Lago capsule7
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1960669952
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960669951}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 472.34, y: 0, z: 11.88}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 71279085}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1960669953
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960669951}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 20.9
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1962259232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23611,7 +24012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6823239573023066330, guid: 43368390f5c258445af68cb8156e250a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 15.091248
+      value: 15.091876
       objectReference: {fileID: 0}
     - target: {fileID: 7463746966407927929, guid: 43368390f5c258445af68cb8156e250a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -25592,3 +25993,4 @@ SceneRoots:
   - {fileID: 1713219847}
   - {fileID: 1255720276}
   - {fileID: 227927193}
+  - {fileID: 1951618600}
