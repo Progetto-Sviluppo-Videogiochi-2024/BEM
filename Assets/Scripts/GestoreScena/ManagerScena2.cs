@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Scena2 : MonoBehaviour
+public class ManagerScena2 : MonoBehaviour
 {
     public Diario diario; // Oggetto che si occupa di gestire le missioni
     public int dialoghiTotali = 5; // Numero di dialoghi totali
