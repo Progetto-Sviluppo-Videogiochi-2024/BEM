@@ -2,7 +2,7 @@ TASK SCENA 2
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 DIALOGHI:
-  - Angelica: Parla a Stefano dell'uomo della baita -> **DA MODIFICARE**
+  - Angelica: Parla a Stefano dell'uomo della baita -> **COMPLETATA**
   - Jackob: Gli spiega dove si trova la zona in cui vuole creare l'accampamento (in quanto è un bel posto) e assegna una task a Stefano, ovvero rimuovere il cartello -> **COMPLETATA**
   - Esploratori: Uomo racconta di aver sentito strani rumori, mentre la donna è entusiasta all'idea di dover fare una scalata sulle montagne -> **COMPLETATA**
   - Gaia: Chiede a Stefano se potrebbe raccogliere 2 violette (Viola: In passato si usava per contrastare il veleno di serpente. Oggi serve soprattutto per abbassare la febbre e curare le infiammazioni.) -> **COMPLETATA**
