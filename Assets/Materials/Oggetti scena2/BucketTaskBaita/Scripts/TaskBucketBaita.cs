@@ -26,7 +26,6 @@ public class TaskBucketBaita : MonoBehaviour
             canPickup = false;
             this.gameObject.transform.SetParent(weaponHolder);
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().taskBucketBaita = this;
-            Debug.Log("Secchio equipaggiato alla mano del giocatore");
         }
     }
 
@@ -35,7 +34,6 @@ public class TaskBucketBaita : MonoBehaviour
         internalBucketRenderer.enabled = true;
         internalBucketRenderer.material = waterMaterial;
         isFilled = true;
-        Debug.Log("Secchio pieno");
     }
 
     private void OnTriggerEnter(Collider other)

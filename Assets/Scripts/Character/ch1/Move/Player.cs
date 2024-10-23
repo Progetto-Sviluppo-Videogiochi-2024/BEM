@@ -63,7 +63,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (taskBucketBaita != null) Debug.Log("Secchio equipaggiato");
         if (taskBucketBaita != null && canFill && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)))
         {
             taskBucketBaita.Fill();
