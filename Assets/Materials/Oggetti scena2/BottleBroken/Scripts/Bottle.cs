@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Bottle : MonoBehaviour
@@ -17,7 +16,7 @@ public class Bottle : MonoBehaviour
                 {
                     Explode(hit.collider.gameObject);
                 }
-                Debug.Log(hit.collider.gameObject.name);
+                // Debug.Log(hit.collider.gameObject.name);
             }
         }
     }
