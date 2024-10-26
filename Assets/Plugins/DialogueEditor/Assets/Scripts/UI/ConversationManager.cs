@@ -125,7 +125,8 @@ namespace DialogueEditor
 
                 case eState.Idle:
                     Idle_Update();
-                    if (Input.GetKeyDown(KeyCode.Return)) //Modifca Barra spaziatrice
+                    //Modifca 
+                    if (Input.GetKeyDown(KeyCode.N))
                     {
                         PressSelectedOption();
                     }
@@ -394,8 +395,8 @@ namespace DialogueEditor
                     }
                 }
             }
-            // Aggiungi questo controllo per la barra spaziatrice
-            if (Input.GetKeyDown(KeyCode.Return))
+            // modifica
+            if (Input.GetKeyDown(KeyCode.N))
             {
                 PressSelectedOption();
             }

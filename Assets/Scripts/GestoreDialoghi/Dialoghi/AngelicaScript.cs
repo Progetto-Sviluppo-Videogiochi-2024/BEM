@@ -6,7 +6,6 @@ using DialogueEditor;
 public class AngelicaScript : MonoBehaviour
 {
     public NPCConversation dialogo;
-    //public NPCConversation dialogo2;
 
     //public static BooleanAccessor istance;
 

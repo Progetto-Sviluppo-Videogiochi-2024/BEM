@@ -7,7 +7,6 @@ public class UomoBaitaScript : MonoBehaviour
 {
     public NPCConversation dialogo;
     public NPCConversation dialogo2;
-
     public NPCConversation dialogo3;
 
     public static BooleanAccessor istance;

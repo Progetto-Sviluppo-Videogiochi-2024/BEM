@@ -8,10 +8,13 @@
 - **SHIFT**: corre
 - **=>**: gira la grafica verso destra
 - **<=**: gira la grafica verso sinistra
-- **ALT**: accovacciati 
+- **C**: accovacciati 
 
-## Interazione con il Gioco
+## Interazione con gli oggetti
 - **SPACEBAR** oppure **CLICK_MOUSE_SINISTRO**: interagisci con oggetti di scena quando il giocatore è vicino ad essi
+
+## Interazione con gli NPC
+**CLICK_MOUSE_SINISTRO**
 
 ## Armi
 - **1-2-3...**: prende/toglie l'arma in quella posizione
@@ -23,6 +26,7 @@
 - **CLICK_SINISTRO**: spara
 - **CLICK_DESTRO**: mira
 - **R**: ricarica arma
+- **ALT**: visuale laterale (destra o sinistra)
 
 ## Combattimento Arma Melee
 **CLICK_SINISTRO**: attacca
@@ -32,7 +36,7 @@
 - **TAB**: usa
 
 ## Torcia
-*(Dettagli da definire)*
+**F**
 
 ## Missioni
 - **Q**: visualizza l'elenco delle missioni
@@ -43,4 +47,5 @@
     - **CLICK_MOUSE_SINISTRO**: conferma una delle scelte del menu contestuale
 
 # Impostazioni del Gioco
+- **P**: Pause Menu 
 - **M**: muta l'audio

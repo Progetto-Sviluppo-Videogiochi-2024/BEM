@@ -6,12 +6,12 @@ DIALOGHI:
   - Jackob: Gli spiega dove si trova la zona in cui vuole creare l'accampamento (in quanto è un bel posto) e assegna una task a Stefano, ovvero rimuovere il cartello -> **COMPLETATA**
   - Esploratori: Uomo racconta di aver sentito strani rumori, mentre la donna è entusiasta all'idea di dover fare una scalata sulle montagne -> **COMPLETATA**
   - Gaia: Chiede a Stefano se potrebbe raccogliere 2 violette (Viola: In passato si usava per contrastare il veleno di serpente. Oggi serve soprattutto per abbassare la febbre e curare le infiammazioni.) -> **COMPLETATA**
-  - Uomo Baita: Chiede a Stefano se può dare da mangiare agli animali (riempiendo una delle due casse di legno con il cibo della piantagione e l'altra con dell'acqua e portarle vicino alle galline e i cavalli, lui non riesce a farlo oggi perché si è fatto male alla schiena, garantisce al ragazzo che in cambio gli insegnerà a sparare a delle bottiglie) -> **COMPLETATA**
+  - Uomo Baita: Cambiare la task che assegna **DA FARE**
   - Pagina: Appunti di una scienziata/ricercatrice -> **COMPLETATA**
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 MATERIALE DA RICERCARE SU UNITY STORE:
 - ~~Assets (icone e immagini)~~
-- Icone dialoghi
+- ~~Icone dialoghi ~~
 
 ARMI:
 - ~~fucile da caccia~~
@@ -39,22 +39,22 @@ ESTETICA:
 - Aggiungere cactus e materiali vicino le montagne, funghi e steppi di tronco nelle stradine -> **COMPLETATA**
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 IMPLEMENTAZIONI NECESSARIE:
-  - Raccolta/interazione oggetti -> **Raccolta: SI**, Spostare/Modificare lo stato di un oggetto: **COMPLETATA**
-  - Utilizzo dell'inventario: **USA: DA COMPLETARE**, **ISPEZIONA: DA COMPLETARE** (Immagine + Descrizione), **SCARTA: SI**, **CRAFTING: DA TESTARE**
+  - Raccolta/interazione oggetti ->  **COMPLETATA**
+  - Utilizzo dell'inventario: **COMPLETATA**
   - Gestore delle task -> **COMPLETATA**
   - Aggiornamento di un Dialogo -> **COMPLETATA**
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 QUEST GIOCO:
-  - Appena si avvia scena2 il personaggio fa un monologo dove esclama "Dove sono gli altri? Vado a cercarli" (Include un contatore degli amici trovati)  
-    - L'unica attività presente in questo momento sarà "Esplora la foresta (Dialoghi: 0/5)" che compare se viene premuto 'M'
+  - Appena si avvia scena2 il personaggio fa un monologo dove esclama "Dove sono gli altri? Vado a cercarli" **DA INSERIRE**
+    - ~~L'unica attività presente in questo momento sarà "Esplora la foresta (0/5)" che compare se viene premuto 'Q' ~~
   
-  - Sfama gli animali della baita (Assegnata dall'Uomo Baita)
-    - **Obbligatoria**: Ricompensa dopo aver completato entrambe le missioni della baita (mangime + acqua): Apprendimento e utilizzo di un'arma a distanza
+  - Riporta la pecora alla baita (Assegnata dall'Uomo Baita)
+    - **Obbligatoria**: Ricompensa dopo aver completato la task: Apprendimento e utilizzo di un'arma a distanza
   
-  - Raccogli 2 violette assegnata da Gaia
+  - Raccogli 3 violette assegnata da Gaia
     - **Ricompensa**: Apprendimento della funzione Crea dell'inventario, inoltre Stefano riceve la soluzione medica creata
 
   - Rimuovere il cartello di zona di pericolo (assegnata da Jackob)
     - **Obbligatoria** per poter proseguire al livello successivo
 
-  - Oltrepassare la recinzione dopo la rimozione del cartello, dipende dalla quest assegnata da Jackob (In caso non è stata assegnata/completata, compare un monologo di Stefano)
+  - Oltrepassare la recinzione dopo la rimozione del cartello, dipende dalla quest assegnata da Jackob (In caso non è stata assegnata/completata, compare un monologo di Stefano) **IL CARTELLO POTRA' ESSERE TOLTO DOPO CHE HA DIALOGATO CON JACKOB**
