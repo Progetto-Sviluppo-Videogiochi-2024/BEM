@@ -8,5 +8,5 @@ public class ReloadState : ActionBaseState
         actions.animator.SetTrigger("reloading");
     }
 
-    public override void UpdateState(ActionStateManager actions) {}
+    public override void UpdateState(ActionStateManager actions) { }
 }

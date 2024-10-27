@@ -23,7 +23,7 @@ public class AimStateManager : MonoBehaviour
     float xFollowPosition;
     float yFollowPosition;
     float ogYposition;
-    // [SerializeField] float crouchCamHeight = 0.6f;
+    [SerializeField] float crouchCamHeight = 0.6f;
     [SerializeField] float shoulderSwapSpeed = 10;
     #endregion
 
@@ -60,7 +60,7 @@ public class AimStateManager : MonoBehaviour
 
     private void Awake()
     {
-        if (aimPos != null) return; // aggiunto io, perché mi scoccio a resettare tutte le variabili di Scena0
+        if (aimPos != null) return; // aggiunto io, perché mi scoccio a resettare tutte le variabili della Scena
         aimPos = new GameObject("Aim Position").transform;
         aimPos.name = "AimPosition";
 
@@ -80,7 +80,7 @@ public class AimStateManager : MonoBehaviour
     void Start()
     {
         camFollowPosition = transform.GetChild(0); // Prende il primo figlio del player, il transform di CameraFollowPosition
-        crosshair.SetActive(false);
+        if (crosshair != null) crosshair.SetActive(false);
         movement = GetComponent<MovementStateManager>();
         xFollowPosition = camFollowPosition.localPosition.x;
         ogYposition = camFollowPosition.localPosition.y;
@@ -141,7 +141,7 @@ public class AimStateManager : MonoBehaviour
     void MoveCamera()
     {
         if (Input.GetKeyDown(KeyCode.LeftAlt)) xFollowPosition = -xFollowPosition;
-        // if (movement.currentState == movement.crouchState) yFollowPosition = crouchCamHeight;
+        if (movement.currentState == movement.crouchState) yFollowPosition = crouchCamHeight;
         else yFollowPosition = ogYposition;
 
         Vector3 newFollowPosition = new(xFollowPosition, yFollowPosition, camFollowPosition.localPosition.z);

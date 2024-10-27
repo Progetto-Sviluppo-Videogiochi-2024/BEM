@@ -7,7 +7,7 @@ public class WeaponBloom : MonoBehaviour
     [SerializeField] float defaultBloomAngle = 3f;
     [SerializeField] float walkBloomMultiplier = 1.5f;
     [SerializeField] float runBloomMultiplier = 2f;
-    // [SerializeField] float crouchBloomMultiplier = 0.5f;
+    [SerializeField] float crouchBloomMultiplier = 0.5f;
     [SerializeField] float aimBloomMultiplier = 0.5f;
     #endregion
 
@@ -33,11 +33,11 @@ public class WeaponBloom : MonoBehaviour
         if (movement.currentState == movement.idleState) currentBloom = defaultBloomAngle;
         else if (movement.currentState == movement.walkingState) currentBloom = defaultBloomAngle * walkBloomMultiplier;
         else if (movement.currentState == movement.runningState) currentBloom = defaultBloomAngle * runBloomMultiplier;
-        // else if (movement.currentState == movement.crouchState)
-        // {
-        //     if (movement.moveDirection.magnitude == 0) currentBloom = defaultBloomAngle * crouchBloomMultiplier;
-        //     else currentBloom = defaultBloomAngle * crouchWalkBloomMultiplier * walkBloomMultiplier;
-        // }
+        else if (movement.currentState == movement.crouchState)
+        {
+            if (movement.moveDirection.magnitude == 0) currentBloom = defaultBloomAngle * crouchBloomMultiplier;
+            else currentBloom = defaultBloomAngle * crouchBloomMultiplier * walkBloomMultiplier;
+        }
 
         if (aim.currentState == aim.rifleIdleAimState) currentBloom *= aimBloomMultiplier;
 

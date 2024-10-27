@@ -1,0 +1,1 @@
+Impostare i due muzzle flash come figli dell'arma.
