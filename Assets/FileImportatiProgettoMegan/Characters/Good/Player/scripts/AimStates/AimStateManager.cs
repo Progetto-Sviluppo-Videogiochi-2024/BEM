@@ -9,7 +9,7 @@ public class AimStateManager : MonoBehaviour
     [SerializeField] float mouseSense = 1;
     float xAxis;
     float yAxis;
-    [SerializeField] Transform camFollowPosition;
+    private Transform camFollowPosition;
     #endregion
 
     [Header("Camera Aim Settings")]
@@ -66,7 +66,7 @@ public class AimStateManager : MonoBehaviour
 
         aimPositionWeightedTransform.transform = aimPos;
         aimPositionWeightedTransform.weight = 1;
-        
+
         multiAimConstraints = GetComponentsInChildren<MultiAimConstraint>();
         foreach (var multiAimConstraint in multiAimConstraints)
         {
@@ -79,6 +79,7 @@ public class AimStateManager : MonoBehaviour
 
     void Start()
     {
+        camFollowPosition = transform.GetChild(0); // Prende il primo figlio del player, il transform di CameraFollowPosition
         crosshair.SetActive(false);
         movement = GetComponent<MovementStateManager>();
         xFollowPosition = camFollowPosition.localPosition.x;

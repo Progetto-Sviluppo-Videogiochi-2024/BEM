@@ -10,7 +10,7 @@ public class MovementStateManager : MonoBehaviour
     public float runSpeed = 7f;
     public float runBackSpeed = 5f;
     public float crouchSpeed = 2f;
-    public float crouchBackSpeed = 1f;
+    public float crouchBackSpeed = 1.5f;
     [HideInInspector] public Vector3 moveDirection;
     #endregion
 
