@@ -102,8 +102,16 @@ public class MovementStateManager : MonoBehaviour
 
     private void Gravity()
     {
-        if (!IsGrounded()) velocity.y += gravity * Time.deltaTime;
-        else if (velocity.y < 0) velocity.y = -2f;
+        if (!IsGrounded())
+        {
+            velocity.y += gravity * Time.deltaTime;
+            Debug.Log("In aria - Forza di gravità applicata: " + velocity.y);
+        }
+        else if (velocity.y < 0)
+        {
+            velocity.y = -2f; // Piccolo valore per mantenere il personaggio a contatto con il suolo
+            Debug.Log("A terra - Reset della gravità");
+        }
 
         controller.Move(velocity * Time.deltaTime);
     }
