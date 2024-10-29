@@ -10,22 +10,23 @@ public class JackobScript : MonoBehaviour
 
     public static BooleanAccessor istance;
 
-    private void OnMouseOver()
-    {
+    private bool isInRange;
 
-        if (Input.GetMouseButtonDown(0))
+    private void Update()
+    {
+        if (isInRange && Input.GetKeyDown(KeyCode.Space))
         {
             if (BooleanAccessor.istance != null)
             {
                 if (BooleanAccessor.istance.GetBoolFromThis("cartello") == false)
                 {
-                    //Dialogo iniziale
+                    // Dialogo iniziale
                     ConversationManager.Instance.StartConversation(dialogo);
                     ConversationManager.Instance.SetBool("cartello", BooleanAccessor.istance.GetBoolFromThis("cartello"));
                 }
                 else
                 {
-                    //Dialogo successivo
+                    // Dialogo successivo
                     ConversationManager.Instance.StartConversation(dialogo2);
                     ConversationManager.Instance.SetBool("tolto", BooleanAccessor.istance.GetBoolFromThis("tolto"));
                 }
@@ -34,9 +35,23 @@ public class JackobScript : MonoBehaviour
             {
                 Debug.LogError("BooleanAccessor.istance non è stato inizializzato.");
             }
-
         }
     }
 
-}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isInRange = true; // Imposta isInRange a true quando il giocatore entra
+        }
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isInRange = false; // Imposta isInRange a false quando il giocatore esce dall'area
+            ConversationManager.Instance.EndConversation();
+        }
+    }
+}
