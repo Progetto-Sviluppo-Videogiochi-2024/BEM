@@ -3,7 +3,7 @@ using UnityEngine;
 public class CrouchState : MovementBaseState
 {
     public override void EnterState(MovementStateManager movement) => movement.animator.SetBool("crouching", true);
-
+    
     public override void UpdateState(MovementStateManager movement)
     {
         if (Input.GetKey(KeyCode.LeftShift)) ExitState(movement, movement.runningState);

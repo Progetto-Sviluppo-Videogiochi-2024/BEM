@@ -82,6 +82,9 @@ public class MovementStateManager : MonoBehaviour
     {
         currentState = newState;
         currentState.EnterState(this);
+
+        if (currentState == crouchState) controller.center = new Vector3(controller.center.x, -0.29f, controller.center.z); // testato con questo valore perché stava sopra il terreno else sprofonda un po', magari dovuto al bug dell'animazione?
+        else controller.center = new Vector3(controller.center.x, 0.0f, controller.center.z);
     }
 
     private void GetDirectionAndMove()
