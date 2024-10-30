@@ -34,21 +34,22 @@
 #### Maynard (Scarso)
 - **Calcio o Spinta Violenta**: Quando il giocatore si avvicina troppo, il mostro lo respinge con una spinta o un calcio per mantenere la distanza.
 - **Affondo Spettrale**: Un attacco rapido in cui il mostro scatta verso il giocatore, coprendo una breve distanza in un lampo, lasciando un effetto visivo spettrale per creare un senso di inquietudine.
+- **Vomito Tossico**: Lancia una sostanza velenosa verso il giocatore, che causa danni continuativi (DoT - damage over time) o confonde la visuale del giocatore.
+  - *Nota*: Questo implica aggiungere effetti di stato al gioco, quindi potrebbe non essere implementato.
 
 #### Artiglio (Medio)
 - **Artigliata Ravvicinata**: Il mostro attacca con una rapida artigliata, infliggendo danni diretti al giocatore quando è a distanza ravvicinata.
 - **Morso Devastante**: Un attacco potente in cui il mostro cerca di mordere il giocatore, causando danni elevati. Può essere usato come attacco raro e più pericoloso.
 - **Attacco Frenetico**: Entra in uno stato di furia, eseguendo una serie rapida di attacchi con gli artigli che durano per un paio di secondi. Questo potrebbe attivarsi quando è a bassa salute.
+- **Ruggito Intimidatorio**: Un attacco non fisico che provoca paura nel giocatore, rallentandolo temporaneamente o riducendo la sua visibilità. Questo può avere un effetto di status.
 
 #### ThrowBall (BossDemo)
 - **Ruggito Intimidatorio**: Un attacco non fisico che provoca paura nel giocatore, rallentandolo temporaneamente o riducendo la sua visibilità. Questo può avere un effetto di status.
-  - *Nota*: Forse anche ad Artiglio???
 - **Colpo di Codata** (se applicabile): Se il mostro ha una coda lunga o robusta, può usarla per colpire il giocatore lateralmente, causando danni e spingendolo indietro.
-  - *Nota*: Questo attacco potrebbe attivarsi quando il mostro ha solo 1/3 o 1/4 degli HP.
-- **Vomito Tossico**: Lancia una sostanza velenosa verso il giocatore, che causa danni continuativi (DoT - damage over time) o confonde la visuale del giocatore.
-  - *Nota*: Questo implica aggiungere effetti di stato al gioco, quindi potrebbe non essere implementato.
+  - *Nota*: Questo attacco potrebbe attivarsi quando il mostro ha solo 1/3 o 1/4 degli HP e li esce la coda da dietro
 - **Balzo**: Salta verso il giocatore da una distanza moderata, cercando di colpirlo con tutto il peso del corpo per fare danno e stordirlo.
   - *Nota*: Dopo il balzo, il nemico potrebbe fare un salto indietro di diversi metri per dare al giocatore il tempo di riprendersi.
+
 
 ### Attacchi Scartati ?
 - **Attacco a Distanza con Lance d'Ossa**: Il mostro lancia schegge ossee o spine dalla sua pelle verso il giocatore, infliggendo danni a distanza.
