@@ -72,7 +72,7 @@ public class Diario : MonoBehaviour
 
         // Se la missione non è presente né nelle attive né nelle completate, la aggiunge
         missioniAttive.Add(missione);
-        Debug.Log("Nuova missione aggiunta: " + missione);
+        // Debug.Log("Nuova missione aggiunta: " + missione);
         AggiornaDiarioUI();
     }
 

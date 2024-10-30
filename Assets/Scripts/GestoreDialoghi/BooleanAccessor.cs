@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DialogueEditor;
 
 public class BooleanAccessor : MonoBehaviour
 {
@@ -71,7 +68,7 @@ public class BooleanAccessor : MonoBehaviour
         {
             istance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("BooleanAccessor inizializzato");
+            // Debug.Log("BooleanAccessor inizializzato");
         }
         else if (istance != this)
         {
