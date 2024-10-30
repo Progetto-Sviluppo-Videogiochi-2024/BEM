@@ -1,58 +1,51 @@
-# Vincoli:
-    ## Caratteristiche Gioco:
-        - Scelta di aree esplorabili tra quelle accessibili
-        - Scambio di oggetti inammissibile tra personaggi
-        - Ricompense possibili tramite
-            -- quest, rompicapi, cassaforti (codice sparso da qualche parte nel gioco) 
-            -- porte chiuse (chiavi sparse per il gioco)
-            -- oggetti nascosti
-        - Presenza di nemici (mutanti, soldati) in aree esplorabili
-        - Interazione con il gioco: Single Player
-        - Oggetti consumabili e non consumabili e collezionabili
-        - NPC con dialoghi e quest secondarie
-        - Crafting di oggetti
-            -- possibile solo tra oggetti craftabili (ricette sparse per il gioco)
+# Vincoli
 
-    ## Giocatore:
-        - Salute:
-            -- non visibile la barra al giocatore ma intuibile dalla GUI
-            -- se la salute è 0, il personaggio muore ma riparte dall'ultimo checkpoint
-            -- oggetti curativi
-        - Stamina:
-            -- non visibile al giocatore
-            -- se la stamina è 0, il personaggio cammina lentamente o con affanni
-        - Sanità mentale:
-            -- presente a livello di audio dal personaggio ma non visibile al giocatore
-            -- dipende dagli HP del personaggio
-        - Armi:
-            -- Melee: corpo a corpo (armi bianche: coltello, mazza, bastone, ascia)
-                --- combo per attacchi (due ripetuti)
-                --- consuma stamina per ogni tipo di attacco
-                --- coltello in stealth mode per killare nemici silenziosamente e non farsi individuare dai nemici?
-                    ---- Non consente di essere scoperti dai nemici?
-            -- Ranged: a distanza (armi da fuoco)
-                --- tempo di ricarica
-                --- munizioni da raccogliere e limitate
-                --- automatici e non automatici
-            -- Armi da lancio: sassi, bottiglie ecc.
-                --- per attirare/attaccare nemici o distrarli
+## Caratteristiche Gioco
+- **Aree esplorabili**: Scelta di aree tra quelle accessibili.
+- **Scambio di oggetti**: Non è consentito tra personaggi.
+- **Ricompense**: Ottenibili tramite:
+  - Quest, rompicapi, cassaforti (codice sparso nel gioco).
+  - Porte chiuse (chiavi sparse per il gioco).
+  - Oggetti nascosti.
+- **Nemici**: Mutanti e soldati presenti nelle aree esplorabili.
+- **Interazione**: Modalità Single Player.
+- **Oggetti**: Consumabili, non consumabili e collezionabili.
+- **NPC**: Presenti con dialoghi e quest secondarie.
+- **Crafting**: Possibile solo tra oggetti craftabili, con ricette sparse nel gioco.
 
-    ## Inventario:
-        - Oggetti:
-            -- quantità limitata
-                --- dipende dallo spazio disponibile nell'inventario
-            -- consumabili e non consumabili
-            -- equipaggiabili/non equipaggiabili
-                --- armi, quelli_di_usa
-            -- utilizzabili
-                --- medikit, bende, soluzioni curative, cibo, bevande, sigarette
-            -- ispezionabili
-                --- pop up con informazioni sull'oggetto
-            -- scartabili
-                --- una quantità in meno dell'oggetto nell'inventario
-            -- rimuovibili
-                --- eliminati dall'inventario (non recuperabili)
-        - Collezionabili:
-            -- craftabili
-                --- processo di crafting solo con la giusta ricetta
-            -- non equipaggiabili
+## Giocatore
+- **Salute**:
+  - Non visibile, ma intuibile dalla GUI.
+  - Se la salute è 0, il personaggio muore e riparte dall'ultimo checkpoint.
+  - Possibilità di utilizzare oggetti curativi.
+- **Stamina**:
+  - Non visibile al giocatore.
+  - Se la stamina è 0, il personaggio cammina lentamente o con affanno.
+- **Sanità mentale**:
+  - Effetti uditivi (audio), non visibile al giocatore.
+  - Dipende dagli HP del personaggio.
+- **Armi**:
+  - **Melee (Corpo a corpo)**:
+    - Armi bianche come coltello, mazza, bastone, ascia.
+    - Combo di due attacchi ripetuti.
+    - Consuma stamina per ogni attacco.
+    - Il coltello in modalità stealth permette di eliminare nemici senza essere scoperti.
+  - **Ranged (Distanza)**:
+    - Armi da fuoco, con tempo di ricarica e munizioni limitate.
+    - Munizioni da raccogliere, armi automatiche e non automatiche.
+  - **Armi da lancio**:
+    - Oggetti come sassi e bottiglie.
+    - Utilizzabili per attirare, attaccare o distrarre i nemici.
+
+## Inventario
+- **Oggetti**:
+  - **Quantità limitata**: Dipende dallo spazio disponibile nell'inventario.
+  - **Consumabili e non consumabili**.
+  - **Equipaggiabili/non equipaggiabili**: Armi e oggetti di uso.
+  - **Utilizzabili**: Medikit, bende, soluzioni curative, cibo, bevande, sigarette.
+  - **Ispezionabili**: Visualizzazione di un pop-up con informazioni sull'oggetto.
+  - **Scartabili**: Rimuove una quantità dell'oggetto dall'inventario.
+  - **Rimuovibili**: Eliminati definitivamente dall'inventario (non recuperabili).
+- **Collezionabili**:
+  - **Craftabili**: Solo con la ricetta giusta.
+  - **Non equipaggiabili**.

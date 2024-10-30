@@ -3,7 +3,7 @@
 ## LAYOUT
 ### Oggetti
 - **Ispeziona**
-- **Usa** 
+- **Usa** (eccetto "Armi", "Proiettili")
 - **Equipaggia** (eccetto "Proiettili")
 - **Scarta**
 
