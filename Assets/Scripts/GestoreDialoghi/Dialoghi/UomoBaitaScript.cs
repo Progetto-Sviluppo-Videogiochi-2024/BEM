@@ -11,24 +11,25 @@ public class UomoBaitaScript : MonoBehaviour
 
     public static BooleanAccessor istance;
 
-    private void OnMouseOver()
-    {
+    private bool isInRange;
 
-        if (Input.GetMouseButtonDown(0))
+    private void Update()
+    {
+        if (isInRange && Input.GetKeyDown(KeyCode.Space))
         {
             if (BooleanAccessor.istance != null)
             {
-                if (BooleanAccessor.istance.GetBoolFromThis("acqua") == false)
+                if (BooleanAccessor.istance.GetBoolFromThis("capra") == false)
                 {
-                    //Dialogo iniziale
+                    // Dialogo iniziale
                     ConversationManager.Instance.StartConversation(dialogo);
-                    ConversationManager.Instance.SetBool("acqua", BooleanAccessor.istance.GetBoolFromThis("acqua"));
+                    ConversationManager.Instance.SetBool("capra", BooleanAccessor.istance.GetBoolFromThis("capra"));
                 }
                 else
                 {
-                    //Dialogo successivo
+                    // Dialogo successivo
                     ConversationManager.Instance.StartConversation(dialogo2);
-                    ConversationManager.Instance.SetBool("acquaDone", BooleanAccessor.istance.GetBoolFromThis("acquaDone"));
+                    ConversationManager.Instance.SetBool("capraDone", BooleanAccessor.istance.GetBoolFromThis("capraDone"));
                 }
             }
             else
@@ -38,5 +39,20 @@ public class UomoBaitaScript : MonoBehaviour
         }
     }
 
-}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isInRange = true; // Imposta isInRange a true quando il giocatore entra
+        }
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isInRange = false; // Imposta isInRange a false quando il giocatore esce dall'area
+            ConversationManager.Instance.EndConversation();
+        }
+    }
+}

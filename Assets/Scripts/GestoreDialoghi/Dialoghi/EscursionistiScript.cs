@@ -6,18 +6,34 @@ using DialogueEditor;
 public class EscursionistiScript : MonoBehaviour
 {
     public NPCConversation dialogo;
-    //public NPCConversation dialogo2;
+    private bool isInRange;
 
-    //public static BooleanAccessor istance;
-
-    private void OnMouseOver()
+    private void Update()
     {
-
-        if (Input.GetMouseButtonDown(0))
+        if (isInRange && Input.GetKeyDown(KeyCode.Space))
         {
-            ConversationManager.Instance.StartConversation(dialogo);  
+            StartConversation(); // Inizia la conversazione quando il giocatore preme la barra spaziatrice
         }
     }
 
-}
+    private void StartConversation()
+    {
+        ConversationManager.Instance.StartConversation(dialogo);
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isInRange = true; // Imposta isInRange a true quando il giocatore entra
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isInRange = false; // Imposta isInRange a false quando il giocatore esce dall'area
+            ConversationManager.Instance.EndConversation();
+        }
+    }
+}

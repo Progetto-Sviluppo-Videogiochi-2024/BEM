@@ -1,8 +1,14 @@
 using UnityEngine;
+using DialogueEditor;
+
 
 public class ManagerScena2 : MonoBehaviour
 {
-    public Diario diario; // Oggetto che si occupa di gestire le missioni
+    public NPCConversation intro; // Tutorial smartphone
+    public Diario diario; 
+    
+
+    // Dati missione scena2
     public int dialoghiTotali = 5; // Numero di dialoghi totali
     public int dialoghiEseguiti; // Numero di dialoghi eseguiti 
     public int documentiTotali = 2; // Numero di documenti totali
@@ -10,6 +16,29 @@ public class ManagerScena2 : MonoBehaviour
 
     public int violeTotali = 15; // Numero di viole totali
     public int violeRaccolte = 0; // Numero di viole raccolte
+    public bool cartelloInScena = true; // Il cartello è presente sulla barricata
+
+    // Dati Inventario scena2
+    //To do: Inserire i dati dell'inventario
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        // Se non è stato assegnato un diario, cerca di trovarlo
+        if (diario == null)
+        {
+            diario = GetComponent<Diario>(); 
+        }
+
+        // Assegna il numero di dialoghi eseguiti in base alle missioni completate nel diario
+        dialoghiEseguiti = diario.missioniCompletate.Count;
+        diario.AggiungiMissione("Esplora la foresta (" + dialoghiEseguiti + "/" + dialoghiTotali + ")");
+
+        // Avvia la conversazione iniziale
+        //ConversationManager.Instance.StartConversation(intro);
+
+
+    }
 
 
     private void OnEnable()
@@ -28,20 +57,6 @@ public class ManagerScena2 : MonoBehaviour
         {
             diario.OnMissionCompleted -= AggiornaDialoghiEseguiti;
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (diario == null)
-        {
-            diario = GetComponent<Diario>(); // Assicurati che Diario sia inizializzato correttamente
-        }
-
-        // Assegna il numero di dialoghi eseguiti in base alle missioni completate nel diario
-        dialoghiEseguiti = diario.missioniCompletate.Count;
-
-        diario.AggiungiMissione("Esplora la foresta (" + dialoghiEseguiti + "/" + dialoghiTotali + ")");
     }
 
     // Metodo per aggiornare i dialoghi eseguiti

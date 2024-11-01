@@ -10,8 +10,8 @@ public class BooleanAccessor : MonoBehaviour
     bool tolto = false;
 
     // Bools Uomo Baita
-    bool acqua = false;
-    bool acquaDone = false;
+    bool capra = false;
+    bool capraDone = false;
 
     //Bools Gaia
     bool fiore = false;
@@ -29,11 +29,11 @@ public class BooleanAccessor : MonoBehaviour
             case "tolto":
                 tolto = true;
                 break;
-            case "acqua":
-                acqua = true;
+            case "capra":
+                capra = true;
                 break;
-            case "acquaDone":
-                acquaDone = true;
+            case "capraDone":
+                capraDone = true;
                 break;
             case "fiore":
                 fiore = true;
@@ -54,8 +54,8 @@ public class BooleanAccessor : MonoBehaviour
         {
             "cartello" => cartello,
             "tolto" => tolto,
-            "acqua" => acqua,
-            "acquaDone" => acquaDone,
+            "capra" => capra,
+            "capraDone" => capraDone,
             "fiore" => fiore,
             "soluzione" => soluzione,
             _ => false,
@@ -84,8 +84,9 @@ public class BooleanAccessor : MonoBehaviour
     //     //Debug per vedere se i valori delle variabili booleane globali
     //     if (Input.GetKeyDown(KeyCode.K))
     //     {
-    //         Debug.Log("cartello " + cartello);
-    //         Debug.Log("tolto " + tolto);
+    //         Debug.Log("capra " + capra);
+    //         Debug.Log("capra_function: " + BooleanAccessor.istance.GetBoolFromThis("capra"));
+            
     //     }
     // }
 
