@@ -5,8 +5,8 @@ DIALOGHI:
   - Angelica: Parla a Stefano dell'uomo della baita -> **COMPLETATA**
   - Jackob: Gli spiega dove si trova la zona in cui vuole creare l'accampamento (in quanto è un bel posto) e assegna una task a Stefano, ovvero rimuovere il cartello -> **COMPLETATA**
   - Esploratori: Uomo racconta di aver sentito strani rumori, mentre la donna è entusiasta all'idea di dover fare una scalata sulle montagne -> **COMPLETATA**
-  - Gaia: Chiede a Stefano se potrebbe raccogliere 2 violette (Viola: In passato si usava per contrastare il veleno di serpente. Oggi serve soprattutto per abbassare la febbre e curare le infiammazioni.) -> **COMPLETATA**
-  - Uomo Baita: Cambiare la task che assegna **DA FARE**
+  - Gaia: Chiede a Stefano se potrebbe raccogliere 3 violette (Viola: In passato si usava per contrastare il veleno di serpente. Oggi serve soprattutto per abbassare la febbre e curare le infiammazioni.) -> **COMPLETATA**
+  - Uomo Baita: Cambiare la task che assegna **COMPLETATA**
   - Pagina: Appunti di una scienziata/ricercatrice -> **COMPLETATA**
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 MATERIALE DA RICERCARE SU UNITY STORE:
@@ -45,7 +45,7 @@ IMPLEMENTAZIONI NECESSARIE:
   - Aggiornamento di un Dialogo -> **COMPLETATA**
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 QUEST GIOCO:
-  - Appena si avvia scena2 il personaggio fa un monologo dove esclama "Dove sono gli altri? Vado a cercarli" **DA INSERIRE**
+  - Appena si avvia scena2 il personaggio fa un monologo dove esclama "Dove sono gli altri? Vado a cercarli" **COMPLETATA**
     - ~~L'unica attività presente in questo momento sarà "Esplora la foresta (0/5)" che compare se viene premuto 'Q' ~~
   
   - Riporta la pecora alla baita (Assegnata dall'Uomo Baita)
