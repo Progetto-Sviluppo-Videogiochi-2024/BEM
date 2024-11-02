@@ -59,7 +59,7 @@ public class AimStateManager : MonoBehaviour
     #endregion
 
     private void Awake()
-    {
+    {/*
         if (aimPos != null) return; // aggiunto io, perché mi scoccio a resettare tutte le variabili della Scena
         aimPos = new GameObject("Aim Position").transform;
         aimPos.name = "AimPosition";
@@ -74,7 +74,7 @@ public class AimStateManager : MonoBehaviour
             data.Clear();
             data.Add(aimPositionWeightedTransform);
             multiAimConstraint.data.sourceObjects = data;
-        }
+        }*/
     }
 
     void Start()
