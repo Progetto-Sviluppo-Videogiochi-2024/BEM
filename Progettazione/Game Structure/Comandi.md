@@ -18,8 +18,7 @@
 - **SPACEBAR**: interagisci con gli NPC di scena quando il giocatore è vicino ad essi
 - **'E'**: avanza con il dialogo (se attivo)
 - **Allontanarsi dall'NPC**: interrompe il dialogo e permette la chiusura rapida del dialogo
-
-<u>**Consiglio**: Assicurati di completare il dialogo senza interruzioni almeno una volta per ricevere tutte le informazioni o missioni.</u>
+**Consiglio: Assicurati di completare il dialogo senza interruzioni almeno una volta per ricevere tutte le informazioni o missioni.**
 
 ## Armi
 - **1-2-3...**: prende/toglie l'arma in quella posizione
