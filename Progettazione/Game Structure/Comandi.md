@@ -1,20 +1,22 @@
 # Gameplay
 
-## Movimenti
+## Movimenti del Personaggio
 - **W**: cammina avanti
 - **S**: cammina indietro
 - **A**: camminata laterale verso sinistra
 - **D**: camminata laterale verso destra 
 - **SHIFT**: corre
-- **=>**: gira la grafica verso destra
-- **<=**: gira la grafica verso sinistra
-- **C**: accovacciati 
+- **C**: accovacciati (modalità stealth)
 
-## Interazione con gli oggetti
-- **SPACEBAR** oppure **CLICK_MOUSE_SINISTRO**: interagisci con oggetti di scena quando il giocatore è vicino ad essi
+## Gestione della Grafica
+**Camera Rotation**: Il movimento del mouse ruota l’intera visuale intorno al Personaggio 
+
+## Interazione con gli Oggetti
+- **SPACEBAR**: interagisci con oggetti di scena quando il giocatore è vicino ad essi
 
 ## Interazione con gli NPC
-**CLICK_MOUSE_SINISTRO**
+- **SPACEBAR**: interagisci con gli NPC di scena quando il giocatore è vicino ad essi
+- Premi **'E'** per poter avanzare con il dialogo
 
 ## Armi
 - **1-2-3...**: prende/toglie l'arma in quella posizione
