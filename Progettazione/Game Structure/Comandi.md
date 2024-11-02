@@ -8,7 +8,7 @@
 - **SHIFT**: corre
 - **C**: accovacciati (modalità stealth)
 
-## Gestione della Grafica
+## Movimenti della Camera
 **Camera Rotation**: Il movimento del mouse ruota l’intera visuale intorno al Personaggio 
 
 ## Interazione con gli Oggetti
@@ -16,7 +16,10 @@
 
 ## Interazione con gli NPC
 - **SPACEBAR**: interagisci con gli NPC di scena quando il giocatore è vicino ad essi
-- Premi **'E'** per poter avanzare con il dialogo
+- **'E'**: avanza con il dialogo (se attivo)
+- **Allontanarsi dall'NPC**: interrompe il dialogo e permette la chiusura rapida del dialogo
+
+<u>**Consiglio**: Assicurati di completare il dialogo senza interruzioni almeno una volta per ricevere tutte le informazioni o missioni.</u>
 
 ## Armi
 - **1-2-3...**: prende/toglie l'arma in quella posizione
@@ -38,10 +41,10 @@
 - **TAB**: usa
 
 ## Torcia
-**F**
+**F**: accendi/spegni la torcia
 
 ## Missioni
-- **Q**: visualizza l'elenco delle missioni
+- **Q**: Visualizza l'elenco delle missioni
 
 ## Inventario
 - **I**: aprire/chiudere inventario
