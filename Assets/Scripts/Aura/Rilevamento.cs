@@ -5,7 +5,7 @@ public class PlayerTriggerDetection : MonoBehaviour
 
     // Metodo chiamato quando un oggetto entra nel trigger
     private void OnTriggerEnter(Collider other)
-    {
+    {   Debug.Log("Rilevamento:"+other.gameObject.name);
         if (System.Enum.TryParse(other.gameObject.tag, out Item.ItemTagType tags))
         {
             //Debug.Log("Entra");

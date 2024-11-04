@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.2582342, g: 0.56239456, b: 0.5560964, a: 1}
+  m_IndirectSpecularColor: {r: 0.25827748, g: 0.5624012, b: 0.55595773, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2494,6 +2494,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 1e2ef0cc5c65717479848f40d793d3ee, type: 3}
   m_PrefabInstance: {fileID: 156085811}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &157275125 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1364588959314324, guid: 18545d5fc26cb73469db0080fd3ebb11, type: 3}
+  m_PrefabInstance: {fileID: 2088746284}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &164907130
 PrefabInstance:
@@ -5433,6 +5438,10 @@ PrefabInstance:
     - target: {fileID: 6352616002136992155, guid: b2788c42126f14248ab2fdd78705c4d0, type: 3}
       propertyPath: m_Name
       value: Van
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352616002136992155, guid: b2788c42126f14248ab2fdd78705c4d0, type: 3}
+      propertyPath: m_TagString
+      value: Menu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14023,6 +14032,10 @@ PrefabInstance:
     - target: {fileID: 1456703055220044, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
       propertyPath: m_Name
       value: Stump (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456703055220044, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     - target: {fileID: 4556984811349870, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
       propertyPath: m_LocalScale.x
@@ -24146,6 +24159,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stump (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1456703055220044, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     - target: {fileID: 4556984811349870, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.68887997
@@ -25045,7 +25062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6823239573023066330, guid: 43368390f5c258445af68cb8156e250a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 15.091984
+      value: 15.09212
       objectReference: {fileID: 0}
     - target: {fileID: 7463746966407927929, guid: 43368390f5c258445af68cb8156e250a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -25302,6 +25319,10 @@ PrefabInstance:
     - target: {fileID: 1456703055220044, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
       propertyPath: m_Name
       value: Stump (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456703055220044, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
+      propertyPath: m_TagString
+      value: Weapon
       objectReference: {fileID: 0}
     - target: {fileID: 4556984811349870, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
       propertyPath: m_LocalScale.x
@@ -25745,6 +25766,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stump (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1456703055220044, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     - target: {fileID: 4556984811349870, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.39980328
@@ -26179,7 +26204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4429234843561282, guid: 18545d5fc26cb73469db0080fd3ebb11, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.8048172
+      value: -3.7
       objectReference: {fileID: 0}
     - target: {fileID: 4429234843561282, guid: 18545d5fc26cb73469db0080fd3ebb11, type: 3}
       propertyPath: m_LocalPosition.z
@@ -26216,13 +26241,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1364588959314324, guid: 18545d5fc26cb73469db0080fd3ebb11, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2088746289}
   m_SourcePrefab: {fileID: 100100000, guid: 18545d5fc26cb73469db0080fd3ebb11, type: 3}
 --- !u!4 &2088746285 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4429234843561282, guid: 18545d5fc26cb73469db0080fd3ebb11, type: 3}
   m_PrefabInstance: {fileID: 2088746284}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &2088746289
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157275125}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &2092628668
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26234,6 +26289,10 @@ PrefabInstance:
     - target: {fileID: 1456703055220044, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
       propertyPath: m_Name
       value: Stump
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456703055220044, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     - target: {fileID: 4556984811349870, guid: b71e387166e4ce648849bbd6b762b736, type: 3}
       propertyPath: m_LocalScale.x
@@ -27930,6 +27989,7 @@ GameObject:
   - component: {fileID: 7851578618777576950}
   - component: {fileID: 7851578618777576949}
   - component: {fileID: 7851578618777576954}
+  - component: {fileID: 7851578618777576955}
   m_Layer: 0
   m_Name: Stefano_Capsule
   m_TagString: Player
@@ -28739,7 +28799,6 @@ GameObject:
   - component: {fileID: 5632034763996522721}
   - component: {fileID: 2573537293519422179}
   - component: {fileID: 8633482955571774762}
-  - component: {fileID: 7765678954670053260}
   m_Layer: 0
   m_Name: Aura
   m_TagString: Untagged
@@ -30137,18 +30196,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0069493502, y: 0.44385672, z: 0.14951776}
     m_Extent: {x: 0.10604413, y: 0.022297382, z: 0.01727748}
   m_DirtyAABB: 0
---- !u!114 &7765678954670053260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4147859831911351375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dd50a266a0e07b4b8df7cf1a3176536, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7782968570798829376
 GameObject:
   m_ObjectHideFlags: 0
@@ -30325,6 +30372,19 @@ MonoBehaviour:
   animator: {fileID: 0}
   currentWeapon: {fileID: 0}
   weaponAmmo: {fileID: 0}
+--- !u!114 &7851578618777576955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2209129129492344674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c8232fd6c37f8e498ce6713a0c4cf95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 5
 --- !u!1 &7865747721712045939
 GameObject:
   m_ObjectHideFlags: 0
