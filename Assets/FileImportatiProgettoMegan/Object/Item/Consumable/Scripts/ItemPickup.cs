@@ -3,29 +3,28 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    [Header("Object by Pickup")]
-    public Item item; // Oggetto da raccogliere
-
-    [Header("Variables")]
-    private bool isPlayerInRange; // Per sapere se il giocatore è vicino all'oggetto
+    [Header("Pickup")]
+    #region Pickup
+    private Item item; // Oggetto da raccogliere
+    private bool isPlayerInRange = false; // Per sapere se il giocatore è vicino all'oggetto
     private bool isItemAdded = false; // Flag per assicurarsi che l'oggetto venga aggiunto solo una volta
-
-    [Header("Renderer")]
-    public Material outlineMaterial;  // Materiale con l'effetto outline
-    private Material originalMaterial; // Materiale originale dell'oggetto
-    private Renderer objectRenderer; // Riferimento al renderer dell'oggetto
+    #endregion
 
     [Header("References")]
+    #region References
     private Animator animator; // Riferimento all'Animator del giocatore
-    private OpenMenu openMenuScript;
+    #endregion
 
+    [Header("References Scripts")]
+    #region References Scripts
+    private OpenInventory openMenuScript; // Riferimento allo script OpenMenu
+    #endregion
 
     private void Start()
     {
-        openMenuScript = FindObjectOfType<Player>().gameObject.GetComponent<OpenMenu>();
+        item = GetComponent<ItemController>().item;
+        openMenuScript = FindObjectOfType<Player>().gameObject.GetComponent<OpenInventory>();
         animator = FindObjectOfType<Player>().gameObject.GetComponent<Animator>();
-
-        InitMaterial();
     }
 
     private void Update()
@@ -33,18 +32,9 @@ public class ItemPickup : MonoBehaviour
         if (isPlayerInRange && item.isPickUp) // Se è vicino a un oggetto raccoglibile
         {
             if (Input.GetMouseButtonDown(0) && CheckClickMouseItem()) PickUp();
-            else if (!animator.GetBool("isPickingUp") && Input.GetKeyDown(KeyCode.Space)) PickUp();
-            else if (animator.GetBool("isPickingUp") && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))) CancelPickup();
+            else if (!animator.GetBool("pickingUp") && Input.GetKeyDown(KeyCode.Space)) PickUp();
+            else if (animator.GetBool("pickingUp") && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))) CancelPickup();
         }
-    }
-
-    private void InitMaterial()
-    {
-        // Ottieni il renderer dell'oggetto
-        objectRenderer = GetComponent<Renderer>();
-
-        // Memorizza il materiale originale dell'oggetto
-        if (objectRenderer != null) originalMaterial = objectRenderer.material;
     }
 
     private bool CheckClickMouseItem()
@@ -53,7 +43,7 @@ public class ItemPickup : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.transform == transform && !animator.GetBool("isPickingUp")) return true;
+            if (hit.transform == transform && !animator.GetBool("pickingUp")) return true;
         }
         return false;
     }
@@ -61,7 +51,7 @@ public class ItemPickup : MonoBehaviour
     private void PickUp()
     {
         // Animo il giocatore per raccogliere l'oggetto
-        animator.SetBool("isPickingUp", true);
+        animator.SetBool("pickingUp", true);
         if (openMenuScript.isInventoryOpen || openMenuScript.itemInspectOpen != null)
         { openMenuScript.OpenCloseInventory(false); Debug.Log("Close Inventory"); }
         StartCoroutine(WaitForEquipAnimation());
@@ -69,7 +59,7 @@ public class ItemPickup : MonoBehaviour
 
     private void CancelPickup()
     {
-        animator.SetBool("isPickingUp", false);
+        animator.SetBool("pickingUp", false);
     }
 
     private IEnumerator WaitForEquipAnimation()
@@ -78,11 +68,10 @@ public class ItemPickup : MonoBehaviour
         yield return new WaitUntil(() => IsAnimationFinished("Action", "Taking Item", 0.3f));
 
         // Verifica se l'oggetto è già stato aggiunto
-        if (!isItemAdded && animator.GetBool("isPickingUp"))
+        if (!isItemAdded && animator.GetBool("pickingUp"))
         {
             if (item.tagType == Item.ItemTagType.Weapon)
             {
-                objectRenderer.material = originalMaterial;
                 item.prefab = Instantiate(gameObject);
                 item.prefab.SetActive(false);
             }
@@ -93,7 +82,7 @@ public class ItemPickup : MonoBehaviour
             Destroy(gameObject);
         }
 
-        animator.SetBool("isPickingUp", false);
+        animator.SetBool("pickingUp", false);
     }
 
     private bool IsAnimationFinished(string layer, string animation, float normalizedTime)
@@ -108,7 +97,6 @@ public class ItemPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
-            if (!isItemAdded) objectRenderer.material = outlineMaterial;
         }
     }
 
@@ -118,7 +106,6 @@ public class ItemPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = false;
-            objectRenderer.material = originalMaterial;
         }
     }
 }

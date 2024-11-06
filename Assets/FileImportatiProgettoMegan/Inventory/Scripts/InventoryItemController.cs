@@ -25,11 +25,11 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
     public Sprite imgDefault; // Immagine di default per l'ingrediente
 
     [Header("References")]
-    private OpenMenu openMenuScript; // Riferimento allo script OpenMenu
+    private OpenInventory openMenuScript; // Riferimento allo script OpenMenu
 
     void Start()
     {
-        openMenuScript = FindObjectOfType<Player>().GetComponent<OpenMenu>();
+        openMenuScript = FindObjectOfType<Player>().GetComponent<OpenInventory>();
 
         var invUIController = InventoryUIController.instance;
         string activeSection = invUIController.GetActiveSection();
@@ -467,7 +467,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             //     inspectMenu.Find("SliderShowIngredientsRecipe/ImgIngredient").GetComponent<Image>().color = new(1, 1, 1, 1); // Opacità al 100%
             //     inspectMenu.Find("SliderShowIngredientsRecipe/QtaIngredient").GetComponent<TextMeshProUGUI>().color = Color.white;
             // }
-            
+
             var createButton = inspectMenu.Find("CreateItem").GetComponent<Button>();
             createButton.onClick.RemoveAllListeners(); // Rimuovi listener precedenti
             if (CanCraftItem())
