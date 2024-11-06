@@ -10,8 +10,8 @@ public class BooleanAccessor : MonoBehaviour
     bool tolto = false;
 
     // Bools Uomo Baita
-    bool capra = false;
-    bool capraDone = false;
+    bool capra = false; //Per far si che Stefano riceva la quest e sblocchi il 2° dialogo
+    bool capraDone = false; //Per far si che Stefano possa iniziare il tutorial
 
     //Bools Gaia
     bool fiore = false;

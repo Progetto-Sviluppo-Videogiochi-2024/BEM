@@ -1,22 +1,33 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ChapterTransition : MonoBehaviour
 {
-    public TextMeshProUGUI chapterText;    // Riferimento al testo del capitolo
-    public TextMeshProUGUI continueText;   // Riferimento al testo "Continua"
+    [Header("UI References")]
+    public GameObject panel;               // Riferimento al pannello di transizione
+    private TextMeshProUGUI chapterText;    // Riferimento al testo del capitolo
+    private Button continueButton;          // Riferimento al pulsante "Continua"
+    private TextMeshProUGUI continueText;   // Riferimento al testo "Continua"
+
+    [Header("Glitch Settings")]
     public float displayDuration = 4f;     // Tempo di visualizzazione del testo capitolo
     public float fadeDuration = 2f;        // Durata del fade in
     public float glitchDuration = 0.1f;    // Durata di ogni effetto glitch
     public float glitchInterval = 0.5f;    // Intervallo tra glitch
     public float shakeIntensity = 5f;      // Intensità del tremolio
-
-    private Color originalColor;
-    private Vector3 originalPosition;
+    private Color originalColor;          // Colore originale del testo "Continua"
+    private Vector3 originalPosition;    // Posizione originale del testo "Continua"
 
     private void Start()
     {
+        chapterText = panel.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        continueButton = panel.transform.GetChild(1).GetComponent<Button>();
+        continueText = continueButton.GetComponentInChildren<TextMeshProUGUI>();
+        chapterText.text = PlayerPrefs.GetString("CurrentChapter");
+
         chapterText.alpha = 0;       // Inizia con testo capitolo invisibile
         continueText.alpha = 0;      // Inizia con "Continua" invisibile
         StartCoroutine(ShowChapterText());
@@ -30,6 +41,8 @@ public class ChapterTransition : MonoBehaviour
             chapterText.text = chapterTitle;
         }
     }
+
+    public void ChangeScene() => SceneManager.LoadScene(PlayerPrefs.GetString("NextScene"));
 
     private IEnumerator ShowChapterText()
     {

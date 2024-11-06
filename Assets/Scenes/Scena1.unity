@@ -1745,6 +1745,7 @@ GameObject:
   - component: {fileID: 1279197124}
   - component: {fileID: 1279197125}
   - component: {fileID: 1279197127}
+  - component: {fileID: 1279197128}
   m_Layer: 0
   m_Name: GestoreScena1
   m_TagString: Untagged
@@ -1879,6 +1880,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1279197128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279197122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89bf9b76d2f1864f8899306eb947e8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chapterName: 'Capitolo 3: Arrivo e Scoperte nella Foresta'
+  nextScene: Scena2
 --- !u!4 &1308687165 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4350897564425730, guid: c7986b2d54ec33f4b8d0dd855c370967, type: 3}

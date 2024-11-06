@@ -5,7 +5,7 @@ public class OpenInventory : MonoBehaviour
 {
     [Header("Menu Inventory")]
     public GameObject inventoryCanvas; // Il Canvas dell'inventario
-    [HideInInspector] public bool isInventoryOpen = false; // Stato attuale dell'inventario
+    public bool isInventoryOpen = false; // Stato attuale dell'inventario
 
     [Header("References")]
     [HideInInspector] public InventoryItemController itemInspectOpen; // L'oggetto con ispeziona aperto

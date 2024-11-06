@@ -5,8 +5,8 @@ using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
-    [Header("Game Settings")]
-    [SerializeField] private string loadSceneName; // Nome della scena da caricare
+    [Header("Scene Transition Settings")]
+    private GestoreScena transition;
 
     [Header("UI Glitch Settings")]
     [SerializeField] private Color glitchColor = Color.red; // Colore del glitch
@@ -22,11 +22,13 @@ public class MainMenu : MonoBehaviour
     private Quaternion originalRotation; // Rotazione originale del testo
 
     [Header("Audio Settings")]
-    [SerializeField] private AudioClip audioClip; // Clip audio per la musica di sottofondo
+    public AudioClip audioClip; // Clip audio per la musica di sottofondo
     private AudioSource audioSource; // AudioSource per la musica di sottofondo
 
     void Start()
     {
+        transition = FindObjectOfType<GestoreScena>();
+
         // Avvia la musica di sottofondo
         PlayAudio();
 
@@ -46,24 +48,26 @@ public class MainMenu : MonoBehaviour
         // oppure usare metodi che prendono come stringa i path dei GameObject
     }
 
-    public void PlayGame()
+    public void StartGame()
     {
         // Ferma la musica quando si avvia il gioco
         StopAudio();
-        SceneManager.LoadScene(loadSceneName);
+
+        transition.SetNextScene();
     }
 
     public void QuitGame()
     {
         // Ferma la musica e chiudi il gioco
         StopAudio();
+
         Application.Quit();
     }
 
     private void PlayAudio()
     {
         // Aggiungi un componente AudioSource se non esiste
-        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 
         // Imposta il clip audio
         audioSource.clip = audioClip;
@@ -76,7 +80,7 @@ public class MainMenu : MonoBehaviour
         audioSource.Play();
     }
 
-    public void StopAudio()
+    private void StopAudio()
     {
         // Interrompi l'audio
         audioSource.Stop();

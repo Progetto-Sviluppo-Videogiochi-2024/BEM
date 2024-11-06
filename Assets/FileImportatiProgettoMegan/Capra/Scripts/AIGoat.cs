@@ -27,7 +27,7 @@ public class AIGoat : MonoBehaviour
     void Update()
     {
         if (agent == null || !agent.isActiveAndEnabled || !agent.isOnNavMesh) return;
-
+        //QUi
         // if (quest non è attiva) return; // Se la quest non è attiva, la pecora non si muove
         // magari se non è attiva e il pg interagisce con la pecora, la pecora potrebbe fare "beee" (SFX)
         // almeno non sta lì a cazzo di cane, che fa tipo la mummia ahahah
