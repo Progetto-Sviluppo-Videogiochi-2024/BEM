@@ -126,7 +126,7 @@ namespace DialogueEditor
                 case eState.Idle:
                     Idle_Update();
                     //Modifca 
-                    if (Input.GetKeyDown(KeyCode.N))
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
                         PressSelectedOption();
                     }
@@ -396,7 +396,7 @@ namespace DialogueEditor
                 }
             }
             // modifica
-            if (Input.GetKeyDown(KeyCode.N))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 PressSelectedOption();
             }

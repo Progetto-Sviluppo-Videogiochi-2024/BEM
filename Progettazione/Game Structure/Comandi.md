@@ -7,6 +7,7 @@
 - **D**: camminata laterale verso destra 
 - **SHIFT**: corre
 - **C**: accovacciati (modalità stealth)
+- **CLICK_DESTRO**: zoom visuale
 
 ## Movimenti della Camera
 **Camera Rotation**: Il movimento del mouse ruota l’intera visuale intorno al Personaggio 
@@ -29,7 +30,7 @@
 ## Combattimento Arma da Fuoco e da Lancio
 *(Se è equipaggiata un'arma)*
 - **CLICK_SINISTRO**: spara
-- **CLICK_DESTRO**: mira
+- **CLICK_DESTRO**: zoom visuale
 - **R**: ricarica arma
 - **ALT**: visuale laterale (destra o sinistra)
 
