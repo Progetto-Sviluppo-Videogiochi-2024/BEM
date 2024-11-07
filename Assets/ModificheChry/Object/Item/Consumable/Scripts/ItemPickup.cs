@@ -31,22 +31,22 @@ public class ItemPickup : MonoBehaviour
     {
         if (isPlayerInRange && item.isPickUp) // Se è vicino a un oggetto raccoglibile
         {
-            if (Input.GetMouseButtonDown(0) && CheckClickMouseItem()) PickUp();
-            else if (!animator.GetBool("pickingUp") && Input.GetKeyDown(KeyCode.Space)) PickUp();
+            // if (Input.GetMouseButtonDown(0) && CheckClickMouseItem()) PickUp(); else
+            if (!animator.GetBool("pickingUp") && Input.GetKeyDown(KeyCode.Space)) PickUp();
             else if (animator.GetBool("pickingUp") && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))) CancelPickup();
         }
     }
 
-    private bool CheckClickMouseItem()
-    {
-        // Raycast per determinare se il clic è effettivamente sull'oggetto
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            if (hit.transform == transform && !animator.GetBool("pickingUp")) return true;
-        }
-        return false;
-    }
+    // private bool CheckClickMouseItem()
+    // {
+    //     // Raycast per determinare se il clic è effettivamente sull'oggetto
+    //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //     if (Physics.Raycast(ray, out RaycastHit hit))
+    //     {
+    //         if (hit.transform == transform && !animator.GetBool("pickingUp")) return true;
+    //     }
+    //     return false;
+    // }
 
     private void PickUp()
     {

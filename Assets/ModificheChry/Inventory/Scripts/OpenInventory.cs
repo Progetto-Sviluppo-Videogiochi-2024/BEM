@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OpenInventory : MonoBehaviour
@@ -32,7 +31,7 @@ public class OpenInventory : MonoBehaviour
 
     private void ActivateInventory()
     {
-        if (SceneManager.GetActiveScene().name == "Scena0" && PlayerPrefs.GetInt("hasBackpack") != 1) return;
+        if (PlayerPrefs.GetInt("hasBackpack") != 1) return;
         
         if (Input.GetKeyDown(KeyCode.I))
         {

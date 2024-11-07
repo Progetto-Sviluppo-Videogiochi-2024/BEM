@@ -21,7 +21,6 @@ public class GestoreScena : MonoBehaviour
     public void SetItemScene(Item item)
     {
         if (item.nameItem.Contains("Zaino")) PlayerPrefs.SetInt("hasBackpack", 1);
-        else if (item.nameItem.Contains("Cellulare")) PlayerPrefs.SetInt("hasPhone", 1);
         else if (item.nameItem.Contains("Torcia")) PlayerPrefs.SetInt("hasTorch", 1);
     }
 }

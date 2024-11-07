@@ -32,7 +32,7 @@ public class Diario : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
         if (Input.GetKeyDown(KeyCode.Q))
         {
             diarioVisibile = !diarioVisibile;
