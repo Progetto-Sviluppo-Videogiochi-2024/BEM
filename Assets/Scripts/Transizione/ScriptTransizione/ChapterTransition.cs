@@ -18,8 +18,8 @@ public class ChapterTransition : MonoBehaviour
     public float glitchDuration = 0.1f;    // Durata di ogni effetto glitch
     public float glitchInterval = 0.5f;    // Intervallo tra glitch
     public float shakeIntensity = 5f;      // Intensità del tremolio
-    private Color originalColor;          // Colore originale del testo "Continua"
-    private Vector3 originalPosition;    // Posizione originale del testo "Continua"
+    private Color originalColor;          // Colore originale del testo capitolo
+    private Vector3 originalPosition;     // Posizione originale del testo capitolo
 
     private void Start()
     {
@@ -28,8 +28,9 @@ public class ChapterTransition : MonoBehaviour
         continueText = continueButton.GetComponentInChildren<TextMeshProUGUI>();
         chapterText.text = PlayerPrefs.GetString("CurrentChapter");
 
-        chapterText.alpha = 0;       // Inizia con testo capitolo invisibile
-        continueText.alpha = 0;      // Inizia con "Continua" invisibile
+        chapterText.alpha = 0;               // Inizia con testo capitolo invisibile
+        continueText.alpha = 0;              // Inizia con "Continua" invisibile
+        continueButton.gameObject.SetActive(false); // Nascondi il pulsante all'inizio
         StartCoroutine(ShowChapterText());
     }
 
@@ -54,21 +55,22 @@ public class ChapterTransition : MonoBehaviour
         }
         chapterText.alpha = 1;  // Assicurati che sia visibile al 100%
 
+        // Inizia l'effetto glitch sul testo del capitolo
+        originalColor = chapterText.color;
+        originalPosition = chapterText.transform.position;
+        StartCoroutine(GlitchEffect());
+
         // Attendi per il displayDuration impostato
         yield return new WaitForSeconds(displayDuration);
 
-        // Fade in per "Continua"
+        // Attiva il pulsante e applica il fade in per il testo "Continua"
+        continueButton.gameObject.SetActive(true);
         for (float t = 0; t < fadeDuration; t += Time.deltaTime)
         {
             continueText.alpha = t / fadeDuration;
             yield return null;
         }
         continueText.alpha = 1;
-
-        // Inizia l’effetto glitch su "Continua"
-        originalColor = continueText.color;
-        originalPosition = continueText.transform.position;
-        StartCoroutine(GlitchEffect());
     }
 
     private IEnumerator GlitchEffect()
@@ -76,20 +78,20 @@ public class ChapterTransition : MonoBehaviour
         while (true)
         {
             // Cambia il colore per l'effetto glitch temporaneo
-            continueText.color = Color.red;
+            chapterText.color = Color.red;
 
             float shakeTime = glitchDuration;
             while (shakeTime > 0)
             {
                 // Effetto di tremolio su posizione
-                continueText.transform.position = originalPosition + Random.insideUnitSphere * shakeIntensity;
+                chapterText.transform.position = originalPosition + Random.insideUnitSphere * shakeIntensity;
                 shakeTime -= Time.deltaTime;
                 yield return null;
             }
 
             // Reset posizione e colore
-            continueText.transform.position = originalPosition;
-            continueText.color = originalColor;
+            chapterText.transform.position = originalPosition;
+            chapterText.color = originalColor;
 
             yield return new WaitForSeconds(glitchInterval);
         }
