@@ -14,7 +14,11 @@ public class ItemEditor : Editor
         item.nameItem = EditorGUILayout.TextField(new GUIContent("Item Name", "Nome dell'oggetto"), item.nameItem);
         item.tagType = (Item.ItemTagType)EditorGUILayout.EnumPopup(new GUIContent("Tag Type", "Tipo di tag dell'oggetto"), item.tagType);
 
-        if (item.tagType == Item.ItemTagType.Scene) return;
+        if (item.tagType == Item.ItemTagType.Scene)
+        {
+            item.isPickUp = EditorGUILayout.Toggle(new GUIContent("Pick Up", "Raccoglibilità dell'oggetto (true se raccoglibile, false se non raccoglibile)"), item.isPickUp);
+            return;
+        }
 
         item.description = EditorGUILayout.TextField(new GUIContent("Description", "Descrizione dell'oggetto"), item.description);
 

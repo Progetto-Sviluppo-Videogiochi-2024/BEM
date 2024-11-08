@@ -4,12 +4,13 @@ public class GestoreScena0 : MonoBehaviour
 {
     [Header("GameObjects")]
     #region GameObjects
-    public GameObject backPackScena0;
     public GameObject backPackPlayer;
     #endregion
 
     void Start()
     {
+        PlayerPrefs.SetInt("hasBackpack", 0);
+        PlayerPrefs.SetInt("hasTorch", 0);
         backPackPlayer.SetActive(false);
     }
 
@@ -18,12 +19,5 @@ public class GestoreScena0 : MonoBehaviour
         HideBackPack();
     }
 
-    private void HideBackPack()
-    {
-        if (PlayerPrefs.GetInt("hasBackPack") == 1)
-        {
-            backPackScena0.SetActive(false);
-            backPackPlayer.SetActive(true);
-        }
-    }
+    private void HideBackPack() => backPackPlayer.SetActive(PlayerPrefs.GetInt("hasBackpack") == 1);
 }

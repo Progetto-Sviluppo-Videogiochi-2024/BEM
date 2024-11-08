@@ -749,6 +749,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogo: {fileID: 1704564750}
   dialogo2: {fileID: 1198502164}
+  dialogo3: {fileID: 0}
+  isConversationActive: 0
 --- !u!64 &68581468
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3523,6 +3525,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogo: {fileID: 543018814}
+  dialogo2: {fileID: 0}
+  dialogo3: {fileID: 0}
+  isConversationActive: 0
 --- !u!64 &245348053
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -20400,7 +20405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1622480366}
   m_Layer: 0
-  m_Name: ---- Manager&UI ----
+  m_Name: ---- Manager/UI ----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23647,10 +23652,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7128480628901634765, guid: f2d8b0cff325fd2458c4cb962118acd0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9206315316315310079, guid: f2d8b0cff325fd2458c4cb962118acd0, type: 3}
       propertyPath: m_Name
       value: Inventory
@@ -25275,7 +25276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6823239573023066330, guid: 43368390f5c258445af68cb8156e250a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 15.091631
+      value: 15.091994
       objectReference: {fileID: 0}
     - target: {fileID: 7463746966407927929, guid: 43368390f5c258445af68cb8156e250a, type: 3}
       propertyPath: m_AnchorMax.x

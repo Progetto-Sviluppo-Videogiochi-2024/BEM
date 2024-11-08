@@ -75,7 +75,7 @@ public class MovementStateManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Inactive();
+        Inactive();
     }
 
     public void SwitchState(MovementBaseState newState)
