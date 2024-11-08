@@ -1,57 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DialogueEditor;
 
-public class JackobScript : MonoBehaviour
+public class JackobScript : NPCDialogueBase
 {
-    public NPCConversation dialogo;
-    public NPCConversation dialogo2;
-
     public static BooleanAccessor istance;
 
-    private bool isInRange;
-
-    private void Update()
+    protected override void StartDialogue()
     {
-        if (isInRange && Input.GetKeyDown(KeyCode.Space))
+        if (BooleanAccessor.istance != null)
         {
-            if (BooleanAccessor.istance != null)
+            if (BooleanAccessor.istance.GetBoolFromThis("cartello") == false)
             {
-                if (BooleanAccessor.istance.GetBoolFromThis("cartello") == false)
-                {
-                    // Dialogo iniziale
-                    ConversationManager.Instance.StartConversation(dialogo);
-                    ConversationManager.Instance.SetBool("cartello", BooleanAccessor.istance.GetBoolFromThis("cartello"));
-                }
-                else
-                {
-                    // Dialogo successivo
-                    ConversationManager.Instance.StartConversation(dialogo2);
-                    ConversationManager.Instance.SetBool("tolto", BooleanAccessor.istance.GetBoolFromThis("tolto"));
-                }
+                // Dialogo iniziale
+                StartConversation(dialogo);
+                ConversationManager.Instance.SetBool("cartello", BooleanAccessor.istance.GetBoolFromThis("cartello"));
             }
             else
             {
-                Debug.LogError("BooleanAccessor.instance non è stato inizializzato.");
+                // Dialogo successivo
+                StartConversation(dialogo2);
+                ConversationManager.Instance.SetBool("tolto", BooleanAccessor.istance.GetBoolFromThis("tolto"));
             }
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        else
         {
-            isInRange = true; // Imposta isInRange a true quando il giocatore entra
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isInRange = false; // Imposta isInRange a false quando il giocatore esce dall'area
-            ConversationManager.Instance.EndConversation();
+            Debug.LogError("BooleanAccessor.instance non è stato inizializzato.");
         }
     }
 }
