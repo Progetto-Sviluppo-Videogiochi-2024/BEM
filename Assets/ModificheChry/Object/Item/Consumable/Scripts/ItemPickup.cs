@@ -57,10 +57,7 @@ public class ItemPickup : MonoBehaviour
         StartCoroutine(WaitForEquipAnimation());
     }
 
-    private void CancelPickup()
-    {
-        animator.SetBool("pickingUp", false);
-    }
+    private void CancelPickup() => animator.SetBool("pickingUp", false);
 
     private IEnumerator WaitForEquipAnimation()
     {
@@ -83,6 +80,8 @@ public class ItemPickup : MonoBehaviour
             else FindObjectOfType<GestoreScena>().SetItemScene(item);
             
             isItemAdded = true;
+
+            FindObjectOfType<Player>().GetComponent<ItemDetector>().RemoveItemDetection(gameObject);
             Destroy(gameObject);
         }
 

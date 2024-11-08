@@ -3,12 +3,16 @@ using UnityEngine.UI;
 
 public class OpenInventory : MonoBehaviour
 {
-    [Header("Menu Inventory")]
-    public GameObject inventoryCanvas; // Il Canvas dell'inventario
-    public bool isInventoryOpen = false; // Stato attuale dell'inventario
+    [Header("Inventory")]
+    #region Inventory
+    public GameObject inventoryCanvas; // Il Canvas dell'inventario da cui prendo i suoi figli
+    [HideInInspector] public bool isInventoryOpen = false; // Stato attuale dell'inventario
+    #endregion
 
     [Header("References")]
+    #region References
     [HideInInspector] public InventoryItemController itemInspectOpen; // L'oggetto con ispeziona aperto
+    #endregion
 
     void Start()
     {
@@ -31,7 +35,7 @@ public class OpenInventory : MonoBehaviour
 
     private void ActivateInventory()
     {
-        if (PlayerPrefs.GetInt("hasBackpack") != 1) return;
+        // if (PlayerPrefs.GetInt("hasBackpack") != 1) return;
         
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -67,10 +71,9 @@ public class OpenInventory : MonoBehaviour
         inventoryCanvas.SetActive(isInventoryOpen);
 
         // Chiudi il menu ispeziona se l'inventario viene chiuso
-        // Debug.Log("isInventoryOpen: " + isInventoryOpen + " - itemInspectOpen: " + itemInspectOpen?.item.nameItem);
         if (!isInventoryOpen && itemInspectOpen != null)
         {
-            Debug.Log(itemInspectOpen.item.nameItem);
+            // Debug.Log(itemInspectOpen.item.nameItem);
             itemInspectOpen.OpenCloseInspectUI(false);
             itemInspectOpen = null;
         }
