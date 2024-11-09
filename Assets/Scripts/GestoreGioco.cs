@@ -9,7 +9,7 @@ public class GestoreGioco : MonoBehaviour
     [Header("Game Data")]
     public int livelloCorrente; // Livello attuale del gioco
     public int fioriRaccolti; // Numero totale di fiori raccolti (esempio)
-    public Dictionary<string, int> progressoLivello = new Dictionary<string, int>(); // Dati di progresso specifici
+    public Dictionary<string, int> progressoLivello = new(); // Dati di progresso specifici
 
     private string saveFilePath; // Percorso del file di salvataggio
 
@@ -43,7 +43,7 @@ public class GestoreGioco : MonoBehaviour
     // Metodo di salvataggio dei dati
     public void SalvaDati()
     {
-        GameData data = new GameData
+        GameData data = new()
         {
             livelloCorrente = livelloCorrente,
             fioriRaccolti = fioriRaccolti,

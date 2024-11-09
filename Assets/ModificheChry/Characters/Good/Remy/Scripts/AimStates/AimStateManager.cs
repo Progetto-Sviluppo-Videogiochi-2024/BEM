@@ -94,6 +94,8 @@ public class AimStateManager : MonoBehaviour
 
     void Update()
     {
+        if (animator.GetBool("sit")) return;
+        
         xAxis += Input.GetAxisRaw("Mouse X") * mouseSense;
         yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
         yAxis = Mathf.Clamp(yAxis, -80, 80);
@@ -128,6 +130,8 @@ public class AimStateManager : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (animator.GetBool("sit")) return;
+
         camFollowPosition.localEulerAngles = new(yAxis, camFollowPosition.localEulerAngles.y, camFollowPosition.localEulerAngles.z);
         transform.eulerAngles = new(transform.eulerAngles.x, xAxis, transform.eulerAngles.z);
     }

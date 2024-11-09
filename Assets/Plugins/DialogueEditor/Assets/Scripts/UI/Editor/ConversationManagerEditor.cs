@@ -23,6 +23,7 @@ namespace DialogueEditor
         SerializedProperty ScrollTextSpeedProperty;
         SerializedProperty AllowMouseInteractionProperty;
         SerializedProperty NextNameSceneProperty; // TODO: aggiunto
+        SerializedProperty hasClickedEndProperty; // TODO: aggiunto
 
         private void OnEnable()
         {
@@ -34,6 +35,7 @@ namespace DialogueEditor
             ScrollTextSpeedProperty = serializedObject.FindProperty("ScrollSpeed");
             AllowMouseInteractionProperty = serializedObject.FindProperty("AllowMouseInteraction");
             NextNameSceneProperty = serializedObject.FindProperty("nextNameScene"); // TODO: aggiunto
+            hasClickedEndProperty = serializedObject.FindProperty("hasClickedEnd"); // TODO: aggiunto
         }
 
         public override void OnInspectorGUI()
@@ -52,7 +54,7 @@ namespace DialogueEditor
             // Background image
             GUILayout.Label("Dialogue Image Options", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(BackgroundImageProperty);
-            EditorGUILayout.PropertyField(BackgroundImageSlicedProperty); 
+            EditorGUILayout.PropertyField(BackgroundImageSlicedProperty);
             EditorGUILayout.Space();
 
             // Option image
@@ -75,7 +77,8 @@ namespace DialogueEditor
 
             // Next scene name
             GUILayout.Label("Conversation", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(NextNameSceneProperty);
+            EditorGUILayout.PropertyField(NextNameSceneProperty); // TODO: aggiunto
+            EditorGUILayout.PropertyField(hasClickedEndProperty); // TODO: aggiunto
 
             // Apply changes to the serializedProperty - always do this in the end of OnInspectorGUI.
             serializedObject.ApplyModifiedProperties();

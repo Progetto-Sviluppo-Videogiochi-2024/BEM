@@ -5,6 +5,10 @@ public class BooleanAccessor : MonoBehaviour
     // Singleton
     public static BooleanAccessor istance;
 
+    //Bools tutorial scena0
+    bool premereE = false;
+    bool wasd = false;
+
     // Bools di Jackob
     bool cartello = false;
     bool tolto = false;
@@ -41,6 +45,12 @@ public class BooleanAccessor : MonoBehaviour
             case "soluzione":
                 soluzione = true;
                 break;
+            case "premereE":
+                premereE = true;
+                break;
+            case "wasd":
+                wasd = true;
+                break;
             default:
                 Debug.LogWarning("BooleanAccessor: nomeBool non riconosciuto - " + nomeBool);
                 break;
@@ -58,6 +68,8 @@ public class BooleanAccessor : MonoBehaviour
             "capraDone" => capraDone,
             "fiore" => fiore,
             "soluzione" => soluzione,
+            "premereE" => premereE,
+            "wasd" => wasd,
             _ => false,
         };
     }
@@ -78,7 +90,6 @@ public class BooleanAccessor : MonoBehaviour
     }
 
     // For Debug
-
     // void Update()
     // {
     //     //Debug per vedere se i valori delle variabili booleane globali

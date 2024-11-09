@@ -227,6 +227,7 @@ namespace DialogueEditor
                     {
                         UnityEngine.SceneManagement.SceneManager.LoadScene(ConversationManager.Instance.nextNameScene);
                     }
+                    ConversationManager.Instance.hasClickedEnd = true;
 
                     break;
             }

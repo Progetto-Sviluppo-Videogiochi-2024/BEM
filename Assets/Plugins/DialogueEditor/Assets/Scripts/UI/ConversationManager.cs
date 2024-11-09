@@ -38,6 +38,7 @@ namespace DialogueEditor
         public bool OptionImageSliced;
         public bool AllowMouseInteraction;
         public string nextNameScene; // Nome della scena successiva // TODO: aggiunto
+        public bool hasClickedEnd; // Se è stato cliccato il pulsante di fine conversazione // TODO: aggiunto
 
         // Non-User facing 
         // Not exposed via custom inspector
@@ -125,8 +126,7 @@ namespace DialogueEditor
 
                 case eState.Idle:
                     Idle_Update();
-                    //Modifca 
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKeyDown(KeyCode.E)) // TODO: aggiunto
                     {
                         PressSelectedOption();
                     }
@@ -395,8 +395,7 @@ namespace DialogueEditor
                     }
                 }
             }
-            // modifica
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E)) // TODO: aggiunto
             {
                 PressSelectedOption();
             }
