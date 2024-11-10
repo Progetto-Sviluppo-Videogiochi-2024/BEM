@@ -53,7 +53,7 @@ public class MainMenu : MonoBehaviour
         // Ferma la musica quando si avvia il gioco
         StopAudio();
 
-        transition.SetNextScene();
+        transition.GoToTransitionScene();
     }
 
     public void QuitGame()

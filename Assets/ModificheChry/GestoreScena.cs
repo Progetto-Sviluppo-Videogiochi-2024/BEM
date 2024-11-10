@@ -9,7 +9,7 @@ public class GestoreScena : MonoBehaviour
     public string nextScene = "ScenaI";
     #endregion
 
-    public void SetNextScene()
+    public void GoToTransitionScene()
     {
         PlayerPrefs.SetString("CurrentChapter", nextChapter);
         PlayerPrefs.SetString("NextScene", nextScene);
