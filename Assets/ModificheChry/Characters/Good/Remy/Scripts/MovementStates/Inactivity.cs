@@ -2,19 +2,12 @@ using UnityEngine;
 
 public class Inactivity : StateMachineBehaviour
 {
-    private float animationInterval; // Intervallo di tempo in secondi tra ogni animazione di inattività
-    public float inactivityTimer = 0.0f; // Timer per tenere traccia del tempo trascorso dall'ultima animazione di inattività
-
-    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        animationInterval = GetLengthAnimationInactivity(animator);
-        inactivityTimer = 0.0f;
-    }
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) { }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // Controllo per capire se l'inattività deve essere interrotta a causa di un'azione del giocatore
-        if (StopInactivity(animator))
+        if (!CanInactivity(animator))
         {
             ResetInactivity(animator);
             return;
@@ -23,34 +16,37 @@ public class Inactivity : StateMachineBehaviour
         // Se l'animazione di inattività non è finita
         if (!IsInactivityFinished(stateInfo)) return;
 
-        // Se l'animazione di inattività è finita, ricomincia il timer
-        inactivityTimer += Time.deltaTime;
-        if (inactivityTimer >= animationInterval) // Se il timer raggiunge l'intervallo (animationInterval)
-        {
-            RestartAnimation(animator, stateInfo, layerIndex);
-        }
+        // Se l'animazione di inattività è finita
+        CycleToNextInactivity(animator);
 
         // Controllo per capire se l'inattività deve essere interrotta a causa di un movimento del pg
         if (IsMoving(animator)) ResetInactivity(animator);
     }
 
-    private float GetLengthAnimationInactivity(Animator animator) => animator.GetCurrentAnimatorStateInfo(0).length;
+    // private float GetLengthAnimationInactivity(Animator animator) => animator.GetCurrentAnimatorStateInfo(0).length;
 
-    private bool StopInactivity(Animator animator) =>
-        animator.GetBool("aiming") || animator.GetBool("reloading") // Se il giocatore sta mirando o ricaricando
+    private bool CanInactivity(Animator animator) =>
+        !(animator.GetBool("aiming") || animator.GetBool("reloading") // Se il giocatore sta mirando o ricaricando
+            || animator.GetBool("pickingUp") // Se il giocatore sta raccogliendo un oggetto
             || IsMoving(animator) // Se il giocatore si sta muovendo
-            || animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon"); // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
+            || animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon")); // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
 
     private void ResetInactivity(Animator animator)
     {
-        inactivityTimer = 0.0f;
         animator.SetBool("inactive", false);
+        animator.SetInteger("nInactive", 0);
     }
 
-    private void RestartAnimation(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    private void CycleToNextInactivity(Animator animator)
     {
-        animator.Play(stateInfo.fullPathHash, layerIndex, 0.0f);
-        inactivityTimer = 0.0f;
+        if (animator.GetBool("sit")) animator.SetInteger("nInactive", (animator.GetInteger("nInactive") % 3) + 1); // Cicla 1, 2, 3
+        else // Se il giocatore non è seduto
+        {
+            int currentInactive = animator.GetInteger("nInactive");
+
+            if (currentInactive == 1) animator.SetInteger("nInactive", 3);
+            else if (currentInactive == 3) animator.SetInteger("nInactive", 1);
+        }
     }
 
     private bool IsMoving(Animator animator) => animator.GetFloat("hInput") != 0 || animator.GetFloat("vInput") != 0;

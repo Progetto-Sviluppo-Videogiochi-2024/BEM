@@ -6,10 +6,7 @@ public class TutorialScript : MonoBehaviour
 {
     [Header("Tutorial Dialogues")]
     #region Tutorial Dialogues
-    public NPCConversation avanzaDialogo;
-    public NPCConversation wasd;
-    public NPCConversation quest;
-    public NPCConversation zaino;
+    public NPCConversation[] conversations;
     #endregion
 
     [Header("Data Storage")]
@@ -20,12 +17,12 @@ public class TutorialScript : MonoBehaviour
     void Awake()
     {
         // Inizializza il dizionario con i nomi dei flag e i dialoghi associati
-        tutorialConversations = new Dictionary<string, NPCConversation>
+        tutorialConversations = new()
         {
-            { "premereE", avanzaDialogo },
-            { "wasd", wasd },
-            { "quest", quest },
-            { "zaino", zaino }
+            { "premereE", conversations[0] },
+            { "wasd", conversations[1] },
+            { "quest", conversations[2] },
+            { "zaino", conversations[3] },
         };
     }
 

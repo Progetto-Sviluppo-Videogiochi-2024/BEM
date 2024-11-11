@@ -9527,10 +9527,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f0618b953d2e7458f47fc76707ff79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avanzaDialogo: {fileID: 225067086}
-  wasd: {fileID: 178862218}
-  quest: {fileID: 914249133}
-  zaino: {fileID: 1814999393}
+  conversations:
+  - {fileID: 225067086}
+  - {fileID: 178862218}
+  - {fileID: 914249133}
+  - {fileID: 1814999393}
 --- !u!4 &1091499068
 Transform:
   m_ObjectHideFlags: 0
@@ -11074,7 +11075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6593187842531627380, guid: 9567790cb2b69f64982bee98cf004b79, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 15.092042
+      value: 3.1269913
       objectReference: {fileID: 0}
     - target: {fileID: 7087046262092775895, guid: 9567790cb2b69f64982bee98cf004b79, type: 3}
       propertyPath: m_AnchorMax.x

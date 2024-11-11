@@ -14,12 +14,6 @@ public class MovementStateManager : MonoBehaviour
     [HideInInspector] public Vector3 moveDirection;
     #endregion
 
-    [Header("Inactivity Settings")]
-    #region Inactivity Settings
-    private readonly float idleTimeThreshold = 5.0f; // Tempo di inattività
-    public float elapsedTime = 0.0f; // Tempo trascorso dall'ultima inattività
-    #endregion
-
     [Header("Input Settings")]
     #region Input Settings
     [HideInInspector] public float h;
@@ -63,7 +57,7 @@ public class MovementStateManager : MonoBehaviour
     }
 
     void Update()
-    {        
+    {
         GetDirectionAndMove();
         Gravity();
 
@@ -119,15 +113,11 @@ public class MovementStateManager : MonoBehaviour
 
     private void Inactive()
     {
-        if (CheckInactivityTimer() && CanInactivity()) animator.SetBool("inactive", true);
-    }
-
-    private bool CheckInactivityTimer()
-    {
-        if (h == 0 && v == 0 && !animator.GetBool("inactive")) elapsedTime += Time.deltaTime;
-        else elapsedTime = 0.0f;
-
-        return elapsedTime >= idleTimeThreshold;
+        if (!animator.GetBool("inactive") && CanInactivity())
+        {
+            animator.SetBool("inactive", true);
+            animator.SetInteger("nInactive", 1);
+        }
     }
 
     private bool CanInactivity()
