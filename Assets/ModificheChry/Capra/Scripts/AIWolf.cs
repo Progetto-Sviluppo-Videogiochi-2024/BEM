@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,9 +7,11 @@ public class AIWolf : MonoBehaviour
     [Header("Settings")]
     #region Settings
     public float followDistance; // Distanza minima per "scappare" dal giocatore
-    public float safeDistance; // Distanza di sicurezza dalla quale la lupo si ferma
-    public float stopThreshold; // Soglia per fermare la lupo quando è vicina alla destinazione
-    private bool hasEnteredTargetArea = false; // Flag per controllare se la lupo è entrata nell'area target
+    public float safeDistance; // Distanza di sicurezza dalla quale il lupo si ferma
+    public float stopThreshold; // Soglia per fermare il lupo quando è vicino al target
+    private bool hasEnteredTargetArea = false; // Flag per controllare se il lupo è entrato nell'area target
+    private bool isRotatingToAttack = false; // Flag per controllare se il lupo sta ruotando per attaccare
+    public float rotationSpeed = 5f; // Velocità della rotazione per puntare il giocatore
     #endregion
 
     [Header("References")]
@@ -16,65 +19,120 @@ public class AIWolf : MonoBehaviour
     public Transform targetEndTask; // Punto in cui la quest termina
     private NavMeshAgent agent; // Agente di navigazione della lupo
     private Transform player; // Riferimento al giocatore
+    private Animator animator; // Riferimento all'animator della lupo
     #endregion
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
     {
-        if (agent == null || !agent.isActiveAndEnabled || !agent.isOnNavMesh) return;
-        // if (pg fa spacebar vicino alla lupo && quest non attiva) {lupo fa "beee" (SFX) + return;} // Quindi se pg non ha dialogato con UomoBaita
-        // if (quest non attiva) return; // Se la quest non è attiva, la lupo non si muove
-        // Se la lupo è vicina al target finale, si ferma
-        if (hasEnteredTargetArea /*&& quest è completata*/)
+        if (agent == null || !agent.isActiveAndEnabled || !agent.isOnNavMesh) return; // Se l'agente non è attivo o non è sulla navmesh
+
+        // if (quest = completata) this.enabled = false; // Se la quest è completata, disattiva lo script (non avrebbe senso eseguire il resto del codice)
+
+        if (!animator.GetBool("bait")) // Se il player non ha interagito con l'esca
         {
-            if (!IsNearTarget()) return;
+            if (IsNear(player, safeDistance / 2)) // Se è troppo vicino al lupo
+            {
+                if (!isRotatingToAttack)
+                {
+                    isRotatingToAttack = true;
+                    StartCoroutine(RotateTowardsPlayerAndAttack());
+                }
+                return;
+            }
+            else if (IsNear(player, safeDistance)) // Se è poco vicino al lupo
+            {
+                // TODO: SFX ringhio
+                Debug.Log("Ringhio");
+                return;
+            }
+        }
+
+        if (!animator.GetBool("nearPlayer") /*&& quest non attiva*/) return; // Se non gli sono vicino e la quest non è attiva (non ha dialogato con UomoBaita), ringhia e attacca solo)
+
+        if (hasEnteredTargetArea) // Se il lupo è entrato nell'area target
+        {
+            if (!IsNear(targetEndTask, stopThreshold)) return; // Se non è vicino al target, avvicinati
 
             agent.stoppingDistance = stopThreshold;
             agent.velocity = Vector3.zero;
             agent.isStopped = true;
             agent.ResetPath();
+            // quest = completata
             return;
         }
-        else FollowPlayer();
+        else FollowPlayer(); // Se ha l'esca, non è vicino al target e la quest è attiva e non completata
     }
 
-    private bool IsNearTarget() => Vector3.Distance(transform.position, targetEndTask.position) <= stopThreshold;
+    private bool IsNear(Transform target, float distance) => Vector3.Distance(transform.position, target.position) <= distance;
+
+    private IEnumerator RotateTowardsPlayerAndAttack()
+    {
+        agent.isStopped = true;
+
+        while (true)
+        {
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+
+            // Controlla se il lupo è allineato con il giocatore
+            if (Quaternion.Angle(transform.rotation, lookRotation) < 5f)
+            {
+                Debug.Log("Attacca");
+                animator.SetTrigger("attack");
+                // TODO: implementa il danno al giocatore (fare come per maynard)
+                isRotatingToAttack = false;
+                break;
+            }
+            yield return null;
+        }
+
+        agent.isStopped = false;
+    }
 
     private void FollowPlayer()
     {
-        // Imposta la velocità dell'agente in base alla velocità di movimento attuale del giocatore
-        agent.speed = player.GetComponent<MovementStateManager>().currentMoveSpeed;
-
         // Ottieni la distanza tra il lupo e il giocatore
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         // Se il giocatore è abbastanza lontano, il lupo lo segue
         if (distanceToPlayer > followDistance)
         {
+            animator.SetFloat("speed", player.GetComponent<MovementStateManager>().currentMoveSpeed);
             agent.SetDestination(player.position);
             agent.isStopped = false;
         }
-        else agent.isStopped = true;
-
-        // Aggiungere l'animazione di camminata del lupo qui (es. lupo.animator.speed -> blend tree)
+        else // Se è abbastanza vicino, il lupo si ferma
+        {
+            agent.isStopped = true;
+            animator.SetFloat("speed", 0f);
+        }
     }
 
     public void WolfInArea()
     {
-        if (targetEndTask != null)
-        {
-            // BooleanAccessor.istance.SetBoolOnDialogueE("wolfIsInArea", true);
-            // quest = completata
-            // lupo fa "beee" (SFX) appena entra nell'area
-            // Al max da qui potresti far partire un breve dialogo (dovrebbe entrare solo una volta in questa funzione -> siccome in target questa funzione invocata in enter)
-            hasEnteredTargetArea = true;
-            agent.SetDestination(targetEndTask.position);
-            agent.isStopped = false;
-        }
+        // BooleanAccessor.istance.SetBoolOnDialogueE("wolfIsInArea", true);
+        // lupo potrebbe "ululare" (SFX) appena entra nell'area
+        // Al max da qui potresti far partire un breve dialogo siccome UomoBaita è contento che il lupo sia arrivato
+        hasEnteredTargetArea = true;
+        agent.SetDestination(targetEndTask.position);
+        agent.isStopped = false;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player")) animator.SetBool("nearPlayer", true);
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player") && !animator.GetBool("bait")) animator.SetBool("nearPlayer", false);
     }
 }
