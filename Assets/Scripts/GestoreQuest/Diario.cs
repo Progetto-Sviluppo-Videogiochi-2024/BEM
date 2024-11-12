@@ -83,7 +83,7 @@ public class Diario : MonoBehaviour
         {
             missioniAttive.Remove(missione);
             missioniCompletate.Add(missione);
-            Debug.Log("Missione completata: " + missione);
+            // Debug.Log("Missione completata: " + missione);
             AggiornaDiarioUI();
 
             // Invoca l'evento per notificare il completamento della missione

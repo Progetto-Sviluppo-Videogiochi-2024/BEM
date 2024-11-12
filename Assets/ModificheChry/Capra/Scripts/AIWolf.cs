@@ -1,4 +1,5 @@
 using System.Collections;
+using DialogueEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,10 +13,14 @@ public class AIWolf : MonoBehaviour
     private bool hasEnteredTargetArea = false; // Flag per controllare se il lupo è entrato nell'area target
     private bool isRotatingToAttack = false; // Flag per controllare se il lupo sta ruotando per attaccare
     public float rotationSpeed = 5f; // Velocità della rotazione per puntare il giocatore
+    private bool firstTimeSeeingPlayer = false; // Flag per controllare se è la prima volta che il lupo vede il giocatore
     #endregion
 
     [Header("References")]
     #region References
+    public AudioClip growl; // Riferimento al suono del ringhio
+    private AudioSource audioSource; // Riferimento all'audio source del lupo
+    public NPCConversation dialogue; // Riferimento al dialogo del lupo
     public Transform targetEndTask; // Punto in cui la quest termina
     private NavMeshAgent agent; // Agente di navigazione della lupo
     private Transform player; // Riferimento al giocatore
@@ -26,6 +31,7 @@ public class AIWolf : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -42,14 +48,9 @@ public class AIWolf : MonoBehaviour
                 if (!isRotatingToAttack)
                 {
                     isRotatingToAttack = true;
-                    StartCoroutine(RotateTowardsPlayerAndAttack());
+                    animator.SetTrigger("attack");
+                    // TODO: implementa il danno al giocatore (fare come per maynard)
                 }
-                return;
-            }
-            else if (IsNear(player, safeDistance)) // Se è poco vicino al lupo
-            {
-                // TODO: SFX ringhio
-                Debug.Log("Ringhio");
                 return;
             }
         }
@@ -60,6 +61,7 @@ public class AIWolf : MonoBehaviour
         {
             if (!IsNear(targetEndTask, stopThreshold)) return; // Se non è vicino al target, avvicinati
 
+            animator.SetFloat("speed", 0f);
             agent.stoppingDistance = stopThreshold;
             agent.velocity = Vector3.zero;
             agent.isStopped = true;
@@ -85,9 +87,6 @@ public class AIWolf : MonoBehaviour
             // Controlla se il lupo è allineato con il giocatore
             if (Quaternion.Angle(transform.rotation, lookRotation) < 5f)
             {
-                Debug.Log("Attacca");
-                animator.SetTrigger("attack");
-                // TODO: implementa il danno al giocatore (fare come per maynard)
                 isRotatingToAttack = false;
                 break;
             }
@@ -128,11 +127,32 @@ public class AIWolf : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) animator.SetBool("nearPlayer", true);
+        if (other.CompareTag("Player"))
+        {
+            animator.SetBool("nearPlayer", true);
+
+            if (animator.GetBool("bait")) return;
+            
+            if (!audioSource.isPlaying) audioSource.PlayOneShot(growl);
+            if (!firstTimeSeeingPlayer)
+            {
+                firstTimeSeeingPlayer = true;
+                ConversationManager.Instance.StartConversation(dialogue);
+            }
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player") && !animator.GetBool("bait")) StartCoroutine(RotateTowardsPlayerAndAttack());
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && !animator.GetBool("bait")) animator.SetBool("nearPlayer", false);
+        if (other.CompareTag("Player") && !animator.GetBool("bait"))
+        {
+            animator.SetBool("nearPlayer", false);
+            audioSource.Stop();
+        }
     }
 }

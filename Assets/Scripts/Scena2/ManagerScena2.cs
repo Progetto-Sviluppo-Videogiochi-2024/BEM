@@ -18,6 +18,8 @@ public class ManagerScena2 : MonoBehaviour
 
     [Header("References")]
     #region References
+    public AudioClip forestSound; // Suono della foresta
+    private AudioSource audioSource; // Riferimento all'audio source
     public NPCConversation intro;
     public Diario diario;
     public Animator lupo;
@@ -28,6 +30,12 @@ public class ManagerScena2 : MonoBehaviour
 
     void Start()
     {
+        // Inizializza l'audio source
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = forestSound;
+        audioSource.loop = true;
+        audioSource.Play();
+
         // Assegna il numero di dialoghi eseguiti in base alle missioni completate nel diario
         dialoghiEseguiti = diario.missioniCompletate.Count;
         diario.AggiungiMissione("Esplora la foresta (" + dialoghiEseguiti + " / " + dialoghiTotali + ")");

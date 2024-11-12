@@ -123,6 +123,7 @@ public class MovementStateManager : MonoBehaviour
         {
             animator.SetBool("inactive", true);
             animator.SetInteger("nInactive", 1);
+            elapsedTime = 0.0f;
         }
     }
 
