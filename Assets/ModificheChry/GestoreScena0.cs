@@ -35,6 +35,8 @@ public class GestoreScena0 : MonoBehaviour
         // Gestione del personaggio
         player = FindObjectOfType<Player>().gameObject;
         animator = player.GetComponent<Animator>();
+        animator.SetBool("inactive", true);
+        animator.SetInteger("nInactive", 1);
         animator.SetBool("sit", true);
         player.GetComponent<MovementStateManager>().enabled = false;
         animator.SetLayerWeight(animator.GetLayerIndex("Movement"), 0);

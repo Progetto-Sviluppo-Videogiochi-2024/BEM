@@ -19,8 +19,8 @@ public class BooleanAccessor : MonoBehaviour
         { "radio", false },
         { "cartello", false },
         { "tolto", false },
-        { "capra", false },
-        { "capraDone", false },
+        { "wolf", false },
+        { "wolfDone", false },
         { "fiore", false },
         { "soluzione", false }
     };

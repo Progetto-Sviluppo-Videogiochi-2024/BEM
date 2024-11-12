@@ -33,6 +33,12 @@ public class MovementStateManager : MonoBehaviour
     Vector3 spherePosition;
     #endregion
 
+    [Header("Inactivity Settings")]
+    #region Inactivity Settings
+    private readonly float idleTimeThreshold = 5.0f; // Tempo di inattività
+    public float elapsedTime = 0.0f; // Tempo trascorso dall'ultima inattività
+    #endregion
+
     [Header("States")]
     #region States
     public MovementBaseState currentState;
@@ -113,11 +119,19 @@ public class MovementStateManager : MonoBehaviour
 
     private void Inactive()
     {
-        if (!animator.GetBool("inactive") && CanInactivity())
+        if (!animator.GetBool("inactive") && CanInactivity() && CheckInactivityTimer())
         {
             animator.SetBool("inactive", true);
             animator.SetInteger("nInactive", 1);
         }
+    }
+
+    private bool CheckInactivityTimer()
+    {
+        if (h == 0 && v == 0 && !animator.GetBool("inactive")) elapsedTime += Time.deltaTime;
+        else elapsedTime = 0.0f;
+
+        return elapsedTime >= idleTimeThreshold;
     }
 
     private bool CanInactivity()

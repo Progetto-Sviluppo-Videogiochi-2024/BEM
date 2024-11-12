@@ -5,9 +5,7 @@ using DialogueEditor;
 
 public abstract class NPCDialogueBase : MonoBehaviour
 {
-    public NPCConversation dialogo;
-    public NPCConversation dialogo2;
-    public NPCConversation dialogo3;
+    public NPCConversation[] conversations; // Array di dialoghi
     public bool isConversationActive = false;  // Stato della conversazione
     private bool isInRange = false;  // Se il giocatore è nel raggio
 

@@ -1,57 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DialogueEditor;
 
-public class GaiaScript : MonoBehaviour
+public class GaiaScript : NPCDialogueBase
 {
-    public NPCConversation dialogo;
-    public NPCConversation dialogo2;
-
-    public static BooleanAccessor istance;
-
-    private bool isInRange;
-
-    private void Update()
+    protected override void StartDialogue()
     {
-        if (isInRange && Input.GetKeyDown(KeyCode.Space))
+        var booleanAccessor = BooleanAccessor.istance;
+        if (booleanAccessor != null)
         {
-            if (BooleanAccessor.istance != null)
+            var convManager = ConversationManager.Instance;
+            if (booleanAccessor.GetBoolFromThis("fiore") == false)
             {
-                if (BooleanAccessor.istance.GetBoolFromThis("fiore") == false)
-                {
-                    // Dialogo iniziale
-                    ConversationManager.Instance.StartConversation(dialogo);
-                    ConversationManager.Instance.SetBool("fiore", BooleanAccessor.istance.GetBoolFromThis("fiore"));
-                }
-                else
-                {
-                    // Dialogo successivo
-                    ConversationManager.Instance.StartConversation(dialogo2);
-                    ConversationManager.Instance.SetBool("soluzione", BooleanAccessor.istance.GetBoolFromThis("soluzione"));
-                }
+                // Dialogo iniziale
+                convManager.StartConversation(conversations[0]);
+                convManager.SetBool("fiore", booleanAccessor.GetBoolFromThis("fiore"));
             }
             else
             {
-                Debug.LogError("BooleanAccessor.instance non è stato inizializzato.");
+                // Dialogo successivo
+                convManager.StartConversation(conversations[1]);
+                convManager.SetBool("soluzione", booleanAccessor.GetBoolFromThis("soluzione"));
             }
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        else
         {
-            isInRange = true; // Imposta isInRange a true quando il giocatore entra
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isInRange = false; // Imposta isInRange a false quando il giocatore esce dall'area
-            ConversationManager.Instance.EndConversation();
+            Debug.LogError("BooleanAccessor.instance non è stato inizializzato.");
         }
     }
 }

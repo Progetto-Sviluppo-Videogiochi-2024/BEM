@@ -2277,9 +2277,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 2
-  json: "{\"Options\":[],\"Parameters\":[{\"__type\":\"EditableBoolParameter:#DialogueEditor\",\"ParameterName\":\"premereE\",\"BoolValue\":false}],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":254.9,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ciao
+  json: "{\"Options\":[],\"Parameters\":[{\"__type\":\"EditableBoolParameter:#DialogueEditor\",\"ParameterName\":\"premereE\",\"BoolValue\":false}],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":224.5,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ciao
     Player! Sono il tutorial di BEM, tranquillo, Stefano non pu\xF2 sentirci.\\r\\nClicca
-    su \\\"Continua\\\" o premi 'E' per avanzare con i dialoghi.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":253.199966,\"yPos\":178.400009},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Meglio
+    su \\\"Continua\\\" o premi 'E' per avanzare con i dialoghi.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":222.799973,\"yPos\":178.400009},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Meglio
     che preparo le cose se no far\xF2 tardi. Non voglio sentirmi Jacob incazzato
     per l'ennesima volta.\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
   saveVersion: 110
@@ -2293,7 +2293,19 @@ MonoBehaviour:
   EndConversationFont: {fileID: 0}
   Event:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 17239921}
+        m_TargetAssemblyTypeName: BooleanAccessor, Assembly-CSharp
+        m_MethodName: SetBoolOnDialogueE
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: premereE
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!4 &239218068 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4433314630135694, guid: 7eeb0cdde00cbd146872b82a9886b849, type: 3}
@@ -7322,6 +7334,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3493048315491332693, guid: a5692252a65d2784fad5bd6673ab750f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 926545361}
+    - targetCorrespondingSourceObject: {fileID: 3493048315491332693, guid: a5692252a65d2784fad5bd6673ab750f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 926545365}
   m_SourcePrefab: {fileID: 100100000, guid: a5692252a65d2784fad5bd6673ab750f, type: 3}
 --- !u!1 &926545358 stripped
 GameObject:
@@ -7368,6 +7383,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isOn: 1
   canInteract: 0
+--- !u!114 &926545365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926545358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08a1b27a68c7ab74da7dc2887f2c2944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: a1d9d8bbad1d1ab48a09fb177874134e, type: 2}
 --- !u!1001 &934088332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8440,6 +8468,7 @@ GameObject:
   - component: {fileID: 1013432645}
   - component: {fileID: 1013432647}
   - component: {fileID: 1013432648}
+  - component: {fileID: 1013432649}
   m_Layer: 0
   m_Name: 'Door '
   m_TagString: Untagged
@@ -8525,8 +8554,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12d187e72a6224c4ba47e6d0702f10ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  conversations:
+  - {fileID: 1348346929}
+  isConversationActive: 0
   canOpen: 0
-  DoorBlockedDialogue: {fileID: 1348346929}
   radio: {fileID: 926545361}
   gestoreScena: {fileID: 1582097249}
 --- !u!65 &1013432648
@@ -8550,6 +8581,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.98, y: 1.9925148, z: 1.83}
   m_Center: {x: 0.47, y: 0.9962574, z: -0.640548}
+--- !u!114 &1013432649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013432643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08a1b27a68c7ab74da7dc2887f2c2944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: dba109857b33b444aab6ac56896efd0e, type: 2}
 --- !u!1001 &1029860966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11075,7 +11119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6593187842531627380, guid: 9567790cb2b69f64982bee98cf004b79, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.1269913
+      value: 15.091796
       objectReference: {fileID: 0}
     - target: {fileID: 7087046262092775895, guid: 9567790cb2b69f64982bee98cf004b79, type: 3}
       propertyPath: m_AnchorMax.x

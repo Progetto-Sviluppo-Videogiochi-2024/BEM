@@ -1,12 +1,10 @@
 using UnityEngine;
 using DialogueEditor;
 
-
 public class ManagerScena2 : MonoBehaviour
 {
     public NPCConversation intro; // Tutorial smartphone
-    public Diario diario; 
-    
+    public Diario diario;
 
     // Dati missione scena2
     public int dialoghiTotali = 5; // Numero di dialoghi totali
@@ -19,27 +17,19 @@ public class ManagerScena2 : MonoBehaviour
     public bool cartelloInScena = true; // Il cartello è presente sulla barricata
 
     // Dati Inventario scena2
-    //To do: Inserire i dati dell'inventario
+    // TODO: Inserire i dati dell'inventario @ccorvino3 @marcoWarrior
 
-    // Start is called before the first frame update
     void Start()
     {
-        // Se non è stato assegnato un diario, cerca di trovarlo
-        if (diario == null)
-        {
-            diario = GetComponent<Diario>(); 
-        }
+        diario = GetComponent<Diario>();
 
         // Assegna il numero di dialoghi eseguiti in base alle missioni completate nel diario
         dialoghiEseguiti = diario.missioniCompletate.Count;
-        diario.AggiungiMissione("Esplora la foresta (" + dialoghiEseguiti + "/" + dialoghiTotali + ")");
+        diario.AggiungiMissione("Esplora la foresta (" + dialoghiEseguiti + " / " + dialoghiTotali + ")");
 
         // Avvia la conversazione iniziale
-        //ConversationManager.Instance.StartConversation(intro);
-
-
+        ConversationManager.Instance.StartConversation(intro);
     }
-
 
     private void OnEnable()
     {

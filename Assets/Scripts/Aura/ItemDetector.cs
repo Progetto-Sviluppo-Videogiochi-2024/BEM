@@ -40,10 +40,7 @@ public class ItemDetector : MonoBehaviour
                 GameObject item = hitCollider.gameObject;
                 if (!trackedItems.ContainsKey(item) || !trackedItems[item])
                 {
-                    if (item.GetComponent<Bordo>() == null)
-                    {
-                        item.AddComponent<Bordo>();
-                    }
+                    if (item.GetComponent<Bordo>() == null) item.AddComponent<Bordo>();
                     trackedItems[item] = true;
                 }
             }

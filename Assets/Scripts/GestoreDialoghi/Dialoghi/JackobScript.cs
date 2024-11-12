@@ -3,23 +3,23 @@ using DialogueEditor;
 
 public class JackobScript : NPCDialogueBase
 {
-    public static BooleanAccessor istance;
-
     protected override void StartDialogue()
     {
-        if (BooleanAccessor.istance != null)
+        var boolAccessor = BooleanAccessor.istance;
+        if (boolAccessor != null)
         {
-            if (BooleanAccessor.istance.GetBoolFromThis("cartello") == false)
+            var convManager = ConversationManager.Instance;
+            if (boolAccessor.GetBoolFromThis("cartello") == false)
             {
                 // Dialogo iniziale
-                StartConversation(dialogo);
-                ConversationManager.Instance.SetBool("cartello", BooleanAccessor.istance.GetBoolFromThis("cartello"));
+                StartConversation(conversations[0]);
+                convManager.SetBool("cartello", boolAccessor.GetBoolFromThis("cartello"));
             }
             else
             {
                 // Dialogo successivo
-                StartConversation(dialogo2);
-                ConversationManager.Instance.SetBool("tolto", BooleanAccessor.istance.GetBoolFromThis("tolto"));
+                StartConversation(conversations[1]);
+                convManager.SetBool("tolto", boolAccessor.GetBoolFromThis("tolto"));
             }
         }
         else
