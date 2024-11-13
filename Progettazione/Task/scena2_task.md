@@ -48,7 +48,7 @@ QUEST GIOCO:
   - Appena si avvia scena2 il personaggio fa un monologo dove esclama "Dove sono gli altri? Vado a cercarli" **COMPLETATA**
     - ~~L'unica attività presente in questo momento sarà "Esplora la foresta (0/5)" che compare se viene premuto 'Q' ~~
   
-  - Riporta la pecora alla baita (Assegnata dall'Uomo Baita)
+  - Riporta il lupo Layal alla baita (Assegnata dall'Uomo Baita) **QUASI COMPLETATA** 
     - **Obbligatoria**: Ricompensa dopo aver completato la task: Apprendimento e utilizzo di un'arma a distanza
   
   - Raccogli 3 violette assegnata da Gaia
