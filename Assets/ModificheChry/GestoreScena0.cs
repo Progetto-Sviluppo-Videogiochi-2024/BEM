@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using DialogueEditor;
+using Cinemachine;
 
 public class GestoreScena0 : MonoBehaviour
 {
@@ -12,9 +13,8 @@ public class GestoreScena0 : MonoBehaviour
 
     [Header("Camere")]
     #region Camere
-    public Camera display1Camera; // Camera principale
-    public Camera display2Camera; // Camera secondaria
-    private bool isDisplay1Active = false; // Indica se la camera principale è attiva
+    public CinemachineVirtualCamera startViewCam;
+    public CinemachineVirtualCamera behindPlayerCam;
     #endregion
 
     [Header("References")]
@@ -29,8 +29,8 @@ public class GestoreScena0 : MonoBehaviour
 
     void Start()
     {
-        // cambiare la camera a runtime
-        SwitchCamera(2);
+        // Switch delle camere
+        SwitchCamera(5, 10);
 
         // Gestione del personaggio
         player = FindObjectOfType<Player>().gameObject;
@@ -73,18 +73,10 @@ public class GestoreScena0 : MonoBehaviour
         }
     }
 
-    private void SwitchCamera(int displayNumber)
+    private void SwitchCamera(int priority_vcam1, int priority_vcam2)
     {
-        if (displayNumber == 1) // Display 1 (principale)
-        {
-            display1Camera.targetDisplay = 0;
-            display2Camera.targetDisplay = 1;
-        }
-        else // Display 2 (secondario)
-        {
-            display1Camera.targetDisplay = 1;
-            display2Camera.targetDisplay = 0;
-        }
+        behindPlayerCam.Priority = priority_vcam1;
+        startViewCam.Priority = priority_vcam2;
     }
 
     private void HideBackPack() => backPackPlayer.SetActive(PlayerPrefs.GetInt("hasBackpack") == 1);
@@ -94,8 +86,7 @@ public class GestoreScena0 : MonoBehaviour
         if (!BooleanAccessor.istance.GetBoolFromThis("wasd") && animator.GetBool("sit") && ConversationManager.Instance.hasClickedEnd)
         {
             ConversationManager.Instance.hasClickedEnd = false;
-            isDisplay1Active = !isDisplay1Active;
-            SwitchCamera(isDisplay1Active ? 1 : 2);
+            SwitchCamera(10, 5);
 
             animator.SetBool("sit", false);
             animator.SetTrigger("standUp");

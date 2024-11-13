@@ -68,7 +68,6 @@ public class ItemPickup : MonoBehaviour
         // Verifica se l'oggetto è già stato aggiunto
         if (!isItemAdded && animator.GetBool("pickingUp"))
         {
-            Debug.Log("Item picked up: " + item.nameItem);
             if (item.tagType != Item.ItemTagType.Scene)
             {
                 if (item.tagType == Item.ItemTagType.Weapon)

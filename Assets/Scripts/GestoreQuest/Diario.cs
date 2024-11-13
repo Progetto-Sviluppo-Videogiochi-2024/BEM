@@ -91,7 +91,7 @@ public class Diario : MonoBehaviour
         }
         else
         {
-            Debug.Log("La missione non è presente nel diario.");
+            // Debug.Log("La missione non è presente nel diario.");
         }
     }
 
@@ -112,46 +112,33 @@ public class Diario : MonoBehaviour
         // Aggiunge le missioni completate prima
         foreach (string missione in missioniCompletate)
         {
-            GameObject missionObj = Instantiate(missionPrefab, content);
-            TMP_Text missionText = missionObj.GetComponent<TMP_Text>();
-            if (missionText != null)
-            {
-                missionText.text = "<s>- " + missione + "</s>"; // Applicazione dello strikethrough per le completate
-            }
-            else
-            {
-                Debug.LogError("Prefab di missione non ha un componente TMP_Text!");
-            }
+            SetMissione("<s>- " + missione + "</s>"); // Applicazione dello strikethrough per le completate
         }
 
         // Aggiunge le missioni attive
         foreach (string missione in missioniAttive)
         {
-            GameObject missionObj = Instantiate(missionPrefab, content);
-            TMP_Text missionText = missionObj.GetComponent<TMP_Text>();
-            if (missionText != null)
-            {
-                missionText.text = "- " + missione;
-            }
-            else
-            {
-                Debug.LogError("Prefab di missione non ha un componente TMP_Text!");
-            }
+            SetMissione("- " + missione);
         }
 
         // Se non ci sono missioni attive o completate, mostra "Nessuna attività"
         if (missioniAttive.Count == 0 && missioniCompletate.Count == 0)
         {
-            GameObject missionObj = Instantiate(missionPrefab, content);
-            TMP_Text missionText = missionObj.GetComponent<TMP_Text>();
-            if (missionText != null)
-            {
-                missionText.text = "Nessuna attività";
-            }
-            else
-            {
-                Debug.LogError("Prefab di missione non ha un componente TMP_Text!");
-            }
+            SetMissione("Nessuna attività");
+        }
+    }
+
+    private void SetMissione(string missione)
+    {
+        GameObject missionObj = Instantiate(missionPrefab, content);
+        TMP_Text missionText = missionObj.GetComponent<TMP_Text>();
+        if (missionText != null)
+        {
+            missionText.text = missione;
+        }
+        else
+        {
+            Debug.LogError("Prefab di missione non ha un componente TMP_Text!");
         }
     }
 }
