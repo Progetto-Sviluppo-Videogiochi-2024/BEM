@@ -19,7 +19,7 @@ public class BooleanAccessor : MonoBehaviour
         { "zaino", false },
         { "radio", false },
         { "cartello", false },
-        { "tolto", false },
+        { "cartelloDone", false },
         { "wolf", false },
         { "wolfDone", false },
         { "fiore", false },
@@ -56,5 +56,4 @@ public class BooleanAccessor : MonoBehaviour
             boolValues[key] = false; // Resetta tutti i valori booleani
         }
     }
-
 }

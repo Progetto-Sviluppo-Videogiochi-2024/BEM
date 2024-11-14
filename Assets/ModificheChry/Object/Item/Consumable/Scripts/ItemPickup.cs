@@ -77,13 +77,14 @@ public class ItemPickup : MonoBehaviour
                 }
                 InventoryManager.instance.Add(item);
                 InventoryUIController.instance.ListItems(InventoryManager.instance.items);
+
             }
             FindObjectOfType<GestoreScena>().SetItemScene(item);
 
             isItemAdded = true;
 
             FindObjectOfType<Player>().GetComponent<ItemDetector>().RemoveItemDetection(gameObject);
-            Destroy(gameObject);
+            if (item.canDestroy) Destroy(gameObject);
         }
 
         animator.SetBool("pickingUp", false);

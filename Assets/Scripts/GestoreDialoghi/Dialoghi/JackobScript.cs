@@ -19,7 +19,7 @@ public class JackobScript : NPCDialogueBase
             {
                 // Dialogo successivo
                 StartConversation(conversations[1]);
-                convManager.SetBool("tolto", boolAccessor.GetBoolFromThis("tolto"));
+                convManager.SetBool("cartelloDone", boolAccessor.GetBoolFromThis("cartelloDone"));
             }
         }
         else

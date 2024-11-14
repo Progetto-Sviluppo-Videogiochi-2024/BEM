@@ -34,6 +34,7 @@ public class Item : ScriptableObject
     public bool isUsable; // Usabilità dell'oggetto (true se usabile, false se non usabile)
     public bool isShooting; // Sparabilità dell'oggetto (true se sparabile, false se non sparabile)
     public bool isPickUp; // Raccoglibilità dell'oggetto (true se raccoglibile, false se non raccoglibile)
+    public bool canDestroy; // Distruttibilità dell'oggetto (true se distruttibile, false se non distruttibile)
 
     [Tooltip("Presenza dell'oggetto nella lista degli oggetti craftabili")]
     public bool isInCraft; // Presenza dell'oggetto nella lista degli oggetti craftabili (true se presente, false se non presente)
