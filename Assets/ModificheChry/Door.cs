@@ -16,7 +16,7 @@ public class Door : NPCDialogueBase
 
     protected override void StartDialogue()
     {
-        if (!canOpen && radio.isOn) // Se la radio è accesa e non può aprire la porta (oggetti non raccolti)
+        if (!canOpen || radio.isOn) // Se la radio è accesa e non può aprire la porta (oggetti non raccolti)
         {
             ConversationManager.Instance.StartConversation(conversations[0]);
         }

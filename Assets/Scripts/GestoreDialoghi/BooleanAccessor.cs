@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class BooleanAccessor : MonoBehaviour
 {
@@ -47,4 +48,13 @@ public class BooleanAccessor : MonoBehaviour
     }
 
     public bool GetBoolFromThis(string nomeBool) => boolValues.ContainsKey(nomeBool) && boolValues[nomeBool];
+
+    public void ResetBoolValues()
+    {
+        foreach (var key in boolValues.Keys.ToList())
+        {
+            boolValues[key] = false; // Resetta tutti i valori booleani
+        }
+    }
+
 }
