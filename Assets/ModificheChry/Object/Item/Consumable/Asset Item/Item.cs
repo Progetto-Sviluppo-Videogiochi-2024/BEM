@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Create New Item")]
@@ -75,4 +76,5 @@ public class Item : ScriptableObject
         Scene // Oggetti di scena ma non presenti nell'inventario
         // trofei? altro ?
     }
+
 }

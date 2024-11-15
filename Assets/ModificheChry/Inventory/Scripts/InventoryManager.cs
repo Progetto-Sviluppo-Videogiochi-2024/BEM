@@ -194,4 +194,24 @@ public class InventoryManager : MonoBehaviour
             // TODO: script che tiene conto dell'item equipaggiato
         }
     }
+
+    public int GetQtaItem(string ItemName)
+    {
+        foreach (var item in items)
+        {
+            if (item.nameItem == ItemName)
+            {
+                return item.qta;
+            }
+        }
+        return 0;
+    }
+
+    public void AddItem(Item item)
+    {
+        items.Add(item);
+    }
 }
+
+
+

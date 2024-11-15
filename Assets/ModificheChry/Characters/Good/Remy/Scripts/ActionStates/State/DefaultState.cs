@@ -29,6 +29,19 @@ public class DefaultState : ActionBaseState
 
     private bool CanReload(ActionStateManager action)
     {
+        // Controlla se 'action' o 'weaponAmmo' è null
+        if (action == null)
+        {
+            Debug.LogWarning("CanReload: ActionStateManager is null");
+            return false;
+        }
+
+        if (action.weaponAmmo == null)
+        {
+            Debug.LogWarning("CanReload: weaponAmmo is null");
+            return false;
+        }
+
         if (action.weaponAmmo.leftAmmo == action.weaponAmmo.clipSize) return false;
         else if (action.weaponAmmo.extraAmmo == 0) return false;
         else return true;

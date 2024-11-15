@@ -4,8 +4,8 @@ using System.Linq;
 
 public class ManagerScena2 : MonoBehaviour
 {
-    // Dati missione scena2
-    [Header("Dati Missione")]
+    // Dati scena2
+    [Header("Dati Scena2")]
     #region Dati Missione
     public int dialoghiTotali = 5; // Numero di dialoghi totali
     public int dialoghiEseguiti; // Numero di dialoghi eseguiti 
@@ -13,7 +13,6 @@ public class ManagerScena2 : MonoBehaviour
     public int documentiRaccolti = 0; // Numero di documenti raccolti
     public int violeTotali = 15; // Numero di viole totali
     public int violeRaccolte = 0; // Numero di viole raccolte
-    public bool cartelloInScena = true; // Il cartello è presente sulla barricata
     #endregion
 
     [Header("References")]
@@ -47,6 +46,7 @@ public class ManagerScena2 : MonoBehaviour
     void Update()
     {
         if (!lupo.GetBool("bait") && PlayerHasBait()) lupo.SetBool("bait", true);
+        if (InventoryManager.instance.GetQtaItem("Viola") >= 3) BooleanAccessor.istance.SetBoolOnDialogueE("fioriRaccolti");
     }
 
     private void OnEnable()

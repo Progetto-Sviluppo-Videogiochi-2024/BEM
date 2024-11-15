@@ -22,7 +22,8 @@ public class BooleanAccessor : MonoBehaviour
         { "cartelloDone", false },
         { "wolf", false },
         { "wolfDone", false },
-        { "fiore", false },
+        { "fioriRaccolti", false },
+        { "fiori", false },
         { "soluzione", false }
     };
     #endregion
