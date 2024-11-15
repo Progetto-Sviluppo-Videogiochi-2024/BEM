@@ -9,6 +9,7 @@ public class Ammo : ScriptableObject
     public int nAmmo = 0; // Numero di munizioni per caricatore
     public int maxAmmo = 0; // Numero massimo di munizioni
     public float damageAmmo = 0; // Danno delle munizioni
+    public bool canDestroy; // Possibilità di distruggere l'arma
 
     public enum AmmoType
     {

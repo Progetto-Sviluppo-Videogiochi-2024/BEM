@@ -32,7 +32,7 @@ public class ItemPickup : MonoBehaviour
     {
         if (isPlayerInRange && item.isPickUp) // Se è vicino a un oggetto raccoglibile
         {
-            // if (Input.GetMouseButtonDown(0) && CheckClickMouseItem()) PickUp(); else
+            // if (Input.GetMouseButtonDown(0) && CheckClickMouseItem()) PickUp(); else // TODO: commentato perché bisogna capire se lasciamo il click
             if (!animator.GetBool("pickingUp") && Input.GetKeyDown(KeyCode.Space)) PickUp();
             else if (animator.GetBool("pickingUp") && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))) CancelPickup();
         }

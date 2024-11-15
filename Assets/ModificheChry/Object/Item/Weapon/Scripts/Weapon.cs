@@ -7,7 +7,6 @@ public class Weapon : Item // Weapon estende Item
     public WeaponType weaponType; // Tipo di arma (da mischia, da fuoco)
     public RangeType rangeType; // Tipo di raggio (corto, medio)
     public Ammo ammo; // Munizioni dell'arma (se applicabile)
-
     public bool isThrowable; // Se l'arma è da lancio (coltelli, bottiglie)
     
     [Header("Positioning Weapon in Hands")]

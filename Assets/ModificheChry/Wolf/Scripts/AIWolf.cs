@@ -37,9 +37,9 @@ public class AIWolf : MonoBehaviour
 
     void Update()
     {
+        var boolAccessor = BooleanAccessor.istance;
+        if (boolAccessor.GetBoolFromThis("wolfDone")) { this.enabled = false; return; }
         if (agent == null || !agent.isActiveAndEnabled || !agent.isOnNavMesh) return; // Se l'agente non è attivo o non è sulla navmesh
-
-        // if (quest = completata) this.enabled = false; // Se la quest è completata, disattiva lo script (non avrebbe senso eseguire il resto del codice)
 
         if (!animator.GetBool("bait")) // Se il player non ha interagito con l'esca
         {
@@ -51,11 +51,11 @@ public class AIWolf : MonoBehaviour
                     animator.SetTrigger("attack");
                     // TODO: implementa il danno al giocatore (fare come per maynard)
                 }
-                return;
             }
+            return;
         }
 
-        if (!animator.GetBool("nearPlayer") /*&& quest non attiva*/) return; // Se non gli sono vicino e la quest non è attiva (non ha dialogato con UomoBaita), ringhia e attacca solo)
+        if (!animator.GetBool("nearPlayer") && !boolAccessor.GetBoolFromThis("wolf")) return; // Se non gli sono vicino e non ha dialogato con uomo baita
 
         if (hasEnteredTargetArea) // Se il lupo è entrato nell'area target
         {
@@ -66,7 +66,7 @@ public class AIWolf : MonoBehaviour
             agent.velocity = Vector3.zero;
             agent.isStopped = true;
             agent.ResetPath();
-            // quest = completata
+            boolAccessor.SetBoolOnDialogueE("wolfDone");
             return;
         }
         else FollowPlayer(); // Se ha l'esca, non è vicino al target e la quest è attiva e non completata
@@ -117,7 +117,6 @@ public class AIWolf : MonoBehaviour
 
     public void WolfInArea()
     {
-        // BooleanAccessor.istance.SetBoolOnDialogueE("wolfIsInArea", true);
         // lupo potrebbe "ululare" (SFX) appena entra nell'area
         // Al max da qui potresti far partire un breve dialogo siccome UomoBaita è contento che il lupo sia arrivato
         hasEnteredTargetArea = true;

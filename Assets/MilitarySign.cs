@@ -7,7 +7,7 @@ public class MilitarySign : MonoBehaviour
     #region Settings
     private bool isInRange = false; // Se il player è vicino al cartello
     private bool isInHand = false; // Se il cartello è in mano al player
-    private Transform signPosition; // Posizione iniziale del cartello
+    [HideInInspector] public bool canLeft = false; // Se il cartello può essere lasciato (appena si allontana dal trigger)
     #endregion
 
     [Header("References")]
@@ -18,45 +18,38 @@ public class MilitarySign : MonoBehaviour
 
     void Start()
     {
+        GetComponent<ItemPickup>().enabled = false;
         tooltip.SetActive(false);
-        signPosition = gameObject.transform;
     }
 
     void Update()
     {
         var boolAccessor = BooleanAccessor.istance;
-        if (boolAccessor.GetBoolFromThis("cartelloDone")) {this.enabled = false; return; } // Se la quest è completata disabilita lo script
+        if (boolAccessor.GetBoolFromThis("cartelloDone")) { this.enabled = false; return; } // Se la quest è completata disabilita lo script
         if (!boolAccessor.GetBoolFromThis("cartello") || !isInRange) return; // Se non ha parlato con Jacob o non è vicino al cartello
-        
-        print("secondo if passato");
+
         if (!isInHand && isInRange && Input.GetKeyDown(KeyCode.Space))
         {
+            GetComponent<ItemPickup>().enabled = false;
             gameObject.transform.SetParent(handPlayer);
             isInHand = true;
-            print("Cartello in mano");
         }
 
         if (isInHand)
         {
-            float distance = Vector3.Distance(signPosition.position, handPlayer.root.position);
-            if (distance > 10f) // TODO: da testare se 10f è troppo distante
+            if (canLeft)
             {
-                print("Posso lasciare il cartello");
                 tooltip.SetActive(true);
                 tooltip.transform.GetComponentInChildren<TextMeshProUGUI>().text = "Qui posso lasciare il cartello";
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    print("Cartello lasciato");
                     gameObject.transform.SetParent(null);
                     isInHand = false;
                     tooltip.SetActive(false);
                     boolAccessor.SetBoolOnDialogueE("cartelloDone");
                 }
             }
-            else // Se la posizione in cui lasciarlo è troppo vicina a dov'era prima
-            {
-                tooltip.SetActive(false);
-            }
+            else tooltip.SetActive(false); // Se la posizione in cui lasciarlo è troppo vicina a dov'era prima
         }
     }
 
@@ -65,6 +58,7 @@ public class MilitarySign : MonoBehaviour
         if (other.CompareTag("Player") && BooleanAccessor.istance.GetBoolFromThis("cartello"))
         {
             isInRange = _isInRange;
+            GetComponent<ItemPickup>().enabled = _isInRange;
         }
     }
 
@@ -77,8 +71,4 @@ public class MilitarySign : MonoBehaviour
     {
         PlayerTrigger(other, false);
     }
-
-    // appena il pg si avvicina e preme space il cartello scompare e riappare sulle mani del pg
-    // a una certa distanza da dove era prima comparirà il tooltip con il testo "Premere E per lasciare il cartello"
-    // aggiornare il DE
 }

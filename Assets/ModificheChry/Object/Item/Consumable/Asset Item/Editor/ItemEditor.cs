@@ -13,6 +13,7 @@ public class ItemEditor : Editor
         EditorGUILayout.LabelField("General Info", EditorStyles.boldLabel);
         item.nameItem = EditorGUILayout.TextField(new GUIContent("Item Name", "Nome dell'oggetto"), item.nameItem);
         item.tagType = (Item.ItemTagType)EditorGUILayout.EnumPopup(new GUIContent("Tag Type", "Tipo di tag dell'oggetto"), item.tagType);
+        item.canDestroy = EditorGUILayout.Toggle(new GUIContent("Can Destroy", "Possibilità di distruggere l'oggetto (true se distruttibile, false se non distruttibile)"), item.canDestroy);
 
         if (item.tagType == Item.ItemTagType.Scene)
         {
