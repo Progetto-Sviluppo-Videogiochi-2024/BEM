@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -14,12 +15,16 @@ public class MilitarySign : MonoBehaviour
     #region References
     public Transform handPlayer; // Posizione in cui il cartello verrà tenuto (mano del player)
     public GameObject tooltip; // Tooltip per indicare che può lasciare il cartello
+    private Rigidbody rb; // Rigidbody del cartello
+    public Diario diario; // Riferimento al diario
     #endregion
 
     void Start()
     {
         GetComponent<ItemPickup>().enabled = false;
         tooltip.SetActive(false);
+        rb = GetComponent<Rigidbody>();
+        SetRigidbody(true);
     }
 
     void Update()
@@ -32,25 +37,47 @@ public class MilitarySign : MonoBehaviour
         {
             GetComponent<ItemPickup>().enabled = false;
             gameObject.transform.SetParent(handPlayer);
+            gameObject.transform.SetLocalPositionAndRotation(new(-0.51f, 1.491f, -0.21f), Quaternion.Euler(-236.603f, 46.45799f, -96.40601f));
             isInHand = true;
+            SetRigidbody(true);
         }
 
         if (isInHand)
         {
-            if (canLeft)
+            if (canLeft) // Se la posizione in cui lasciarlo è distante da dov'era prima
             {
-                tooltip.SetActive(true);
-                tooltip.transform.GetComponentInChildren<TextMeshProUGUI>().text = "Qui posso lasciare il cartello";
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     gameObject.transform.SetParent(null);
+                    gameObject.transform.position += new Vector3(0, 0.1f, 0);
                     isInHand = false;
-                    tooltip.SetActive(false);
+                    SetRigidbody(false);
                     boolAccessor.SetBoolOnDialogueE("cartelloDone");
+                    diario.CompletaMissione("Togli il cartello");
                 }
             }
-            else tooltip.SetActive(false); // Se la posizione in cui lasciarlo è troppo vicina a dov'era prima
+            else // Se la posizione in cui lasciarlo è troppo vicina a dov'era prima
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    tooltip.SetActive(true);
+                    tooltip.transform.GetComponentInChildren<TextMeshProUGUI>().text = "Qui è ancora troppo in vista";
+                    StartCoroutine(DisableTooltip());
+                }
+            }
         }
+    }
+
+    private IEnumerator DisableTooltip()
+    {
+        yield return new WaitForSeconds(2);
+        tooltip.SetActive(false);
+    }
+
+    private void SetRigidbody(bool _isKinematic)
+    {
+        rb.isKinematic = _isKinematic;
+        rb.useGravity = !_isKinematic;
     }
 
     private void PlayerTrigger(Collider other, bool _isInRange)

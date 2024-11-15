@@ -1,21 +1,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using DialogueEditor;
 
 public class Diario : MonoBehaviour
 {
-    public List<string> missioniAttive = new List<string>();
-    public List<string> missioniCompletate = new List<string>();
+    [Header("Settings")]
+    #region Settings
+    private bool diarioVisibile = false;
+    #endregion
+
+    [Header("Structure Data")]
+    #region Structure Data
+    public List<string> missioniAttive = new();
+    public List<string> missioniCompletate = new();
+    #endregion
+
+    [Header("UI Data")]
+    #region UI Data
     public GameObject missionPrefab;
     public Transform content;
     public GameObject scrollView;
+    #endregion
 
-    private bool diarioVisibile = false;
-
-    // Definizione del delegato
+    // Eventi delegati
+    #region Events
     public delegate void MissionCompletedDelegate(string missione);
     public event MissionCompletedDelegate OnMissionCompleted;
+    #endregion
 
     void Start()
     {

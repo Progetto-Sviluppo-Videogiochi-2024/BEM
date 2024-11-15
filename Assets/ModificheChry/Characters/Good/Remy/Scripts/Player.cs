@@ -1,19 +1,25 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    [Header("Singleton")]
+    #region Singleton
     public static Player instance;
+    #endregion
 
     [Header("Player Components")]
+    #region Player Components
     public int health = 100;
     public int stamina = 100;
     public int sanita_mentale = 100; // TODO: da cambiare
+    #endregion
 
     [Header("Player Bars Components")]
+    #region Player Bars Components
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI staminaText;
+    #endregion
 
     private void Awake()
     {
