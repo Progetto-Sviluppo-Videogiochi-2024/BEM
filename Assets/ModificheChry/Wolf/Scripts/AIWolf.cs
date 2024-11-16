@@ -7,6 +7,7 @@ public class AIWolf : MonoBehaviour
 {
     [Header("Settings")]
     #region Settings
+    private bool isAttacking = false; // Flag per controllare se il lupo sta attaccando
     private bool hasEnteredTargetArea = false; // Flag per controllare se il lupo è entrato nell'area target
     private bool isRotatingToAttack = false; // Flag per controllare se il lupo sta ruotando per attaccare
     private bool firstTimeSeeingPlayer = false; // Flag per controllare se è la prima volta che il lupo vede il giocatore
@@ -29,7 +30,7 @@ public class AIWolf : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = FindAnyObjectByType<Player>().transform;
     }
 
     void Update()
@@ -40,15 +41,12 @@ public class AIWolf : MonoBehaviour
 
         if (!animator.GetBool("bait")) // Se il player non ha interagito con l'esca
         {
-            if (IsNear(player, wolf.distanceAttackMelee / 2)) // Se è troppo vicino al lupo
+            if (IsNear(player, wolf.distanceAttackMelee) && !isAttacking && !isRotatingToAttack) // Se è troppo vicino al lupo
             {
-                if (!isRotatingToAttack)
-                {
-                    isRotatingToAttack = true;
-                    animator.SetTrigger("attack");
-                    if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, wolf.distanceAttackMelee) &&
-                        hit.collider.CompareTag("Player")) Hit(hit);
-                }
+                isAttacking = true;
+                isRotatingToAttack = true;
+                animator.SetTrigger("attack");
+                // Invoke(nameof(PerformRaycastAttack), 0.5f);
             }
             return;
         }
@@ -58,13 +56,7 @@ public class AIWolf : MonoBehaviour
         if (hasEnteredTargetArea) // Se il lupo è entrato nell'area target
         {
             if (!IsNear(targetEndTask, wolf.stopDistance)) return; // Se non è vicino al target, avvicinati
-
-            animator.SetFloat("speed", 0f);
-            agent.stoppingDistance = wolf.stopDistance;
-            agent.velocity = Vector3.zero;
-            agent.isStopped = true;
-            agent.ResetPath();
-            boolAccessor.SetBoolOnDialogueE("wolfDone");
+            ResetAtTarget(boolAccessor);
             return;
         }
         else FollowPlayer(); // Se ha l'esca, non è vicino al target e la quest è attiva e non completata
@@ -94,11 +86,21 @@ public class AIWolf : MonoBehaviour
         agent.isStopped = false;
     }
 
-    private void Hit(RaycastHit hit)
+    public void PerformRaycastAttack() // Invocata da attack nell'animation del lupo
     {
-        var player = hit.transform.root.GetComponent<Player>();
-        print(player);
-        player?.UpdateHealth(wolf.melee1Damage);
+        if (!isAttacking) return;
+
+        Vector3 rayDirection = (player.position - transform.position).normalized;
+        if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, wolf.distanceAttackMelee))
+        {
+            var player = hit.collider.transform.root.GetChild(0).GetComponent<Player>();
+            print(player);
+            if (player != null)
+            {
+                player.UpdateHealth(wolf.melee1Damage);
+            }
+        }
+        isAttacking = false;
     }
 
     private void FollowPlayer()
@@ -121,10 +123,20 @@ public class AIWolf : MonoBehaviour
 
     public void WolfInArea()
     {
-        // Breve dialogo siccome ad es UomoBaita è contento che il lupo sia arrivato
+        // Breve dialogo siccome ad es UomoBaita è contento che il lupo sia arrivato: creare uno script che deriva da dialogue base e che ha una funzione (da invocare qui)
         hasEnteredTargetArea = true;
         agent.SetDestination(targetEndTask.position);
         agent.isStopped = false;
+    }
+
+    private void ResetAtTarget(BooleanAccessor boolAccessor)
+    {
+        animator.SetFloat("speed", 0f);
+        agent.stoppingDistance = wolf.stopDistance;
+        agent.velocity = Vector3.zero;
+        agent.isStopped = true;
+        agent.ResetPath();
+        boolAccessor.SetBoolOnDialogueE("wolfDone");
     }
 
     void OnTriggerEnter(Collider other)
