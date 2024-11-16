@@ -10,7 +10,7 @@ public class Door : NPCDialogueBase
 
     [Header("References")]
     #region References
-    public Radio radio; // Riferimento alla radio
+    public RadioTutorial radio; // Riferimento alla radio
     public GestoreScena gestoreScena; // Riferimento al GestoreScena
     #endregion
 

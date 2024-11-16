@@ -78,7 +78,7 @@ public class GamePlayMenuManager : MonoBehaviour
         ResumeGame(); // Chiude il menu principale per aprire le opzioni
     }
 
-    private void QuitGame()
+    public void QuitGame()
     {
         Application.Quit();
     }
