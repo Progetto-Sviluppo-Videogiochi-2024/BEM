@@ -10,7 +10,7 @@ public class AIWolf : MonoBehaviour
     private bool isAttacking = false; // Flag per controllare se il lupo sta attaccando
     private bool hasEnteredTargetArea = false; // Flag per controllare se il lupo è entrato nell'area target
     private bool isRotatingToAttack = false; // Flag per controllare se il lupo sta ruotando per attaccare
-    private bool firstTimeSeeingPlayer = false; // Flag per controllare se è la prima volta che il lupo vede il giocatore
+    private bool firstTimeSeeingPlayer = false; // Flag per controllare se è la prima volta che il lupo vede il player
     #endregion
 
     [Header("References")]
@@ -20,7 +20,7 @@ public class AIWolf : MonoBehaviour
     public NPCConversation dialogue; // Riferimento al dialogo del lupo
     public Transform targetEndTask; // Riferimento al punto in cui la quest termina
     private NavMeshAgent agent; // Riferimento all'Agente di navigazione del lupo
-    private Transform player; // Riferimento al giocatore
+    private Transform player; // Riferimento al player
     private Animator animator; // Riferimento all'animator del lupo
     public AI wolf; // Riferimento allo scriptable object dell'AI del lupo
     #endregion
@@ -41,12 +41,11 @@ public class AIWolf : MonoBehaviour
 
         if (!animator.GetBool("bait")) // Se il player non ha interagito con l'esca
         {
-            if (IsNear(player, wolf.distanceAttackMelee) && !isAttacking && !isRotatingToAttack) // Se è troppo vicino al lupo
+            if (CanAttack()) // Se può attaccare il player
             {
                 isAttacking = true;
                 isRotatingToAttack = true;
-                animator.SetTrigger("attack");
-                // Invoke(nameof(PerformRaycastAttack), 0.5f);
+                animator.SetTrigger("attack"); // Durante l'animazione di attacco, verrà invocata la funzione PerformRaycastAttack
             }
             return;
         }
@@ -56,11 +55,17 @@ public class AIWolf : MonoBehaviour
         if (hasEnteredTargetArea) // Se il lupo è entrato nell'area target
         {
             if (!IsNear(targetEndTask, wolf.stopDistance)) return; // Se non è vicino al target, avvicinati
-            ResetAtTarget(boolAccessor);
+            ResetAtTarget(boolAccessor); // Se è vicino al target, resetta
             return;
         }
         else FollowPlayer(); // Se ha l'esca, non è vicino al target e la quest è attiva e non completata
     }
+
+    private bool CanAttack() => 
+        IsNear(player, wolf.distanceAttackMelee) && // Se il player è abbastanza vicino
+        !isAttacking && // Se non sta già attaccando
+        !isRotatingToAttack && // Se non sta già ruotando per attaccare
+        !player.GetComponent<Player>().isDead; // Se il player non è morto
 
     private bool IsNear(Transform target, float distance) => Vector3.Distance(transform.position, target.position) <= distance;
 
@@ -74,8 +79,7 @@ public class AIWolf : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * wolf.rotationSpeed);
 
-            // Controlla se il lupo è allineato con il giocatore
-            if (Quaternion.Angle(transform.rotation, lookRotation) < 5f)
+            if (Quaternion.Angle(transform.rotation, lookRotation) < 5f) // Se è allineato con il player
             {
                 isRotatingToAttack = false;
                 break;
@@ -88,27 +92,22 @@ public class AIWolf : MonoBehaviour
 
     public void PerformRaycastAttack() // Invocata da attack nell'animation del lupo
     {
-        if (!isAttacking) return;
+        if (!isAttacking) return; // Se non sta attaccando, non fare nulla
 
         Vector3 rayDirection = (player.position - transform.position).normalized;
-        if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, wolf.distanceAttackMelee))
+        if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, wolf.distanceAttackMelee)) // Se colpisce il player
         {
-            var player = hit.collider.transform.root.GetChild(0).GetComponent<Player>();
-            print(player);
-            if (player != null)
-            {
-                player.UpdateHealth(wolf.melee1Damage);
-            }
+            hit.collider.transform.root.GetChild(0).GetComponent<Player>()?.UpdateHealth(wolf.melee1Damage);
         }
         isAttacking = false;
     }
 
     private void FollowPlayer()
     {
-        // Ottieni la distanza tra il lupo e il giocatore
+        // Ottieni la distanza tra il lupo e il player
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        if (distanceToPlayer > wolf.maxSightDistance) // Se il giocatore è abbastanza lontano, il lupo lo segue
+        if (distanceToPlayer > wolf.maxSightDistance) // Se il player è abbastanza lontano, il lupo lo segue
         {
             animator.SetFloat("speed", player.GetComponent<MovementStateManager>().currentMoveSpeed);
             agent.SetDestination(player.position);
@@ -141,14 +140,14 @@ public class AIWolf : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")) // Se il player entra nel trigger del lupo
         {
             animator.SetBool("nearPlayer", true);
 
-            if (animator.GetBool("bait")) return;
+            if (animator.GetBool("bait")) return; // Se il player ha già interagito con l'esca, non fare nulla
 
-            if (!audioSource.isPlaying) audioSource.PlayOneShot(growl);
-            if (!firstTimeSeeingPlayer)
+            if (!audioSource.isPlaying) audioSource.PlayOneShot(growl); // Suona il ringhio del lupo
+            if (!firstTimeSeeingPlayer) // Se è la prima volta che il lupo vede il player
             {
                 firstTimeSeeingPlayer = true;
                 ConversationManager.Instance.StartConversation(dialogue);
@@ -158,12 +157,12 @@ public class AIWolf : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && !animator.GetBool("bait")) StartCoroutine(RotateTowardsPlayerAndAttack());
+        if (other.CompareTag("Player") && !animator.GetBool("bait")) StartCoroutine(RotateTowardsPlayerAndAttack()); // Se il player è nel trigger e non ha interagito con l'esca, ruota verso il player
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && !animator.GetBool("bait"))
+        if (other.CompareTag("Player") && !animator.GetBool("bait")) // Se il player esce dal trigger del lupo e non ha interagito con l'esca
         {
             animator.SetBool("nearPlayer", false);
             audioSource.Stop();

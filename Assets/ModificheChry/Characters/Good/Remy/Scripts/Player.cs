@@ -17,6 +17,16 @@ public class Player : MonoBehaviour
     public TextMeshProUGUI staminaText;
     #endregion
 
+    [Header("References")]
+    #region References
+    private RagdollManager ragdollManager;
+    #endregion
+
+    void Start()
+    {
+        ragdollManager = GetComponent<RagdollManager>();
+    }
+
     private void Update()
     {
         if (health <= sanita_mentale) // TODO: da implementare
@@ -42,10 +52,10 @@ public class Player : MonoBehaviour
 
         if (health <= 0) // Se è appena morto
         {
+            ragdollManager.TriggerRagdoll();
             health = 0;
             isDead = true;
             // healthText.text = $"HP: {health}";
-            // Settare l'animazione/ragdoll della morte del player
             return true;
         }
         return false;
