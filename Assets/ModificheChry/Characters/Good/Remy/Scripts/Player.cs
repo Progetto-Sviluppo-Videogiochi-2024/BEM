@@ -3,44 +3,51 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
-    [Header("Singleton")]
-    #region Singleton
-    public static Player instance;
-    #endregion
-
-    [Header("Player Components")]
-    #region Player Components
+    [Header("Player Status")]
+    #region Player Status
     public int health = 100;
     public int stamina = 100;
     public int sanita_mentale = 100; // TODO: da cambiare
+    [HideInInspector] public bool isDead = false;
     #endregion
 
-    [Header("Player Bars Components")]
-    #region Player Bars Components
+    [Header("Player UI")]
+    #region Player UI
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI staminaText;
     #endregion
 
-    private void Awake()
-    {
-        instance = this;
-    }
-
     private void Update()
     {
         if (health <= sanita_mentale) // TODO: da implementare
-        {}
+        { }
     }
 
-    public void IncreaseHealth(int amount)
+    public void UpdateHealth(int amount)
     {
+        if (IsDead()) return; // Se è morto, non fare nulla
         health += amount;
-        healthText.text = $"HP: {health}";
+        // healthText.text = $"HP: {health}";
     }
 
-    public void IncreaseStamina(int amount)
+    public void UpdateStamina(int amount)
     {
         stamina += amount;
-        staminaText.text = $"ST: {stamina}";
+        // staminaText.text = $"ST: {stamina}";
+    }
+
+    private bool IsDead()
+    {
+        if (isDead) return true; // Se era già morto, non fare nulla
+
+        if (health <= 0) // Se è appena morto
+        {
+            health = 0;
+            isDead = true;
+            // healthText.text = $"HP: {health}";
+            // Settare l'animazione/ragdoll della morte del player
+            return true;
+        }
+        return false;
     }
 }

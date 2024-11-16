@@ -9,7 +9,7 @@ public class GaiaScript : NPCDialogueBase
         if (booleanAccessor != null)
         {
             var convManager = ConversationManager.Instance;
-            if (booleanAccessor.GetBoolFromThis("fioriRaccolti") == false)
+            if (!booleanAccessor.GetBoolFromThis("fioriRaccolti"))
             {
                 // Dialogo iniziale
                 convManager.StartConversation(conversations[0]);
@@ -17,7 +17,7 @@ public class GaiaScript : NPCDialogueBase
                 convManager.SetBool("fiori", booleanAccessor.GetBoolFromThis("fiori"));
 
             }
-            else if (booleanAccessor.GetBoolFromThis("fiori") == true && booleanAccessor.GetBoolFromThis("fioriRaccolti") == true)
+            else if (booleanAccessor.GetBoolFromThis("fiori") && booleanAccessor.GetBoolFromThis("fioriRaccolti"))
             {
                 // Dialogo successivo
                 convManager.StartConversation(conversations[1]);

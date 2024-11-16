@@ -36,7 +36,7 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         weaponClassManager = FindObjectOfType<WeaponClassManager>();
-        inventoryItemsToRemove = new List<Item>();
+        inventoryItemsToRemove = new();
     }
 
     public void Add(Item item)

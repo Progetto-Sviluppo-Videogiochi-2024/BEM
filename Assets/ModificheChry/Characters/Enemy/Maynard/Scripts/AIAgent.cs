@@ -6,7 +6,7 @@ public class AIAgent : MonoBehaviour
     public AIStateMachine stateMachine;
     public AIStateId initialState;
     [HideInInspector] public NavMeshAgent navMeshAgent;
-    public AIAgentConfig config;
+    public AI config;
 
     void Start()
     {

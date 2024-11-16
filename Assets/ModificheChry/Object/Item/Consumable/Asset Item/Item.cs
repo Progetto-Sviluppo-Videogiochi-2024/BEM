@@ -76,5 +76,4 @@ public class Item : ScriptableObject
         Scene // Oggetti di scena ma non presenti nell'inventario
         // trofei? altro ?
     }
-
 }
