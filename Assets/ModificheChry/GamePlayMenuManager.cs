@@ -20,11 +20,10 @@ public class GamePlayMenuManager : MonoBehaviour
         gamePlayMenuCanvas.SetActive(false);
 
         // Configura i listener per i pulsanti
-        buttonMainMenu.onClick.AddListener(ReturnToMainMenu);
         buttonCheckpoint.onClick.AddListener(ReloadLastCheckpoint);
         buttonLoadGame.onClick.AddListener(LoadGame);
         buttonOptions.onClick.AddListener(OpenOptions);
-        buttonQuit.onClick.AddListener(QuitGame);
+        // buttonQuit.onClick.AddListener(ReturnToMainMenu);
     }
 
     void Update()
@@ -39,7 +38,7 @@ public class GamePlayMenuManager : MonoBehaviour
     {
         isMenuOpen = !isMenuOpen;
         gamePlayMenuCanvas.SetActive(isMenuOpen);
-        
+
         // Mette in pausa il gioco quando il menu è aperto, lo riprende quando chiuso
         Time.timeScale = isMenuOpen ? 0 : 1;
     }
@@ -52,7 +51,7 @@ public class GamePlayMenuManager : MonoBehaviour
         Time.timeScale = 1; // Riprendi il tempo di gioco
     }
 
-    private void ReturnToMainMenu()
+    public void ReturnToMainMenu() // Lo passo già dall'inspector quando fa "sì" al pannello di conferma
     {
         ResumeGame();
         BooleanAccessor.istance.ResetBoolValues(); // Reset dei valori
@@ -75,10 +74,5 @@ public class GamePlayMenuManager : MonoBehaviour
     {
         Debug.Log("Apri Opzioni");
         ResumeGame(); // Chiude il menu principale per aprire le opzioni
-    }
-
-    public void QuitGame()
-    {
-        SceneManager.LoadScene("MainMenu");
     }
 }

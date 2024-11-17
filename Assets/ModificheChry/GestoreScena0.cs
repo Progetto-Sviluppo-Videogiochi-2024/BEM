@@ -29,6 +29,16 @@ public class GestoreScena0 : MonoBehaviour
 
     void Start()
     {
+        // Reset delle variabili
+        ConversationManager.Instance.hasClickedEnd = false;
+        PlayerPrefs.SetInt("hasBackpack", 0);
+        PlayerPrefs.SetInt("hasTorch", 0);
+        BooleanAccessor.istance.ResetBoolValues();
+        backPackTaken = false;
+        torchTaken = false;
+
+        print("inizio:" + PlayerPrefs.GetInt("hasBackpack") + " - " + PlayerPrefs.GetInt("hasTorch") + " - " + backPackTaken + " - " + torchTaken);
+
         // Switch delle camere
         SwitchCamera(5, 10);
 
@@ -41,10 +51,6 @@ public class GestoreScena0 : MonoBehaviour
         player.GetComponent<MovementStateManager>().enabled = false;
         animator.SetLayerWeight(animator.GetLayerIndex("Movement"), 0);
         backPackPlayer.SetActive(false);
-
-        // Salvare i dati
-        PlayerPrefs.SetInt("hasBackpack", 0);
-        PlayerPrefs.SetInt("hasTorch", 0);
 
         // Tutorial
         diario.AggiungiMissione("Lista degli oggetti per Pasquetta: Zaino e Torcia");

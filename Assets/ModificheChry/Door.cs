@@ -33,7 +33,6 @@ public class Door : NPCDialogueBase
         }
         else if (canOpen && !radio.isOn) // Se la radio è spenta e può aprire la porta (oggetti raccolti)
         {
-            // Chiedere al giocatore se vuole andare alla scena successiva
             confirmNextUI.SetActive(true);
             yesButton.GetComponent<Button>().onClick.AddListener(OnYesButtonClicked);
             noButton.GetComponent<Button>().onClick.AddListener(OnNoButtonClicked);

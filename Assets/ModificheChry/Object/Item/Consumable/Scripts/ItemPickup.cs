@@ -23,7 +23,6 @@ public class ItemPickup : MonoBehaviour
     private void Start()
     {
         item = GetComponent<ItemController>().item;
-        if (item.nameItem.Contains("Zaino")) item.isPickUp = true; // Per forzarne la raccolta, siccome lo resetta
         openMenuScript = FindObjectOfType<Player>().gameObject.GetComponent<OpenInventory>();
         animator = FindObjectOfType<Player>().gameObject.GetComponent<Animator>();
     }
