@@ -29,7 +29,6 @@ public class GamePlayMenuManager : MonoBehaviour
 
     void Update()
     {
-        // Apri/Chiudi il menu con il tasto 'P'
         if (Input.GetKeyDown(KeyCode.P))
         {
             ToggleMenu();
@@ -80,6 +79,6 @@ public class GamePlayMenuManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        SceneManager.LoadScene("MainMenu");
     }
 }

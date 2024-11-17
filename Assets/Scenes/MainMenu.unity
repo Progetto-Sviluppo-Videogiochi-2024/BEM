@@ -624,7 +624,6 @@ GameObject:
   m_Component:
   - component: {fileID: 360354097}
   - component: {fileID: 360354098}
-  - component: {fileID: 360354099}
   - component: {fileID: 360354100}
   m_Layer: 0
   m_Name: Menu
@@ -669,27 +668,6 @@ MonoBehaviour:
   shakeIntensity: 3
   nameGameObject: {fileID: 755373591}
   audioClip: {fileID: 8300000, guid: e754729252275e64490f137265774f2b, type: 3}
---- !u!95 &360354099
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 360354096}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 365f2925b5553754f8281ca6ba5354f3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!82 &360354100
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2957,10 +2935,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConfirmExitUI
       objectReference: {fileID: 0}
+    - target: {fileID: 4000003985530729061, guid: 996fabefd49d7a0488273d8afb1cee5e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4858560220912473449, guid: 996fabefd49d7a0488273d8afb1cee5e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 360354098}
+    - target: {fileID: 4981765700770218272, guid: 996fabefd49d7a0488273d8afb1cee5e, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981765700770218272, guid: 996fabefd49d7a0488273d8afb1cee5e, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5027118624684740785, guid: 996fabefd49d7a0488273d8afb1cee5e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 

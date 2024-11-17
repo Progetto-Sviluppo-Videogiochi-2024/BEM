@@ -1,7 +1,7 @@
 using DialogueEditor;
 using UnityEngine;
 
-public class RadioTutorial : MonoBehaviour
+public class Radio : MonoBehaviour
 {
     [Header("Settings")]
     #region Settings
