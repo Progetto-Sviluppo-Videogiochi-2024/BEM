@@ -13,10 +13,12 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 
-public class Bordo : MonoBehaviour {
+public class Bordo : MonoBehaviour
+{
   private static HashSet<Mesh> registeredMeshes = new HashSet<Mesh>();
 
-  public enum Mode {
+  public enum Mode
+  {
     BordoAll,
     BordoVisible,
     BordoHidden,
@@ -24,32 +26,39 @@ public class Bordo : MonoBehaviour {
     SilhouetteOnly
   }
 
-  public Mode BordoMode {
+  public Mode BordoMode
+  {
     get { return bordoMode; }
-    set {
+    set
+    {
       bordoMode = value;
       needsUpdate = true;
     }
   }
 
-  public Color BordoColor {
+  public Color BordoColor
+  {
     get { return bordoColor; }
-    set {
+    set
+    {
       bordoColor = value;
       needsUpdate = true;
     }
   }
 
-  public float BordoWidth {
+  public float BordoWidth
+  {
     get { return bordoWidth; }
-    set {
+    set
+    {
       bordoWidth = value;
       needsUpdate = true;
     }
   }
 
   [Serializable]
-  private class ListVector3 {
+  private class ListVector3
+  {
     public List<Vector3> data;
   }
 
@@ -80,7 +89,8 @@ public class Bordo : MonoBehaviour {
 
   private bool needsUpdate;
 
-  void Awake() {
+  void Awake()
+  {
 
     // Cache renderers
     renderers = GetComponentsInChildren<Renderer>();
@@ -99,8 +109,10 @@ public class Bordo : MonoBehaviour {
     needsUpdate = true;
   }
 
-  void OnEnable() {
-    foreach (var renderer in renderers) {
+  void OnEnable()
+  {
+    foreach (var renderer in renderers)
+    {
 
       // Append bordo shaders
       var materials = renderer.sharedMaterials.ToList();
@@ -112,33 +124,40 @@ public class Bordo : MonoBehaviour {
     }
   }
 
-  void OnValidate() {
+  void OnValidate()
+  {
 
     // Update material properties
     needsUpdate = true;
 
     // Clear cache when baking is disabled or corrupted
-    if (!precomputeBordo && bakeKeys.Count != 0 || bakeKeys.Count != bakeValues.Count) {
+    if (!precomputeBordo && bakeKeys.Count != 0 || bakeKeys.Count != bakeValues.Count)
+    {
       bakeKeys.Clear();
       bakeValues.Clear();
     }
 
     // Generate smooth normals when baking is enabled
-    if (precomputeBordo && bakeKeys.Count == 0) {
+    if (precomputeBordo && bakeKeys.Count == 0)
+    {
       Bake();
     }
   }
 
-  void Update() {
-    if (needsUpdate) {
+  void Update()
+  {
+    if (needsUpdate)
+    {
       needsUpdate = false;
 
       UpdateMaterialProperties();
     }
   }
 
-  void OnDisable() {
-    foreach (var renderer in renderers) {
+  void OnDisable()
+  {
+    foreach (var renderer in renderers)
+    {
 
       // Remove bordo shaders
       var materials = renderer.sharedMaterials.ToList();
@@ -150,22 +169,26 @@ public class Bordo : MonoBehaviour {
     }
   }
 
-  void OnDestroy() {
+  void OnDestroy()
+  {
 
     // Destroy material instances
     Destroy(bordoMaskMaterial);
     Destroy(bordoFillMaterial);
   }
 
-  void Bake() {
+  void Bake()
+  {
 
     // Generate smooth normals for each mesh
     var bakedMeshes = new HashSet<Mesh>();
 
-    foreach (var meshFilter in GetComponentsInChildren<MeshFilter>()) {
+    foreach (var meshFilter in GetComponentsInChildren<MeshFilter>())
+    {
 
       // Skip duplicates
-      if (!bakedMeshes.Add(meshFilter.sharedMesh)) {
+      if (!bakedMeshes.Add(meshFilter.sharedMesh))
+      {
         continue;
       }
 
@@ -177,13 +200,16 @@ public class Bordo : MonoBehaviour {
     }
   }
 
-  void LoadSmoothNormals() {
+  void LoadSmoothNormals()
+  {
 
     // Retrieve or generate smooth normals
-    foreach (var meshFilter in GetComponentsInChildren<MeshFilter>()) {
+    foreach (var meshFilter in GetComponentsInChildren<MeshFilter>())
+    {
 
       // Skip if smooth normals have already been adopted
-      if (!registeredMeshes.Add(meshFilter.sharedMesh)) {
+      if (!registeredMeshes.Add(meshFilter.sharedMesh))
+      {
         continue;
       }
 
@@ -197,16 +223,19 @@ public class Bordo : MonoBehaviour {
       // Combine submeshes
       var renderer = meshFilter.GetComponent<Renderer>();
 
-      if (renderer != null) {
+      if (renderer != null)
+      {
         CombineSubmeshes(meshFilter.sharedMesh, renderer.sharedMaterials);
       }
     }
 
     // Clear UV3 on skinned mesh renderers
-    foreach (var skinnedMeshRenderer in GetComponentsInChildren<SkinnedMeshRenderer>()) {
+    foreach (var skinnedMeshRenderer in GetComponentsInChildren<SkinnedMeshRenderer>())
+    {
 
       // Skip if UV3 has already been reset
-      if (!registeredMeshes.Add(skinnedMeshRenderer.sharedMesh)) {
+      if (!registeredMeshes.Add(skinnedMeshRenderer.sharedMesh))
+      {
         continue;
       }
 
@@ -218,7 +247,8 @@ public class Bordo : MonoBehaviour {
     }
   }
 
-  List<Vector3> SmoothNormals(Mesh mesh) {
+  List<Vector3> SmoothNormals(Mesh mesh)
+  {
 
     // Group vertices by location
     var groups = mesh.vertices.Select((vertex, index) => new KeyValuePair<Vector3, int>(vertex, index)).GroupBy(pair => pair.Key);
@@ -227,24 +257,28 @@ public class Bordo : MonoBehaviour {
     var smoothNormals = new List<Vector3>(mesh.normals);
 
     // Average normals for grouped vertices
-    foreach (var group in groups) {
+    foreach (var group in groups)
+    {
 
       // Skip single vertices
-      if (group.Count() == 1) {
+      if (group.Count() == 1)
+      {
         continue;
       }
 
       // Calculate the average normal
       var smoothNormal = Vector3.zero;
 
-      foreach (var pair in group) {
+      foreach (var pair in group)
+      {
         smoothNormal += smoothNormals[pair.Value];
       }
 
       smoothNormal.Normalize();
 
       // Assign smooth normal to each vertex
-      foreach (var pair in group) {
+      foreach (var pair in group)
+      {
         smoothNormals[pair.Value] = smoothNormal;
       }
     }
@@ -252,15 +286,18 @@ public class Bordo : MonoBehaviour {
     return smoothNormals;
   }
 
-  void CombineSubmeshes(Mesh mesh, Material[] materials) {
+  void CombineSubmeshes(Mesh mesh, Material[] materials)
+  {
 
     // Skip meshes with a single submesh
-    if (mesh.subMeshCount == 1) {
+    if (mesh.subMeshCount == 1)
+    {
       return;
     }
 
     // Skip if submesh count exceeds material count
-    if (mesh.subMeshCount > materials.Length) {
+    if (mesh.subMeshCount > materials.Length)
+    {
       return;
     }
 
@@ -269,12 +306,14 @@ public class Bordo : MonoBehaviour {
     mesh.SetTriangles(mesh.triangles, mesh.subMeshCount - 1);
   }
 
-  void UpdateMaterialProperties() {
+  void UpdateMaterialProperties()
+  {
 
     // Apply properties according to mode
     bordoFillMaterial.SetColor("_BordoColor", bordoColor);
 
-    switch (bordoMode) {
+    switch (bordoMode)
+    {
       case Mode.BordoAll:
         bordoMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
         bordoFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);

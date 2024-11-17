@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DialogueEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,7 +23,7 @@ public class RadioManager : MonoBehaviour
     #region Settings
     private bool isInRange = false; // Indica se il giocatore è vicino alla radio
     private bool isRadioOpen = false; // Indica se il canvas della radio è aperto
-    private bool isOn; // Indica se la radio è accesa
+    [HideInInspector] public bool isOn = false; // Indica se la radio è accesa
     private int currentSongIndex = 0; // Indice della canzone attuale
     private Color onColor = Color.green;
     private Color offColor = Color.red;
@@ -41,9 +42,9 @@ public class RadioManager : MonoBehaviour
         PlayAudio();
 
         // Configura i listener per i pulsanti
-        SalvaButton.onClick.AddListener(Save);
-        OnOffButton.onClick.AddListener(OnOff);
-        CloseRadioUI.onClick.AddListener(CloseRadio);
+        SalvaButton.onClick.AddListener(() => { Save(); RemoveButtonFocus(); });
+        OnOffButton.onClick.AddListener(() => { OnOff(); RemoveButtonFocus(); });
+        CloseRadioUI.onClick.AddListener(() => { CloseRadio(); RemoveButtonFocus(); });
     }
 
     void Update()
@@ -58,14 +59,22 @@ public class RadioManager : MonoBehaviour
             ToggleRadio();
         }
 
-        if (isRadioOpen && Input.GetMouseButtonDown(0) && !IsPointerOverUI()) // Se il canvas della radio è aperto e il click non è su un UI
+        if (isRadioOpen && Input.GetMouseButtonDown(0) && !IsPointerOverUI()) // Se il canvas della radio è aperto e il click non è sulla UI della radio
         {
             ToggleRadio();
         }
+
+        // TODO: manca la funzione per fargli impostare la canzone scorrendo la rotella della radio
+    }
+
+    private void RemoveButtonFocus()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     private void ToggleRadio()
     {
+        // Se il canvas è aperto chiudilo, altrimenti avviene il viceversa
         isRadioOpen = !isRadioOpen;
         radioCanvas.SetActive(isRadioOpen);
 
@@ -75,11 +84,7 @@ public class RadioManager : MonoBehaviour
     private bool IsPointerOverUI()
     {
         // Verifica se il puntatore è su un elemento UI
-        PointerEventData pointerData = new(EventSystem.current)
-        {
-            position = Input.mousePosition
-        };
-
+        PointerEventData pointerData = new(EventSystem.current) { position = Input.mousePosition };
         var raycastResults = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerData, raycastResults);
 
@@ -101,6 +106,7 @@ public class RadioManager : MonoBehaviour
         audioSource.playOnAwake = false;
         audioSource.loop = false;
         audioSource.Play();
+        isOn = true;
         OnOffButton.GetComponent<Image>().color = onColor;
     }
 
@@ -118,24 +124,30 @@ public class RadioManager : MonoBehaviour
 
     private void Save()
     {
-        // Fare una classe per salvare e caricare i dati e invocare qui quella funzione
+        // TODO: fare una classe per salvare e caricare i dati e invocare qui quella funzione
         print("Salva");
         Time.timeScale = 0;
     }
 
     private void OnOff()
-    {
+    { // TODO: vedere a fine gioco se deve essere riprodotta una canzone random, la prossima oppure "mutarla" quando spammo il pulsante
+        var boolAccessor = BooleanAccessor.istance;
+        var convManager = ConversationManager.Instance;
         if (isRadioOpen && isOn) // Se accesa, spegni
         {
+            isOn = false;
+            boolAccessor.SetBoolOnDialogueE("radio");
+            convManager.SetBool("radio", boolAccessor.GetBoolFromThis("radio"));
             audioSource.clip = null;
             audioSource.Stop();
             OnOffButton.GetComponent<Image>().color = offColor;
         }
         else if (isRadioOpen && !isOn) // Se spenta, accendi
         {
+            boolAccessor.ResetBoolValue("radio");
+            convManager.SetBool("radio", boolAccessor.GetBoolFromThis("radio"));
             PlayAudio();
         }
-        isOn = !isOn;
 
         Time.timeScale = 0;
     }

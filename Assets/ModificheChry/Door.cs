@@ -11,7 +11,7 @@ public class Door : NPCDialogueBase
 
     [Header("References")]
     #region References
-    public Radio radio; // Riferimento alla radio
+    public RadioManager radio; // Riferimento alla radio
     public GestoreScena gestoreScena; // Riferimento al GestoreScena
     public GameObject confirmNextUI; // Riferimento al pannello di conferma per andare alla scena successiva
     private GameObject yesButton; // Riferimento al pulsante "Sì" del pannello di conferma

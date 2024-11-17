@@ -48,6 +48,12 @@ public class BooleanAccessor : MonoBehaviour
         else Debug.LogWarning("BooleanAccessor: nomeBool non riconosciuto - " + nomeBool);
     }
 
+    public void ResetBoolValue(string nomeBool)
+    {
+        if (boolValues.ContainsKey(nomeBool)) boolValues[nomeBool] = false;
+        else Debug.LogWarning("BooleanAccessor: nomeBool non riconosciuto - " + nomeBool);
+    }
+
     public bool GetBoolFromThis(string nomeBool) => boolValues.ContainsKey(nomeBool) && boolValues[nomeBool];
 
     public void ResetBoolValues()
