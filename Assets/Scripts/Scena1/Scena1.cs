@@ -3,8 +3,6 @@ using DialogueEditor;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-
-
 public class Scena1 : MonoBehaviour
 {
     [Header("Audio Properties")]
@@ -86,6 +84,4 @@ public class Scena1 : MonoBehaviour
             return ""; // Nel nostro caso non succederà mai, essendo numerate, nel caso TODO: gestire questa situazione
         }
     }
-
-
 }
