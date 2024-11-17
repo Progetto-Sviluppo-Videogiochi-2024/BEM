@@ -6,11 +6,11 @@ public class GamePlayMenuManager : MonoBehaviour
 {
     [Header("UI Elements")]
     public GameObject gamePlayMenuCanvas;
-    public Button buttonMainMenu;
+    //public Button buttonMainMenu;
     public Button buttonCheckpoint;
     public Button buttonLoadGame;
     public Button buttonOptions;
-    public Button buttonQuit;
+    //public Button buttonQuit;
 
     private bool isMenuOpen = false;
 
@@ -23,7 +23,7 @@ public class GamePlayMenuManager : MonoBehaviour
         buttonCheckpoint.onClick.AddListener(ReloadLastCheckpoint);
         buttonLoadGame.onClick.AddListener(LoadGame);
         buttonOptions.onClick.AddListener(OpenOptions);
-        // buttonQuit.onClick.AddListener(ReturnToMainMenu);
+        //buttonMainMenu.onClick.AddListener(ReturnToMainMenu);
     }
 
     void Update()
