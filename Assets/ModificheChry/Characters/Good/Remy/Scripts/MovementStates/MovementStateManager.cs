@@ -22,7 +22,7 @@ public class MovementStateManager : MonoBehaviour
 
     [Header("Gravity Settings")]
     #region Gravity Settings
-    [SerializeField] float gravity = -9.81f;
+    [SerializeField] readonly float gravity = -9.81f;
     Vector3 velocity;
     #endregion
 
@@ -48,14 +48,24 @@ public class MovementStateManager : MonoBehaviour
     public CrouchState crouchState = new();
     #endregion
 
+    [Header("Audio Settings")]
+    #region Audio Settings
+    public AudioClip walkCrouchClip;
+    public AudioClip runClip;
+    private float footstepInterval = 0.5f;
+    float footstepTimer;
+    #endregion
+
     [Header("References")]
     #region References
     private CharacterController controller;
     [HideInInspector] public Animator animator;
+    private AudioSource audioSource;
     #endregion
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
 
@@ -66,6 +76,7 @@ public class MovementStateManager : MonoBehaviour
     {
         GetDirectionAndMove();
         Gravity();
+        // PlayFootsteps();
 
         animator.SetFloat("hInput", h);
         animator.SetFloat("vInput", v);
@@ -142,5 +153,44 @@ public class MovementStateManager : MonoBehaviour
             || animator.GetBool("sit") // Se il giocatore è seduto
             || animator.GetFloat("hInput") != 0 || animator.GetFloat("vInput") != 0 // Se il giocatore si sta muovendo
             || animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon")); // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
+    }
+
+    private void PlayFootsteps()
+    {
+        if (!IsGrounded() || (h == 0 && v == 0)) return; // Se non sta camminando o non tocca il suolo
+
+        footstepTimer -= Time.deltaTime;
+        if (footstepTimer <= 0f)
+        {
+            footstepTimer = footstepInterval;
+
+            // Imposta i parametri della clip e del volume in base allo stato corrente
+            if (currentState == walkingState || currentState == crouchState)
+            {
+                audioSource.clip = walkCrouchClip; // Usa la stessa clip per camminata e accovacciamento
+
+                if (currentState == walkingState)
+                {
+                    footstepInterval = 0.5f; // Frequenza passi camminata
+                    audioSource.volume = 0.6f; // Rumore moderato per la camminata
+                }
+                else if (currentState == crouchState)
+                {
+                    footstepInterval = 0.8f; // Frequenza più bassa per l'accovacciamento
+                    audioSource.volume = 0.3f; // Rumore ridotto per accovacciamento
+                }
+            }
+            else if (currentState == runningState)
+            {
+                audioSource.clip = runClip; // Usa una clip specifica per la corsa
+                footstepInterval = 0.3f; // Frequenza più alta per la corsa
+                audioSource.volume = 1.0f; // Rumore massimo per la corsa
+            }
+
+            if (audioSource.clip != null)
+            {
+                audioSource.Play();
+            }
+        }
     }
 }
