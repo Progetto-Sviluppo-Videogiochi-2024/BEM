@@ -48,13 +48,13 @@ QUEST GIOCO:
   - Appena si avvia scena2 il personaggio fa un monologo dove esclama "Dove sono gli altri? Vado a cercarli" **COMPLETATA**
     - ~~L'unica attività presente in questo momento sarà "Esplora la foresta (0/5)" che compare se viene premuto 'Q' ~~
   
-  - Riporta il lupo Layal alla baita (Assegnata dall'Uomo Baita) **QUASI COMPLETATA** 
-    - **Obbligatoria**: Ricompensa dopo aver completato la task: Apprendimento e utilizzo di un'arma a distanza
+  - Riporta il lupo Layal alla baita (Assegnata dall'Uomo Baita) **COMPLETATA** 
+    - **Obbligatoria**: Ricompensa dopo aver completato la task: Apprendimento e utilizzo di un'arma a distanza **NON COMPLETATA**
   
-  - Raccogli 3 violette assegnata da Gaia
-    - **Ricompensa**: Apprendimento della funzione Crea dell'inventario, inoltre Stefano riceve la soluzione medica creata
+  - Raccogli 3 violette assegnata da Gaia **COMPLETATA**
+    - **Ricompensa**: Apprendimento della funzione Crea dell'inventario, inoltre Stefano riceve la soluzione medica creata **COMPLETATA**
 
-  - Rimuovere il cartello di zona di pericolo (assegnata da Jackob)
+  - Rimuovere il cartello di zona di pericolo (assegnata da Jackob) **COMPLETATA**
     - **Obbligatoria** per poter proseguire al livello successivo
 
   - Oltrepassare la recinzione dopo la rimozione del cartello, dipende dalla quest assegnata da Jackob (In caso non è stata assegnata/completata, compare un monologo di Stefano) **IL CARTELLO POTRA' ESSERE TOLTO DOPO CHE HA DIALOGATO CON JACKOB**

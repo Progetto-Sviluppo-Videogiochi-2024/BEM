@@ -6,7 +6,7 @@ Main task (in ordine di priorità): (DA AGGIORNARE con "FATTO")
 - Rig layer per armi e animazioni
 
 - AI di npc e dei villain
-- Scena 3 e 4 (direi di finire con la 3, poi la demo diventa troppo lunga)
+- Scena 3
 - Rompicapi
 
 - Salvataggio/caricamento
