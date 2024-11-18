@@ -5,28 +5,26 @@ public class GaiaScript : NPCDialogueBase
 {
     protected override void StartDialogue()
     {
-        var booleanAccessor = BooleanAccessor.istance;
+        var booleanAccessor = BooleanAccessor.istance; // Accesso al gestore delle variabili booleane
         if (booleanAccessor != null)
         {
-            var convManager = ConversationManager.Instance;
-            if (!booleanAccessor.GetBoolFromThis("fioriRaccolti"))
-            {
-                // Dialogo iniziale
-                convManager.StartConversation(conversations[0]);
-                convManager.SetBool("fioriRaccolti", booleanAccessor.GetBoolFromThis("fioriRaccolti"));
-                convManager.SetBool("fiori", booleanAccessor.GetBoolFromThis("fiori"));
+            var convManager = ConversationManager.Instance; // Accesso al gestore delle conversazioni
 
-            }
-            else if (booleanAccessor.GetBoolFromThis("fiori") && booleanAccessor.GetBoolFromThis("fioriRaccolti"))
+            bool fioriRaccolti = booleanAccessor.GetBoolFromThis("fioriRaccolti");
+            bool parlatoConGaia = booleanAccessor.GetBoolFromThis("fiori");
+            // Caso 1 e Caso 3: Non ho raccolto i fiori (anche non ho parlato con gaia) o ho raccolto i fiori ma non parlato con Gaia -> dialogo1
+            if (!fioriRaccolti || (fioriRaccolti && !parlatoConGaia)) convManager.StartConversation(conversations[0]);
+            else if (fioriRaccolti && parlatoConGaia) // Caso 2: Ho raccolto i fiori e ho parlato con Gaia -> dialogo2
             {
-                // Dialogo successivo
                 convManager.StartConversation(conversations[1]);
                 convManager.SetBool("soluzione", booleanAccessor.GetBoolFromThis("soluzione"));
             }
+            convManager.SetBool("fioriRaccolti", fioriRaccolti);
+            convManager.SetBool("fiori", parlatoConGaia);
         }
         else
         {
-            Debug.LogError("BooleanAccessor.instance non è stato inizializzato.");
+            Debug.LogError("BooleanAccessor.istance non è stato inizializzato.");
         }
     }
 }
