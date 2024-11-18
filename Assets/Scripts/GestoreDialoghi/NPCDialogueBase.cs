@@ -18,7 +18,7 @@ public abstract class NPCDialogueBase : MonoBehaviour
             player.GetComponent<MovementStateManager>().enabled = true;
         }
 
-        if (isInRange && Input.GetKeyDown(KeyCode.Space) && !isConversationActive)
+        if (isInRange && !isConversationActive && Input.GetKeyDown(KeyCode.Space))
         {
             ConversationManager.Instance.hasClickedEnd = false;
             StartDialogue(); // Chiama la logica specifica per iniziare il dialogo

@@ -42,10 +42,12 @@ public class Door : NPCDialogueBase
     private void OnYesButtonClicked()
     {
         gestoreScena.GoToTransitionScene();
+        ConversationManager.Instance.hasClickedEnd = true;
     }
 
     private void OnNoButtonClicked()
     {
         confirmNextUI.SetActive(false);
+        ConversationManager.Instance.hasClickedEnd = true;
     }
 }
