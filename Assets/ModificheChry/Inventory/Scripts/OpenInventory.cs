@@ -43,8 +43,10 @@ public class OpenInventory : MonoBehaviour
         {
             var inventoryUIManager = InventoryUIController.instance;
             var inventoryManager = InventoryManager.instance;
+
             ToggleInventory(!isInventoryOpen);
-            ToggleCinematic();
+            GetComponent<AimStateManager>().enabled = true;
+
             if (!isInventoryOpen && inventoryUIManager.enableRemove.isOn)
             {
                 inventoryUIManager.enableRemove.isOn = false;
@@ -93,6 +95,6 @@ public class OpenInventory : MonoBehaviour
     {
         // Se il mouse è sopra un UI, disabilita la visuale
         bool isCursorOverUI = EventSystem.current.IsPointerOverGameObject();
-        FindAnyObjectByType<Player>().GetComponent<AimStateManager>().enabled = !isCursorOverUI;
+        GetComponent<AimStateManager>().enabled = !isCursorOverUI;
     }
 }

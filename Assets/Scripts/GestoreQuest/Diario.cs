@@ -46,7 +46,7 @@ public class Diario : MonoBehaviour
     void Update()
     {
         if (diarioVisibile) { ToggleCursor(true); ToggleCinematic(); }
-        if (Input.GetKeyDown(KeyCode.Q)) { ToggleDiario(!diarioVisibile); ToggleCinematic(); }
+        if (Input.GetKeyDown(KeyCode.Q)) ToggleDiario(!diarioVisibile);
     }
 
     private void ToggleDiario(bool isOpen)
@@ -54,6 +54,7 @@ public class Diario : MonoBehaviour
         diarioVisibile = isOpen;
         scrollView.SetActive(diarioVisibile);
         ToggleCursor(diarioVisibile);
+        FindAnyObjectByType<Player>().GetComponent<AimStateManager>().enabled = true;
     }
 
     private void ToggleCursor(bool visible)
