@@ -1,5 +1,17 @@
 # Vincoli
 
+## Vincoli sui nemici e utilizzo delle componenti UI 
+1. non può salvare quando i mutanti lo hanno avvistato e quindi quando è in stato di allerta, else può salvare
+- possono attaccarti se ti inseguono fino alla zona della radio
+- mutanti che non respawnano se vengono uccisi
+
+2.
+    1.durante il gioco senza UI aperte: cinematica e movimenti, cursore invisibile
+    2. durante il gioco con UI: cursore visibile e:
+- GPM e radio: blocco il gioco
+- dialoghi: blocco solo i movimenti
+- inventario e cellulare: se cursore qui sopra, la cinematica viene disabilitata e quando esce dal canvas riparte la cinematica
+
 ## Caratteristiche Gioco
 - **Aree esplorabili**: Scelta di aree tra quelle accessibili.
 - **Scambio di oggetti**: Non è consentito tra personaggi.

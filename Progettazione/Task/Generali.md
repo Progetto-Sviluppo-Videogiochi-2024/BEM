@@ -19,8 +19,7 @@
 - ~~Mettere **collider più grandi** per gli oggetti pick-up.~~  
 - ~~Rimuovere **button** e funzione **quitGame** dal **gameplay menu**.~~  
 - Dopo che il **pg** si alza, dovrebbe guardare verso il letto, non verso la finestra (evitare retromarcia).  
-- **UI del gameplay menu** non in linea con il tema del gioco.  
-- **AI di NPC e villain** da completare.  
+- **AI di NPC e villain** da completare, controllare la sezione "Vincoli".  
 - **Scena 3** da sviluppare.  
 - **Rompicapi** da implementare.  
 - Implementare **salvataggio/caricamento**.  
@@ -29,16 +28,18 @@
 
 # **DA DECIDERE INSIEME:**  
 - Estetica di:  
-  - **Inventario** (inserire immagine di Marco nello zaino?).  
-  - **Menu main**, **menu pausa**, **gameplay menu**. 
+  - **Inventario** : Si, vediamo come sta 
+  - **Menu main**, **menu pausa**, **gameplay menu**.: Tutti con il background dell'attuale inventario, ovvero sfondo nero con un po' di trasparenza, semplice 
 - **Gestione della camera:**  
   - Stefano: movimento, crouch, aim, **ALT**.  
 - Configurare correttamente gli **offset delle animazioni** del player.  
 - **Gestione dell'audio:**  
-  - Aggiungere respiro di Stefano?  
+  - Aggiungere respiro di Stefano?: Marco: "Io lo utilizzerei quando la sanità mentale viene attivata, se mai un respiro affannoso"
 - Continuare la **lore del gioco**.  
 - Definire e implementare le **meccaniche core**.  
 - Creare il **documento di game design**.  
 - Realizzare una presentazione in **PowerPoint**.  
 
 --- 
+
+
