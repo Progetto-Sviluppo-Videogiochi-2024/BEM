@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class OpenInventory : MonoBehaviour
@@ -23,25 +24,27 @@ public class OpenInventory : MonoBehaviour
 
             // Per chiudere l'inventario e aggiungerne l'evento di chiusura al click sul bottone
             inventoryCanvas.transform.Find("Inventory/Close").GetComponent<Button>()
-                .onClick.AddListener(() => OpenCloseInventory(false));
+                .onClick.AddListener(() => ToggleInventory(false));
         }
     }
 
     void Update()
     {
-        // Se il giocatore preme il tasto "I", apri o chiudi l'inventario
-        ActivateInventory();
+        if (isInventoryOpen) { ToggleCursor(true); ToggleCinematic(); }
+
+        ActivateInventory(); // Se I, apri/chiudi l'inventario
     }
 
     private void ActivateInventory()
     {
         // if (PlayerPrefs.GetInt("hasBackpack") != 1) return; // TODO: scommentare a fine gioco
-        
+
         if (Input.GetKeyDown(KeyCode.I))
         {
             var inventoryUIManager = InventoryUIController.instance;
             var inventoryManager = InventoryManager.instance;
-            OpenCloseInventory(!isInventoryOpen);
+            ToggleInventory(!isInventoryOpen);
+            ToggleCinematic();
             if (!isInventoryOpen && inventoryUIManager.enableRemove.isOn)
             {
                 inventoryUIManager.enableRemove.isOn = false;
@@ -64,11 +67,12 @@ public class OpenInventory : MonoBehaviour
         }
     }
 
-    public void OpenCloseInventory(bool open)
+    public void ToggleInventory(bool open)
     {
         // Cambia lo stato dell'inventario e visualizza o nascondi il Canvas
         isInventoryOpen = open;
         inventoryCanvas.SetActive(isInventoryOpen);
+        ToggleCursor(isInventoryOpen);
 
         // Chiudi il menu ispeziona se l'inventario viene chiuso
         if (!isInventoryOpen && itemInspectOpen != null)
@@ -77,9 +81,18 @@ public class OpenInventory : MonoBehaviour
             itemInspectOpen.OpenCloseInspectUI(false);
             itemInspectOpen = null;
         }
+    }
 
-        // TODO: anche eliminabile se non disabilitiamo il cursore del mouse
-        // Cursor.visible = isInventoryOpen;
-        // Cursor.lockState = Cursor.visible ? CursorLockMode.None : CursorLockMode.Locked;
+    private void ToggleCursor(bool visible)
+    {
+        Cursor.visible = visible;
+        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
+    }
+
+    private void ToggleCinematic()
+    {
+        // Se il mouse è sopra un UI, disabilita la visuale
+        bool isCursorOverUI = EventSystem.current.IsPointerOverGameObject();
+        FindAnyObjectByType<Player>().GetComponent<AimStateManager>().enabled = !isCursorOverUI;
     }
 }

@@ -23,6 +23,9 @@ public class ChapterTransition : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        
         chapterText = panel.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         continueButton = panel.transform.GetChild(1).GetComponent<Button>();
         continueText = continueButton.GetComponentInChildren<TextMeshProUGUI>();

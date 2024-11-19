@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class Diario : MonoBehaviour
 {
@@ -43,15 +44,29 @@ public class Diario : MonoBehaviour
     }
 
     void Update()
-    {   
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            diarioVisibile = !diarioVisibile;
-            if (scrollView != null)
-            {
-                scrollView.SetActive(diarioVisibile);
-            }
-        }
+    {
+        if (diarioVisibile) { ToggleCursor(true); ToggleCinematic(); }
+        if (Input.GetKeyDown(KeyCode.Q)) { ToggleDiario(!diarioVisibile); ToggleCinematic(); }
+    }
+
+    private void ToggleDiario(bool isOpen)
+    {
+        diarioVisibile = isOpen;
+        scrollView.SetActive(diarioVisibile);
+        ToggleCursor(diarioVisibile);
+    }
+
+    private void ToggleCursor(bool visible)
+    {
+        Cursor.visible = visible;
+        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
+    }
+
+    private void ToggleCinematic()
+    {
+        // Se il mouse è sopra un UI, disabilita la visuale
+        bool isCursorOverUI = EventSystem.current.IsPointerOverGameObject();
+        FindAnyObjectByType<Player>().GetComponent<AimStateManager>().enabled = !isCursorOverUI;
     }
 
     // Metodo modificato per gestire missioni duplicate
@@ -59,7 +74,7 @@ public class Diario : MonoBehaviour
     {
         // Cerca una missione esistente nella lista delle attive
         string missioneBase = missione.Split('(')[0].Trim(); // Ottieni solo la parte del titolo, escludendo i numeri
-        
+
         // Controlla se la missione è già presente nelle missioni attive
         for (int i = 0; i < missioniAttive.Count; i++)
         {

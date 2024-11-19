@@ -3,12 +3,23 @@ using DialogueEditor;
 
 public abstract class NPCDialogueBase : MonoBehaviour
 {
+    [Header("Conversations")]
+    #region Conversations
     public NPCConversation[] conversations; // Array di dialoghi
+    #endregion
+
+    [Header("Settings")]
+    #region Settings
     public bool isConversationActive = false;  // Stato della conversazione
     private bool isInRange = false;  // Se il giocatore è nel raggio
-    public GameObject player; // Riferimento al giocatore
+    #endregion
 
-    protected abstract void StartDialogue(); // Metodo astratto per la logica personalizzata (da implementare nelle classi derivate)
+    [Header("References")]
+    #region References
+    public GameObject player; // Riferimento al giocatore
+    #endregion
+
+    protected abstract void StartDialogue(); // Metodo astratto per la logica personalizzata (override nelle classi derivate)
 
     private void Update()
     {
@@ -21,21 +32,19 @@ public abstract class NPCDialogueBase : MonoBehaviour
         if (isInRange && !isConversationActive && Input.GetKeyDown(KeyCode.Space))
         {
             ConversationManager.Instance.hasClickedEnd = false;
-            StartDialogue(); // Chiama la logica specifica per iniziare il dialogo
+            StartDialogue(); // Avvia il dialogo (metodo astratto che deve invocare StartConversation)
             player.GetComponent<MovementStateManager>().enabled = false;
         }
     }
 
     protected void StartConversation(NPCConversation dialog)
     {
+        // Blocco il cursore in UIConversationButton.DoClickBehaviour(): in end
+        Cursor.visible = true; // Imposta la visibilità del cursore
+        Cursor.lockState = CursorLockMode.None; // Sblocca il cursore
+
         isConversationActive = true;
         ConversationManager.Instance.StartConversation(dialog);
-    }
-
-    public void SetMousePointerState(bool enable)
-    {
-        Cursor.visible = enable; // Imposta la visibilità del cursore
-        Cursor.lockState = enable ? CursorLockMode.None : CursorLockMode.Locked; // Sblocca o blocca il cursore
     }
 
     private void HandleConversationEnded()
@@ -55,17 +64,11 @@ public abstract class NPCDialogueBase : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            isInRange = true; // Imposta isInRange a true quando il giocatore entra
-        }
+        if (other.CompareTag("Player")) isInRange = true; // Quando il giocatore entra nell'area
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            isInRange = false; // Imposta isInRange a false quando il giocatore esce dall'area
-        }
+        if (other.CompareTag("Player")) isInRange = false; // Quando il giocatore esce dall'area
     }
 }

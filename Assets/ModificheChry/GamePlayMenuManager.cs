@@ -12,10 +12,20 @@ public class GamePlayMenuManager : MonoBehaviour
     public Button buttonOptions;
     //public Button buttonQuit;
 
+    [Header("Settings")]
+    #region Settings
     private bool isMenuOpen = false;
+    #endregion
+
+    [Header("References")]
+    #region References
+    private Transform player;
+    #endregion
 
     void Start()
     {
+        player = FindAnyObjectByType<Player>().transform;
+
         // Assicura che il menu sia inizialmente nascosto
         gamePlayMenuCanvas.SetActive(false);
 
@@ -28,19 +38,28 @@ public class GamePlayMenuManager : MonoBehaviour
 
     void Update()
     {
+        if (isMenuOpen) ToggleMenu(true);
+        
         if (Input.GetKeyDown(KeyCode.P))
         {
-            ToggleMenu();
+            ToggleMenu(!isMenuOpen);
         }
     }
 
-    private void ToggleMenu()
+    private void ToggleMenu(bool isOpen)
     {
-        isMenuOpen = !isMenuOpen;
+        isMenuOpen = isOpen;
         gamePlayMenuCanvas.SetActive(isMenuOpen);
+        ToggleCursor(isMenuOpen);
+        player.GetComponent<AimStateManager>().enabled = !isMenuOpen; // Per la visuale
 
-        // Mette in pausa il gioco quando il menu è aperto, lo riprende quando chiuso
-        Time.timeScale = isMenuOpen ? 0 : 1;
+        Time.timeScale = isMenuOpen ? 0 : 1; // 0 = pausa, 1 = gioco normale
+    }
+
+    private void ToggleCursor(bool visible)
+    {
+        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = visible;
     }
 
     // Metodo per ripristinare Time.timeScale e chiudere il menu

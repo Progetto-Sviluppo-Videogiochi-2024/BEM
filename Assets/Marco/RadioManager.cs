@@ -31,11 +31,14 @@ public class RadioManager : MonoBehaviour
 
     [Header("References")]
     #region References
+    private Transform player; // Il giocatore
     private AudioSource audioSource; // L'audio source della radio
     #endregion
 
     void Start()
     {
+        player = FindAnyObjectByType<Player>().transform;
+
         radioCanvas.SetActive(false);
 
         audioSource = GetComponent<AudioSource>();
@@ -54,14 +57,16 @@ public class RadioManager : MonoBehaviour
             NextSong();
         }
 
+        if (isRadioOpen) ToggleRadio(true);
+
         if (isInRange && Input.GetKeyDown(KeyCode.Space)) // Se il giocatore è vicino alla radio e 'Space'
         {
-            ToggleRadio();
+            ToggleRadio(!isRadioOpen);
         }
 
         if (isRadioOpen && Input.GetMouseButtonDown(0) && !IsPointerOverUI()) // Se il canvas della radio è aperto e il click non è sulla UI della radio
         {
-            ToggleRadio();
+            ToggleRadio(false);
         }
 
         // TODO: manca la funzione per fargli impostare la canzone scorrendo la rotella della radio
@@ -72,11 +77,14 @@ public class RadioManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
     }
 
-    private void ToggleRadio()
+    private void ToggleRadio(bool isOpen)
     {
-        // Se il canvas è aperto chiudilo, altrimenti avviene il viceversa
-        isRadioOpen = !isRadioOpen;
+        // Se il canvas è aperto chiudilo, else viceversa
+        isRadioOpen = isOpen;
         radioCanvas.SetActive(isRadioOpen);
+        Cursor.visible = isRadioOpen;
+        Cursor.lockState = isRadioOpen ? CursorLockMode.None : CursorLockMode.Locked;
+        player.GetComponent<AimStateManager>().enabled = !isRadioOpen; // Per la visuale
 
         Time.timeScale = isRadioOpen ? 0 : 1; // 0 = pausa, 1 = gioco normale
     }
@@ -119,7 +127,7 @@ public class RadioManager : MonoBehaviour
 
     private void CloseRadio()
     {
-        ToggleRadio();
+        ToggleRadio(false);
     }
 
     private void Save()

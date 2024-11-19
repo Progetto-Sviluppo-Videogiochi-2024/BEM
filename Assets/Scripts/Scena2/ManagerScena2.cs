@@ -40,6 +40,7 @@ public class ManagerScena2 : MonoBehaviour
         diario.AggiungiMissione("Esplora la foresta (" + dialoghiEseguiti + " / " + dialoghiTotali + ")");
 
         // Avvia la conversazione iniziale
+        ToggleCursor(true);
         ConversationManager.Instance.StartConversation(intro);
     }
 
@@ -65,6 +66,12 @@ public class ManagerScena2 : MonoBehaviour
     {
         var items = InventoryManager.instance?.items;
         return items != null && items.Any(item => item.inventorySectionType == Item.ItemType.Collectibles && item.name.Contains("Bait"));
+    }
+
+    private void ToggleCursor(bool visible)
+    {
+        Cursor.visible = visible;
+        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
     private void AggiornaDialoghiEseguiti(string missione)

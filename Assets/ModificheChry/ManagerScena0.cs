@@ -7,14 +7,18 @@ public class ManagerScena0 : MonoBehaviour
 {
     [Header("Tutorial")]
     #region Tutorial
-    private bool backPackTaken = false;
-    private bool torchTaken = false;
+    private bool backPackTaken = false; // Variabile di controllo per lo zaino
+    private bool torchTaken = false; // Variabile di controllo per la torcia
+    #endregion
+
+    [Header("Settings")]
+    #region Settings
     #endregion
 
     [Header("Camere")]
     #region Camere
-    public CinemachineVirtualCamera startViewCam;
-    public CinemachineVirtualCamera behindPlayerCam;
+    public CinemachineVirtualCamera startViewCam; // Riferimento alla camera iniziale
+    public CinemachineVirtualCamera behindPlayerCam; // Riferimento alla camera dietro il giocatore
     #endregion
 
     [Header("References")]
@@ -88,9 +92,10 @@ public class ManagerScena0 : MonoBehaviour
 
     private void StandUpAndWASD()
     {
-        if (!BooleanAccessor.istance.GetBoolFromThis("wasd") && animator.GetBool("sit") && ConversationManager.Instance.hasClickedEnd)
+        var convManager = ConversationManager.Instance;
+        if (!BooleanAccessor.istance.GetBoolFromThis("wasd") && animator.GetBool("sit") && convManager.hasClickedEnd)
         {
-            ConversationManager.Instance.hasClickedEnd = false;
+            convManager.hasClickedEnd = false;
             SwitchCamera(10, 5);
 
             animator.SetBool("sit", false);
@@ -105,9 +110,10 @@ public class ManagerScena0 : MonoBehaviour
 
     private void PostAction(string dialogue)
     {
-        if (!BooleanAccessor.istance.GetBoolFromThis(dialogue) && ConversationManager.Instance.hasClickedEnd)
+        var convManager = ConversationManager.Instance;
+        if (!BooleanAccessor.istance.GetBoolFromThis(dialogue) && convManager.hasClickedEnd)
         {
-            ConversationManager.Instance.hasClickedEnd = false;
+            convManager.hasClickedEnd = false;
             StartCoroutine(StartAfterTimer()); // Invoca l'azione data dal parametro dialogue
         }
     }

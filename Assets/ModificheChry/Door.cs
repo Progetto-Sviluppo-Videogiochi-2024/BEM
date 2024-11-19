@@ -33,6 +33,7 @@ public class Door : NPCDialogueBase
         }
         else if (canOpen && !radio.isOn) // Se la radio è spenta e può aprire la porta (oggetti raccolti)
         {
+            ToggleCursor(true);
             confirmNextUI.SetActive(true);
             yesButton.GetComponent<Button>().onClick.AddListener(OnYesButtonClicked);
             noButton.GetComponent<Button>().onClick.AddListener(OnNoButtonClicked);
@@ -41,13 +42,21 @@ public class Door : NPCDialogueBase
 
     private void OnYesButtonClicked()
     {
+        ToggleCursor(false);
         gestoreScena.GoToTransitionScene();
         ConversationManager.Instance.hasClickedEnd = true;
     }
 
     private void OnNoButtonClicked()
     {
+        ToggleCursor(false);
         confirmNextUI.SetActive(false);
         ConversationManager.Instance.hasClickedEnd = true;
+    }
+
+    private void ToggleCursor(bool visible)
+    {
+        Cursor.visible = visible;
+        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }

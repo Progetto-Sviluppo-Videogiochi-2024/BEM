@@ -63,17 +63,17 @@
 
 ### 2. Durante il gioco (con UI aperte)
 
-#### a. **GPM e Radio**
-- **Cursore visibile**.
-- Il gioco viene **bloccato** (nessuna cinematica né movimenti).
+  #### a. **GPM e Radio**
+  - **Cursore visibile**.
+  - Il gioco viene **bloccato** (nessuna cinematica né movimenti).
 
-#### b. **Dialoghi**
-- **Cursore visibile**.
-- Solo i **movimenti** del giocatore vengono **bloccati**, la cinematica continua.
+  #### b. **Dialoghi**
+  - **Cursore visibile**.
+  - Solo i **movimenti** del giocatore vengono **bloccati** (se non è tutorial, solo con NPC), la cinematica continua.
 
-#### c. **Inventario e Cellulare**
-- **Cursore visibile**.
-- Se il cursore si trova sopra il **Canvas**:
-  - La **cinematica viene disabilitata**.
-- Quando il cursore **esce dal Canvas**:
-  - La **cinematica riparte**.
+  #### c. **Inventario e Cellulare**
+  - **Cursore visibile**.
+  - Se il cursore **è sul Canvas**:
+    - La **cinematica viene disabilitata**.
+  - Quando il cursore **esce dal Canvas**:
+    - La **cinematica riparte**.

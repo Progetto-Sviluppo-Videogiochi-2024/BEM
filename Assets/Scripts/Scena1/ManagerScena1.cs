@@ -80,7 +80,14 @@ public class ManagerScena1 : MonoBehaviour
 
     private void StartDialogue()
     {
+        ToggleCursor(true);
         ConversationManager.Instance.StartConversation(dialogue);
+    }
+
+    private void ToggleCursor(bool visible)
+    {
+        Cursor.visible = visible;
+        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
     public string GetNextScene()

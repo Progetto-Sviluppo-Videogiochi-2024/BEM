@@ -223,11 +223,16 @@ namespace DialogueEditor
                 case eButtonType.End:
                     ConversationManager.Instance.EndButtonSelected();
 
-                    if (!string.IsNullOrEmpty(ConversationManager.Instance.nextNameScene)) // TODO: aggiunto per farli cambiare scena se è la fine della conversazione e il parametro nextNameScene è settato in ConversationManager dall'inspector unity
+                    // TODO: blocco di codice nostro e non di DE
+                    var nextNameScene = ConversationManager.Instance.nextNameScene;
+                    if (!string.IsNullOrEmpty(nextNameScene)) // TODO: aggiunto per farli cambiare scena se è la fine della conversazione e il parametro nextNameScene è settato in ConversationManager dall'inspector unity
                     {
-                        UnityEngine.SceneManagement.SceneManager.LoadScene(ConversationManager.Instance.nextNameScene);
+                        UnityEngine.SceneManagement.SceneManager.LoadScene(nextNameScene);
                     }
                     ConversationManager.Instance.hasClickedEnd = true;
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
+
                     break;
             }
         }

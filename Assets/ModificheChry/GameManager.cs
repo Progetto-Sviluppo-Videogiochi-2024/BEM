@@ -11,10 +11,4 @@ public class GameManager : MonoBehaviour
         if (camera.GetComponent<CinemachineBrain>() == null) camera.AddComponent<CinemachineBrain>();
         // else Debug.LogWarning("CinemachineBrain already exists.");
     }
-
-    // private void Start() // TODO: anche eliminabile se non disabilitiamo il cursore del mouse
-    // {
-    //     Cursor.lockState = CursorLockMode.Locked;
-    //     Cursor.visible = false;
-    // }
 }
