@@ -20,6 +20,7 @@
 - ~~Rimuovere **button** e funzione **quitGame** dal **gameplay menu**.~~  
 - Dopo che il **pg** si alza, dovrebbe guardare verso il letto, non verso la finestra (evitare retromarcia).  
 - **AI di NPC e villain** da completare, controllare la sezione "Vincoli".  
+- **Scena 0, 1** Aggiungere assets come alberi o case per colmare il vuoto che si nota durante il gameplay/scene
 - **Scena 3** da sviluppare.  
 - **Rompicapi** da implementare.  
 - Implementare **salvataggio/caricamento**.  
