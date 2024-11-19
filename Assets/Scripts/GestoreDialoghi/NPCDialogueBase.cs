@@ -29,7 +29,6 @@ public abstract class NPCDialogueBase : MonoBehaviour
     protected void StartConversation(NPCConversation dialog)
     {
         isConversationActive = true;
-
         ConversationManager.Instance.StartConversation(dialog);
     }
 
