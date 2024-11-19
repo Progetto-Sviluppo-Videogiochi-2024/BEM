@@ -1,8 +1,9 @@
 using System.Collections;
+using DialogueEditor;
 using TMPro;
 using UnityEngine;
 
-public class MilitarySign : MonoBehaviour
+public class MilitarySign : NPCDialogueBase
 {
     [Header("Settings")]
     #region Settings
@@ -17,6 +18,7 @@ public class MilitarySign : MonoBehaviour
     public GameObject tooltip; // Tooltip per indicare che può lasciare il cartello
     private Rigidbody rb; // Rigidbody del cartello
     public Diario diario; // Riferimento al diario
+    public NPCConversation monologo; // Dialogo da far partire quando cerca di prendere il cartello
     #endregion
 
     void Start()
@@ -66,6 +68,11 @@ public class MilitarySign : MonoBehaviour
                 }
             }
         }
+    }
+
+    protected override void StartDialogue()
+    {
+        StartConversation(monologo);
     }
 
     private IEnumerator DisableTooltip()

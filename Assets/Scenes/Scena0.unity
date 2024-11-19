@@ -207,9 +207,9 @@ MonoBehaviour:
   Event:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 17239921}
-        m_TargetAssemblyTypeName: BooleanAccessor, Assembly-CSharp
-        m_MethodName: SetBoolOnDialogueE
+      - m_Target: {fileID: 1582097251}
+        m_TargetAssemblyTypeName: ManagerScena0, Assembly-CSharp
+        m_MethodName: SetDEBool
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -338,9 +338,9 @@ MonoBehaviour:
   Event:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 17239921}
-        m_TargetAssemblyTypeName: BooleanAccessor, Assembly-CSharp
-        m_MethodName: SetBoolOnDialogueE
+      - m_Target: {fileID: 1582097251}
+        m_TargetAssemblyTypeName: ManagerScena0, Assembly-CSharp
+        m_MethodName: SetDEBool
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -629,9 +629,9 @@ MonoBehaviour:
   Event:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 17239921}
-        m_TargetAssemblyTypeName: BooleanAccessor, Assembly-CSharp
-        m_MethodName: SetBoolOnDialogueE
+      - m_Target: {fileID: 1582097251}
+        m_TargetAssemblyTypeName: ManagerScena0, Assembly-CSharp
+        m_MethodName: SetDEBool
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1973,11 +1973,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 2
-  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":1}],"EditorInfo":{"isRoot":true,"xPos":289.3,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Usa
+  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":1}],"EditorInfo":{"isRoot":true,"xPos":219.299988,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Usa
     i tasti ''W'', ''A'', ''S'', ''D'' per muovere il personaggio:\r\n''W'': Avanza
     in avanti\r\n''A'': Si sposta a sinistra\r\n''S'': Indietreggia\r\n''D'': Si
     sposta a destra","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Tutorial
-    Movimenti","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":280.8,"yPos":172.799988},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Muovi
+    Movimenti","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":210.799988,"yPos":172.799988},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Muovi
     il mouse per ruotare la visuale intorno al tuo personaggio.","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Tutorial
     Visuale","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
@@ -2377,9 +2377,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 2
-  json: "{\"Options\":[],\"Parameters\":[{\"__type\":\"EditableBoolParameter:#DialogueEditor\",\"ParameterName\":\"premereE\",\"BoolValue\":false}],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":289.3,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ciao
+  json: "{\"Options\":[],\"Parameters\":[{\"__type\":\"EditableBoolParameter:#DialogueEditor\",\"ParameterName\":\"premereE\",\"BoolValue\":false}],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":219.299988,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ciao
     Player! Sono il tutorial di BEM, tranquillo, Stefano non pu\xF2 sentirci.\\r\\nClicca
-    su \\\"Continua\\\" o premi 'E' per avanzare con i dialoghi.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":287.599976,\"yPos\":178.400009},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Meglio
+    su \\\"Continua\\\" o premi 'E' per avanzare con i dialoghi.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":217.599976,\"yPos\":178.400009},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Meglio
     che preparo le cose se no far\xF2 tardi. Non voglio sentirmi Jacob incazzato
     per l'ennesima volta.\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
   saveVersion: 110
@@ -2393,19 +2393,7 @@ MonoBehaviour:
   EndConversationFont: {fileID: 0}
   Event:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 17239921}
-        m_TargetAssemblyTypeName: BooleanAccessor, Assembly-CSharp
-        m_MethodName: SetBoolOnDialogueE
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: premereE
-          m_BoolArgument: 0
-        m_CallState: 1
+      m_Calls: []
 --- !u!4 &239218068 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4433314630135694, guid: 7eeb0cdde00cbd146872b82a9886b849, type: 3}
@@ -7205,11 +7193,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 3
-  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":289.3,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Usa
+  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":219.299988,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Usa
     'Q' per poter utilizzare lo Smartphone di Stefano.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial
-    Smartphone\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":288.8,\"yPos\":158.40004},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Stefano
+    Smartphone\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":218.799988,\"yPos\":158.40004},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Stefano
     prende nota delle sue attivit\xE0 e obiettivi, utilizzalo quando ti senti spaesato.\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial
-    Smartphone\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":290.4,\"yPos\":296.000061},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Stefano
+    Smartphone\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":220.4,\"yPos\":296.000061},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Stefano
     pu\xF2 interagire con gli oggetti che hanno un contorno arancione.\\r\\nUsa la
     barra spaziatrice per raccogliere quelli vicini a lui.\",\"parentUIDs\":[1],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial
     Smartphone\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
@@ -11289,7 +11277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 1
-  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[],\"EditorInfo\":{\"isRoot\":true,\"xPos\":289.3,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Non
+  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[],\"EditorInfo\":{\"isRoot\":true,\"xPos\":219.299988,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Non
     posso uscire finch\xE9 non ho preso tutto\u2026 e quella radio deve essere spenta.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
   saveVersion: 110
   DefaultName: 
@@ -14247,7 +14235,7 @@ GameObject:
   - component: {fileID: 1582097251}
   - component: {fileID: 1582097252}
   m_Layer: 0
-  m_Name: GestoreScena
+  m_Name: ManagerScena0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14296,6 +14284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startViewCam: {fileID: 1875255423}
   behindPlayerCam: {fileID: 440239388}
+  booleanAccessor: {fileID: 17239921}
   backPackPlayer: {fileID: 692319338}
   tutorialScript: {fileID: 1091499067}
   diario: {fileID: 706363763}
@@ -16356,10 +16345,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 2
-  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":289.3,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Premi
+  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":219.299988,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Premi
     'I' per poter utilizzare lo zaino di Stefano.\\r\\nIl cursore del mouse apparir\xE0
     per permetterti di utilizzarlo\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial
-    Zaino\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":282.800018,\"yPos\":177.6},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Lo
+    Zaino\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":212.800018,\"yPos\":177.6},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Lo
     zaino di Stefano presenta due scomparti \\\"Oggetti\\\" e \\\"Collezionabili\\\".\\r\\nOgni
     scomparto permette funzionalit\xE0 diverse, le scoprirai in seguito.\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial
     Zaino\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
@@ -17883,9 +17872,9 @@ MonoBehaviour:
   Event:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 17239921}
-        m_TargetAssemblyTypeName: BooleanAccessor, Assembly-CSharp
-        m_MethodName: SetBoolOnDialogueE
+      - m_Target: {fileID: 1582097251}
+        m_TargetAssemblyTypeName: ManagerScena0, Assembly-CSharp
+        m_MethodName: SetDEBool
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

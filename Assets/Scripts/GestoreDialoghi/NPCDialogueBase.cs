@@ -29,7 +29,14 @@ public abstract class NPCDialogueBase : MonoBehaviour
     protected void StartConversation(NPCConversation dialog)
     {
         isConversationActive = true;
+
         ConversationManager.Instance.StartConversation(dialog);
+    }
+
+    public void SetMousePointerState(bool enable)
+    {
+        Cursor.visible = enable; // Imposta la visibilità del cursore
+        Cursor.lockState = enable ? CursorLockMode.None : CursorLockMode.Locked; // Sblocca o blocca il cursore
     }
 
     private void HandleConversationEnded()

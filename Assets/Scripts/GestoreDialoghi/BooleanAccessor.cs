@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class BooleanAccessor : MonoBehaviour
 {
@@ -13,18 +14,18 @@ public class BooleanAccessor : MonoBehaviour
     #region Data Storage
     private Dictionary<string, bool> boolValues = new()
     {
-        { "premereE", false },
-        { "wasd", false },
-        { "quest", false },
-        { "zaino", false },
-        { "radio", false },
-        { "cartello", false },
-        { "cartelloDone", false },
-        { "wolf", false },
-        { "wolfDone", false },
-        { "fioriRaccolti", false },
-        { "fiori", false },
-        { "soluzione", false }
+        { "premereE", false }, // Se il giocatore ha finito il primo dialogo di scena0
+        { "wasd", false }, // Se il giocatore ha finito il secondo dialogo di scena0
+        { "quest", false }, // Se il giocatore ha finito il terzo dialogo di scena0
+        { "zaino", false }, // Se il giocatore ha finito il quarto dialogo di scena0
+        { "radio", false }, // Se il giocatore ha spento la radio di scena0 (task)
+        { "cartello", false }, // Se il giocatore ha parlato con Jacob in scena2
+        { "cartelloDone", false }, // Se il giocatore ha tolto il cartello dalla recinzione in scena2
+        { "wolf", false }, // Se il giocatore ha parlato con UomoBaita in scena2
+        { "wolfDone", false }, // Se il giocatore ha dato il cibo al lupo in scena2
+        { "fioriRaccolti", false }, // Se il giocatore ha raccolto 3 fiori in scena2
+        { "fiori", false }, // Se il giocatore ha parlato con Gaia in scena2
+        { "soluzione", false } // Se il giocatore è giunto nel dialogo di Gaia a craftare la soluzione in scena2
     };
     #endregion
 
@@ -34,10 +35,11 @@ public class BooleanAccessor : MonoBehaviour
         {
             istance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += TakeBA;
         }
         else if (istance != this)
         {
-            Debug.Log("Un'altra istanza di BooleanAccessor è stata distrutta");
+            Debug.Log("BooleanAccessor: Instance already exists, destroying object!");
             Destroy(gameObject);
         }
     }
@@ -45,13 +47,13 @@ public class BooleanAccessor : MonoBehaviour
     public void SetBoolOnDialogueE(string nomeBool)
     {
         if (boolValues.ContainsKey(nomeBool)) boolValues[nomeBool] = true;
-        else Debug.LogWarning("BooleanAccessor: nomeBool non riconosciuto - " + nomeBool);
+        else Debug.LogWarning("BooleanAccessor: nomeBool don't found - " + nomeBool);
     }
 
     public void ResetBoolValue(string nomeBool)
     {
         if (boolValues.ContainsKey(nomeBool)) boolValues[nomeBool] = false;
-        else Debug.LogWarning("BooleanAccessor: nomeBool non riconosciuto - " + nomeBool);
+        else Debug.LogWarning("BooleanAccessor: nomeBool don't found - " + nomeBool);
     }
 
     public bool GetBoolFromThis(string nomeBool) => boolValues.ContainsKey(nomeBool) && boolValues[nomeBool];
@@ -62,5 +64,39 @@ public class BooleanAccessor : MonoBehaviour
         {
             boolValues[key] = false; // Resetta tutti i valori booleani
         }
+    }
+
+    private void TakeBA(Scene scene, LoadSceneMode mode)
+    {
+        string sceneName = scene.name; // Nome della scena appena caricata
+        string sceneNumber = sceneName[^1..]; // Ultimo carattere
+
+        if (string.IsNullOrEmpty(sceneNumber)) // Se non è presente il numero della scena
+        {
+            Debug.LogWarning("Scene number not found in scene name: " + sceneName);
+            return; // TODO: penso vada bene se parte da mainmenu, in quanto è la prima scena e il BA è già presente in mainmenu
+        }
+
+        // Cerca il GO e in particolare il componente con lo stesso nome del GO
+        string managerObjectName = "ManagerScena" + sceneNumber;
+        GameObject manager = GameObject.Find(managerObjectName);
+
+        if (manager == null) { Debug.LogWarning("Manager don't found in scene " + sceneName); return; }
+
+        var components = manager.GetComponents<Component>();
+        foreach (var component in components)
+        {
+            if (component.GetType().Name.StartsWith(managerObjectName)) // Se il componente ha lo stesso nome del GO
+            {
+                component.GetType().GetField("booleanAccessor").SetValue(component, this);
+                return; // Uscire dal ciclo una volta trovato e settato BA
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Rimuovi il listener quando l'oggetto viene distrutto
+        if (istance == this) SceneManager.sceneLoaded -= TakeBA;
     }
 }

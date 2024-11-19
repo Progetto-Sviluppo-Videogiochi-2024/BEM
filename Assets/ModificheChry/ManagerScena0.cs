@@ -3,7 +3,7 @@ using UnityEngine;
 using DialogueEditor;
 using Cinemachine;
 
-public class GestoreScena0 : MonoBehaviour
+public class ManagerScena0 : MonoBehaviour
 {
     [Header("Tutorial")]
     #region Tutorial
@@ -19,6 +19,7 @@ public class GestoreScena0 : MonoBehaviour
 
     [Header("References")]
     #region References
+    public BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
     public GameObject backPackPlayer; // Riferimento al GameObject dello zaino del giocatore
     private GameObject player; // Riferimento al GameObject del giocatore
     private Animator animator; // Riferimento all'Animator del giocatore
@@ -36,8 +37,6 @@ public class GestoreScena0 : MonoBehaviour
         BooleanAccessor.istance.ResetBoolValues();
         backPackTaken = false;
         torchTaken = false;
-
-        print("inizio:" + PlayerPrefs.GetInt("hasBackpack") + " - " + PlayerPrefs.GetInt("hasTorch") + " - " + backPackTaken + " - " + torchTaken);
 
         // Switch delle camere
         SwitchCamera(5, 10);
@@ -118,5 +117,10 @@ public class GestoreScena0 : MonoBehaviour
         // Sospendi l'esecuzione per tot secondi
         yield return new WaitForSeconds(10f);
         tutorialScript.StartTutorial();
+    }
+
+    public void SetDEBool(string nomeBool) // Da invocare nel DialogueEditor per settare i valori booleani del BooleanAccessor
+    {
+        booleanAccessor.SetBoolOnDialogueE(nomeBool);
     }
 }

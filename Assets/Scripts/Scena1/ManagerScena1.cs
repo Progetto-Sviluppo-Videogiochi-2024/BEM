@@ -3,18 +3,30 @@ using DialogueEditor;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-public class Scena1 : MonoBehaviour
+public class ManagerScena1 : MonoBehaviour
 {
     [Header("Audio Properties")]
-    private AudioSource audioSource; // Variabile per AudioSource
+    #region Audio Properties
     [SerializeField] private AudioClip audioClip; // Clip audio da riprodurre all'inizio della scena
     [SerializeField] private float audioVolume; // Volume dell'audio
-    [SerializeField] private NPCConversation dialogue; // Conversazione del gruppo
+    #endregion
+
+    [Header("Settings")]
+    #region Settings
     private bool isMuted = false; // Stato di mutamento dell'audio
-    public string nameScene; // Nome della scena attuale
+    private string nameScene; // Nome della scena attuale
+    #endregion
+
+    [Header("References")]
+    #region References
+    [SerializeField] private NPCConversation dialogue; // Riferimento alla conversazione del gruppo di ragazzi
+    private AudioSource audioSource; // Riferimento all'AudioSource
+    public BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
+    #endregion
 
     void Start()
     {
+        nameScene = SceneManager.GetActiveScene().name;
         StartDialogue();
         audioSource = GetComponent<AudioSource>(); // Per ottenere l'AudioSource
         PlayAudio();
@@ -83,5 +95,10 @@ public class Scena1 : MonoBehaviour
         {
             return ""; // Nel nostro caso non succederà mai, essendo numerate, nel caso TODO: gestire questa situazione
         }
+    }
+
+    public void SetDEBool(string nomeBool) // Da invocare nel DialogueEditor per settare i valori booleani del BooleanAccessor
+    {
+        booleanAccessor.SetBoolOnDialogueE(nomeBool);
     }
 }

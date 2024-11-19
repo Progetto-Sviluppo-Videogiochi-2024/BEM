@@ -4,9 +4,8 @@ using System.Linq;
 
 public class ManagerScena2 : MonoBehaviour
 {
-    // Dati scena2
     [Header("Dati Scena2")]
-    #region Dati Missione
+    #region Dati Scena2
     public int dialoghiTotali = 5; // Numero di dialoghi totali
     public int dialoghiEseguiti; // Numero di dialoghi eseguiti 
     public int documentiTotali = 2; // Numero di documenti totali
@@ -22,6 +21,7 @@ public class ManagerScena2 : MonoBehaviour
     public NPCConversation intro;
     public Diario diario;
     public Animator lupo;
+    public BooleanAccessor booleanAccessor;
     #endregion
 
     // Dati Inventario scena2
@@ -70,6 +70,11 @@ public class ManagerScena2 : MonoBehaviour
     private void AggiornaDialoghiEseguiti(string missione)
     {
         dialoghiEseguiti = diario.missioniCompletate.Count;
-        diario.AggiungiMissione("Esplora la foresta (" + dialoghiEseguiti + "/" + dialoghiTotali + ")");
+        diario.AggiungiMissione("Esplora la foresta (" + dialoghiEseguiti + " / " + dialoghiTotali + ")");
+    }
+
+    public void SetDEBool(string nomeBool) // Da invocare nel DialogueEditor per settare i valori booleani del BooleanAccessor
+    {
+        booleanAccessor.SetBoolOnDialogueE(nomeBool);
     }
 }
