@@ -15,10 +15,10 @@
   - Implementare il **ragdoll del pg** se muore a causa del lupo.  
 - **Camera collider** in **scena0** (libreria, muri, ecc.).  
 - **Specchio riflettente** in **scena0:** Riflette tutti gli oggetti statici ma non il **pg**.   
-- Manca l'**ammo del fucile** di Scena2.  
+- Manca l'**ammo del fucile** di Scena2 (potremmo usare anche la stessa per ogni arma).  
 - ~~Mettere **collider più grandi** per gli oggetti pick-up.~~  
 - ~~Rimuovere **button** e funzione **quitGame** dal **gameplay menu**.~~  
-- Dopo che il **pg** si alza, dovrebbe guardare verso il letto, non verso la finestra (evitare retromarcia).  
+- Dopo che il **pg** si alza, dovrebbe guardare verso il letto, non verso la finestra (evitare la retromarcia del pg).  
 - **AI di NPC e villain** da completare, controllare la sezione "Vincoli".  
 - **Scena 0, 1** Aggiungere assets come alberi o case per colmare il vuoto che si nota durante il gameplay/scene
 - **Scena 3** da sviluppare.  
@@ -40,7 +40,7 @@
 - Definire e implementare le **meccaniche core**.  
 - Creare il **documento di game design**.  
 - Realizzare una presentazione in **PowerPoint**.  
+- Fixare errore della radio "il mesh non ha read/write=true" @marcoWarrior
+- Ricontrollare a fine gioco se i file progettazione presentano tutti gli aspetti del gioco (se vanno consegnati al prof)
 
 --- 
-
-
