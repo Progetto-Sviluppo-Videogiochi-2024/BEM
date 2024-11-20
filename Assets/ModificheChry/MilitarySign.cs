@@ -2,6 +2,7 @@ using System.Collections;
 using DialogueEditor;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MilitarySign : MonoBehaviour
 {
@@ -65,6 +66,7 @@ public class MilitarySign : MonoBehaviour
             {
                 GetComponent<ItemPickup>().enabled = false;
                 gameObject.transform.SetParent(handPlayer);
+                ToggleCollider(false);
                 gameObject.transform.SetLocalPositionAndRotation(new(-0.51f, 1.491f, -0.21f), Quaternion.Euler(-236.603f, 46.45799f, -96.40601f));
                 isInHand = true;
                 SetRigidbody(true);
@@ -88,6 +90,7 @@ public class MilitarySign : MonoBehaviour
                 {
                     var boolAccessor = BooleanAccessor.istance;
                     gameObject.transform.SetParent(null);
+                    ToggleCollider(true);
                     gameObject.transform.position += new Vector3(0, 0.1f, 0);
                     isInHand = false;
                     SetRigidbody(false);
@@ -113,6 +116,15 @@ public class MilitarySign : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         tooltip.SetActive(false);
+    }
+
+    private void ToggleCollider(bool enable)
+    {
+        Collider[] colliders = GetComponents<BoxCollider>();
+        foreach (var collider in colliders)
+        {
+            if (!collider.isTrigger) collider.enabled = enable;
+        }
     }
 
     private void SetRigidbody(bool _isKinematic)

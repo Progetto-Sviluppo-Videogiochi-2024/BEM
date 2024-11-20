@@ -43,6 +43,9 @@ public abstract class NPCDialogueBase : MonoBehaviour
         Cursor.visible = true; // Imposta la visibilità del cursore
         Cursor.lockState = CursorLockMode.None; // Sblocca il cursore
 
+        player.GetComponent<Animator>().SetFloat("hInput", 0);
+        player.GetComponent<Animator>().SetFloat("vInput", 0);
+
         isConversationActive = true;
         ConversationManager.Instance.StartConversation(dialog);
     }
