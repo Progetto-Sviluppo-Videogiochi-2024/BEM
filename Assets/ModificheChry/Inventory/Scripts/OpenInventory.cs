@@ -23,8 +23,8 @@ public class OpenInventory : MonoBehaviour
             inventoryCanvas.SetActive(false);
 
             // Per chiudere l'inventario e aggiungerne l'evento di chiusura al click sul bottone
-            inventoryCanvas.transform.Find("Inventory/Close").GetComponent<Button>()
-                .onClick.AddListener(() => ToggleInventory(false));
+            inventoryCanvas.transform.Find("Inventory/Close").GetComponent<Button>().onClick
+                .AddListener(() => ToggleInventory(false));
         }
     }
 
@@ -45,7 +45,6 @@ public class OpenInventory : MonoBehaviour
             var inventoryManager = InventoryManager.instance;
 
             ToggleInventory(!isInventoryOpen);
-            GetComponent<AimStateManager>().enabled = true;
 
             if (!isInventoryOpen && inventoryUIManager.enableRemove.isOn)
             {
@@ -75,6 +74,7 @@ public class OpenInventory : MonoBehaviour
         isInventoryOpen = open;
         inventoryCanvas.SetActive(isInventoryOpen);
         ToggleCursor(isInventoryOpen);
+        if (!isInventoryOpen) GetComponent<AimStateManager>().enabled = true;
 
         // Chiudi il menu ispeziona se l'inventario viene chiuso
         if (!isInventoryOpen && itemInspectOpen != null)
