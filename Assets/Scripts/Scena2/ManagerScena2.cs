@@ -13,6 +13,11 @@ public class ManagerScena2 : MonoBehaviour
     public int violeRaccolte = 0; // Numero di viole raccolte
     #endregion
 
+    [Header("Settings")]
+    #region Settings
+    private bool hasFlowers = false; // Flag per i fiori
+    #endregion
+
     [Header("References")]
     #region References
     public AudioClip forestSound; // Suono della foresta
@@ -45,7 +50,9 @@ public class ManagerScena2 : MonoBehaviour
 
     void Update()
     {
-        if (InventoryManager.instance.GetQtaItem("Viola") >= 3) BooleanAccessor.istance.SetBoolOnDialogueE("fioriRaccolti");
+        var boolAccessor = BooleanAccessor.istance;
+        if (!hasFlowers && boolAccessor.GetBoolFromThis("fiori") && InventoryManager.instance.GetQtaItem("Viola") >= 3)
+        { hasFlowers = true; boolAccessor.SetBoolOnDialogueE("fioriRaccolti"); }
     }
 
     private void OnEnable()

@@ -12,8 +12,10 @@ public class GaiaScript : NPCDialogueBase
 
             bool fioriRaccolti = booleanAccessor.GetBoolFromThis("fioriRaccolti");
             bool parlatoConGaia = booleanAccessor.GetBoolFromThis("fiori");
+
             // Caso 1 e Caso 3: Non ho raccolto i fiori (anche non ho parlato con gaia) o ho raccolto i fiori ma non parlato con Gaia -> dialogo1
-            if (!fioriRaccolti || (fioriRaccolti && !parlatoConGaia)) convManager.StartConversation(conversations[0]);
+            // if (!fioriRaccolti || (fioriRaccolti && !parlatoConGaia)) convManager.StartConversation(conversations[0]);
+            if (!parlatoConGaia || (parlatoConGaia && !fioriRaccolti)) convManager.StartConversation(conversations[0]);
             else if (fioriRaccolti && parlatoConGaia) // Caso 2: Ho raccolto i fiori e ho parlato con Gaia -> dialogo2
             {
                 convManager.StartConversation(conversations[1]);
