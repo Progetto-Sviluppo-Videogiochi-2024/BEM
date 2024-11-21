@@ -15,6 +15,7 @@ public class AIWolf : MonoBehaviour
 
     [Header("References")]
     #region References
+    public Diario diario; // Riferimento al diario
     public AudioClip growl; // Riferimento al suono del ringhio
     private AudioSource audioSource; // Riferimento all'audio source del lupo
     public NPCConversation dialogue; // Riferimento al dialogo del lupo
@@ -36,10 +37,10 @@ public class AIWolf : MonoBehaviour
     void Update()
     {
         var boolAccessor = BooleanAccessor.istance;
-        if (boolAccessor.GetBoolFromThis("wolfDone")) { this.enabled = false; return; }
+        if (boolAccessor.GetBoolFromThis("wolfDone")) { this.enabled = false; return; } // Se la quest è completata, disabilita lo script
         if (agent == null || !agent.isActiveAndEnabled || !agent.isOnNavMesh) return; // Se l'agente non è attivo o non è sulla navmesh
 
-        if (!animator.GetBool("bait")) // Se il player non ha interagito con l'esca
+        if (!animator.GetBool("bait") || !boolAccessor.GetBoolFromThis("wolf")) // Se il player non ha interagito con l'esca o non ha parlato con UomoBaita
         {
             if (CanAttack()) // Se può attaccare il player
             {
@@ -68,27 +69,6 @@ public class AIWolf : MonoBehaviour
         !player.GetComponent<Player>().isDead; // Se il player non è morto
 
     private bool IsNear(Transform target, float distance) => Vector3.Distance(transform.position, target.position) <= distance;
-
-    private IEnumerator RotateTowardsPlayerAndAttack()
-    {
-        agent.isStopped = true;
-
-        while (true)
-        {
-            Vector3 directionToPlayer = (player.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * wolf.rotationSpeed);
-
-            if (Quaternion.Angle(transform.rotation, lookRotation) < 5f) // Se è allineato con il player
-            {
-                isRotatingToAttack = false;
-                break;
-            }
-            yield return null;
-        }
-
-        agent.isStopped = false;
-    }
 
     public void PerformRaycastAttack() // Invocata da attack nell'animation del lupo
     {
@@ -136,7 +116,34 @@ public class AIWolf : MonoBehaviour
         agent.isStopped = true;
         agent.ResetPath();
         boolAccessor.SetBoolOnDialogueE("wolfDone");
+        diario.CompletaMissione("Riporta il cucciolo");
     }
+
+    private IEnumerator RotateTowardsPlayerAndAttack()
+    {
+        agent.isStopped = true;
+
+        while (true)
+        {
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * wolf.rotationSpeed);
+
+            if (Quaternion.Angle(transform.rotation, lookRotation) < 5f) // Se è allineato con il player
+            {
+                isRotatingToAttack = false;
+                break;
+            }
+            yield return null;
+        }
+
+        agent.isStopped = false;
+    }
+
+    private bool CanRotate(Collider other) =>
+        other.CompareTag("Player") && // Se il player entra nel trigger del lupo
+        (!animator.GetBool("bait") || // Se il player non ha interagito con l'esca
+        !BooleanAccessor.istance.GetBoolFromThis("wolf")); // Se il player non ha parlato con UomoBaita
 
     void OnTriggerEnter(Collider other)
     {
@@ -144,11 +151,12 @@ public class AIWolf : MonoBehaviour
         {
             animator.SetBool("nearPlayer", true);
 
-            if (animator.GetBool("bait")) return; // Se il player ha già interagito con l'esca, non fare nulla
+            if (animator.GetBool("bait") && BooleanAccessor.istance.GetBoolFromThis("wolf")) return;
 
             if (!audioSource.isPlaying) audioSource.PlayOneShot(growl); // Suona il ringhio del lupo
             if (!firstTimeSeeingPlayer) // Se è la prima volta che il lupo vede il player
             {
+                print("Primo ringhio");
                 firstTimeSeeingPlayer = true;
                 ConversationManager.Instance.StartConversation(dialogue);
             }
@@ -157,12 +165,12 @@ public class AIWolf : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && !animator.GetBool("bait")) StartCoroutine(RotateTowardsPlayerAndAttack()); // Se il player è nel trigger e non ha interagito con l'esca, ruota verso il player
+        if (CanRotate(other)) StartCoroutine(RotateTowardsPlayerAndAttack());
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && !animator.GetBool("bait")) // Se il player esce dal trigger del lupo e non ha interagito con l'esca
+        if (CanRotate(other))
         {
             animator.SetBool("nearPlayer", false);
             audioSource.Stop();

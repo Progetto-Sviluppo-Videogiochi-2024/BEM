@@ -103,7 +103,6 @@ public class Diario : MonoBehaviour
         AggiornaDiarioUI();
     }
 
-
     public void CompletaMissione(string missione)
     {
         if (missioniAttive.Contains(missione))
