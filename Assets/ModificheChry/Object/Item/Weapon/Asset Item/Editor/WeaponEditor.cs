@@ -43,16 +43,21 @@ public class WeaponEditor : Editor
         weapon.isThrowable = EditorGUILayout.Toggle(new GUIContent("Throwable", "Se l'arma è da lancio (coltelli, bottiglie)"), weapon.isThrowable);
 
         // Mostra i campi di posizionamento dell'arma nelle mani
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         EditorGUILayout.LabelField("Positioning Weapon in Hands", EditorStyles.boldLabel);
-        Vector3 equippedRotationEuler = weapon.equippedRotation.eulerAngles;
-        equippedRotationEuler = EditorGUILayout.Vector3Field(new GUIContent("Equipped Rotation", "Rotazione dell'arma equipaggiata"), equippedRotationEuler);
-        weapon.equippedRotation = Quaternion.Euler(equippedRotationEuler);
-        Vector3 refRightHandGripRotationEuler = weapon.refRightHandGripRotation.eulerAngles;
-        refRightHandGripRotationEuler = EditorGUILayout.Vector3Field(new GUIContent("Right Hand Grip Rotation", "Rotazione della mano destra per l'impugnatura"), refRightHandGripRotationEuler);
-        weapon.refRightHandGripRotation = Quaternion.Euler(refRightHandGripRotationEuler);
-        Vector3 refLeftHandGripRotationEuler = weapon.refLeftHandGripRotation.eulerAngles;
-        refLeftHandGripRotationEuler = EditorGUILayout.Vector3Field(new GUIContent("Left Hand Grip Rotation", "Rotazione della mano sinistra per l'impugnatura"), refLeftHandGripRotationEuler);
-        weapon.refLeftHandGripRotation = Quaternion.Euler(refLeftHandGripRotationEuler);
+        
+        weapon.IdlePosition = EditorGUILayout.Vector3Field(new GUIContent("Idle Position", "Posizione dell'arma in idle"), weapon.IdlePosition);
+        Vector3 idleRotationEuler = weapon.IdleRotation.eulerAngles;
+        idleRotationEuler = EditorGUILayout.Vector3Field(new GUIContent("Idle Rotation", "Rotazione dell'arma in idle"), idleRotationEuler);
+        weapon.IdleRotation = Quaternion.Euler(idleRotationEuler);
+
+        weapon.AimPosition = EditorGUILayout.Vector3Field(new GUIContent("Aim Position", "Posizione dell'arma durante il mirare"), weapon.AimPosition);
+        Vector3 aimRotationEuler = weapon.AimRotation.eulerAngles;
+        aimRotationEuler = EditorGUILayout.Vector3Field(new GUIContent("Aim Rotation", "Rotazione dell'arma durante il mirare"), aimRotationEuler);
+        weapon.AimRotation = Quaternion.Euler(aimRotationEuler);
+
+        weapon.Scale = EditorGUILayout.Vector3Field(new GUIContent("Scale", "Scala dell'arma equipaggiata"), weapon.Scale);
+
 
         // Assicura che il cambiamento venga salvato
         if (GUI.changed) EditorUtility.SetDirty(weapon);

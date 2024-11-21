@@ -10,15 +10,12 @@ public class Weapon : Item // Weapon estende Item
     public bool isThrowable; // Se l'arma è da lancio (coltelli, bottiglie)
     
     [Header("Positioning Weapon in Hands")]
-    public Vector3 equippedPosition; // Posizione dell'arma equipaggiata
-    public Quaternion equippedRotation; // Rotazione dell'arma equipaggiata
-    public Vector3 equippedScale; // Scala dell'arma equipaggiata
-
-    public Vector3 refRightHandGripPosition; // Posizione della mano destra per l'impugnatura
-    public Quaternion refRightHandGripRotation; // Rotazione della mano destra per l'impugnatura
-    public Vector3 refLeftHandGripPosition; // Posizione della mano sinistra per l'impugnatura
-    public Quaternion refLeftHandGripRotation; // Rotazione della mano sinistra per l'impugnatura
-
+    public Vector3 IdlePosition; // Posizione dell'arma equipaggiata
+    public Quaternion IdleRotation; // Rotazione dell'arma equipaggiata
+     public Vector3 AimPosition; // Posizione dell'arma equipaggiata
+    public Quaternion AimRotation; // Rotazione dell'arma equipaggiata
+    public Vector3 Scale; // Scala dell'arma equipaggiata
+    
     public enum WeaponType
     {
         Melee,      // Armi da mischia (coltelli, asce, mazze)

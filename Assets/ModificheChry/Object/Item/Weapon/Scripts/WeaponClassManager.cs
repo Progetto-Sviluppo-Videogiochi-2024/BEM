@@ -4,16 +4,17 @@ using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using static Item;
 using static Weapon;
-
+using static RigSwitcher;
 public class WeaponClassManager : MonoBehaviour
 {
-    [Header("Animation Rigging")]
-    #region Animation Rigging
-    [SerializeField] TwoBoneIKConstraint leftHandIK;
-    #endregion
+   // [Header("Animation Rigging")]
+   // #region Animation Rigging
+   // [SerializeField] TwoBoneIKConstraint leftHandIK;
+   // #endregion
 
     [Header("Equip Weapons")]
     #region Switching-Equip Weapons
+    RigSwitcher CambiaRig;
     int currentWeaponIndex = -1;
     #endregion
     private GameObject currentWeapon;
@@ -117,12 +118,12 @@ public class WeaponClassManager : MonoBehaviour
             // Imposta l'arma corrente
             currentWeapon = weaponsEquipable[index].gameObject;
             currentWeapon.name = weaponsEquipable[index].gameObject.name;
-
+            
             // Attiva e posiziona la nuova arma
             currentWeapon.SetActive(true);
             currentWeapon.transform.SetParent(weaponHolder);
-            currentWeapon.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-
+            //currentWeapon.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            CambiaRig.SwitchWeapon(currentWeapon);
             currentWeaponIndex = index; // Aggiorna l'indice dell'arma corrente
 
             // Rimuovi eventuali componenti non necessari dall'arma
@@ -177,8 +178,8 @@ public class WeaponClassManager : MonoBehaviour
     public void SetCurrentWeapon(WeaponManager weapon)
     {
         if (actions == null) actions = GetComponent<ActionStateManager>();
-        leftHandIK.data.target = weapon.leftHandTarget;
-        leftHandIK.data.hint = weapon.leftHandHint;
+        /*leftHandIK.data.target = weapon.leftHandTarget;
+        leftHandIK.data.hint = weapon.leftHandHint;*/
         actions.SetWeapon(weapon);
     }
 
