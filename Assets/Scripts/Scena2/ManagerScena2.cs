@@ -1,6 +1,5 @@
 using UnityEngine;
 using DialogueEditor;
-using System.Linq;
 
 public class ManagerScena2 : MonoBehaviour
 {
@@ -46,7 +45,6 @@ public class ManagerScena2 : MonoBehaviour
 
     void Update()
     {
-        if (!lupo.GetBool("bait") && PlayerHasBait()) lupo.SetBool("bait", true);
         if (InventoryManager.instance.GetQtaItem("Viola") >= 3) BooleanAccessor.istance.SetBoolOnDialogueE("fioriRaccolti");
     }
 
@@ -60,12 +58,6 @@ public class ManagerScena2 : MonoBehaviour
     {
         // Assicurati di disregistrarti dall'evento quando lo script è disabilitato
         if (diario != null) diario.OnMissionCompleted -= AggiornaDialoghiEseguiti;
-    }
-
-    private bool PlayerHasBait()
-    {
-        var items = InventoryManager.instance?.items;
-        return items != null && items.Any(item => item.inventorySectionType == Item.ItemType.Collectibles && item.name.Contains("Bait"));
     }
 
     private void ToggleCursor(bool visible)
