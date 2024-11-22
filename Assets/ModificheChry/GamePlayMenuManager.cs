@@ -24,7 +24,7 @@ public class GamePlayMenuManager : MonoBehaviour
 
     void Start()
     {
-        player = FindAnyObjectByType<Player>().transform;
+        if (FindObjectOfType<Player>() != null) player = FindAnyObjectByType<Player>().transform;
 
         // Assicura che il menu sia inizialmente nascosto
         gamePlayMenuCanvas.SetActive(false);
@@ -51,7 +51,8 @@ public class GamePlayMenuManager : MonoBehaviour
         isMenuOpen = isOpen;
         gamePlayMenuCanvas.SetActive(isMenuOpen);
         ToggleCursor(isMenuOpen);
-        player.GetComponent<AimStateManager>().enabled = !isMenuOpen; // Per la visuale
+
+        if (player != null) player.GetComponent<AimStateManager>().enabled = !isMenuOpen; // Per la visuale
 
         Time.timeScale = isMenuOpen ? 0 : 1; // 0 = pausa, 1 = gioco normale
     }

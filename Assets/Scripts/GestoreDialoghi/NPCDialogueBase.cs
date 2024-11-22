@@ -23,6 +23,7 @@ public abstract class NPCDialogueBase : MonoBehaviour
 
     private void Update()
     {
+        if (isConversationActive) ToggleCursor(isConversationActive);
         if (ConversationManager.Instance.hasClickedEnd)
         {
             isConversationActive = false;
@@ -40,8 +41,7 @@ public abstract class NPCDialogueBase : MonoBehaviour
     protected void StartConversation(NPCConversation dialog)
     {
         // Blocco il cursore in UIConversationButton.DoClickBehaviour(): in end
-        Cursor.visible = true; // Imposta la visibilità del cursore
-        Cursor.lockState = CursorLockMode.None; // Sblocca il cursore
+        ToggleCursor(true);
 
         player.GetComponent<Animator>().SetFloat("hInput", 0);
         player.GetComponent<Animator>().SetFloat("vInput", 0);
@@ -73,5 +73,10 @@ public abstract class NPCDialogueBase : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player")) isInRange = false; // Quando il giocatore esce dall'area
+    }
+    private void ToggleCursor(bool visible)
+    {
+        Cursor.visible = visible;
+        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }

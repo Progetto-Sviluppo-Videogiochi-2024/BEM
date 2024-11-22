@@ -12,13 +12,13 @@ public class UomoBaitaScript : NPCDialogueBase
             if (!boolAccessor.GetBoolFromThis("wolf"))
             {
                 // Dialogo iniziale
-                convManager.StartConversation(conversations[0]);
+                StartConversation(conversations[0]);
                 convManager.SetBool("wolf", boolAccessor.GetBoolFromThis("wolf"));
             }
             else
             {
                 // Dialogo successivo
-                convManager.StartConversation(conversations[1]);
+                StartConversation(conversations[1]);
                 convManager.SetBool("wolfDone", boolAccessor.GetBoolFromThis("wolfDone"));
             }
         }

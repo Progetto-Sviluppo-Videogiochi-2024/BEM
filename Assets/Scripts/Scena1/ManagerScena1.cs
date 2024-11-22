@@ -34,6 +34,8 @@ public class ManagerScena1 : MonoBehaviour
 
     void Update()
     {
+        ToggleCursor(true);
+
         if (Input.GetKeyDown(KeyCode.Return)) // Se 'Return' (tasto invio)
         {
             SceneManager.LoadScene(GetNextScene()); // Per caricare la scena successiva
