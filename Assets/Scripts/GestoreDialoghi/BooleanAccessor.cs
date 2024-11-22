@@ -73,17 +73,15 @@ public class BooleanAccessor : MonoBehaviour
         string sceneName = scene.name; // Nome della scena appena caricata
         string sceneNumber = sceneName[^1..]; // Ultimo carattere
 
-        if (string.IsNullOrEmpty(sceneNumber)) // Se non è presente il numero della scena
-        {
-            Debug.LogWarning("Scene number not found in scene name: " + sceneName);
-            return; // TODO: penso vada bene se parte da mainmenu, in quanto è la prima scena e il BA è già presente in mainmenu
-        }
+        if (string.IsNullOrEmpty(sceneNumber) && (sceneName != "MainMenu" || sceneName != "Transizione"))
+        { Debug.LogWarning("Scene number not found in scene name: " + sceneName); return; }
 
         // Cerca il GO e in particolare il componente con lo stesso nome del GO
         string managerObjectName = "ManagerScena" + sceneNumber;
         GameObject manager = GameObject.Find(managerObjectName);
 
-        if (manager == null) { Debug.LogWarning("Manager don't found in scene " + sceneName); return; }
+        if (manager == null && (sceneName != "MainMenu" || sceneName != "Transizione"))
+        { Debug.LogWarning("Manager don't found in scene " + sceneName); return; }
 
         var components = manager.GetComponents<Component>();
         foreach (var component in components)
