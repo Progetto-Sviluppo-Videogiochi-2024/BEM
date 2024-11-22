@@ -60,12 +60,12 @@ public class WeaponClassManager : MonoBehaviour
 
         if (weapon.weaponType == WeaponType.Melee) // Se è un'arma da mischia o bianca
         {
-            trigger = "EquipMelee";
+            trigger = "equipMelee";
             boolWeapon = "hasCutWeapon";
         }
         else // Se è un'arma da fuoco
         {
-            trigger = "EquipRanged";
+            trigger = "equipRanged";
             boolWeapon = "hasFireWeapon";
         }
         ActiveAnimationWeapon(weapon, boolWeapon, trigger, index);
@@ -80,12 +80,7 @@ public class WeaponClassManager : MonoBehaviour
             animator.SetBool("aiming", false); // Disattiva la mira
         }
 
-        StartCoroutine(WaitForEquipAnimation(boolAnim, GetNameAnimation(boolAnim), index));
-    }
-
-    private string GetNameAnimation(string boolAnim)
-    {
-        return animator.GetBool(boolAnim) ? "Rifle Put Away" : "Rifle Pull Out";
+        StartCoroutine(WaitForEquipAnimation(boolAnim, animator.GetBool(boolAnim) ? "Rifle Put Away" : "Rifle Pull Out", index));
     }
 
     private IEnumerator WaitForEquipAnimation(string boolWeapon, string animation, int index)
@@ -122,8 +117,8 @@ public class WeaponClassManager : MonoBehaviour
             // Attiva e posiziona la nuova arma
             currentWeapon.SetActive(true);
             currentWeapon.transform.SetParent(weaponHolder);
-            //currentWeapon.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-            CambiaRig.SwitchWeapon(currentWeapon);
+            //currentWeapon.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity); serve ???
+            // CambiaRig.SwitchWeapon(currentWeapon);
             currentWeaponIndex = index; // Aggiorna l'indice dell'arma corrente
 
             // Rimuovi eventuali componenti non necessari dall'arma
@@ -135,9 +130,6 @@ public class WeaponClassManager : MonoBehaviour
             SetCurrentWeapon(weaponsEquipable[index]);
 
             // Imposta le trasformazioni dell'arma equipaggiata
-            // var weapon = InventoryManager.instance.weaponsEquipable[index] as Weapon;
-            // currentWeapon.transform.SetLocalPositionAndRotation(weapon.equippedPosition, weapon.equippedRotation);
-            // currentWeapon.transform.localScale = weapon.equippedScale;
         }
     }
 

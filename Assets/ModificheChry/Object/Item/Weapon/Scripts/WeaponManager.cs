@@ -59,15 +59,15 @@ public class WeaponManager : MonoBehaviour
     private void Awake()
     {
         weapon = GetComponent<ItemController>().item as Weapon;
+        weaponClassManager = FindAnyObjectByType<WeaponClassManager>();
+        recoil = GetComponent<WeaponRecoil>();
+        recoil.recoilFollowPosition = weaponClassManager.recoilFollowPosition;
     }
 
     void Start()
     {
         if (!Validate()) return;
 
-        weaponClassManager = transform.root.GetComponent<WeaponClassManager>();
-        recoil = GetComponent<WeaponRecoil>();
-        recoil.recoilFollowPosition = weaponClassManager.recoilFollowPosition;
         aim = GetComponentInParent<AimStateManager>();
         actions = GetComponentInParent<ActionStateManager>();
 
@@ -86,7 +86,7 @@ public class WeaponManager : MonoBehaviour
     {
         damage = weapon.ammo.damageAmmo;
         bulletPrefab = weapon.ammo.ammoPrefab;
-        
+
         ammo = GetComponent<WeaponAmmo>();
         ammo.ammoData = weapon.ammo;
 

@@ -16,7 +16,7 @@ public class WeaponRecoil : MonoBehaviour
     {
         currentRecoilPosition = Mathf.Lerp(currentRecoilPosition, 0, returnSpeed * Time.deltaTime);
         finalRecoilPosition = Mathf.Lerp(finalRecoilPosition, currentRecoilPosition, kickBackSpeed * Time.deltaTime);
-        recoilFollowPosition.localPosition = new Vector3(0, 0, finalRecoilPosition);
+        recoilFollowPosition.localPosition = new(0, 0, finalRecoilPosition);
     }
 
     public void TriggerRecoil() => currentRecoilPosition += kickBackAmount;

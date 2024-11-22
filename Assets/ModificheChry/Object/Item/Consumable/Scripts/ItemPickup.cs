@@ -53,7 +53,7 @@ public class ItemPickup : MonoBehaviour
         // Animo il giocatore per raccogliere l'oggetto
         animator.SetBool("pickingUp", true);
         if (openMenuScript.isInventoryOpen || openMenuScript.itemInspectOpen != null)
-        { openMenuScript.ToggleInventory(false); Debug.Log("Close Inventory"); }
+        { openMenuScript.ToggleInventory(false); }
         StartCoroutine(WaitForEquipAnimation());
     }
 
