@@ -38,7 +38,7 @@ public class GamePlayMenuManager : MonoBehaviour
 
     void Update()
     {
-        if (isMenuOpen) ToggleMenu(true);
+        if (isMenuOpen) ToggleCursor(true);
         
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -71,7 +71,7 @@ public class GamePlayMenuManager : MonoBehaviour
         Time.timeScale = 1; // Riprendi il tempo di gioco
     }
 
-    public void ReturnToMainMenu() // Lo passo già dall'inspector quando fa "sì" al pannello di conferma
+    public void ReturnToMainMenu() // Passato dall'inspector quando fa "sì" al pannello di conferma
     {
         ResumeGame();
         BooleanAccessor.istance.ResetBoolValues(); // Reset dei valori
