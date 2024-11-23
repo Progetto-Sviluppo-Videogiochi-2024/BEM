@@ -5,6 +5,7 @@ using UnityEngine.Animations.Rigging;
 using static Item;
 using static Weapon;
 using static RigSwitcher;
+
 public class WeaponClassManager : MonoBehaviour
 {
    // [Header("Animation Rigging")]
@@ -17,7 +18,7 @@ public class WeaponClassManager : MonoBehaviour
     RigSwitcher CambiaRig;
     int currentWeaponIndex = -1;
     #endregion
-    private GameObject currentWeapon;
+    [HideInInspector] public GameObject currentWeapon;
     public Transform weaponHolder;
 
     [Header("References")]
@@ -28,7 +29,7 @@ public class WeaponClassManager : MonoBehaviour
 
     [Header("References Scripts")]
     #region References Scripts
-    ActionStateManager actions;
+    [HideInInspector] public ActionStateManager actions;
     public List<WeaponManager> weaponsEquipable;
     #endregion
 

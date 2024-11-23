@@ -13,7 +13,7 @@
 - ~~**Task del lupo:**~~  
   - ~~Manca il danno al **pg** quando il lupo lo attacca.~~  
   - Implementare il **ragdoll del pg** se muore a causa del lupo.  
-- **Camera collider** in **scena0** (libreria, muri, ecc.).  
+- **Camera collider** in **scena0** (libreria, muri, ecc.). Diciamo evitato siccome guarda dietro (es: bagno)   
 - ~~**Specchio riflettente** in **scena0:** Riflette tutti gli oggetti statici ma non il **pg**~~.   
 - Manca l'**ammo del fucile** di Scena2 (potremmo usare anche la stessa per ogni arma).  
 - ~~Mettere **collider più grandi** per gli oggetti pick-up.~~  
@@ -30,7 +30,7 @@
 # **DA DECIDERE INSIEME:**  
 - Estetica di:  
   - **Inventario** : Si, vediamo come sta 
-  - **Menu main**, **menu pausa**, **gameplay menu**.: Tutti con il background dell'attuale inventario, ovvero sfondo nero con un po' di trasparenza, semplice 
+  - **Menu main**, **menu pausa**, **gameplay menu**.: ~~Tutti con il background dell'attuale inventario, ovvero sfondo nero con un po' di trasparenza, semplice~~
 - **Gestione della camera:**  
   - Stefano: movimento, crouch, aim, **ALT**.  
 - Configurare correttamente gli **offset delle animazioni** del player.  

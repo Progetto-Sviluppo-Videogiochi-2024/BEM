@@ -1,34 +1,37 @@
 using UnityEngine;
-using TMPro;
 
 public class Player : MonoBehaviour
 {
     [Header("Player Status")]
     #region Player Status
-    public int health = 100;
-    public int stamina = 100;
-    public int sanita_mentale = 100; // TODO: da cambiare
-    [HideInInspector] public bool isDead = false;
-    #endregion
-
-    [Header("Player UI")]
-    #region Player UI
-    public TextMeshProUGUI healthText;
-    public TextMeshProUGUI staminaText;
+    [HideInInspector] public int maxHealth = 100; // Salute massima
+    public int health; // Salute attuale
+    public int sanita_mentale = 100; // TODO: da cambiare // Salute mentale
+    [HideInInspector] public bool isDead = false; // Stato del giocatore (vivo/morto)
     #endregion
 
     [Header("References")]
     #region References
-    private RagdollManager ragdollManager;
+    [HideInInspector] public WeaponClassManager weaponClassManager; // Riferimento al componente WeaponClassManager
+    public PlayerUIController playerUIController; // Riferimento al componente PlayerUIController
+    private RagdollManager ragdollManager; // Riferimento al componente RagdollManager
     #endregion
 
     void Start()
     {
+        health = maxHealth;
+        weaponClassManager = GetComponent<WeaponClassManager>();
         ragdollManager = GetComponent<RagdollManager>();
     }
 
     private void Update()
     {
+        var ammo = weaponClassManager.actions.weaponAmmo;
+        if (ammo == null) return;
+        playerUIController.extraAmmo = ammo.extraAmmo;
+        playerUIController.UpdateWeaponUI();
+        playerUIController.UpdateAmmoCount(ammo.leftAmmo);
+
         if (health <= sanita_mentale) // TODO: da implementare
         { }
     }
@@ -37,13 +40,8 @@ public class Player : MonoBehaviour
     {
         if (IsDead()) return; // Se è morto, non fare nulla
         health += amount;
-        // healthText.text = $"HP: {health}";
-    }
-
-    public void UpdateStamina(int amount)
-    {
-        stamina += amount;
-        // staminaText.text = $"ST: {stamina}";
+        playerUIController.UpdateBloodSplatter(health, maxHealth);
+        playerUIController.UpdateSanityIcon();
     }
 
     private bool IsDead()
@@ -55,7 +53,6 @@ public class Player : MonoBehaviour
             ragdollManager.TriggerRagdoll();
             health = 0;
             isDead = true;
-            // healthText.text = $"HP: {health}";
             return true;
         }
         return false;
