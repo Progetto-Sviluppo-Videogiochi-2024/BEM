@@ -23,12 +23,12 @@
 - **Da Lancio**: sassi, bottiglie, ecc.
 
 ### Medicinali: recupera la salute del giocatore
-- **Medikit**: ripristina tutta la salute
-- **Bende**: ripristinano parte della salute
-- **CraftItem**: oggetto creato tramite crafting dai fiori, ad esempio "soluzione medica"  
+- **Medikit**: ripristina tutta la salute (HP + 100, sanita + 15)
+- **Bende**: ripristinano parte della salute (HP + 50, sanita + 10)
+- **CraftItem**: oggetto creato tramite crafting dai fiori, ad esempio "soluzione medica" (HP + 10, sanita + 5)   
+- **Cibo**: recupera poca salute e poca sanità mentale (HP + 2, sanita + 10)
+- **Bevande**: recupera poca salute e poca sanità mentale (HP + 2, sanita + 10)
 
-### Cibo: recupera la stamina del giocatore
-### Bevande: recupera la stamina del giocatore
 ### Sigaretta/Beroni: aumenta la sanità mentale
 ### Proiettili: per ricaricare l'arma da fuoco, non equipaggiabili
 

@@ -1,3 +1,4 @@
+using DialogueEditor;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour // TODO: adattare questo script per il progetto quando spara villain o oggetti (se necessario)
@@ -23,10 +24,11 @@ public class Bullet : MonoBehaviour // TODO: adattare questo script per il proge
         GameObject hitObject = hit.transform.gameObject;
         Debug.Log("Bullet hit: " + hitObject.name);
 
-        if (hitObject.CompareTag("Shootable"))
+        var convManager = ConversationManager.Instance;
+        if (hitObject.CompareTag("Shootable") && hitObject.name.Contains("CocaCola") && convManager.GetBool("cocacola"))
         {
-            Destroy(hitObject);
-            Debug.Log("Bullet hit: " + hitObject);
+            PlayerPrefs.SetInt("CocaCola", PlayerPrefs.GetInt("CocaCola") + 1);
+            PlayerPrefs.Save();
         }
 
         if (hitObject.transform.root.gameObject.GetComponent<EnemyHealth>())

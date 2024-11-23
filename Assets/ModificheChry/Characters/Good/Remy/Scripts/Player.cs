@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     #region Player Status
     [HideInInspector] public int maxHealth = 100; // Salute massima
     public int health; // Salute attuale
-    public int sanita_mentale = 100; // TODO: da cambiare // Salute mentale
+    public int sanitaMentale; // TODO: da cambiare // Salute mentale
     [HideInInspector] public bool isDead = false; // Stato del giocatore (vivo/morto)
     #endregion
 
@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        sanitaMentale = maxHealth;
         health = maxHealth;
         weaponClassManager = GetComponent<WeaponClassManager>();
         ragdollManager = GetComponent<RagdollManager>();
@@ -32,14 +33,17 @@ public class Player : MonoBehaviour
         playerUIController.UpdateWeaponUI();
         playerUIController.UpdateAmmoCount(ammo.leftAmmo);
 
-        if (health <= sanita_mentale) // TODO: da implementare
+        if (health <= sanitaMentale) // TODO: da implementare
         { }
     }
 
     public void UpdateHealth(int amount)
     {
         if (IsDead()) return; // Se è morto, non fare nulla
+
         health += amount;
+        // TODO: aggiungere modifiche alla sanitaMentale
+        if (health >= maxHealth) health = maxHealth;
         playerUIController.UpdateBloodSplatter(health, maxHealth);
         playerUIController.UpdateSanityIcon();
     }
@@ -50,7 +54,7 @@ public class Player : MonoBehaviour
 
         if (health <= 0) // Se è appena morto
         {
-            ragdollManager.TriggerRagdoll();
+            // ragdollManager.TriggerRagdoll();
             health = 0;
             isDead = true;
             return true;

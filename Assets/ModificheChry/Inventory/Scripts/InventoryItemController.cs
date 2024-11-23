@@ -365,17 +365,8 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         if (IsAlsoConsumable())
         {
             var player = FindObjectOfType<Player>();
-            switch (item.effectType) // TODO: gestire meglio i tipi di oggetti e le azioni da compiere
-            {
-                case ItemEffectType.Health:
-                    player.UpdateHealth(item.value);
-                    break;
-                case ItemEffectType.Stamina:
-                    break;
-                default:
-                    break;
-            }
-            RemoveItem();
+            if (player.health >= player.maxHealth && player.sanitaMentale >= player.maxHealth) return;
+            if (item.effectType == ItemEffectType.Health) { player.UpdateHealth(item.value); RemoveItem(); }
         }
     }
 

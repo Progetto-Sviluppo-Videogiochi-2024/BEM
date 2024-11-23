@@ -1,6 +1,7 @@
 # Vincoli
 
 ## Caratteristiche Gioco
+
 - **Aree esplorabili**: Scelta di aree tra quelle accessibili.
 - **Scambio di oggetti**: Non è consentito tra personaggi.
 - **Ricompense**: Ottenibili tramite:
@@ -14,16 +15,19 @@
 - **Crafting**: Possibile solo tra oggetti craftabili, con ricette sparse nel gioco.
 
 ## Giocatore
+
 - **Salute**:
   - Non visibile, ma intuibile dalla GUI.
   - Se la salute è 0, il personaggio muore e riparte dall'ultimo checkpoint.
   - Possibilità di utilizzare oggetti curativi.
-- **Stamina**:
-  - Non visibile al giocatore.
-  - Se la stamina è 0, il personaggio cammina lentamente o con affanno.
 - **Sanità mentale**:
-  - Effetti uditivi (audio), non visibile al giocatore.
-  - Dipende dagli HP del personaggio.
+  - SFX (audio (del pg ?)), VFX (allucinazioni horror, pensieri negativi)
+  - Visibile al giocatore nella GUI.
+    - Si manifesta al diminuire della salute (health <= 20 ? sanita - 20), morte di un Amico (sanita - 30), ?
+    - Valore pari a player.maxHealth all'inizio.
+      - Esempio: sanita = 100 => "stefano sta bene mentalmente".
+    - Più scende, più trasparente è l'icona.
+  - Si recupera con cibo e oggetti medici.
 - **Armi**:
   - **Melee (Corpo a corpo)**:
     - Armi bianche come coltello, mazza, bastone, ascia.
@@ -38,6 +42,7 @@
     - Utilizzabili per attirare, attaccare o distrarre i nemici.
 
 ## Inventario
+
 - **Oggetti**:
   - **Quantità limitata**: Dipende dallo spazio disponibile nell'inventario.
   - **Consumabili e non consumabili**.
@@ -51,29 +56,34 @@
   - **Non equipaggiabili**.
 
 ## Mutanti
+
 - Se ti avvistano possono attaccarti anche fino a zona radio a meno che tu li semini/uccidi
   - Non puoi salvare in zona radio finché non li semini/uccidi
 - Se morti non respawnano
 
-## UI 
+## UI
 
 ### 1. Durante il gioco (senza UI aperte)
+
 - **Cinematica e movimenti attivi**.
 - **Cursore invisibile**.
 
 ### 2. Durante il gioco (con UI aperte)
 
-  #### a. **GPM e Radio**
-  - **Cursore visibile**.
-  - Il gioco viene **bloccato** (nessuna cinematica né movimenti).
+#### a. **GPM e Radio**
 
-  #### b. **Dialoghi**
-  - **Cursore visibile**.
-  - Solo i **movimenti** del giocatore vengono **bloccati** (se non è tutorial, solo con NPC), la cinematica continua.
+- **Cursore visibile**.
+- Il gioco viene **bloccato** (nessuna cinematica né movimenti).
 
-  #### c. **Inventario e Cellulare**
-  - **Cursore visibile**.
-  - Se il cursore **è sul Canvas**:
-    - La **cinematica viene disabilitata**.
-  - Quando il cursore **esce dal Canvas**:
-    - La **cinematica riparte**.
+#### b. **Dialoghi**
+
+- **Cursore visibile**.
+- Solo i **movimenti** del giocatore vengono **bloccati** (se non è tutorial, solo con NPC), la cinematica continua.
+
+#### c. **Inventario e Cellulare**
+
+- **Cursore visibile**.
+- Se il cursore **è sul Canvas**:
+  - La **cinematica viene disabilitata**.
+- Quando il cursore **esce dal Canvas**:
+  - La **cinematica riparte**.

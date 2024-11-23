@@ -59,9 +59,6 @@ public class Item : ScriptableObject
     {
         None,        // Nessun effetto
         Health,       // Effetto sulla vita
-        Stamina,      // Effetto sulla stamina
-        MentalHealth, // Effetto sulla sanità mentale
-        // TODO: Aggiungerne altri
     }
 
     public enum ItemTagType // Tipo di tag dell'oggetto
