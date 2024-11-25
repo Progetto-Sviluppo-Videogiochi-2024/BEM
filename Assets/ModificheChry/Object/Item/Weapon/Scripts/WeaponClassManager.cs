@@ -37,6 +37,7 @@ public class WeaponClassManager : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         actions = GetComponent<ActionStateManager>();
+        CambiaRig =  GetComponentInChildren<RigSwitcher>();
     }
 
     private void Update()
@@ -119,7 +120,7 @@ public class WeaponClassManager : MonoBehaviour
             currentWeapon.SetActive(true);
             currentWeapon.transform.SetParent(weaponHolder);
             //currentWeapon.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity); serve ???
-            // CambiaRig.SwitchWeapon(currentWeapon);
+            CambiaRig.SwitchWeapon(currentWeapon);
             currentWeaponIndex = index; // Aggiorna l'indice dell'arma corrente
 
             // Rimuovi eventuali componenti non necessari dall'arma
