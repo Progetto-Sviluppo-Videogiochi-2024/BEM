@@ -23,10 +23,11 @@ public abstract class NPCDialogueBase : MonoBehaviour
 
     private void Update()
     {
-        if (isConversationActive) ToggleCursor(isConversationActive);
+        if (isConversationActive) ToggleCursor(true);
         if (ConversationManager.Instance.hasClickedEnd)
         {
             isConversationActive = false;
+            ToggleCursor(false);
             player.GetComponent<MovementStateManager>().enabled = true;
         }
 

@@ -212,6 +212,3 @@ public class InventoryManager : MonoBehaviour
         items.Add(item);
     }
 }
-
-
-

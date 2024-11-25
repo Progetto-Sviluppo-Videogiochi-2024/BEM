@@ -193,4 +193,13 @@ public class MovementStateManager : MonoBehaviour
             }
         }
     }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        var taskFucile = hit.gameObject.GetComponent<TaskFucile>();
+        if (taskFucile != null && taskFucile.playerInRange)
+        {
+            taskFucile.PlayerCollision();
+        }
+    }
 }

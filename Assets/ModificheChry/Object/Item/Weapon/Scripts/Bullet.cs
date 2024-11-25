@@ -24,8 +24,8 @@ public class Bullet : MonoBehaviour // TODO: adattare questo script per il proge
         GameObject hitObject = hit.transform.gameObject;
         Debug.Log("Bullet hit: " + hitObject.name);
 
-        var convManager = ConversationManager.Instance;
-        if (hitObject.CompareTag("Shootable") && hitObject.name.Contains("CocaCola") && convManager.GetBool("cocacola"))
+        var booleanAccessor = BooleanAccessor.istance;
+        if (hitObject.CompareTag("Shootable") && hitObject.name.Contains("CocaCola") && booleanAccessor.GetBoolFromThis("cocaCola"))
         {
             PlayerPrefs.SetInt("CocaCola", PlayerPrefs.GetInt("CocaCola") + 1);
             PlayerPrefs.Save();

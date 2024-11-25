@@ -20,14 +20,14 @@ public class ItemPickup : MonoBehaviour
     private OpenInventory openMenuScript; // Riferimento allo script OpenMenu
     #endregion
 
-    private void Start()
+    void Start()
     {
         item = GetComponent<ItemController>().item;
         openMenuScript = FindObjectOfType<Player>().gameObject.GetComponent<OpenInventory>();
         animator = FindObjectOfType<Player>().gameObject.GetComponent<Animator>();
     }
 
-    private void Update()
+    void Update()
     {
         if (isPlayerInRange && item.isPickUp) // Se è vicino a un oggetto raccoglibile
         {

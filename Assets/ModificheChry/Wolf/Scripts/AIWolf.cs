@@ -8,6 +8,7 @@ public class AIWolf : MonoBehaviour
 {
     [Header("Settings")]
     #region Settings
+    private bool isConversationActive = false; // Flag per controllare se la conversazione è attiva
     private bool hasBait = false; // Flag per controllare se il player ha l'esca
     private bool isAttacking = false; // Flag per controllare se il lupo sta attaccando
     private bool hasEnteredTargetArea = false; // Flag per controllare se il lupo è entrato nell'area target
@@ -26,10 +27,14 @@ public class AIWolf : MonoBehaviour
     private Transform player; // Riferimento al player
     private Animator animator; // Riferimento all'animator del lupo
     public AI wolf; // Riferimento allo scriptable object dell'AI del lupo
+    private BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
+    private ConversationManager conversationManager; // Riferimento al ConversationManager
     #endregion
 
     void Start()
     {
+        booleanAccessor = BooleanAccessor.istance;
+        conversationManager = ConversationManager.Instance;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
@@ -38,14 +43,13 @@ public class AIWolf : MonoBehaviour
 
     void Update()
     {
-        var boolAccessor = BooleanAccessor.istance;
-        if (boolAccessor.GetBoolFromThis("wolfDone")) { this.enabled = false; return; } // Se la quest è completata, disabilita lo script
+        if (booleanAccessor.GetBoolFromThis("wolfDone")) { this.enabled = false; return; } // Se la quest è completata, disabilita lo script
         if (agent == null || !agent.isActiveAndEnabled || !agent.isOnNavMesh) return; // Se l'agente non è attivo o non è sulla navmesh
         if (!animator.GetBool("nearPlayer")) return; // Se non è vicino al player
-        if (!hasBait && boolAccessor.GetBoolFromThis("wolf") && PlayerHasBait()) { hasBait = true; animator.SetBool("followPlayer", true); }
+        if (!hasBait && booleanAccessor.GetBoolFromThis("wolf") && PlayerHasBait()) { hasBait = true; animator.SetBool("followPlayer", true); }
 
         // Se non ha l'esca o non ha parlato con UomoBaita
-        if (!animator.GetBool("followPlayer") || !boolAccessor.GetBoolFromThis("wolf"))
+        if (!animator.GetBool("followPlayer") || !booleanAccessor.GetBoolFromThis("wolf"))
         {
             if (CanAttack()) // Se può attaccare il player
             {
@@ -60,7 +64,7 @@ public class AIWolf : MonoBehaviour
         if (hasEnteredTargetArea) // Se il lupo è entrato nell'area target
         {
             if (!IsNear(targetEndTask, wolf.stopDistance)) return; // Se non è vicino al target, avvicinati
-            ResetAtTarget(boolAccessor); // Se è vicino al target, resetta
+            ResetAtTarget(); // Se è vicino al target, resetta
             return;
         }
         else FollowPlayer(); // Se ha l'esca, non è vicino al target e ha parlato
@@ -99,7 +103,7 @@ public class AIWolf : MonoBehaviour
 
         if (distanceToPlayer > wolf.maxSightDistance) // Se il player è abbastanza lontano, il lupo lo segue
         {
-            animator.SetFloat("speed", player.GetComponent<MovementStateManager>().currentMoveSpeed);
+            animator.SetFloat("speed", player.GetComponent<MovementStateManager>().currentMoveSpeed * 1.5f);
             agent.SetDestination(player.position);
             agent.isStopped = false;
         }
@@ -112,20 +116,20 @@ public class AIWolf : MonoBehaviour
 
     public void WolfInArea()
     {
-        ConversationManager.Instance.StartConversation(conversations[1]);
+        if (!isConversationActive) { isConversationActive = true; conversationManager.StartConversation(conversations[1]); }
         hasEnteredTargetArea = true;
         agent.SetDestination(targetEndTask.position);
         agent.isStopped = false;
     }
 
-    private void ResetAtTarget(BooleanAccessor boolAccessor)
+    private void ResetAtTarget()
     {
         animator.SetFloat("speed", 0f);
         agent.stoppingDistance = wolf.stopDistance;
         agent.velocity = Vector3.zero;
         agent.isStopped = true;
         agent.ResetPath();
-        boolAccessor.SetBoolOnDialogueE("wolfDone");
+        booleanAccessor.SetBoolOnDialogueE("wolfDone");
         diario.CompletaMissione("Riporta il cucciolo");
     }
 
@@ -153,7 +157,7 @@ public class AIWolf : MonoBehaviour
     private bool CanRotate(Collider other) =>
         other.CompareTag("Player") && // Se il player entra nel trigger del lupo
         (!animator.GetBool("followPlayer") || // Se il player non ha interagito con l'esca
-        !BooleanAccessor.istance.GetBoolFromThis("wolf")); // Se il player non ha parlato con UomoBaita
+        !booleanAccessor.GetBoolFromThis("wolf")); // Se il player non ha parlato con UomoBaita
 
     void OnTriggerEnter(Collider other)
     {
@@ -161,13 +165,13 @@ public class AIWolf : MonoBehaviour
         {
             animator.SetBool("nearPlayer", true);
 
-            if (animator.GetBool("followPlayer") && BooleanAccessor.istance.GetBoolFromThis("wolf")) return;
+            if (animator.GetBool("followPlayer") && booleanAccessor.GetBoolFromThis("wolf")) return;
 
             if (!audioSource.isPlaying) audioSource.PlayOneShot(growl); // Suona il ringhio del lupo
             if (!firstTimeSeeingPlayer) // Se è la prima volta che il lupo vede il player
             {
                 firstTimeSeeingPlayer = true;
-                ConversationManager.Instance.StartConversation(conversations[0]);
+                conversationManager.StartConversation(conversations[0]);
             }
         }
     }

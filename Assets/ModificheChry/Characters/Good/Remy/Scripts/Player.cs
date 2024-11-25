@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     #region Player Status
     [HideInInspector] public int maxHealth = 100; // Salute massima
     public int health; // Salute attuale
-    public int sanitaMentale; // TODO: da cambiare // Salute mentale
+    [HideInInspector] public int sanitaMentale; // TODO: da cambiare // Salute mentale
     [HideInInspector] public bool isDead = false; // Stato del giocatore (vivo/morto)
     #endregion
 

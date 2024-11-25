@@ -23,6 +23,8 @@ public class BooleanAccessor : MonoBehaviour
         { "cartelloDone", false }, // Se il giocatore ha tolto il cartello dalla recinzione in scena2
         { "wolf", false }, // Se il giocatore ha parlato con UomoBaita in scena2
         { "wolfDone", false }, // Se il giocatore ha dato il cibo al lupo in scena2
+        { "cocaCola", false }, // Se il giocatore ha parlato con UomoBaita dopo aver riportato il lupo ed è pronto per sparare in scena2
+        { "cocaColaDone", false }, // Se il giocatore ha sparato le lattine di cocacola in scena2
         { "fioriRaccolti", false }, // Se il giocatore ha raccolto 3 fiori in scena2
         { "fiori", false }, // Se il giocatore ha parlato con Gaia in scena2
         { "soluzione", false } // Se il giocatore è giunto nel dialogo di Gaia a craftare la soluzione in scena2
