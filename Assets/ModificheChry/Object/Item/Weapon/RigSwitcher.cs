@@ -19,11 +19,12 @@ public class RigSwitcher : MonoBehaviour
 
     public void SetIdle()
     {
+        string rigCercato = "RigIdle" + weapon.name;
         currentWeapon.transform.localPosition = weapon.IdlePosition;
         currentWeapon.transform.localRotation = weapon.IdleRotation;
          foreach (Rig rig in allRigs)
-        {
-            if (rig.name == "RigIdle"+currentWeapon.name)
+        { 
+            if (rig.name == rigCercato)
             {
                 if(currentRig!= null){ currentRig.weight=0;}
                 rig.weight=1;
@@ -33,12 +34,14 @@ public class RigSwitcher : MonoBehaviour
         }
     }
     public void SetAim()
-    {
+    {   
+        string rigCercato = "RigIdle" + weapon.name;
         currentWeapon.transform.localPosition = weapon.AimPosition;
         currentWeapon.transform.localRotation = weapon.AimRotation;
+        currentWeapon.transform.localScale = weapon.Scale;
         foreach (Rig rig in allRigs)
         {
-            if (rig.name == "Rig"+currentWeapon.name)
+            if (rig.name == rigCercato)
             {
                 if(currentRig!= null){ currentRig.weight=0;}
                 rig.weight=1;
