@@ -11,10 +11,6 @@ public class ManagerScena0 : MonoBehaviour
     private bool torchTaken = false; // Variabile di controllo per la torcia
     #endregion
 
-    [Header("Settings")]
-    #region Settings
-    #endregion
-
     [Header("Camere")]
     #region Camere
     public CinemachineVirtualCamera startViewCam; // Riferimento alla camera iniziale
@@ -23,6 +19,8 @@ public class ManagerScena0 : MonoBehaviour
 
     [Header("References")]
     #region References
+    private GestoreScena gestoreScena; // Riferimento al Gestore della Scena
+    private ConversationManager conversationManager; // Riferimento al ConversationManager
     public BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
     public GameObject backPackPlayer; // Riferimento al GameObject dello zaino del giocatore
     private GameObject player; // Riferimento al GameObject del giocatore
@@ -34,11 +32,15 @@ public class ManagerScena0 : MonoBehaviour
 
     void Start()
     {
+        gestoreScena = GetComponent<GestoreScena>();
+
         // Reset delle variabili
-        ConversationManager.Instance.hasClickedEnd = false;
+        conversationManager = ConversationManager.Instance;
+        conversationManager.hasClickedEnd = false;
         PlayerPrefs.SetInt("hasBackpack", 0);
         PlayerPrefs.SetInt("hasTorch", 0);
-        BooleanAccessor.istance.ResetBoolValues();
+        PlayerPrefs.Save();
+        booleanAccessor.ResetBoolValues();
         backPackTaken = false;
         torchTaken = false;
 
@@ -62,6 +64,9 @@ public class ManagerScena0 : MonoBehaviour
 
     void Update()
     {
+        // Gestione del cursore
+        if (!conversationManager.hasClickedEnd) gestoreScena.ToggleCursor(true);
+
         // Gestione del tutorial
         StandUpAndWASD();
         PostAction("quest");
@@ -92,10 +97,9 @@ public class ManagerScena0 : MonoBehaviour
 
     private void StandUpAndWASD()
     {
-        var convManager = ConversationManager.Instance;
-        if (!BooleanAccessor.istance.GetBoolFromThis("wasd") && animator.GetBool("sit") && convManager.hasClickedEnd)
+        if (!booleanAccessor.GetBoolFromThis("wasd") && animator.GetBool("sit") && conversationManager.hasClickedEnd)
         {
-            convManager.hasClickedEnd = false;
+            conversationManager.hasClickedEnd = false;
             SwitchCamera(10, 5);
 
             animator.SetBool("sit", false);
@@ -110,10 +114,10 @@ public class ManagerScena0 : MonoBehaviour
 
     private void PostAction(string dialogue)
     {
-        var convManager = ConversationManager.Instance;
-        if (!BooleanAccessor.istance.GetBoolFromThis(dialogue) && convManager.hasClickedEnd)
+        if (!booleanAccessor.GetBoolFromThis(dialogue) && conversationManager.hasClickedEnd)
         {
-            convManager.hasClickedEnd = false;
+            conversationManager.hasClickedEnd = false;
+            if (dialogue == "zaino") gestoreScena.ToggleCursor(false);
             StartCoroutine(StartAfterTimer()); // Invoca l'azione data dal parametro dialogue
         }
     }
@@ -122,7 +126,7 @@ public class ManagerScena0 : MonoBehaviour
     {
         // Sospendi l'esecuzione per tot secondi
         yield return new WaitForSeconds(10f);
-        tutorialScript.StartTutorial();
+        tutorialScript.StartTutorial(); // Invoca l'azione successiva specificata da dialogue (parametro della funzione chiamante)
     }
 
     public void SetDEBool(string nomeBool) // Da invocare nel DialogueEditor per settare i valori booleani del BooleanAccessor

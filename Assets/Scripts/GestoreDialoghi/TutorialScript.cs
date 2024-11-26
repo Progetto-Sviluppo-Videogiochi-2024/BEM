@@ -1,7 +1,6 @@
 using UnityEngine;
 using DialogueEditor;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 public class TutorialScript : MonoBehaviour
 {
@@ -40,7 +39,6 @@ public class TutorialScript : MonoBehaviour
                 if (!boolAccessor.GetBoolFromThis(entry.Key))
                 {
                     // Avvia il dialogo e aggiorna il flag associato
-                    ToggleCursor(true);
                     convManager.StartConversation(entry.Value);
                     convManager.SetBool(entry.Key, boolAccessor.GetBoolFromThis(entry.Key));
                     break;
@@ -51,11 +49,5 @@ public class TutorialScript : MonoBehaviour
         {
             Debug.LogError("BooleanAccessor.instance don't exist!");
         }
-    }
-
-    private void ToggleCursor(bool visible)
-    {
-        Cursor.visible = visible;
-        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }

@@ -3,10 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class GestoreScena : MonoBehaviour
 {
-    [Header("Settings")]
-    #region Settings
-    private bool cursor = false;
-    #endregion
+    // [Header("Settings")]
+    // #region Settings
+    // private bool cursor = false;
+    // #endregion
 
     [Header("Next Scene")]
     #region Next Scene
@@ -36,7 +36,7 @@ public class GestoreScena : MonoBehaviour
         else if (item.nameItem.Contains("Torcia")) PlayerPrefs.SetInt("hasTorch", 1);
     }
 
-    private void ToggleCursor(bool visible)
+    public void ToggleCursor(bool visible)
     {
         Cursor.visible = visible;
         Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;

@@ -33,7 +33,7 @@ public class Door : NPCDialogueBase
         }
         else if (canOpen && !radio.isOn) // Se la radio è spenta e può aprire la porta (oggetti raccolti)
         {
-            ToggleCursor(true);
+            ToggleCursor(true); // Poi si disattiva cliccando su End
             confirmNextUI.SetActive(true);
             yesButton.GetComponent<Button>().onClick.AddListener(OnYesButtonClicked);
             noButton.GetComponent<Button>().onClick.AddListener(OnNoButtonClicked);
