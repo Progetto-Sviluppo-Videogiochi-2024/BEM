@@ -68,10 +68,10 @@ public class OpenInventory : MonoBehaviour
         }
     }
 
-    public void ToggleInventory(bool open)
+    public void ToggleInventory(bool isOpen)
     {
         // Cambia lo stato dell'inventario e visualizza o nascondi il Canvas
-        isInventoryOpen = open;
+        isInventoryOpen = isOpen;
         inventoryCanvas.SetActive(isInventoryOpen);
         ToggleCursor(isInventoryOpen);
         if (!isInventoryOpen) GetComponent<AimStateManager>().enabled = true;

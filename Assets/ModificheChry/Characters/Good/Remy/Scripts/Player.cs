@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
 
         health += amount;
         // TODO: aggiungere modifiche alla sanitaMentale
-        if (health >= maxHealth) health = maxHealth;
+        if (health >= maxHealth) { health = maxHealth; return; }
         playerUIController.UpdateBloodSplatter(health, maxHealth);
         playerUIController.UpdateSanityIcon();
     }

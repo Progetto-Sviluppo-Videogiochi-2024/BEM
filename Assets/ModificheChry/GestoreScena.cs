@@ -3,6 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class GestoreScena : MonoBehaviour
 {
+    [Header("Settings")]
+    #region Settings
+    private bool cursor = false;
+    #endregion
+
     [Header("Next Scene")]
     #region Next Scene
     public string nextChapter = "Chapter I:";

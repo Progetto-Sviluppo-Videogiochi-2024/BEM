@@ -20,11 +20,13 @@ public class GamePlayMenuManager : MonoBehaviour
     [Header("References")]
     #region References
     private Transform player;
+    private Diario diario;
     #endregion
 
     void Start()
     {
-        if (FindObjectOfType<Player>() != null) player = FindAnyObjectByType<Player>().transform;
+        diario = FindObjectOfType<Diario>();
+        player = FindAnyObjectByType<Player>()?.transform;
 
         // Assicura che il menu sia inizialmente nascosto
         gamePlayMenuCanvas.SetActive(false);
@@ -39,7 +41,7 @@ public class GamePlayMenuManager : MonoBehaviour
     void Update()
     {
         if (isMenuOpen) ToggleCursor(true);
-        
+
         if (Input.GetKeyDown(KeyCode.P))
         {
             ToggleMenu(!isMenuOpen);
@@ -59,8 +61,11 @@ public class GamePlayMenuManager : MonoBehaviour
 
     private void ToggleCursor(bool visible)
     {
-        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
+        if (player != null) player.GetComponent<OpenInventory>().enabled = !visible; // Disabilita l'inventario
+        if (diario != null) diario.enabled = !visible; // Disabilita il diario
+
         Cursor.visible = visible;
+        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
     // Metodo per ripristinare Time.timeScale e chiudere il menu
