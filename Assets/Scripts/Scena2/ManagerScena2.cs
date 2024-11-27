@@ -15,6 +15,7 @@ public class ManagerScena2 : MonoBehaviour
 
     [Header("Settings")]
     #region Settings
+    private bool clickEndHandled = false; // Flag per evitare che esegua più volte il codice nel metodo Update quando si clicca su "End"
     private bool hasFlowers = false; // Flag per i fiori
     #endregion
 
@@ -44,12 +45,19 @@ public class ManagerScena2 : MonoBehaviour
         diario.AggiungiMissione("Esplora la foresta (" + dialoghiEseguiti + " / " + dialoghiTotali + ")");
 
         // Avvia la conversazione iniziale
-        ToggleCursor(true);
+        GestoreScena.ChangeCursorActiveStatus(true, "ManagerScena2.start"); // false quando hasClickedEnd è true
         ConversationManager.Instance.StartConversation(intro);
     }
 
     void Update()
     {
+        if (!clickEndHandled && ConversationManager.Instance.hasClickedEnd)
+        {
+            clickEndHandled = true;
+            ConversationManager.Instance.hasClickedEnd = false;
+            GestoreScena.ChangeCursorActiveStatus(false, "ManagerScena2.update");
+        }
+        
         var boolAccessor = BooleanAccessor.istance;
         if (!hasFlowers && boolAccessor.GetBoolFromThis("fiori") && InventoryManager.instance.GetQtaItem("Viola") >= 3)
         { hasFlowers = true; boolAccessor.SetBoolOnDialogueE("fioriRaccolti"); }
@@ -65,12 +73,6 @@ public class ManagerScena2 : MonoBehaviour
     {
         // Assicurati di disregistrarti dall'evento quando lo script è disabilitato
         if (diario != null) diario.OnMissionCompleted -= AggiornaDialoghiEseguiti;
-    }
-
-    private void ToggleCursor(bool visible)
-    {
-        Cursor.visible = visible;
-        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
     private void AggiornaDialoghiEseguiti(string missione)

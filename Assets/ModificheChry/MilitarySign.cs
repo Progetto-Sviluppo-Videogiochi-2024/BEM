@@ -8,6 +8,7 @@ public class MilitarySign : MonoBehaviour
 {
     [Header("Settings")]
     #region Settings
+    private bool clickEndHandled = false; // Flag per evitare che esegua più volte il codice nel metodo Update quando si clicca su "End"
     private bool isConversationActive = false; // Stato della conversazione
     private bool isInRange = false; // Se il player è vicino al cartello per poterci interagire
     private bool isInHand = false; // Se il cartello è in mano al player
@@ -36,8 +37,9 @@ public class MilitarySign : MonoBehaviour
 
     void Update()
     {
-        if (ConversationManager.Instance.hasClickedEnd) // Se il dialogo è finito
+        if (!clickEndHandled && ConversationManager.Instance.hasClickedEnd) // Se il dialogo è finito
         {
+            clickEndHandled = true;
             isConversationActive = false;
             player.GetComponent<MovementStateManager>().enabled = true;
         }

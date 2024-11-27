@@ -22,7 +22,7 @@ public class AIWolf : MonoBehaviour
     public AudioClip growl; // Riferimento al suono del ringhio
     private AudioSource audioSource; // Riferimento all'audio source del lupo
     public NPCConversation[] conversations; // Riferimento alle conversazioni del lupo
-    public Transform targetEndTask; // Riferimento al punto in cui la quest termina
+    public Transform targetPositionStop; // Riferimento al punto in cui il lupo si ferma
     private NavMeshAgent agent; // Riferimento all'Agente di navigazione del lupo
     private Transform player; // Riferimento al player
     private Animator animator; // Riferimento all'animator del lupo
@@ -63,7 +63,7 @@ public class AIWolf : MonoBehaviour
         // Else se ha l'esca e ha parlato con UomoBaita
         if (hasEnteredTargetArea) // Se il lupo è entrato nell'area target
         {
-            if (!IsNear(targetEndTask, wolf.stopDistance)) return; // Se non è vicino al target, avvicinati
+            if (!IsNear(targetPositionStop, wolf.stopDistance)) return; // Se non è vicino al target, avvicinati
             ResetAtTarget(); // Se è vicino al target, resetta
             return;
         }
@@ -71,10 +71,10 @@ public class AIWolf : MonoBehaviour
     }
 
     private bool CanAttack() =>
+        !player.GetComponent<Player>().isDead && // Se il player non è morto
         IsNear(player, wolf.distanceAttackMelee) && // Se il player è abbastanza vicino
         !isAttacking && // Se non sta già attaccando
-        !isRotatingToAttack && // Se non sta già ruotando per attaccare
-        !player.GetComponent<Player>().isDead; // Se il player non è morto
+        !isRotatingToAttack;// Se non sta già ruotando per attaccare // Se il player non è morto
 
     private bool IsNear(Transform target, float distance) => Vector3.Distance(transform.position, target.position) <= distance;
 
@@ -118,7 +118,7 @@ public class AIWolf : MonoBehaviour
     {
         if (!isConversationActive) { isConversationActive = true; conversationManager.StartConversation(conversations[1]); }
         hasEnteredTargetArea = true;
-        agent.SetDestination(targetEndTask.position);
+        agent.SetDestination(targetPositionStop.position);
         agent.isStopped = false;
     }
 

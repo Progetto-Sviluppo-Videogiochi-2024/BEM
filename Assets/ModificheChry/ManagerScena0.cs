@@ -2,11 +2,13 @@ using System.Collections;
 using UnityEngine;
 using DialogueEditor;
 using Cinemachine;
+using System;
 
 public class ManagerScena0 : MonoBehaviour
 {
     [Header("Tutorial")]
     #region Tutorial
+    private Action onDialogueEnd; // Delegato per la fine del dialogo (per passare al prossimo)
     private bool backPackTaken = false; // Variabile di controllo per lo zaino
     private bool torchTaken = false; // Variabile di controllo per la torcia
     #endregion
@@ -19,7 +21,6 @@ public class ManagerScena0 : MonoBehaviour
 
     [Header("References")]
     #region References
-    private GestoreScena gestoreScena; // Riferimento al Gestore della Scena
     private ConversationManager conversationManager; // Riferimento al ConversationManager
     public BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
     public GameObject backPackPlayer; // Riferimento al GameObject dello zaino del giocatore
@@ -32,11 +33,7 @@ public class ManagerScena0 : MonoBehaviour
 
     void Start()
     {
-        gestoreScena = GetComponent<GestoreScena>();
-
         // Reset delle variabili
-        conversationManager = ConversationManager.Instance;
-        conversationManager.hasClickedEnd = false;
         PlayerPrefs.SetInt("hasBackpack", 0);
         PlayerPrefs.SetInt("hasTorch", 0);
         PlayerPrefs.Save();
@@ -58,33 +55,28 @@ public class ManagerScena0 : MonoBehaviour
         backPackPlayer.SetActive(false);
 
         // Tutorial
+        conversationManager = ConversationManager.Instance;
+        conversationManager.hasClickedEnd = false;
         diario.AggiungiMissione("Lista degli oggetti per Pasquetta: Zaino e Torcia");
-        tutorialScript.StartTutorial(); // Invoca AvanzaDialogo
+        StartConversation(
+            () => { GestoreScena.ChangeCursorActiveStatus(true, "scena0.premereE"); tutorialScript.StartTutorial("premereE"); print("PremereE"); },
+            () => Invoke(nameof(StartSecondDialogue), 0f)
+        );
     }
 
     void Update()
     {
-        // Gestione del cursore
-        if (!conversationManager.hasClickedEnd) gestoreScena.ToggleCursor(true);
-
-        // Gestione del tutorial
-        StandUpAndWASD();
-        PostAction("quest");
-        PostAction("zaino");
-
-        // Gestione dello zaino
-        HideBackPack();
-
-        // Gestione degli oggetti raccolti
-        if (PlayerPrefs.GetInt("hasBackpack") == 1) backPackTaken = true;
-        if (PlayerPrefs.GetInt("hasTorch") == 1) torchTaken = true;
-
         // Gestione della porta e se le quest sono state completate
-        if (backPackTaken && torchTaken)
+        if (!door.canOpen && backPackTaken && torchTaken)
         {
             diario.CompletaMissione("Lista degli oggetti per Pasquetta: Zaino e Torcia");
-            door.canOpen = true;
+            door.canOpen = true; // Almeno entra solo una volta nell'if
         }
+
+        // Gestione degli oggetti raccolti
+        HideBackPack();
+        if (PlayerPrefs.GetInt("hasBackpack") == 1) backPackTaken = true;
+        if (PlayerPrefs.GetInt("hasTorch") == 1) torchTaken = true;
     }
 
     private void SwitchCamera(int priority_vcam1, int priority_vcam2)
@@ -95,9 +87,9 @@ public class ManagerScena0 : MonoBehaviour
 
     private void HideBackPack() => backPackPlayer.SetActive(PlayerPrefs.GetInt("hasBackpack") == 1);
 
-    private void StandUpAndWASD()
+    private void StandUpAndWASD(string dialogue)
     {
-        if (!booleanAccessor.GetBoolFromThis("wasd") && animator.GetBool("sit") && conversationManager.hasClickedEnd)
+        if (animator.GetBool("sit") && conversationManager.hasClickedEnd)
         {
             conversationManager.hasClickedEnd = false;
             SwitchCamera(10, 5);
@@ -108,25 +100,60 @@ public class ManagerScena0 : MonoBehaviour
             player.GetComponent<MovementStateManager>().enabled = true;
             animator.SetLayerWeight(animator.GetLayerIndex("Clip"), 0);
 
-            tutorialScript.StartTutorial(); // Invoca WASD e Mouse
+            GestoreScena.ChangeCursorActiveStatus(true, "scena0.wasd");
+            tutorialScript.StartTutorial(dialogue); // Invoca WASD&Mouse
         }
     }
 
     private void PostAction(string dialogue)
     {
-        if (!booleanAccessor.GetBoolFromThis(dialogue) && conversationManager.hasClickedEnd)
+        if (conversationManager.hasClickedEnd)
         {
             conversationManager.hasClickedEnd = false;
-            if (dialogue == "zaino") gestoreScena.ToggleCursor(false);
-            StartCoroutine(StartAfterTimer()); // Invoca l'azione data dal parametro dialogue
+            GestoreScena.ChangeCursorActiveStatus(true, "scena0." + dialogue);
+            tutorialScript.StartTutorial(dialogue); // Invoca "dialogue" (quest, zaino)
         }
     }
 
-    private IEnumerator StartAfterTimer()
+    void StartSecondDialogue()
     {
-        // Sospendi l'esecuzione per tot secondi
-        yield return new WaitForSeconds(10f);
-        tutorialScript.StartTutorial(); // Invoca l'azione successiva specificata da dialogue (parametro della funzione chiamante)
+        // Avvia il secondo dialogo e definisci il delegato per il terzo dialogo
+        StartConversation(() => StandUpAndWASD("wasd"), () => StartCoroutine(WaitAndStartThirdDialogue(10f)));
+    }
+
+    IEnumerator WaitAndStartThirdDialogue(float waitTime)
+    {
+        // Attendi 10 secondi prima di avviare il terzo dialogo
+        yield return new WaitForSeconds(waitTime);
+
+        // Avvia il terzo dialogo e definisci il delegato per il quarto dialogo
+        StartConversation(() => PostAction("quest"), () => StartCoroutine(WaitAndStartFourthDialogue(10f)));
+    }
+
+    IEnumerator WaitAndStartFourthDialogue(float waitTime)
+    {
+        // Attendi 10 secondi prima di avviare il quarto dialogo
+        yield return new WaitForSeconds(waitTime);
+
+        // Avvia il quarto dialogo
+        StartConversation(() => PostAction("zaino"), () => print("All dialogues completed."));
+    }
+
+    void StartConversation(Action onStartCallback, Action onEndCallback)
+    {
+        onStartCallback?.Invoke(); // Invoca il delegato per avviare il dialogo
+        onDialogueEnd = onEndCallback; // Imposta il delegato per chiamare il prossimo dialogo
+        StartCoroutine(WaitForClickEnd());
+    }
+
+    IEnumerator WaitForClickEnd()
+    {
+        // Quando clicco su End, nella funzione del DE già sta hasClickedEnd a true e quindi esce dal ciclo
+        while (!conversationManager.hasClickedEnd) yield return null;
+
+        // Quando il dialogo finisce, invoca il delegato per avviare il prossimo dialogo
+        GestoreScena.ChangeCursorActiveStatus(false, "scena0.waitClickEnd");
+        onDialogueEnd?.Invoke();
     }
 
     public void SetDEBool(string nomeBool) // Da invocare nel DialogueEditor per settare i valori booleani del BooleanAccessor

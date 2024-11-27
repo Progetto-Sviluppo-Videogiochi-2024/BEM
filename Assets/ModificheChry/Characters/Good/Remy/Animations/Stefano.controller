@@ -309,28 +309,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1101 &-6577892482513764073
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 0}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 1
-  serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.94545454
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!1107 &-5750699141975669670
 AnimatorStateMachine:
   serializedVersion: 6
@@ -1393,8 +1371,7 @@ AnimatorState:
   m_Name: Dying Backwards
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions:
-  - {fileID: -6577892482513764073}
+  m_Transitions: []
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -1404,7 +1381,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c0e52da00b3d29e43b5aca1edb99f5b0, type: 2}
+  m_Motion: {fileID: 7400000, guid: b333ee2bcf9eda54eba79deb7d25f370, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

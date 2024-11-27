@@ -40,7 +40,7 @@ public class GamePlayMenuManager : MonoBehaviour
 
     void Update()
     {
-        if (isMenuOpen) ToggleCursor(true);
+        // if (isMenuOpen) ToggleScripts(true);
 
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -52,20 +52,20 @@ public class GamePlayMenuManager : MonoBehaviour
     {
         isMenuOpen = isOpen;
         gamePlayMenuCanvas.SetActive(isMenuOpen);
-        ToggleCursor(isMenuOpen);
-
-        if (player != null) player.GetComponent<AimStateManager>().enabled = !isMenuOpen; // Per la visuale
+        GestoreScena.ChangeCursorActiveStatus(isMenuOpen, "gamePlayMenu");
+        ToggleScripts(isMenuOpen);
 
         Time.timeScale = isMenuOpen ? 0 : 1; // 0 = pausa, 1 = gioco normale
     }
 
-    private void ToggleCursor(bool visible)
+    private void ToggleScripts(bool visible)
     {
-        if (player != null) player.GetComponent<OpenInventory>().enabled = !visible; // Disabilita l'inventario
-        if (diario != null) diario.enabled = !visible; // Disabilita il diario
-
-        Cursor.visible = visible;
-        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
+        if (player != null)
+        {
+            player.GetComponent<OpenInventory>().enabled = !visible; // Per l'inventario
+            player.GetComponent<AimStateManager>().enabled = !visible; // Per la visuale
+        }
+        if (diario != null) diario.enabled = !visible; // Per il diario
     }
 
     // Metodo per ripristinare Time.timeScale e chiudere il menu

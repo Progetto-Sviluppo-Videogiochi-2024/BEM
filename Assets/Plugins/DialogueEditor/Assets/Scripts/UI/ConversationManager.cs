@@ -853,7 +853,7 @@ namespace DialogueEditor
         private void LogWarning(string warning)
         {
 #if UNITY_EDITOR
-            Debug.LogWarning("[Dialogue Editor]: " + warning);
+            // Debug.LogWarning("[Dialogue Editor]: " + warning); // TODO: aggiunto (rompeva il cazzo nella console)
 #endif
         }
     }

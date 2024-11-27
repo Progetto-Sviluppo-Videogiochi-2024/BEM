@@ -29,11 +29,12 @@ public class Door : NPCDialogueBase
     {
         if (!canOpen || radio.isOn) // Se la radio è accesa e non può aprire la porta (oggetti non raccolti)
         {
+            GestoreScena.ChangeCursorActiveStatus(true, "door.startDialogue1"); // Poi si disattiva quando hasClickedEnd = true
             ConversationManager.Instance.StartConversation(conversations[0]);
         }
         else if (canOpen && !radio.isOn) // Se la radio è spenta e può aprire la porta (oggetti raccolti)
         {
-            ToggleCursor(true); // Poi si disattiva cliccando su End
+            GestoreScena.ChangeCursorActiveStatus(true, "door.startDialogue2"); // Poi si disattiva quando hasClickedEnd = true
             confirmNextUI.SetActive(true);
             yesButton.GetComponent<Button>().onClick.AddListener(OnYesButtonClicked);
             noButton.GetComponent<Button>().onClick.AddListener(OnNoButtonClicked);
@@ -42,21 +43,15 @@ public class Door : NPCDialogueBase
 
     private void OnYesButtonClicked()
     {
-        ToggleCursor(false);
+        GestoreScena.ChangeCursorActiveStatus(false, "door.yesButton");
         gestoreScena.GoToTransitionScene();
         ConversationManager.Instance.hasClickedEnd = true;
     }
 
     private void OnNoButtonClicked()
     {
-        ToggleCursor(false);
+        GestoreScena.ChangeCursorActiveStatus(false, "door.noButton");
         confirmNextUI.SetActive(false);
         ConversationManager.Instance.hasClickedEnd = true;
-    }
-
-    private void ToggleCursor(bool visible)
-    {
-        Cursor.visible = visible;
-        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }

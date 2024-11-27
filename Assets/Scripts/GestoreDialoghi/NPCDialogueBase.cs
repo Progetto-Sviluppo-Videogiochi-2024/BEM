@@ -10,6 +10,7 @@ public abstract class NPCDialogueBase : MonoBehaviour
 
     [Header("Settings")]
     #region Settings
+    static bool clickEndHandled = true; // Flag per gestire la fine della conversazione una sola volta
     public bool isConversationActive = false;  // Stato della conversazione
     private bool isInRange = false;  // Se il giocatore è nel raggio
     #endregion
@@ -23,17 +24,20 @@ public abstract class NPCDialogueBase : MonoBehaviour
 
     private void Update()
     {
-        if (isConversationActive) ToggleCursor(true);
-        if (ConversationManager.Instance.hasClickedEnd)
+        if (!clickEndHandled && ConversationManager.Instance.hasClickedEnd)
         {
             isConversationActive = false;
-            ToggleCursor(false);
+            clickEndHandled = true;
+            
+            GestoreScena.ChangeCursorActiveStatus(false, "NPCDialogueBase.update: " + gameObject.transform.parent.name);
             player.GetComponent<MovementStateManager>().enabled = true;
         }
 
         if (isInRange && !isConversationActive && Input.GetKeyDown(KeyCode.Space))
         {
             ConversationManager.Instance.hasClickedEnd = false;
+            clickEndHandled = false;
+            
             StartDialogue(); // Avvia il dialogo (metodo astratto che deve invocare StartConversation)
             player.GetComponent<MovementStateManager>().enabled = false;
         }
@@ -41,8 +45,7 @@ public abstract class NPCDialogueBase : MonoBehaviour
 
     protected void StartConversation(NPCConversation dialog)
     {
-        // Blocco il cursore in UIConversationButton.DoClickBehaviour(): in end
-        ToggleCursor(true);
+        GestoreScena.ChangeCursorActiveStatus(true, "NPCDialogueBase.StartConversation: " + gameObject.transform.parent.name);
 
         player.GetComponent<Animator>().SetFloat("hInput", 0);
         player.GetComponent<Animator>().SetFloat("vInput", 0);
@@ -74,10 +77,5 @@ public abstract class NPCDialogueBase : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player")) isInRange = false; // Quando il giocatore esce dall'area
-    }
-    private void ToggleCursor(bool visible)
-    {
-        Cursor.visible = visible;
-        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }

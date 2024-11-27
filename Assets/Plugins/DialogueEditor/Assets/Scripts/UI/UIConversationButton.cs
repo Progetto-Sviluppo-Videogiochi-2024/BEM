@@ -230,8 +230,6 @@ namespace DialogueEditor
                         UnityEngine.SceneManagement.SceneManager.LoadScene(nextNameScene);
                     }
                     ConversationManager.Instance.hasClickedEnd = true;
-                    Cursor.visible = false;
-                    Cursor.lockState = CursorLockMode.Locked;
 
                     break;
             }

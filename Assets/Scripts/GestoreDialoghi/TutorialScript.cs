@@ -26,21 +26,20 @@ public class TutorialScript : MonoBehaviour
         };
     }
 
-    public void StartTutorial()
+    public void StartTutorial(string tutorial)
     {
         if (BooleanAccessor.istance != null)
         {
-            var boolAccessor = BooleanAccessor.istance;
             var convManager = ConversationManager.Instance;
 
             // Trova il primo dialogo non ancora visualizzato
             foreach (var entry in tutorialConversations)
             {
-                if (!boolAccessor.GetBoolFromThis(entry.Key))
+                if (entry.Key == tutorial)
                 {
                     // Avvia il dialogo e aggiorna il flag associato
                     convManager.StartConversation(entry.Value);
-                    convManager.SetBool(entry.Key, boolAccessor.GetBoolFromThis(entry.Key));
+                    convManager.SetBool(entry.Key, BooleanAccessor.istance.GetBoolFromThis(entry.Key));
                     break;
                 }
             }

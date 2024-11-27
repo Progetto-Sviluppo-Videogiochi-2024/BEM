@@ -12,11 +12,20 @@
   - Mancano **rig layer**, dialoghi e controlli.  
 - ~~**Task del lupo:**~~  
   - ~~Manca il danno al **pg** quando il lupo lo attacca.~~  
-  - Implementare il **ragdoll del pg** se muore a causa del lupo.  
-- **Camera collider** in **scena0** (libreria, muri, ecc.). Diciamo evitato siccome guarda dietro (es: bagno)   
+  - ~~Implementare il **ragdoll del pg** se muore a causa del lupo.~~ branch chry_t-pose  
+- ~~**Camera collider** in **scena0** (libreria, muri, ecc.).~~    
 - ~~**Specchio riflettente** in **scena0:** Riflette tutti gli oggetti statici ma non il **pg**~~.   
 - Manca l'**ammo del fucile** di Scena2 (potremmo usare anche la stessa per ogni arma).  
 - ~~Mettere **collider più grandi** per gli oggetti pick-up.~~  
+- ~~Perché il **cartello** si blocca sulla recinzione~~
+- ~~**Cursore** del mouse~~
+- ~~**Danno del lupo** considerando la barra degli HP~~
+- Salute mentale ?
+- Il lupo potrebbe camminare sul posto anche se la task è finita, oltrepassa gli oggetti 
+- SO per scena2
+- Molti test per le task di scena
+- Dialogo per passare a scena3 e ~~quando va al cartello senza aver parlato con jacob~~
+- ~~Errore **radio** del mesh~~ 
 - ~~Rimuovere **button** e funzione **quitGame** dal **gameplay menu**.~~  
 - Dopo che il **pg** si alza, dovrebbe guardare verso il letto, non verso la finestra (evitare la retromarcia del pg).  
 - **AI di NPC e villain** da completare, controllare la sezione "Vincoli".  
@@ -29,7 +38,7 @@
 
 # **DA DECIDERE INSIEME:**  
 - Estetica di:  
-  - **Inventario** : Lasciamo quello attuale
+  - **Inventario** : Si, vediamo come sta 
   - **Menu main**, **menu pausa**, **gameplay menu**.: ~~Tutti con il background dell'attuale inventario, ovvero sfondo nero con un po' di trasparenza, semplice~~
 - **Gestione della camera:**  
   - Stefano: movimento, crouch, aim, **ALT**.  

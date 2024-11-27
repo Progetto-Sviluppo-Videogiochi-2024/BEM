@@ -30,7 +30,7 @@ public class OpenInventory : MonoBehaviour
 
     void Update()
     {
-        if (isInventoryOpen) { ToggleCursor(true); ToggleCinematic(); }
+        if (isInventoryOpen) { ToggleCinematic(); }
 
         ActivateInventory(); // Se I, apri/chiudi l'inventario
     }
@@ -73,7 +73,7 @@ public class OpenInventory : MonoBehaviour
         // Cambia lo stato dell'inventario e visualizza o nascondi il Canvas
         isInventoryOpen = isOpen;
         inventoryCanvas.SetActive(isInventoryOpen);
-        ToggleCursor(isInventoryOpen);
+        GestoreScena.ChangeCursorActiveStatus(isInventoryOpen, "Inventory");
         if (!isInventoryOpen) GetComponent<AimStateManager>().enabled = true;
 
         // Chiudi il menu ispeziona se l'inventario viene chiuso
@@ -83,12 +83,6 @@ public class OpenInventory : MonoBehaviour
             itemInspectOpen.OpenCloseInspectUI(false);
             itemInspectOpen = null;
         }
-    }
-
-    private void ToggleCursor(bool visible)
-    {
-        Cursor.visible = visible;
-        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
     private void ToggleCinematic()

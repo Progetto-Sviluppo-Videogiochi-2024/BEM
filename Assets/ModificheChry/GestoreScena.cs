@@ -3,22 +3,21 @@ using UnityEngine.SceneManagement;
 
 public class GestoreScena : MonoBehaviour
 {
-    // [Header("Settings")]
-    // #region Settings
-    // private bool cursor = false;
-    // #endregion
-
     [Header("Next Scene")]
     #region Next Scene
-    public string nextChapter = "Chapter I:";
-    public string nextScene = "ScenaI";
+    public string nextChapter = "Chapter I:"; // Nome del capitolo della scena successiva
+    public string nextScene = "ScenaI"; // Nome della scena successiva
+    #endregion
+
+    [Header("Static References")]
+    #region Static References
+    private static int nUIOpen = 0; // Numero di UI aperte nella scena corrente
     #endregion
 
     void Awake()
     {
-        // Nasconde il cursore e lo blocca al centro
-        if (SceneManager.GetActiveScene().name == "MainMenu") ToggleCursor(true);
-        else ToggleCursor(false);
+        nUIOpen = 0; // Resettata a ogni nuova scena per evitare problemi (la precedente viene distrutta, quindi, anche se alcune saranno aperte prima del cambio, io la azzero all'inizio della nuova scena)
+        ToggleCursor(SceneManager.GetActiveScene().name == "MainMenu");
     }
 
     public void GoToTransitionScene()
@@ -36,7 +35,17 @@ public class GestoreScena : MonoBehaviour
         else if (item.nameItem.Contains("Torcia")) PlayerPrefs.SetInt("hasTorch", 1);
     }
 
-    public void ToggleCursor(bool visible)
+    public static void ChangeCursorActiveStatus(bool isOpen, string debug)
+    {
+        // Gestione dell'apertura/chiusura delle UI
+        nUIOpen += isOpen ? 1 : -1;
+        nUIOpen = Mathf.Max(0, nUIOpen);  // Assicura che il valore non scenda mai sotto 0
+
+        print("UI aperte: " + nUIOpen + " (invocata in " + debug + ")");
+        ToggleCursor(nUIOpen > 0);  // Cambia visibilità del cursore se almeno una UI è aperta
+    }
+
+    public static void ToggleCursor(bool visible)
     {
         Cursor.visible = visible;
         Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;

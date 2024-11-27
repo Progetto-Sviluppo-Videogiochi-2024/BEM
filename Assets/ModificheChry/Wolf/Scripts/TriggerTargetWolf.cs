@@ -8,5 +8,5 @@ public class TriggerTargetWolf : MonoBehaviour
         if (other.gameObject.TryGetComponent<AIWolf>(out var wolf)) wolf.WolfInArea();
     }
 
-    // OnCollisionExit non dovrebbe servire, in quanto se la pecora entra, andrà direttamente verso "targetEndTask"
+    // OnCollisionExit non dovrebbe servire, in quanto se il lupo entra, andrà direttamente verso "targetEndTask"
 }

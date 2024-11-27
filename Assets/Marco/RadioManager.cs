@@ -57,8 +57,6 @@ public class RadioManager : MonoBehaviour
             NextSong();
         }
 
-        if (isRadioOpen) ToggleRadio(true);
-
         if (isInRange && Input.GetKeyDown(KeyCode.Space)) // Se il giocatore è vicino alla radio e 'Space'
         {
             ToggleRadio(!isRadioOpen);
@@ -82,8 +80,7 @@ public class RadioManager : MonoBehaviour
         // Se il canvas è aperto chiudilo, else viceversa
         isRadioOpen = isOpen;
         radioCanvas.SetActive(isRadioOpen);
-        Cursor.visible = isRadioOpen;
-        Cursor.lockState = isRadioOpen ? CursorLockMode.None : CursorLockMode.Locked;
+        GestoreScena.ChangeCursorActiveStatus(isRadioOpen, "Radio");
         player.GetComponent<AimStateManager>().enabled = !isRadioOpen; // Per la visuale
 
         Time.timeScale = isRadioOpen ? 0 : 1; // 0 = pausa, 1 = gioco normale

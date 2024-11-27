@@ -19,6 +19,8 @@ public class ManagerScena1 : MonoBehaviour
 
     [Header("References")]
     #region References
+    private GestoreScena gestoreScena; // Riferimento al GestoreScena
+    private ConversationManager conversationManager; // Riferimento al ConversationManager
     [SerializeField] private NPCConversation dialogue; // Riferimento alla conversazione del gruppo di ragazzi
     private AudioSource audioSource; // Riferimento all'AudioSource
     public BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
@@ -26,6 +28,8 @@ public class ManagerScena1 : MonoBehaviour
 
     void Start()
     {
+        gestoreScena = GetComponent<GestoreScena>();
+        conversationManager = ConversationManager.Instance;
         nameScene = SceneManager.GetActiveScene().name;
         StartDialogue();
         audioSource = GetComponent<AudioSource>(); // Per ottenere l'AudioSource
@@ -34,12 +38,13 @@ public class ManagerScena1 : MonoBehaviour
 
     void Update()
     {
-        ToggleCursor(true);
-
-        if (Input.GetKeyDown(KeyCode.Return)) // Se 'Return' (tasto invio)
+        if (conversationManager.hasClickedEnd)
         {
-            SceneManager.LoadScene(GetNextScene()); // Per caricare la scena successiva
+            conversationManager.hasClickedEnd = false;
+            GestoreScena.ChangeCursorActiveStatus(false, "ManagerScena1.Update");
+            gestoreScena.GoToTransitionScene();
         }
+        if (Input.GetKeyDown(KeyCode.Return)) gestoreScena.GoToTransitionScene(); // Se 'Return'
 
         if (Input.GetKeyDown(KeyCode.M)) // Se 'M'
         {
@@ -82,14 +87,8 @@ public class ManagerScena1 : MonoBehaviour
 
     private void StartDialogue()
     {
-        ToggleCursor(true);
-        ConversationManager.Instance.StartConversation(dialogue);
-    }
-
-    private void ToggleCursor(bool visible)
-    {
-        Cursor.visible = visible;
-        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
+        GestoreScena.ChangeCursorActiveStatus(true, "ManagerScena1.StartDialogue"); // false quando si chiude il dialogo in EndConversation
+        conversationManager.StartConversation(dialogue);
     }
 
     public string GetNextScene()
