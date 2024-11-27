@@ -29,7 +29,7 @@
 
 # **DA DECIDERE INSIEME:**  
 - Estetica di:  
-  - **Inventario** : Si, vediamo come sta 
+  - **Inventario** : Lasciamo quello attuale
   - **Menu main**, **menu pausa**, **gameplay menu**.: ~~Tutti con il background dell'attuale inventario, ovvero sfondo nero con un po' di trasparenza, semplice~~
 - **Gestione della camera:**  
   - Stefano: movimento, crouch, aim, **ALT**.  
