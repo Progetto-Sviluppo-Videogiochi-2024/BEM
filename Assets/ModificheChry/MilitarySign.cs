@@ -2,7 +2,6 @@ using System.Collections;
 using DialogueEditor;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MilitarySign : MonoBehaviour
 {
@@ -54,6 +53,7 @@ public class MilitarySign : MonoBehaviour
 
     void StartConversation(NPCConversation dialog)
     {
+        clickEndHandled = false;
         isConversationActive = true;
         ConversationManager.Instance.StartConversation(dialog);
     }
