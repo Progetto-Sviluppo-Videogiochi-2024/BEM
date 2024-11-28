@@ -12,10 +12,6 @@
   - Implementare respiro affanoso per Stefano quando si attiva la sanità mentale
 - Dialogo per passare a scena3 oppure una richiesta di conferma?
 - **Tests**
-  - Test: 28.11.24 
-      - **Grave**: Senza aver parlato con Jacob, mi sono recato al cartello correndo, ho premuto spacebar si è avviato il dialogo ma il pg non poteva più muoversi.
-      Ovvero, continuava a correre, devo ritestare. 
-      Dobbiamo verificare se accade anche in scena0
       - Il lupo: Il lupo si è fermato nella posizione corretta, il problema degli alberi possiamo lasciarlo per il lupo secondo me XD
 
 ## Scena 3 

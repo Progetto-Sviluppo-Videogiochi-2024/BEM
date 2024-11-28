@@ -5,7 +5,7 @@ public class ItemPickup : MonoBehaviour
 {
     [Header("Pickup")]
     #region Pickup
-    private Item item; // Oggetto da raccogliere
+    [HideInInspector] public Item item; // Oggetto da raccogliere
     private bool isPlayerInRange = false; // Per sapere se il giocatore è vicino all'oggetto
     private bool isItemAdded = false; // Flag per assicurarsi che l'oggetto venga aggiunto solo una volta
     #endregion
@@ -28,7 +28,7 @@ public class ItemPickup : MonoBehaviour
         animator = FindObjectOfType<Player>().gameObject.GetComponent<Animator>();
         if (triggerTooltip == null)
         {
-            Debug.LogError("triggerTooltip non è stato assegnato. Assicurati di collegarlo nell'Inspector.");
+            Debug.LogWarning("triggerTooltip doesn't exist. Please assign it in the Inspector.");
             return; // Blocca l'esecuzione per evitare ulteriori errori.
         }
         triggerTooltip.tooltipDuration = 3f;
@@ -40,13 +40,13 @@ public class ItemPickup : MonoBehaviour
         {
             if (InventoryManager.instance.IsInventoryFull())
             {
-                triggerTooltip.ShowTooltip("Non ho spazio nello zaino.");
+                triggerTooltip?.ShowTooltip("Non ho spazio nello zaino.");
                 return;
             }
             
             // if (Input.GetMouseButtonDown(0) && CheckClickMouseItem()) PickUp(); else // TODO: commentato perché bisogna capire se lasciamo il click
             if (!animator.GetBool("pickingUp") && Input.GetKeyDown(KeyCode.Space)) PickUp();
-            else if (animator.GetBool("pickingUp") && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))) CancelPickup();
+            else if (animator.GetBool("pickingUp") && (animator.GetFloat("vInput") > 0 || animator.GetFloat("hInput") > 0)) CancelPickup();
         }
     }
 
