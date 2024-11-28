@@ -30,7 +30,7 @@
 - **Gestione della camera:**  
   - Stefano: movimento, crouch, aim, **ALT**. 
 **Offset animazioni**
-  - Da verificare con Christian 
+  - Da verificare con @ccorvino3
 - **Rompicapi** 
   - da implementare. 
 - **Gestione dell'audio**

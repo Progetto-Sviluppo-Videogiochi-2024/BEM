@@ -40,6 +40,8 @@
   - **Armi da lancio**:
     - Oggetti come sassi e bottiglie.
     - Utilizzabili per attirare, attaccare o distrarre i nemici.
+- **Oggetti**:
+  - Un solo oggetto equipaggiato in un solo slot (GUI e Inventario)
 
 ## Inventario
 

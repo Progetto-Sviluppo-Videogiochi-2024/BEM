@@ -131,6 +131,7 @@ public class AIWolf : MonoBehaviour
         agent.ResetPath();
         booleanAccessor.SetBoolOnDialogueE("wolfDone");
         diario.CompletaMissione("Riporta il cucciolo");
+        diario.AggiungiMissione("Spara le bottiglie");
     }
 
     private IEnumerator RotateTowardsPlayerAndAttack()

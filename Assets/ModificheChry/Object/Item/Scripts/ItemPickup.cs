@@ -18,24 +18,28 @@ public class ItemPickup : MonoBehaviour
 
     [Header("References Scripts")]
     #region References Scripts
+    private GamePlayMenuManager gamePlayMenuManager; // Riferimento allo script GamePlayMenuManager
     private OpenInventory openMenuScript; // Riferimento allo script OpenMenu
     #endregion
 
     void Start()
     {
+        gamePlayMenuManager = FindObjectOfType<GamePlayMenuManager>();
         item = GetComponent<ItemController>().item;
         openMenuScript = FindObjectOfType<Player>().gameObject.GetComponent<OpenInventory>();
         animator = FindObjectOfType<Player>().gameObject.GetComponent<Animator>();
         if (triggerTooltip == null)
         {
             Debug.LogWarning("triggerTooltip doesn't exist. Please assign it in the Inspector.");
-            return; // Blocca l'esecuzione per evitare ulteriori errori.
+            return; // Blocca l'esecuzione per evitare la null reference exception
         }
         triggerTooltip.tooltipDuration = 3f;
     }
 
     void Update()
     {
+        if (gamePlayMenuManager.isMenuOpen) return; // Se il menu è aperto, non fare nulla
+
         if (isPlayerInRange && item.isPickUp) // Se è vicino a un oggetto raccoglibile
         {
             if (InventoryManager.instance.IsInventoryFull())

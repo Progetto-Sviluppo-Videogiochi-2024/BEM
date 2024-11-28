@@ -67,17 +67,17 @@ public class TaskFucile : MonoBehaviour
     private void StatusTask()
     {
         if (PlayerPrefs.GetInt("nTargetHit") < maxTargetHit && weaponClone.prefab.GetComponent<WeaponAmmo>().extraAmmo == 0 &&
-            booleanAccessor.GetBoolFromThis("cocaCola"))
+            booleanAccessor.GetBoolFromThis("cocaCola")) // Ha perso
         {
-            conversationManager.StartConversation(conversations[2]);
+            conversationManager.StartConversation(conversations[2]); // Parte UomoBaitaLost
             TaskFailed();
             TaskReset();
             return;
         }
 
-        if (PlayerPrefs.GetInt("nTargetHit") == maxTargetHit)
+        if (PlayerPrefs.GetInt("nTargetHit") == maxTargetHit) // Ha vinto
         {
-            conversationManager.StartConversation(conversations[1]);
+            conversationManager.StartConversation(conversations[1]); // Parte UomoBaitaWin
             booleanAccessor.SetBoolOnDialogueE("cocaColaDone");
             TaskReset();
             // Distruggere il playerprefs se non serve più nel gioco
@@ -119,7 +119,7 @@ public class TaskFucile : MonoBehaviour
     public void PlayerCollision()
     {
         if (isConversationActive) return;
-        conversationManager.StartConversation(conversations[0]);
+        conversationManager.StartConversation(conversations[0]); // Parte UomoBaitaAlert
     }
 
     void OnTriggerEnter(Collider other)

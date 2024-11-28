@@ -5,12 +5,14 @@ public class ManagerScena2 : MonoBehaviour
 {
     [Header("Dati Scena2")]
     #region Dati Scena2
-    public int dialoghiTotali = 5; // Numero di dialoghi totali
+    public const int dialoghiTotali = 6; // Numero di dialoghi totali
     public int dialoghiEseguiti; // Numero di dialoghi eseguiti 
-    public int documentiTotali = 2; // Numero di documenti totali
+    public const int documentiTotali = 7; // Numero di documenti totali
     public int documentiRaccolti = 0; // Numero di documenti raccolti
-    public int violeTotali = 15; // Numero di viole totali
+    public const int violeTotali = 15; // Numero di viole totali
     public int violeRaccolte = 0; // Numero di viole raccolte
+    public const int consumablesTotali = 2; // Numero di oggetti consumabili totali
+    public int ammosTotali = 1; // Numero di munizioni totali
     #endregion
 
     [Header("Settings")]

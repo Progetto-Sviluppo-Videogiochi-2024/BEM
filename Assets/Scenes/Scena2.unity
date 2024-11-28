@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 1
-  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[],\"EditorInfo\":{\"isRoot\":true,\"xPos\":296.900024,\"yPos\":77.9999847},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Non
+  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[],\"EditorInfo\":{\"isRoot\":true,\"xPos\":244.9,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Non
     \xE8 andata come volevi, ma non \xE8 la fine. Impara dai tuoi errori e torna
     quando ti senti pronto. La prossima volta saranno tue!\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
   saveVersion: 110
@@ -433,7 +433,19 @@ MonoBehaviour:
   EndConversationFont: {fileID: 0}
   Event:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1575244069}
+        m_TargetAssemblyTypeName: Diario, Assembly-CSharp
+        m_MethodName: CompletaMissione
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Spara le bottiglie
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1001 &27429813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -537,10 +549,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 3
-  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":301.7,\"yPos\":109.199982},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Non
-    male. Hai un buon occhio, lo ammetto.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":299.600037,\"yPos\":254.4},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Per\xF2
+  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":244.9,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Non
+    male. Hai un buon occhio, lo ammetto.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":242.800018,\"yPos\":167.200012},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Per\xF2
     non montarti la testa, \xE8 solo un inizio. Un vero tiratore non si ferma mai
-    al primo bersaglio.\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":298.8,\"yPos\":408.8},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ora
+    al primo bersaglio.\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":241.999969,\"yPos\":321.6},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ora
     puoi rilassarti un momento, ma cerca di restare concentrato per quello che verr\xE0.\",\"parentUIDs\":[1],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
   saveVersion: 110
   DefaultName: 
@@ -8534,6 +8546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &580033877
 MonoBehaviour:
@@ -9326,7 +9339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 1
-  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[],"EditorInfo":{"isRoot":true,"xPos":298.500031,"yPos":185.199982},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Non
+  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[],"EditorInfo":{"isRoot":true,"xPos":244.9,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Non
     barare ragazzo, resta vicino al tronco!","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Uomo","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
   DefaultName: 
@@ -9411,7 +9424,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Event:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1575244069}
+        m_TargetAssemblyTypeName: Diario, Assembly-CSharp
+        m_MethodName: CompletaMissione
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Spara le bottiglie
+          m_BoolArgument: 0
+        m_CallState: 1
   NodeID: 0
   TMPFont: {fileID: 0}
   Icon: {fileID: 21300000, guid: 2a00749aef8cde04f81371e80f83266c, type: 3}
@@ -12183,6 +12208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!65 &823624164
 BoxCollider:
@@ -13068,13 +13094,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 6
-  json: "{\"Options\":[],\"Parameters\":[{\"__type\":\"EditableBoolParameter:#DialogueEditor\",\"ParameterName\":\"wolf\",\"BoolValue\":false}],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":237.299988,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ehi
-    ragazzo, mi daresti una mano?\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":464.1023,\"yPos\":24},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Veramente
-    sarei impegnato con\u2014\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":3}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":453.302063,\"yPos\":137.599945},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ci
+  json: "{\"Options\":[],\"Parameters\":[{\"__type\":\"EditableBoolParameter:#DialogueEditor\",\"ParameterName\":\"wolf\",\"BoolValue\":false}],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":244.9,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ehi
+    ragazzo, mi daresti una mano?\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":471.7023,\"yPos\":24},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Veramente
+    sarei impegnato con\u2014\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":3}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":460.902069,\"yPos\":137.599945},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ci
     vorr\xE0 un attimo. Devi solo riportare la mia Layal qui, vicino l'orto troverai
-    sicuramente qualcosa di utile per convincerla a seguirti.\",\"parentUIDs\":[1],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":4}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":220.499756,\"yPos\":145.599823},\"ID\":3,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Aah,
-    guardi, dovrei proprio andare\u2014\",\"parentUIDs\":[2],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":5}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":214.0997,\"yPos\":282.399933},\"ID\":4,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ascolta,
-    ti propongo un accordo: se mi aiuti, ti insegno a sparare. Che ne dici? Ti interessa?\",\"parentUIDs\":[3],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":456.502319,\"yPos\":282.4},\"ID\":5,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Eh,
+    sicuramente qualcosa di utile per convincerla a seguirti.\",\"parentUIDs\":[1],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":4}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":228.099762,\"yPos\":145.599823},\"ID\":3,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Aah,
+    guardi, dovrei proprio andare\u2014\",\"parentUIDs\":[2],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":5}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":221.6997,\"yPos\":282.399933},\"ID\":4,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ascolta,
+    ti propongo un accordo: se mi aiuti, ti insegno a sparare. Che ne dici? Ti interessa?\",\"parentUIDs\":[3],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":464.102325,\"yPos\":282.4},\"ID\":5,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Eh,
     va bene, ci sto.\",\"parentUIDs\":[4],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
   saveVersion: 110
   DefaultName: 
@@ -13091,7 +13117,19 @@ MonoBehaviour:
   EndConversationFont: {fileID: 0}
   Event:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1810443625}
+        m_TargetAssemblyTypeName: ManagerScena2, Assembly-CSharp
+        m_MethodName: SetDEBool
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: wolf
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &888695252
 GameObject:
   m_ObjectHideFlags: 0
@@ -14199,6 +14237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &959438591
 MonoBehaviour:
@@ -14315,6 +14354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &964662796
 MonoBehaviour:
@@ -17286,6 +17326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1075064227
 MonoBehaviour:
@@ -17556,6 +17597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1090743920
 MonoBehaviour:
@@ -18056,6 +18098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1110900491
 MonoBehaviour:
@@ -18433,6 +18476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1121975330
 MonoBehaviour:
@@ -18984,6 +19028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!65 &1161077570
 BoxCollider:
@@ -19134,6 +19179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1166596644
 MonoBehaviour:
@@ -20331,6 +20377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1255720280
 MonoBehaviour:
@@ -20822,6 +20869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1262400240
 MonoBehaviour:
@@ -21222,19 +21270,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 19
-  json: "{\"Options\":[],\"Parameters\":[{\"__type\":\"EditableBoolParameter:#DialogueEditor\",\"ParameterName\":\"wolfDone\",\"BoolValue\":false}],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[{\"__type\":\"EditableBoolCondition:#DialogueEditor\",\"ParameterName\":\"wolfDone\",\"CheckType\":0,\"RequiredValue\":false}],\"NodeUID\":1},{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[{\"__type\":\"EditableBoolCondition:#DialogueEditor\",\"ParameterName\":\"wolfDone\",\"CheckType\":0,\"RequiredValue\":true}],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":296.099976,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"...\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":44.0997,\"yPos\":20.0001373},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Dov'\xE8
-    la mia piccola Layal?\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":14}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":292.1005,\"yPos\":152.800232},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ecco,
-    il tuo \\\"cucciolo\\\"...\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":4}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":287.2998,\"yPos\":437.6001},\"ID\":3,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ottimo,
-    avvicinati al ceppo alla mia sinistra, l\xEC c'\xE8 un fucile.\",\"parentUIDs\":[14],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":5}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":45.6997375,\"yPos\":435.199341},\"ID\":4,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Impugna
+  json: "{\"Options\":[],\"Parameters\":[{\"__type\":\"EditableBoolParameter:#DialogueEditor\",\"ParameterName\":\"wolfDone\",\"BoolValue\":false}],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[{\"__type\":\"EditableBoolCondition:#DialogueEditor\",\"ParameterName\":\"wolfDone\",\"CheckType\":0,\"RequiredValue\":false}],\"NodeUID\":1},{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[{\"__type\":\"EditableBoolCondition:#DialogueEditor\",\"ParameterName\":\"wolfDone\",\"CheckType\":0,\"RequiredValue\":true}],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":278.499969,\"yPos\":-222.000351},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"...\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":26.4996948,\"yPos\":-224.000244},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Dov'\xE8
+    la mia piccola Layal?\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":14}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":274.5005,\"yPos\":-91.20001},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ecco,
+    il tuo \\\"cucciolo\\\"...\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":4}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":269.6998,\"yPos\":193.599823},\"ID\":3,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ottimo,
+    avvicinati al ceppo alla mia sinistra, l\xEC c'\xE8 un fucile.\",\"parentUIDs\":[14],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":5}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":28.0997314,\"yPos\":191.199066},\"ID\":4,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Impugna
     la canna del fucile con la mano sinistra e la destra sul grilletto, se non sei
-    mancino! Spara le bottiglie che si trovano sui ceppi difronte a te.\",\"parentUIDs\":[3],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":6}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":43.2997742,\"yPos\":563.2018},\"ID\":5,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Raccogli
-    l'arma premendo SPACEBAR\",\"parentUIDs\":[4],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":7}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":288.099854,\"yPos\":560.801636},\"ID\":6,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Apri
-    il tuo Zaino premendo 'I', clicca sull'arma e seleziona \\\"Equipaggia\\\"\",\"parentUIDs\":[5],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":8}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":291.2998,\"yPos\":670.4049},\"ID\":7,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Tieni
-    premuto Click Destro del mouse per mirare e Click Sinistro per sparare\",\"parentUIDs\":[6],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":11}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":36.0997925,\"yPos\":676.005},\"ID\":8,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Puoi
-    caricare l'arma premendo 'R'\",\"parentUIDs\":[7],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":12}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":36.0997925,\"yPos\":784.8059},\"ID\":11,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Quando
+    mancino! Spara le bottiglie che si trovano sui ceppi difronte a te.\",\"parentUIDs\":[3],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":6}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":25.6997681,\"yPos\":319.20166},\"ID\":5,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Raccogli
+    l'arma premendo SPACEBAR\",\"parentUIDs\":[4],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":7}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":270.499847,\"yPos\":316.8015},\"ID\":6,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Apri
+    il tuo Zaino premendo 'I', clicca sull'arma e seleziona \\\"Equipaggia\\\"\",\"parentUIDs\":[5],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":8}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":273.6998,\"yPos\":426.4047},\"ID\":7,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Tieni
+    premuto Click Destro del mouse per mirare e Click Sinistro per sparare\",\"parentUIDs\":[6],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":11}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":18.4997864,\"yPos\":432.0048},\"ID\":8,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Puoi
+    caricare l'arma premendo 'R'\",\"parentUIDs\":[7],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":12}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":18.4997864,\"yPos\":540.805054},\"ID\":11,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Quando
     possiedi pi\xF9 armi equipaggiate, puoi premere i tasti numerici (esempio: 1,
-    2, 3) o la rotella del mouse per cambiare arma rapidamente.\",\"parentUIDs\":[8],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":292.8999,\"yPos\":788.805664},\"ID\":12,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Spara
-    le bottiglie per esercitarti\",\"parentUIDs\":[11],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":3}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":290.000366,\"yPos\":301.599243},\"ID\":14,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ottimo.
+    2, 3) o la rotella del mouse per cambiare arma rapidamente.\",\"parentUIDs\":[8],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":275.2999,\"yPos\":544.8048},\"ID\":12,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Spara
+    le bottiglie per esercitarti\",\"parentUIDs\":[11],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":3}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":272.40036,\"yPos\":57.599},\"ID\":14,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ottimo.
     Abbiamo un accordo, e io mantengo sempre la parola. Sei pronto a far volare quelle
     bottiglie?\",\"parentUIDs\":[2],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
   saveVersion: 110
@@ -23881,6 +23929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!65 &1437815285
 BoxCollider:
@@ -24543,6 +24592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1467314122
 MonoBehaviour:
@@ -25058,6 +25108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!65 &1505128305
 BoxCollider:
@@ -25813,6 +25864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1555637796
 MonoBehaviour:
@@ -26659,6 +26711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1631260329
 MonoBehaviour:
@@ -28152,7 +28205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 1
-  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[],"EditorInfo":{"isRoot":true,"xPos":297.7,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Ehi!
+  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[],"EditorInfo":{"isRoot":true,"xPos":244.9,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Ehi!
     Se ti avvicini a quel fucile ti ammazzo!","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Uomo","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
   DefaultName: 
@@ -28555,6 +28608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1738794105
 MonoBehaviour:
@@ -29477,6 +29531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1776426522
 MonoBehaviour:
@@ -29599,6 +29654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!65 &1779382328
 BoxCollider:
@@ -30149,12 +30205,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f712628463b71641aea314da4c9bc59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialoghiTotali: 5
   dialoghiEseguiti: 0
-  documentiTotali: 2
   documentiRaccolti: 0
-  violeTotali: 15
   violeRaccolte: 0
+  ammosTotali: 1
   forestSound: {fileID: 8300000, guid: f651701b14dd916499dbf1c6940edfd1, type: 3}
   intro: {fileID: 1423727525}
   diario: {fileID: 1575244069}
@@ -31256,6 +31310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1880529778
 MonoBehaviour:
@@ -32062,6 +32117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1914429023
 MonoBehaviour:
@@ -32656,7 +32712,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Event:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1575244069}
+        m_TargetAssemblyTypeName: Diario, Assembly-CSharp
+        m_MethodName: CompletaMissione
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Spara le bottiglie
+          m_BoolArgument: 0
+        m_CallState: 1
   NodeID: 2
   TMPFont: {fileID: 0}
   Icon: {fileID: 21300000, guid: 2a00749aef8cde04f81371e80f83266c, type: 3}
@@ -32851,6 +32919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!65 &1964217627
 BoxCollider:
@@ -33326,6 +33395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &1987792859
 MonoBehaviour:
@@ -34151,6 +34221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!65 &2013580451
 BoxCollider:
@@ -34746,6 +34817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &2076442349
 MonoBehaviour:
@@ -34948,6 +35020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &2088746291
 MonoBehaviour:
@@ -34984,6 +35057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 1255908662}
 --- !u!114 &2091541458
 MonoBehaviour:
@@ -35943,6 +36017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   triggerTooltip: {fileID: 0}
 --- !u!114 &2146977136
 MonoBehaviour:
