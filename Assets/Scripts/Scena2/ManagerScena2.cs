@@ -1,22 +1,24 @@
 using UnityEngine;
 using DialogueEditor;
+using JetBrains.Annotations;
 
 public class ManagerScena2 : MonoBehaviour
 {
     [Header("Dati Scena2")]
     #region Dati Scena2
-    public const int dialoghiTotali = 6; // Numero di dialoghi totali
-    public int dialoghiEseguiti; // Numero di dialoghi eseguiti 
-    public const int documentiTotali = 7; // Numero di documenti totali
-    public int documentiRaccolti = 0; // Numero di documenti raccolti
-    public const int violeTotali = 15; // Numero di viole totali
-    public int violeRaccolte = 0; // Numero di viole raccolte
-    public const int consumablesTotali = 2; // Numero di oggetti consumabili totali
-    public int ammosTotali = 1; // Numero di munizioni totali
+    private const int dialoghiTotali = 6; // Numero di dialoghi totali
+    private int dialoghiEseguiti; // Numero di dialoghi eseguiti 
+    // private const int documentiTotali = 7; // Numero di documenti totali
+    // private int documentiRaccolti = 0; // Numero di documenti raccolti
+    // private const int violeTotali = 15; // Numero di viole totali
+    // private int violeRaccolte = 0; // Numero di viole raccolte
+    // private const int consumablesTotali = 2; // Numero di oggetti consumabili totali
+    // private int ammosTotali = 1; // Numero di munizioni totali
     #endregion
 
     [Header("Settings")]
     #region Settings
+    private bool flagNextScene = false; // Flag per cambiare scena
     private bool clickEndHandled = false; // Flag per evitare che esegua più volte il codice nel metodo Update quando si clicca su "End"
     private bool hasFlowers = false; // Flag per i fiori
     #endregion
@@ -25,10 +27,11 @@ public class ManagerScena2 : MonoBehaviour
     #region References
     public AudioClip forestSound; // Suono della foresta
     private AudioSource audioSource; // Riferimento all'audio source
-    public NPCConversation intro;
-    public Diario diario;
-    public Animator lupo;
-    public BooleanAccessor booleanAccessor;
+    public NPCConversation intro; // Conversazione iniziale di scena2 (dove sono gli altri)
+    public Diario diario; // Riferimento al diario
+    public Animator lupo; // Riferimento all'animatore del lupo
+    public BooleanAccessor booleanAccessor; // Riferimento al booleanAccessor
+    public FenceHole fenceHole; // Riferimento al buco della recinzione
     #endregion
 
     // Dati Inventario scena2
@@ -36,6 +39,8 @@ public class ManagerScena2 : MonoBehaviour
 
     void Start()
     {
+        fenceHole.enabled = false;
+
         // Inizializza l'audio source
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = forestSound;
@@ -59,10 +64,16 @@ public class ManagerScena2 : MonoBehaviour
             ConversationManager.Instance.hasClickedEnd = false;
             GestoreScena.ChangeCursorActiveStatus(false, "ManagerScena2.update");
         }
-        
+
         var boolAccessor = BooleanAccessor.istance;
         if (!hasFlowers && boolAccessor.GetBoolFromThis("fiori") && InventoryManager.instance.GetQtaItem("Viola") >= 3)
         { hasFlowers = true; boolAccessor.SetBoolOnDialogueE("fioriRaccolti"); }
+
+        if (!flagNextScene && CanGoNextScene())
+        {
+            flagNextScene = true;
+            fenceHole.enabled = true;
+        }
     }
 
     private void OnEnable()
@@ -76,6 +87,11 @@ public class ManagerScena2 : MonoBehaviour
         // Assicurati di disregistrarti dall'evento quando lo script è disabilitato
         if (diario != null) diario.OnMissionCompleted -= AggiornaDialoghiEseguiti;
     }
+
+    public bool CanGoNextScene() =>
+        booleanAccessor.GetBoolFromThis("cocaColaDone") && // Se ha completato task fire
+        booleanAccessor.GetBoolFromThis("cartelloDone") && // Se ha completato task cartello
+        booleanAccessor.GetBoolFromThis("soluzione"); // Se ha completato task fiori (incluso anche il crafting)
 
     private void AggiornaDialoghiEseguiti(string missione)
     {

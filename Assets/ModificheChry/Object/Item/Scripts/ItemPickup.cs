@@ -30,7 +30,7 @@ public class ItemPickup : MonoBehaviour
         animator = FindObjectOfType<Player>().gameObject.GetComponent<Animator>();
         if (triggerTooltip == null)
         {
-            Debug.LogWarning("triggerTooltip doesn't exist. Please assign it in the Inspector.");
+            // Debug.LogWarning($"triggerTooltip doesn't exist in {gameObject.name}. Please assign it in the Inspector.");
             return; // Blocca l'esecuzione per evitare la null reference exception
         }
         triggerTooltip.tooltipDuration = 3f;

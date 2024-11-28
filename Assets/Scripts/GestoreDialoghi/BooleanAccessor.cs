@@ -21,12 +21,12 @@ public class BooleanAccessor : MonoBehaviour
         { "radio", false }, // Se il giocatore ha spento la radio di scena0 (task)
         { "cartello", false }, // Se il giocatore ha parlato con Jacob in scena2
         { "cartelloDone", false }, // Se il giocatore ha tolto il cartello dalla recinzione in scena2
-        { "wolf", false }, // Se il giocatore ha parlato con UomoBaita in scena2
+        { "wolf", false }, // Se il giocatore ha parlato con UomoBaita in scena2 (task)
         { "wolfDone", false }, // Se il giocatore ha dato il cibo al lupo in scena2
-        { "cocaCola", false }, // Se il giocatore ha parlato con UomoBaita dopo aver riportato il lupo ed è pronto per sparare in scena2
+        { "cocaCola", false }, // Se il giocatore ha parlato con UomoBaita dopo aver riportato il lupo ed è pronto per sparare in scena2 (task)
         { "cocaColaDone", false }, // Se il giocatore ha sparato le lattine di cocacola in scena2
         { "fioriRaccolti", false }, // Se il giocatore ha raccolto 3 fiori in scena2
-        { "fiori", false }, // Se il giocatore ha parlato con Gaia in scena2
+        { "fiori", false }, // Se il giocatore ha parlato con Gaia in scena2 (task)
         { "soluzione", false } // Se il giocatore è giunto nel dialogo di Gaia a craftare la soluzione in scena2
     };
     #endregion

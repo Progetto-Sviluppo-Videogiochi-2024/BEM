@@ -70,6 +70,7 @@ public class TaskFucile : MonoBehaviour
             booleanAccessor.GetBoolFromThis("cocaCola")) // Ha perso
         {
             conversationManager.StartConversation(conversations[2]); // Parte UomoBaitaLost
+            booleanAccessor.SetBoolOnDialogueE("cocaColaDone");
             TaskFailed();
             TaskReset();
             return;
