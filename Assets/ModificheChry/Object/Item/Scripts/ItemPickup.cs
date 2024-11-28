@@ -26,6 +26,11 @@ public class ItemPickup : MonoBehaviour
         item = GetComponent<ItemController>().item;
         openMenuScript = FindObjectOfType<Player>().gameObject.GetComponent<OpenInventory>();
         animator = FindObjectOfType<Player>().gameObject.GetComponent<Animator>();
+        if (triggerTooltip == null)
+        {
+            Debug.LogError("triggerTooltip non è stato assegnato. Assicurati di collegarlo nell'Inspector.");
+            return; // Blocca l'esecuzione per evitare ulteriori errori.
+        }
         triggerTooltip.tooltipDuration = 3f;
     }
 
