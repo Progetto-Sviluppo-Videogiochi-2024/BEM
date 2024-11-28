@@ -39,6 +39,9 @@ public class AIWolf : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         player = FindAnyObjectByType<Player>().transform;
+
+        PlayerPrefs.SetInt("hasBait", 0);
+        PlayerPrefs.Save();
     }
 
     void Update()
@@ -56,6 +59,7 @@ public class AIWolf : MonoBehaviour
                 isAttacking = true;
                 isRotatingToAttack = true;
                 animator.SetTrigger("attack"); // Durante l'animazione di attacco, verrà invocata la funzione PerformRaycastAttack
+                StartCoroutine(ResetIsAttackingAfterDelay(1.0f)); // 1 secondo di attesa massimo
             }
             return;
         }
@@ -80,8 +84,9 @@ public class AIWolf : MonoBehaviour
 
     private bool PlayerHasBait()
     {
-        var items = InventoryManager.instance?.items;
-        return items != null && items.Any(item => item.inventorySectionType == Item.ItemType.Collectibles && item.name.Contains("Bait"));
+        return PlayerPrefs.GetInt("hasBait") == 1;
+        // var items = InventoryManager.instance?.items;
+        // return items != null && items.Any(item => item.inventorySectionType == Item.ItemType.Collectibles && item.name.Contains("Bait"));
     }
 
     public void PerformRaycastAttack() // Invocata da attack nell'animation del lupo
@@ -94,6 +99,13 @@ public class AIWolf : MonoBehaviour
             hit.collider.transform.root.GetChild(0).GetComponent<Player>()?.UpdateHealth(wolf.melee1Damage);
         }
         isAttacking = false;
+    }
+
+    private IEnumerator ResetIsAttackingAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (isAttacking && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) isAttacking = false;
     }
 
     private void FollowPlayer()
@@ -188,6 +200,9 @@ public class AIWolf : MonoBehaviour
         {
             animator.SetBool("nearPlayer", false);
             audioSource.Stop();
+
+            isRotatingToAttack = false;
+            isAttacking = false;
         }
     }
 }

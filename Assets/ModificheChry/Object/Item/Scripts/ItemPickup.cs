@@ -93,7 +93,6 @@ public class ItemPickup : MonoBehaviour
                 }
                 InventoryManager.instance.Add(item);
                 InventoryUIController.instance.ListItems(InventoryManager.instance.items);
-
             }
             FindObjectOfType<GestoreScena>().SetItemScene(item);
 
