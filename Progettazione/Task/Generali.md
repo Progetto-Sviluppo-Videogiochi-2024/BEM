@@ -21,10 +21,10 @@
 - ~~**Cursore** del mouse~~
 - ~~**Danno del lupo** considerando la barra degli HP~~
 - Salute mentale ?
-- Il lupo potrebbe camminare sul posto anche se la task è finita, oltrepassa gli oggetti 
-- SO per scena2
+- Il lupo potrebbe camminare sul posto anche se la task è finita (capire se lo fa ancora e in quale caso lo fa), oltrepassa gli oggetti 
+- ~~SO per scena2~~
 - Molti test per le task di scena
-- Dialogo per passare a scena3 e ~~quando va al cartello senza aver parlato con jacob~~
+- Dialogo per passare a scena3 oppure una richiesta di conferma? e ~~quando va al cartello senza aver parlato con jacob~~
 - ~~Errore **radio** del mesh~~ 
 - ~~Rimuovere **button** e funzione **quitGame** dal **gameplay menu**.~~  
 - Dopo che il **pg** si alza, dovrebbe guardare verso il letto, non verso la finestra (evitare la retromarcia del pg).  
@@ -38,7 +38,7 @@
 
 # **DA DECIDERE INSIEME:**  
 - Estetica di:  
-  - **Inventario** : Si, vediamo come sta 
+  - ~~**Inventario**~~ :
   - **Menu main**, **menu pausa**, **gameplay menu**.: ~~Tutti con il background dell'attuale inventario, ovvero sfondo nero con un po' di trasparenza, semplice~~
 - **Gestione della camera:**  
   - Stefano: movimento, crouch, aim, **ALT**.  
