@@ -22,9 +22,10 @@
 - Da sviluppare. 
 
 ## Generali
-**salvataggio/caricamento**
+
+- **salvataggio/caricamento**
   - Da implementare 
-**Sezioni MainMenu e GPM**
+- **Sezioni MainMenu e GPM**
   - Da implementare (esempio Opzioni ecc) inoltre bisogna cambiare il nome di alcuni e scriverli in italiano, eccetto "Play Game" o altri comunemente usati 
 - **Cursore** 
   - Sembra funzionare bene per ora.
@@ -36,7 +37,8 @@
   - Da verificare con Christian 
 - **Rompicapi** 
   - da implementare. 
-- **Gestione dell'audio:**:
+- **Gestione dell'audio**
+  - Nelle varie scene
 
 # **DA DECIDERE INSIEME:**  
 - Estetica di:  
