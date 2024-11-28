@@ -211,4 +211,16 @@ public class InventoryManager : MonoBehaviour
     {
         items.Add(item);
     }
+
+    public float ComputeInventoryWeight()
+    {
+        return items
+                .Where(item => item.inventorySectionType != ItemType.Collectibles)
+                .Sum(item => item.weight * item.qta);
+    }
+
+    public bool IsInventoryFull()
+    {
+        return ComputeInventoryWeight() >= InventoryUIController.instance.weightSlider.maxValue;
+    }
 }

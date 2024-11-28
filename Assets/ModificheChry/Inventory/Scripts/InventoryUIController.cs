@@ -26,8 +26,8 @@ public class InventoryUIController : MonoBehaviour
     private string currentActiveSection = ""; // Sezione attiva dell'inventario
     private readonly List<Color> outlineColors = new() // Lista dei colori per il contorno dei button (attivo e inattivi) dell'inventario
     {
-        new Color(255f, 0f, 0f, 128f), // Rosso (attivo)
-        new Color(0f, 0f, 0f, 128f)  // Nero (inattivo)
+        new(255f, 0f, 0f, 128f), // Rosso (attivo)
+        new(0f, 0f, 0f, 128f)  // Nero (inattivo)
     };
 
     private void Awake()
@@ -191,12 +191,7 @@ public class InventoryUIController : MonoBehaviour
 
     public void UpdateWeightSlider()
     {
-        float weight = 0.0f;
-        foreach (var item in InventoryManager.instance.items)
-        {
-            if (item.inventorySectionType == ItemType.Collectibles) continue;
-            weight += item.weight * item.qta;
-        }
+        var weight = InventoryManager.instance.ComputeInventoryWeight();
 
         // Aggiorna lo slider del peso
         float weightPercentage = weight / weightSlider.maxValue;

@@ -11,28 +11,28 @@ public class WeaponEditor : Editor
 
         // Mostra i campi generali con i tooltip
         EditorGUILayout.LabelField("General Info", EditorStyles.boldLabel);
-        weapon.nameItem = EditorGUILayout.TextField(new GUIContent("Item Name", "Nome dell'oggetto"), weapon.nameItem);
-        weapon.description = EditorGUILayout.TextField(new GUIContent("Description", "Descrizione dell'oggetto"), weapon.description);
-        weapon.tagType = (Item.ItemTagType)EditorGUILayout.EnumPopup(new GUIContent("Tag Type", "Tipo di tag dell'oggetto"), weapon.tagType);
-        weapon.weight = EditorGUILayout.FloatField(new GUIContent("Weight", "Peso dell'oggetto"), weapon.weight);
-        weapon.prefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Prefab", "Prefab dell'oggetto, da assegnare solo per gli oggetti istanziabili nel corpo del pg (es. armi)"), weapon.prefab, typeof(GameObject), false);
+        weapon.nameItem = EditorGUILayout.TextField(new GUIContent("Item Name", "Nome dell'arma"), weapon.nameItem);
+        weapon.description = EditorGUILayout.TextField(new GUIContent("Description", "Descrizione dell'arma"), weapon.description);
+        weapon.tagType = (Item.ItemTagType)EditorGUILayout.EnumPopup(new GUIContent("Tag Type", "Tipo di tag dell'arma"), weapon.tagType);
+        weapon.weight = EditorGUILayout.FloatField(new GUIContent("Weight", "Peso dell'arma"), weapon.weight);
+        // weapon.prefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Prefab", "Prefab dell'arma, da assegnare solo per gli oggetti istanziabili nel corpo del pg (es. armi)"), weapon.prefab, typeof(GameObject), false);
 
         // Mostra i campi specifici in base al tagType
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         EditorGUILayout.LabelField("Usability Info", EditorStyles.boldLabel);
-        weapon.isUsable = EditorGUILayout.Toggle(new GUIContent("Usable", "Usabilità dell'oggetto (true se usabile, false se non usabile)"), weapon.isUsable);
-        weapon.isShooting = EditorGUILayout.Toggle(new GUIContent("Shooting", "Sparabilità dell'oggetto (true se sparabile, false se non sparabile)"), weapon.isShooting);
-        weapon.isPickUp = EditorGUILayout.Toggle(new GUIContent("Pick Up", "Raccoglibilità dell'oggetto (true se raccoglibile, false se non raccoglibile)"), weapon.isPickUp);
-        weapon.isInCraft = EditorGUILayout.Toggle(new GUIContent("In Craft", "Presenza dell'oggetto nella lista degli oggetti craftabili"), weapon.isInCraft);
+        weapon.isUsable = EditorGUILayout.Toggle(new GUIContent("Usable", "Usabilità dell'arma (true se usabile, false se non usabile)"), weapon.isUsable);
+        weapon.isShooting = EditorGUILayout.Toggle(new GUIContent("Shooting", "Sparabilità dell'arma (true se sparabile, false se non sparabile)"), weapon.isShooting);
+        weapon.isPickUp = EditorGUILayout.Toggle(new GUIContent("Pick Up", "Raccoglibilità dell'arma (true se raccoglibile, false se non raccoglibile)"), weapon.isPickUp);
+        weapon.isInCraft = EditorGUILayout.Toggle(new GUIContent("In Craft", "Presenza dell'arma nella lista degli oggetti craftabili"), weapon.isInCraft);
 
         // Mostra i campi specifici in base al tagType
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         EditorGUILayout.LabelField("Inventory Info", EditorStyles.boldLabel);
         weapon.inventorySectionType = (Item.ItemType)EditorGUILayout.EnumPopup(new GUIContent("Inventory Section Type", "Tipo della sezione dell'inventario"), weapon.inventorySectionType);
-        weapon.own = EditorGUILayout.Toggle(new GUIContent("Own", "Possesso dell'oggetto (true se posseduto, false se non posseduto o non si può possedere)"), weapon.own);
-        weapon.qta = EditorGUILayout.IntField(new GUIContent("Quantity", "Quantità dell'oggetto"), weapon.qta);
-        weapon.icon = (Sprite)EditorGUILayout.ObjectField(new GUIContent("Icon", "Icona dell'oggetto"), weapon.icon, typeof(Sprite), false);
-        weapon.image = (Sprite)EditorGUILayout.ObjectField(new GUIContent("Image", "Immagine dell'oggetto"), weapon.image, typeof(Sprite), false);
+        // weapon.own = EditorGUILayout.Toggle(new GUIContent("Own", "Possesso dell'arma (true se posseduto, false se non posseduto o non si può possedere)"), weapon.own);
+        // weapon.qta = EditorGUILayout.IntField(new GUIContent("Quantity", "Quantità dell'arma"), weapon.qta);
+        weapon.icon = (Sprite)EditorGUILayout.ObjectField(new GUIContent("Icon", "Icona dell'arma"), weapon.icon, typeof(Sprite), false);
+        weapon.image = (Sprite)EditorGUILayout.ObjectField(new GUIContent("Image", "Immagine dell'arma"), weapon.image, typeof(Sprite), false);
 
         // Mostra i campi specifici dell'arma
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);

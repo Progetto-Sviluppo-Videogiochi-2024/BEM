@@ -12,6 +12,7 @@ public class ItemPickup : MonoBehaviour
 
     [Header("References")]
     #region References
+    public TriggerToolTip triggerTooltip; // Riferimento al trigger del tooltip
     private Animator animator; // Riferimento all'Animator del giocatore
     #endregion
 
@@ -25,12 +26,19 @@ public class ItemPickup : MonoBehaviour
         item = GetComponent<ItemController>().item;
         openMenuScript = FindObjectOfType<Player>().gameObject.GetComponent<OpenInventory>();
         animator = FindObjectOfType<Player>().gameObject.GetComponent<Animator>();
+        triggerTooltip.tooltipDuration = 3f;
     }
 
     void Update()
     {
         if (isPlayerInRange && item.isPickUp) // Se è vicino a un oggetto raccoglibile
         {
+            if (InventoryManager.instance.IsInventoryFull())
+            {
+                triggerTooltip.ShowTooltip("Non ho spazio nello zaino.");
+                return;
+            }
+            
             // if (Input.GetMouseButtonDown(0) && CheckClickMouseItem()) PickUp(); else // TODO: commentato perché bisogna capire se lasciamo il click
             if (!animator.GetBool("pickingUp") && Input.GetKeyDown(KeyCode.Space)) PickUp();
             else if (animator.GetBool("pickingUp") && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))) CancelPickup();

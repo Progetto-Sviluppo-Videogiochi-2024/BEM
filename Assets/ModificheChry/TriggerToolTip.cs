@@ -8,8 +8,8 @@ public class TriggerToolTip : MonoBehaviour
     public GameObject tooltip; // Assegna qui il prefab del tooltip tramite l'Inspector
     public string tooltipMessage = "Cambia questo testo"; // Messaggio predefinito da mostrare nel tooltip
     public float tooltipDuration = 2f; // Durata del tooltip in secondi (opzionale)
-    //private bool isPlayerInRange = false; // Stato: il player è nell'area del trigger
-    private bool isTooltipActive = false; // Stato: il tooltip è attivo
+    //private bool isPlayerInRange = false; // Stato: il player Ã¨ nell'area del trigger
+    private bool isTooltipActive = false; // Stato: il tooltip Ã¨ attivo
 
     private void Start()
     {
@@ -42,7 +42,7 @@ public class TriggerToolTip : MonoBehaviour
         }
     }
 
-    /// Mostra il tooltip e imposta il messaggio.
+    // Mostra il tooltip e imposta il messaggio.
     public void ShowTooltip(string message)
     {
         if (!isTooltipActive && tooltip != null)
@@ -51,7 +51,7 @@ public class TriggerToolTip : MonoBehaviour
             SetTooltipMessage(message); // Imposta il messaggio
             isTooltipActive = true;
 
-            // Se è specificata una durata, disabilita automaticamente il tooltip
+            // Se Ã¨ specificata una durata, disabilita automaticamente il tooltip
             if (tooltipDuration > 0)
             {
                 StartCoroutine(DisableTooltipAfterTime(tooltipDuration));
@@ -59,7 +59,6 @@ public class TriggerToolTip : MonoBehaviour
 
         }
     }
-
 
     public void HideTooltip()
     {
@@ -86,8 +85,7 @@ public class TriggerToolTip : MonoBehaviour
         }
     }
 
-    /// Coroutine per disattivare automaticamente il tooltip dopo un certo tempo.
-
+    // Coroutine per disattivare automaticamente il tooltip dopo un certo tempo.
     private IEnumerator DisableTooltipAfterTime(float delay)
     {
         yield return new WaitForSeconds(delay);

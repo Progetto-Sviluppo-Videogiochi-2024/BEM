@@ -33,12 +33,12 @@ public class ItemEditor : Editor
 
         if (item.inventorySectionType == Item.ItemType.ConsumableEquipable)
         {
-            item.qta = EditorGUILayout.IntField(new GUIContent("Quantity", "Quantità dell'oggetto"), item.qta);
+            // item.qta = EditorGUILayout.IntField(new GUIContent("Quantity", "Quantità dell'oggetto"), item.qta);
             item.weight = EditorGUILayout.FloatField(new GUIContent("Weight", "Peso dell'oggetto"), item.weight);
         }
 
-        if (item.tagType == Item.ItemTagType.Weapon)
-            item.prefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Prefab", "Prefab dell'oggetto, da assegnare solo per gli oggetti istanziabili nel corpo del pg (es. armi, oggetti?)"), item.prefab, typeof(GameObject), false);
+        // if (item.tagType == Item.ItemTagType.Weapon)
+        //     item.prefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Prefab", "Prefab dell'oggetto, da assegnare solo per gli oggetti istanziabili nel corpo del pg (es. armi, oggetti?)"), item.prefab, typeof(GameObject), false);
 
         if (item.tagType == Item.ItemTagType.Recipe)
         {
@@ -62,7 +62,7 @@ public class ItemEditor : Editor
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         EditorGUILayout.LabelField("Inventory Info", EditorStyles.boldLabel);
         item.inventorySectionType = (Item.ItemType)EditorGUILayout.EnumPopup(new GUIContent("Inventory Section Type", "Tipo della sezione dell'inventario"), item.inventorySectionType);
-        item.own = EditorGUILayout.Toggle(new GUIContent("Own", "Possesso dell'oggetto (true se posseduto, false se non posseduto o non si può possedere)"), item.own);
+        // item.own = EditorGUILayout.Toggle(new GUIContent("Own", "Possesso dell'oggetto (true se posseduto, false se non posseduto o non si può possedere)"), item.own);
         item.icon = (Sprite)EditorGUILayout.ObjectField(new GUIContent("Icon", "Icona dell'oggetto"), item.icon, typeof(Sprite), false);
         item.image = (Sprite)EditorGUILayout.ObjectField(new GUIContent("Image", "Immagine dell'oggetto"), item.image, typeof(Sprite), false);
 
