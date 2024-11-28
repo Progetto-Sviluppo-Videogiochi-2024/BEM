@@ -1073,6 +1073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerTooltip: {fileID: 0}
 --- !u!114 &75131748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2006,12 +2007,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 2
-  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":1}],"EditorInfo":{"isRoot":true,"xPos":219.299988,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Usa
+  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":1}],"EditorInfo":{"isRoot":true,"xPos":190.799988,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Usa
     i tasti ''W'', ''A'', ''S'', ''D'' per muovere il personaggio:\r\n''W'': Avanza
     in avanti\r\n''A'': Si sposta a sinistra\r\n''S'': Indietreggia\r\n''D'': Si
     sposta a destra","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Tutorial
-    Movimenti","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":210.799988,"yPos":172.799988},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Muovi
-    il mouse per ruotare la visuale intorno al tuo personaggio.","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Tutorial
+    Movimenti","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":183.099976,"yPos":172.799988},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Muovi
+    il mouse per ruotare la visuale intorno al tuo personaggio.\nCon il Click Destro
+    puoi zommare la visuale","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Tutorial
     Visuale","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
   DefaultName: 
@@ -2492,9 +2494,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 2
-  json: "{\"Options\":[],\"Parameters\":[{\"__type\":\"EditableBoolParameter:#DialogueEditor\",\"ParameterName\":\"premereE\",\"BoolValue\":false}],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":219.299988,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ciao
+  json: "{\"Options\":[],\"Parameters\":[{\"__type\":\"EditableBoolParameter:#DialogueEditor\",\"ParameterName\":\"premereE\",\"BoolValue\":false}],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":190.799988,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ciao
     Player! Sono il tutorial di BEM, tranquillo, Stefano non pu\xF2 sentirci.\\r\\nClicca
-    su \\\"Continua\\\" o premi 'E' per avanzare con i dialoghi.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":217.599976,\"yPos\":178.400009},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Meglio
+    su \\\"Continua\\\" o premi 'E' per avanzare con i dialoghi.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":189.099976,\"yPos\":178.400009},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Meglio
     che preparo le cose se no far\xF2 tardi. Non voglio sentirmi Jacob incazzato
     per l'ennesima volta.\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
   saveVersion: 110
@@ -2508,7 +2510,19 @@ MonoBehaviour:
   EndConversationFont: {fileID: 0}
   Event:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1582097251}
+        m_TargetAssemblyTypeName: ManagerScena0, Assembly-CSharp
+        m_MethodName: SetDEBool
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: premereE
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!4 &228347352 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2499041902573203181, guid: ec990a1e2ad604940816b5365c9006af, type: 3}
@@ -2995,6 +3009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerTooltip: {fileID: 0}
 --- !u!114 &268062417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16198,6 +16213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerTooltip: {fileID: 0}
 --- !u!114 &1535146160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19181,10 +19197,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 2
-  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":219.299988,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Premi
+  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":190.799988,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Premi
     'I' per poter utilizzare lo zaino di Stefano.\\r\\nIl cursore del mouse apparir\xE0
     per permetterti di utilizzarlo\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial
-    Zaino\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":212.800018,\"yPos\":177.6},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Lo
+    Zaino\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":184.300018,\"yPos\":177.6},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Lo
     zaino di Stefano presenta due scomparti \\\"Oggetti\\\" e \\\"Collezionabili\\\".\\r\\nOgni
     scomparto permette funzionalit\xE0 diverse, le scoprirai in seguito.\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial
     Zaino\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
@@ -22293,7 +22309,7 @@ PrefabInstance:
       objectReference: {fileID: 1453321049}
     - target: {fileID: 8048108807985119874, guid: 227559add021ee449aeae1cd62f77734, type: 3}
       propertyPath: songs.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8048108807985119874, guid: 227559add021ee449aeae1cd62f77734, type: 3}
       propertyPath: songs.Array.data[0]
@@ -22306,11 +22322,11 @@ PrefabInstance:
     - target: {fileID: 8048108807985119874, guid: 227559add021ee449aeae1cd62f77734, type: 3}
       propertyPath: songs.Array.data[2]
       value: 
-      objectReference: {fileID: 8300000, guid: 9f2596086b8edc34d9c63dd804472299, type: 3}
+      objectReference: {fileID: 8300000, guid: 8ed2f67f6b94b824d927ebc54799175a, type: 3}
     - target: {fileID: 8048108807985119874, guid: 227559add021ee449aeae1cd62f77734, type: 3}
       propertyPath: songs.Array.data[3]
       value: 
-      objectReference: {fileID: 8300000, guid: 8ed2f67f6b94b824d927ebc54799175a, type: 3}
+      objectReference: {fileID: 8300000, guid: 9f2596086b8edc34d9c63dd804472299, type: 3}
     - target: {fileID: 8782815889363292356, guid: 227559add021ee449aeae1cd62f77734, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0

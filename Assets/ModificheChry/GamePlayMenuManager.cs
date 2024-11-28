@@ -10,6 +10,7 @@ public class GamePlayMenuManager : MonoBehaviour
     public Button buttonCheckpoint;
     public Button buttonLoadGame;
     public Button buttonOptions;
+    public Button buttonResumeGame;
     //public Button buttonQuit;
 
     [Header("Settings")]
@@ -35,6 +36,7 @@ public class GamePlayMenuManager : MonoBehaviour
         buttonCheckpoint.onClick.AddListener(ReloadLastCheckpoint);
         buttonLoadGame.onClick.AddListener(LoadGame);
         buttonOptions.onClick.AddListener(OpenOptions);
+        buttonResumeGame.onClick.AddListener(ReturnToGame);
         //buttonMainMenu.onClick.AddListener(ReturnToMainMenu);
     }
 
@@ -71,9 +73,7 @@ public class GamePlayMenuManager : MonoBehaviour
     // Metodo per ripristinare Time.timeScale e chiudere il menu
     private void ResumeGame()
     {
-        isMenuOpen = false;
-        gamePlayMenuCanvas.SetActive(false);
-        Time.timeScale = 1; // Riprendi il tempo di gioco
+        ToggleMenu(false);        
     }
 
     public void ReturnToMainMenu() // Passato dall'inspector quando fa "sì" al pannello di conferma
@@ -86,6 +86,12 @@ public class GamePlayMenuManager : MonoBehaviour
     private void ReloadLastCheckpoint()
     {
         Debug.Log("Riprendi dall'ultimo Checkpoint");
+        ResumeGame(); // Chiude il menu e riprende il gioco
+    }
+
+    private void ReturnToGame()
+    {
+        Debug.Log("Riprendi la scena corrente");
         ResumeGame(); // Chiude il menu e riprende il gioco
     }
 
