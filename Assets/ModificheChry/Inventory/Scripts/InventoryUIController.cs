@@ -11,6 +11,7 @@ public class InventoryUIController : MonoBehaviour
     public static InventoryUIController instance; // Istanza statica dell'InventoryUIController list
 
     [Header("UI Components")]
+    [HideInInspector] public Tooltip tooltip; // Tooltip per gli oggetti nell'inventario (ad es: inventario pieno)
     public GameObject inventoryPanel; // Pannello dell'inventario
     public Transform itemContent; // Contenitore degli oggetti nell'inventario
     public GameObject inventoryItemPrefab; // Prefab dell'oggetto nell'inventario
@@ -34,7 +35,7 @@ public class InventoryUIController : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogWarning("C'è più di un'istanza di InventoryUIController nel gioco");
+            Debug.LogWarning("There is more than one instance of InventoryUIController in the scene.");
             return;
         }
         instance = this;
@@ -94,6 +95,7 @@ public class InventoryUIController : MonoBehaviour
             newItem.transform.Find("IconItem").GetComponent<Image>().sprite = item.icon;
             var invItemCon = newItem.GetComponent<InventoryItemController>();
             invItemCon.item = item;
+            invItemCon.tooltip = tooltip;
             invItemCon.inspectMenu = item.tagType == ItemTagType.Recipe ? inspectMenuRecipe : inspectMenuItem;
 
             // Per gestire il toggle dell'item in base alla sezione attiva

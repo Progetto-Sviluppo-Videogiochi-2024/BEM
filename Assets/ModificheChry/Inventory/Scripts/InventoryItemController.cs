@@ -25,6 +25,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
     public Sprite imgDefault; // Immagine di default per l'ingrediente
 
     [Header("References")]
+    [HideInInspector] public Tooltip tooltip; // Riferimento al tooltip
     private OpenInventory openMenuScript; // Riferimento allo script OpenMenu
 
     void Start()
@@ -360,12 +361,15 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
     }
 
     /* Usa */
-    public void UseItem()
+    public void UseItem(GameObject buttonClicked)
     {
+        print(tooltip == null ? "Tooltip not found" : tooltip.name);
+        var button = buttonClicked.GetComponent<Button>();
         if (IsAlsoConsumable())
         {
             var player = FindObjectOfType<Player>();
-            if (player.health >= player.maxHealth && player.sanitaMentale >= player.maxHealth) return;
+            if (player.health >= player.maxHealth && player.sanitaMentale >= player.maxHealth) { button.interactable = false; tooltip.ShowTooltip("Non ne ho bisogno!", 5f); return; }
+            else button.interactable = true;
             if (item.effectType == ItemEffectType.Health) { player.UpdateHealth(item.value); RemoveItem(); }
         }
     }
@@ -427,7 +431,8 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
 
     private /*(bool, string)*/ bool CanCraftItem()
     {
-        // Itera attraverso ogni ingrediente richiesto dalla ricetta
+        if (InventoryManager.instance.IsInventoryFull()) return false; // L'inventario è pieno
+
         for (int i = 0; i < ingredients.Count; i++)
         {
             var itemInInventory = InventoryManager.instance.items.Find(item => item.nameItem == ingredients[i]);
@@ -465,9 +470,9 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             if (CanCraftItem())
             {
                 createButton.onClick.AddListener(CreateItem());
-                createButton.interactable = true; // Attiva il bottone se creabile
+                createButton.interactable = true; // Attiva il bottone se è possibile craftare l'oggetto
             }
-            else createButton.interactable = false; // Disabilita il bottone se non creabile
+            else createButton.interactable = false; // Disabilita il bottone se non è possibile craftare l'oggetto
         }
     }
 

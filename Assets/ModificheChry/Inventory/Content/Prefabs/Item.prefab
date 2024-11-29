@@ -1554,9 +1554,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
-  inspectMenuItem: {fileID: 0}
+  inspectMenu: {fileID: 0}
   indexIngredientCraft: 0
   imgDefault: {fileID: 21300000, guid: 92604ebca767a7341ac78beb66620d5c, type: 3}
+  tooltip: {fileID: 0}
 --- !u!1 &3463369268195261547
 GameObject:
   m_ObjectHideFlags: 0
@@ -4062,10 +4063,10 @@ MonoBehaviour:
       - m_Target: {fileID: 3470875856373340766}
         m_TargetAssemblyTypeName: InventoryItemController, Assembly-CSharp
         m_MethodName: UseItem
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 8688584348725566459}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

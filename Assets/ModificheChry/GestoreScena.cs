@@ -14,10 +14,16 @@ public class GestoreScena : MonoBehaviour
     private static int nUIOpen = 0; // Numero di UI aperte nella scena corrente
     #endregion
 
+    [Header("References")]
+    #region References
+    public Tooltip tooltip; // Riferimento al tooltip per gli oggetti nell'inventario
+    #endregion
+
     void Awake()
     {
         nUIOpen = 0; // Resettata a ogni nuova scena per evitare problemi (la precedente viene distrutta, quindi, anche se alcune saranno aperte prima del cambio, io la azzero all'inizio della nuova scena)
         ToggleCursor(SceneManager.GetActiveScene().name == "MainMenu");
+        if (tooltip != null) InventoryUIController.instance.tooltip = tooltip;
     }
 
     public void GoToTransitionScene()
@@ -44,7 +50,7 @@ public class GestoreScena : MonoBehaviour
         nUIOpen += isOpen ? 1 : -1;
         nUIOpen = Mathf.Max(0, nUIOpen);  // Assicura che il valore non scenda mai sotto 0
 
-        print("UI aperte: " + nUIOpen + " (invocata in " + debug + ")");
+        print($"UI aperte: ('prima' {(isOpen ? +1 : -1)}) {nUIOpen} (invocata in {debug})");
         ToggleCursor(nUIOpen > 0);  // Cambia visibilità del cursore se almeno una UI è aperta
     }
 

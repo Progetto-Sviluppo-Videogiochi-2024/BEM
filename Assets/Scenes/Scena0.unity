@@ -5475,10 +5475,14 @@ PrefabInstance:
     - target: {fileID: 3987314480948296827, guid: 2713c73e375d2374ca951ea2246250da, type: 3}
       propertyPath: head
       value: 
-      objectReference: {fileID: 1536092230}
+      objectReference: {fileID: 692319339}
     - target: {fileID: 4708960208846771045, guid: 2713c73e375d2374ca951ea2246250da, type: 3}
       propertyPath: m_Name
       value: Tooltip
+      objectReference: {fileID: 0}
+    - target: {fileID: 4708960208846771045, guid: 2713c73e375d2374ca951ea2246250da, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9101783998263022288, guid: 2713c73e375d2374ca951ea2246250da, type: 3}
       propertyPath: m_Pivot.x
@@ -6853,6 +6857,11 @@ PrefabInstance:
 --- !u!1 &692319338 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 178371554684127900, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
+  m_PrefabInstance: {fileID: 692319337}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &692319339 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8305070156681125275, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
   m_PrefabInstance: {fileID: 692319337}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &692481399 stripped
@@ -16923,6 +16932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextChapter: 'Capitolo 2: In Viaggio Verso la Foresta'
   nextScene: Scena1
+  tooltip: {fileID: 541495859}
 --- !u!4 &1582097250
 Transform:
   m_ObjectHideFlags: 0

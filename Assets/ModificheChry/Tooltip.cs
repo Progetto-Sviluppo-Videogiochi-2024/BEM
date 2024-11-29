@@ -35,7 +35,6 @@ public class Tooltip : MonoBehaviour
             gameObject.SetActive(true);
             SetTooltipMessage(message);
             isTooltipActive = true;
-
             if (tooltipDuration > 0) StartCoroutine(DisableTooltipAfterTime(tooltipDuration));
         }
     }
