@@ -25,7 +25,13 @@ public class Tooltip : MonoBehaviour
 
     private void Update()
     {
-        if (gameObject.activeSelf) transform.position = mainCamera.WorldToScreenPoint(head.position + offset);
+        if (gameObject.activeSelf && head != null)
+        {
+            // Calcola la posizione locale del Tooltip rispetto alla testa
+            Vector3 worldPosition = head.position + head.TransformDirection(offset);
+            // Proietta la posizione sullo schermo usando la main camera
+            transform.position = mainCamera.WorldToScreenPoint(worldPosition);
+        }
     }
 
     public void ShowTooltip(string message, float tooltipDuration)
