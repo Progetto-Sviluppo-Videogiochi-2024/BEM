@@ -6,13 +6,17 @@ public class PickupEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        EditorGUILayout.LabelField("Pickup Info", EditorStyles.boldLabel);
         ItemPickup itemPickup = (ItemPickup)target;
+        ItemController itemController = itemPickup.GetComponent<ItemController>();
 
-        // if (itemPickup.item != null) itemPickup.item = (Item)EditorGUILayout.ObjectField(new GUIContent("Item", "Oggetto da raccogliere"), itemPickup.item, typeof(Item), true);
-        if (itemPickup.item != null && itemPickup.item.inventorySectionType.Equals(Item.ItemType.ConsumableEquipable))
+        if (itemController.item.inventorySectionType.Equals(Item.ItemType.ConsumableEquipable) && !itemController.item.tagType.Equals(Item.ItemTagType.Scene))
         {
-            itemPickup.triggerTooltip = (TriggerToolTip)EditorGUILayout.ObjectField(new GUIContent("Trigger Tooltip", "Riferimento al trigger del tooltip"), itemPickup.triggerTooltip, typeof(TriggerToolTip), true);
+            EditorGUILayout.LabelField("Pickup Info", EditorStyles.boldLabel);
+            itemPickup.tooltip = (Tooltip)EditorGUILayout.ObjectField(
+                new GUIContent("Tooltip", "Riferimento al trigger del tooltip"),
+                itemPickup.tooltip,
+                typeof(Tooltip),
+                true);
         }
 
         if (GUI.changed) EditorUtility.SetDirty(itemPickup);

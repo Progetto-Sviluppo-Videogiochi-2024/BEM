@@ -12,7 +12,7 @@ public class ItemPickup : MonoBehaviour
 
     [Header("References")]
     #region References
-    public TriggerToolTip triggerTooltip; // Riferimento al trigger del tooltip
+    public Tooltip tooltip; // Riferimento al tooltip
     private Animator animator; // Riferimento all'Animator del giocatore
     #endregion
 
@@ -26,14 +26,10 @@ public class ItemPickup : MonoBehaviour
     {
         gamePlayMenuManager = FindObjectOfType<GamePlayMenuManager>();
         item = GetComponent<ItemController>().item;
-        openMenuScript = FindObjectOfType<Player>().gameObject.GetComponent<OpenInventory>();
-        animator = FindObjectOfType<Player>().gameObject.GetComponent<Animator>();
-        if (triggerTooltip == null)
-        {
-            // Debug.LogWarning($"triggerTooltip doesn't exist in {gameObject.name}. Please assign it in the Inspector.");
-            return; // Blocca l'esecuzione per evitare la null reference exception
-        }
-        triggerTooltip.tooltipDuration = 3f;
+
+        var player = FindObjectOfType<Player>().gameObject;
+        openMenuScript = player.GetComponent<OpenInventory>();
+        animator = player.GetComponent<Animator>();
     }
 
     void Update()
@@ -42,20 +38,19 @@ public class ItemPickup : MonoBehaviour
 
         if (isPlayerInRange && item.isPickUp) // Se è vicino a un oggetto raccoglibile
         {
-            if (InventoryManager.instance.IsInventoryFull())
+            if (item.inventorySectionType.Equals(Item.ItemType.ConsumableEquipable) && InventoryManager.instance.IsInventoryFull())
             {
-                triggerTooltip?.ShowTooltip("Non ho spazio nello zaino.");
+                tooltip?.ShowTooltip("Non ho più spazio nello zaino.", 5f);
                 return;
             }
-            
-            // if (Input.GetMouseButtonDown(0) && CheckClickMouseItem()) PickUp(); else // TODO: commentato perché bisogna capire se lasciamo il click
+
             if (!animator.GetBool("pickingUp") && Input.GetKeyDown(KeyCode.Space)) PickUp();
             else if (animator.GetBool("pickingUp") && (animator.GetFloat("vInput") > 0 || animator.GetFloat("hInput") > 0)) CancelPickup();
         }
     }
 
     // private bool CheckClickMouseItem()
-    // {
+    // { ex: if (Input.GetMouseButtonDown(0) && CheckClickMouseItem()) PickUp();
     //     // Raycast per determinare se il clic è effettivamente sull'oggetto
     //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     //     if (Physics.Raycast(ray, out RaycastHit hit))

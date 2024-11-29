@@ -63,6 +63,7 @@ public class GamePlayMenuManager : MonoBehaviour
 
     private void ToggleScripts(bool visible)
     {
+        // Pickup degli item già negato in ItemPickup
         if (player != null)
         {
             player.GetComponent<ActionStateManager>().enabled = !visible; // Per le azioni (ricarica e switch dell'arma, ecc.)
