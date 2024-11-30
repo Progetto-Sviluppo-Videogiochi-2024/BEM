@@ -31,6 +31,12 @@
 
 ### Sigaretta/Beroni: aumenta la sanità mentale
 ### Proiettili: per ricaricare l'arma da fuoco, non equipaggiabili
+- 1kg:
+    - confezione da 16 ammo (pistola)
+- 1.5kg:
+    - confezione da 8 ammo (shotgun)
+    - confezione da 10 ammo (fucile)
+    - confezione da 30 ammo (assalto)
 
 ## Collezionabili
 - **Oggetti Nascosti**: per sbloccare trofei
