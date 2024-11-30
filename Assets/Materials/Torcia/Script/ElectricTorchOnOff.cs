@@ -9,165 +9,125 @@ using UnityEngine;
 
 public class ElectricTorchOnOff : MonoBehaviour
 {
-    EmissionMaterialGlassTorchFadeOut _emissionMaterialFade;
-    BatteryPowerPickup _batteryPower;
-    //
+	EmissionMaterialGlassTorchFadeOut _emissionMaterialFade;
+	BatteryPowerPickup _batteryPower;
+	//
 
-    public enum LightChoose
+	public enum LightChoose
     {
-        noBattery,
-        withBattery
+		noBattery,
+		withBattery
     }
 
-    public LightChoose modoLightChoose;
-    [Space]
-    [Space]
-    public string onOffLightKey = "F";
-    private KeyCode _kCode;
-    [Space]
-    [Space]
-    public bool _PowerPickUp = false;
-    [Space]
-    public float intensityLight = 2.5F;
-    private bool _flashLightOn = false;
-    [SerializeField] float _lightTime = 0.05f;
+	public LightChoose modoLightChoose;
+	[Space]
+	[Space]
+	public string onOffLightKey = "F";
+	private KeyCode _kCode;
+	[Space]
+	[Space]
+	public bool _PowerPickUp = false;
+	[Space]
+	public float intensityLight = 2.5F;
+	private bool _flashLightOn = false;
+	[SerializeField] float _lightTime = 0.05f;
 
-    private void Awake()
+
+	private void Awake()
     {
-        // Trova il componente BatteryPowerPickup nella scena
-        _batteryPower = FindObjectOfType<BatteryPowerPickup>();
-        if (_batteryPower == null)
-        {
-            Debug.LogError("Nessun oggetto 'BatteryPowerPickup' trovato nella scena.");
-        }
-    }
-
+		_batteryPower = FindObjectOfType<BatteryPowerPickup>();
+	}
     void Start()
-    {
-        // Trova l'oggetto 'Torch/default' e il suo script EmissionMaterialGlassTorchFadeOut
-        GameObject _scriptControllerEmissionFade = GameObject.Find("Torch/default");
+	{
+		GameObject _scriptControllerEmissionFade = GameObject.Find("default");
 
-        if (_scriptControllerEmissionFade != null)
-        {
-            _emissionMaterialFade = _scriptControllerEmissionFade.GetComponent<EmissionMaterialGlassTorchFadeOut>();
-            if (_emissionMaterialFade == null)
-            {
-                Debug.LogError("EmissionMaterialGlassTorchFadeOut non trovato su 'Torch/default'.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Oggetto 'Torch/default' non trovato nella scena.");
-        }
+		if (_scriptControllerEmissionFade != null)
+		{
+			_emissionMaterialFade = _scriptControllerEmissionFade.GetComponent<EmissionMaterialGlassTorchFadeOut>();
+		}
+		if (_scriptControllerEmissionFade  == null) {Debug.Log("Cannot find 'EmissionMaterialGlassTorchFadeOut' script");}
 
-        // Parsing della stringa in KeyCode
-        if (!System.Enum.TryParse(onOffLightKey, out _kCode))
-        {
-            Debug.LogError("Errore nel parsing della chiave per l'accensione/spegnimento. Impostata la chiave di default 'F'.");
-            _kCode = KeyCode.F; // Imposta un valore di fallback
-        }
-    }
+		_kCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), onOffLightKey);
+	}
 
-    void Update()
-    {
-        // Gestione dell'input della tastiera
-        InputKey();
+	void Update()
+	{
+		// detecting parse error keyboard type
+		if (System.Enum.TryParse(onOffLightKey, out _kCode))
+		{
+			_kCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), onOffLightKey);
+		}
+        //
 
         switch (modoLightChoose)
         {
             case LightChoose.noBattery:
-                NoBatteryLight();
-                break;
+				NoBatteryLight();
+				break;
             case LightChoose.withBattery:
-                WithBatteryLight();
-                break;
+				WithBatteryLight();
+				break;
         }
-    }
+	}
 
-    void InputKey()
+	void InputKey()
     {
-        if (Input.GetKeyDown(_kCode) && _flashLightOn == true)
-        {
-            _flashLightOn = false;
-        }
-        else if (Input.GetKeyDown(_kCode) && _flashLightOn == false)
-        {
-            _flashLightOn = true;
-        }
-    }
+		if (Input.GetKeyDown(_kCode) && _flashLightOn == true)
+		{
+			_flashLightOn = false;
 
-    void NoBatteryLight()
+		}
+		else if (Input.GetKeyDown(_kCode) && _flashLightOn == false)
+		{
+			_flashLightOn = true;
+
+		}
+	}
+
+	void NoBatteryLight()
     {
-        if (_emissionMaterialFade != null)
-        {
-            Light lightComponent = GetComponent<Light>();
-            if (lightComponent != null)
-            {
-                if (_flashLightOn)
-                {
-                    lightComponent.intensity = intensityLight;
-                    _emissionMaterialFade.OnEmission();
-                }
-                else
-                {
-                    lightComponent.intensity = 0.0f;
-                    _emissionMaterialFade.OffEmission();
-                }
-            }
-            else
-            {
-                Debug.LogError("Componente 'Light' non trovato sull'oggetto.");
-            }
-        }
-        else
-        {
-            Debug.LogError("EmissionMaterialGlassTorchFadeOut non è stato trovato.");
-        }
-    }
+		if (_flashLightOn)
+		{
+			GetComponent<Light>().intensity = intensityLight;
+			_emissionMaterialFade.OnEmission();
+		}
+		else
+		{
+			GetComponent<Light>().intensity = 0.0f;
+			_emissionMaterialFade.OffEmission();
+		}
+		InputKey();
+	}
 
-    void WithBatteryLight()
+	void WithBatteryLight()
     {
-        if (_emissionMaterialFade != null)
-        {
-            Light lightComponent = GetComponent<Light>();
-            if (lightComponent != null)
+
+		if (_flashLightOn)
+		{
+			GetComponent<Light>().intensity = intensityLight;
+			intensityLight -= Time.deltaTime * _lightTime;
+			_emissionMaterialFade.TimeEmission(_lightTime);
+            
+			if (intensityLight < 0)
             {
-                if (_flashLightOn)
-                {
-                    lightComponent.intensity = intensityLight;
-                    intensityLight -= Time.deltaTime * _lightTime;
-                    _emissionMaterialFade.TimeEmission(_lightTime);
+				intensityLight = 0;
+			}
+			if (_PowerPickUp == true)
+			{
+				intensityLight = _batteryPower.PowerIntensityLight;
+			}
+		}
+		else
+		{
+			GetComponent<Light>().intensity = 0.0f;
+			_emissionMaterialFade.OffEmission();
 
-                    if (intensityLight < 0)
-                    {
-                        intensityLight = 0;
-                    }
+			if (_PowerPickUp == true)
+			{
+				intensityLight = _batteryPower.PowerIntensityLight;
+			}
+		}
 
-                    // Se la batteria è stata presa, ripristina l'intensità della luce
-                    if (_PowerPickUp)
-                    {
-                        intensityLight = _batteryPower.PowerIntensityLight;
-                    }
-                }
-                else
-                {
-                    lightComponent.intensity = 0.0f;
-                    _emissionMaterialFade.OffEmission();
-
-                    if (_PowerPickUp)
-                    {
-                        intensityLight = _batteryPower.PowerIntensityLight;
-                    }
-                }
-            }
-            else
-            {
-                Debug.LogError("Componente 'Light' non trovato sull'oggetto.");
-            }
-        }
-        else
-        {
-            Debug.LogError("EmissionMaterialGlassTorchFadeOut non è stato trovato.");
-        }
-    }
+		InputKey();
+	}
 }
