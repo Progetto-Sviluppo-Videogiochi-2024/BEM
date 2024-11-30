@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour // TODO: adattare questo script per il proge
     public void Hit(RaycastHit hit)
     {
         GameObject hitObject = hit.transform.gameObject;
-        Debug.Log("Bullet hit: " + hitObject.name);
+        print("Bullet hit: " + hitObject.name);
 
         var booleanAccessor = BooleanAccessor.istance;
         if (hitObject.CompareTag("Shootable") && hitObject.name.Contains("CocaCola") && booleanAccessor.GetBoolFromThis("cocaCola"))

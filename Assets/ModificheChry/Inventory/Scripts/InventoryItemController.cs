@@ -10,23 +10,31 @@ using static Item;
 public class InventoryItemController : MonoBehaviour, IPointerClickHandler
 {
     [Header("Inventory Item Info Item")]
+    #region Inventory Item Info Item
     public Item item; // L'oggetto dell'inventario
     private static InventoryItemController currentlySelectedItem; // L'oggetto attualmente selezionato
+    #endregion
 
     [Header("Inventory Item Sub-menu Options")]
+    #region Inventory Item Sub-menu Options
     private GameObject optionsMenu = null; // Il menu contestuale dell'oggetto cliccato (consumabile-equipaggiabile o collezionabile)
     private bool isOptionsOpen = false; // Stato attuale del menu contestuale
+    #endregion
 
     [Header("Inspect Item Sub-menu Options")]
+    #region Inspect Item Sub-menu Options
     public Transform inspectMenu; // Il menu Ispeziona dell'item/collezionabile
     public int indexIngredientCraft = 0; // Indice dell'ingrediente per la creazione dell'oggetto
     private List<string> ingredients = new(); // Lista degli ingredienti della ricetta
     private List<string> qtaIngredients = new(); // Lista delle quantità degli ingredienti della ricetta
     public Sprite imgDefault; // Immagine di default per l'ingrediente
+    #endregion
 
     [Header("References")]
+    #region References
     [HideInInspector] public Tooltip tooltip; // Riferimento al tooltip
     private OpenInventory openMenuScript; // Riferimento allo script OpenMenu
+    #endregion
 
     void Start()
     {
@@ -57,10 +65,11 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
                 case ItemTagType.Document:
                 case ItemTagType.HiddenObject:
                 case ItemTagType.Recipe:
+                case ItemTagType.Scene:
                     break; // Perché non hanno un menu contestuale
 
                 default:
-                    Debug.LogError("TagType non supportato: " + item.tagType); // TODO: non dovrebbe mai accadere
+                    Debug.LogError("TagType don't found: " + item.tagType); // TODO: non dovrebbe mai accadere
                     break;
             }
             if (!string.IsNullOrEmpty(nameMenu))
@@ -101,6 +110,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
     }
 
     /* Gestione del click */
+    #region Gestione del click
     private void DetectClickOutsideMenuOrInspect()
     {
         if (Input.GetMouseButtonDown(0))
@@ -157,8 +167,10 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             }
         }
     }
+    #endregion
 
     /* Menu contestuale */
+    #region Menu contestuale
     public void OpenCloseOptions(bool open)
     {
         // Mostra o nascondi il menu contestuale dell'item cliccato
@@ -170,8 +182,10 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             ToggleInventoryItemsRaycast(!isOptionsOpen);
         }
     }
+    #endregion
 
     /* Funzioni per le azioni dell'item */
+    #region Funzioni per le azioni dell'item
     private void ToggleInventoryItemsRaycast(bool enable)
     {
         // Trova tutti gli item nell'inventario e abilita/disabilita il Raycast Target
@@ -232,7 +246,10 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         // Controlla se l'oggetto è equipaggiabile e consumabile
         return IsEquipable() && item.isUsable && item.isStackable && item.tagType == ItemTagType.Item;
     }
+    #endregion
 
+    /* FUNZIONALITA' SOTTO-MENU */
+    #region Sub-menu Options
     /* Ispeziona */
     public void InspectItem()
     {
@@ -243,7 +260,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         ShowItemMenu();
 
         openMenuScript.itemInspectOpen = this;
-        Debug.Log("inspectitem = " + openMenuScript.itemInspectOpen.item.nameItem);
+        // Debug.Log("inspectitem = " + openMenuScript.itemInspectOpen.item.nameItem);
     }
 
     private void ShowItemMenu()
@@ -380,6 +397,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         if (IsEquipable() || IsAlsoConsumable())
         {
             InventoryManager.instance.Remove(item, true);
+            OpenCloseInspectUI(false);
         }
     }
 
@@ -496,4 +514,5 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             labelEquipable.SetActive(!labelEquipable.activeSelf);
         }
     }
+    #endregion
 }

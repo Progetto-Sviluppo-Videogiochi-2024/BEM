@@ -90,25 +90,25 @@ public class GamePlayMenuManager : MonoBehaviour
 
     private void ReloadLastCheckpoint()
     {
-        Debug.Log("Riprendi dall'ultimo Checkpoint");
+        print("Riprendi dall'ultimo Checkpoint");
         ResumeGame(); // Chiude il menu e riprende il gioco
     }
 
     private void ReturnToGame()
     {
-        Debug.Log("Riprendi la scena corrente");
+        print("Riprendi la scena corrente");
         ResumeGame(); // Chiude il menu e riprende il gioco
     }
 
     private void LoadGame()
     {
-        Debug.Log("Carica Partita Salvata");
+        print("Carica Partita Salvata");
         ResumeGame(); // Chiude il menu e riprende il gioco
     }
 
     private void OpenOptions()
     {
-        Debug.Log("Apri Opzioni");
+        print("Apri Opzioni");
         ResumeGame(); // Chiude il menu principale per aprire le opzioni
     }
 }

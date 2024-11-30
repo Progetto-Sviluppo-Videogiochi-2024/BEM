@@ -24,12 +24,12 @@ public class EnemyHealth : MonoBehaviour
 
         maxHealth -= damage;
         if (maxHealth <= 0) { maxHealth = 0; EnemyDeath(); }
-        Debug.Log("Enemy Health: " + maxHealth);
+        print("Enemy Health: " + maxHealth);
     }
 
     private void EnemyDeath()
     {
         ragdoll.TriggerRagdoll();
-        Debug.Log("Enemy is dead");
+        print("Enemy is dead");
     }
 }

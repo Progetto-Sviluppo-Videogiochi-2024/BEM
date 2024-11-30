@@ -41,7 +41,7 @@ public class BooleanAccessor : MonoBehaviour
         }
         else if (istance != this)
         {
-            Debug.Log("BooleanAccessor: Instance already exists, destroying object!");
+            print("BooleanAccessor: Instance already exists, destroying object!");
             Destroy(gameObject);
         }
     }

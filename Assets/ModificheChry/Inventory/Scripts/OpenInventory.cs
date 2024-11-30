@@ -77,9 +77,8 @@ public class OpenInventory : MonoBehaviour
         if (!isInventoryOpen) GetComponent<AimStateManager>().enabled = true;
 
         // Chiudi il menu ispeziona se l'inventario viene chiuso
-        if (!isInventoryOpen && itemInspectOpen != null)
+        if (isOpen && itemInspectOpen != null)
         {
-            // Debug.Log(itemInspectOpen.item.nameItem);
             itemInspectOpen.OpenCloseInspectUI(false);
             itemInspectOpen = null;
         }

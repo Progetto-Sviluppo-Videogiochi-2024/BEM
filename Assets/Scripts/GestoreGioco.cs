@@ -52,7 +52,7 @@ public class GestoreGioco : MonoBehaviour
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveFilePath, json);
-        Debug.Log("Dati salvati con successo");
+        print("Dati salvati con successo");
     }
 
     // Metodo di caricamento dei dati
@@ -67,7 +67,7 @@ public class GestoreGioco : MonoBehaviour
             fioriRaccolti = data.fioriRaccolti;
             progressoLivello = data.progressoLivello;
 
-            Debug.Log("Dati caricati con successo");
+            print("Dati caricati con successo");
         }
         else
         {
@@ -82,7 +82,7 @@ public class GestoreGioco : MonoBehaviour
         fioriRaccolti = 0;
         progressoLivello.Clear();
         SalvaDati();
-        Debug.Log("Dati di gioco resettati");
+        print("Dati di gioco resettati");
     }
 }
 

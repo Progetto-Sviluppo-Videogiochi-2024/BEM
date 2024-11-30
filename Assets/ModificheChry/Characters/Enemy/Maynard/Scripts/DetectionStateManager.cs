@@ -27,7 +27,7 @@ public class DetectionStateManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (IsPlayerSeen() && IsEnemyAlive()) Debug.Log("Player seen by " + transform.name);
+        if (IsPlayerSeen() && IsEnemyAlive()) print("Player seen by " + transform.name);
         // else Debug.Log("Player not seen");
     }
 

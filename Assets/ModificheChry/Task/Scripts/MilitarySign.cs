@@ -53,6 +53,10 @@ public class MilitarySign : MonoBehaviour
 
     void StartConversation(NPCConversation dialog)
     {
+        var animator = player.GetComponent<Animator>();
+        animator.SetFloat("hInput", 0);
+        animator.SetFloat("vInput", 0);
+
         clickEndHandled = false;
         isConversationActive = true;
         ConversationManager.Instance.StartConversation(dialog);

@@ -86,14 +86,14 @@ public class Diario : MonoBehaviour
         {
             if (missioniCompletate[i].StartsWith(missioneBase))
             {
-                Debug.Log("La missione '" + missioneBase + "' è già stata completata.");
+                print("La missione '" + missioneBase + "' è già stata completata.");
                 return; // Non aggiunge la missione se è già completata
             }
         }
 
         // Se la missione non è presente né nelle attive né nelle completate, la aggiunge
         missioniAttive.Add(missione);
-        // Debug.Log("Nuova missione aggiunta: " + missione);
+        // print("Nuova missione aggiunta: " + missione);
         AggiornaDiarioUI();
     }
 
@@ -103,7 +103,7 @@ public class Diario : MonoBehaviour
         {
             missioniAttive.Remove(missione);
             missioniCompletate.Add(missione);
-            // Debug.Log("Missione completata: " + missione);
+            // print("Missione completata: " + missione);
             AggiornaDiarioUI();
 
             // Invoca l'evento per notificare il completamento della missione
@@ -111,7 +111,7 @@ public class Diario : MonoBehaviour
         }
         else
         {
-            // Debug.Log("La missione non è presente nel diario.");
+            // print("La missione non è presente nel diario.");
         }
     }
 
