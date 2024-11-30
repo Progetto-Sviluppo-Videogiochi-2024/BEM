@@ -26,7 +26,6 @@
 - **Salute Mentale**
   - Implementare respiro affannoso per Stefano quando si attiva la sanità mentale
 - **Tests** - Il lupo: Il lupo si è fermato nella posizione corretta, il problema degli alberi possiamo lasciarlo per il lupo secondo me XD
-- Tooltip non compare dopo una aver utilizzato un consumabile che conferisce salute ma la salute è al max
 
 ?
 - Discorso con uomo baita bloccato dopo aver portato il lupo (forse dovuto all'evento del nodo -> task fucile)
