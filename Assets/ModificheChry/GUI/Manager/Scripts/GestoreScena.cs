@@ -19,7 +19,7 @@ public class GestoreScena : MonoBehaviour
     public Tooltip tooltip; // Riferimento al tooltip per gli oggetti nell'inventario
     #endregion
 
-    void Awake()
+    void Start()
     {
         nUIOpen = 0; // Resettata a ogni nuova scena per evitare problemi (la precedente viene distrutta, quindi, anche se alcune saranno aperte prima del cambio, io la azzero all'inizio della nuova scena)
         ToggleCursor(SceneManager.GetActiveScene().name == "MainMenu");
