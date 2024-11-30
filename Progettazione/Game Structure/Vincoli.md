@@ -18,16 +18,31 @@
 
 - **Salute**:
   - Non visibile, ma intuibile dalla GUI.
-  - Se la salute è 0, il personaggio muore e riparte dall'ultimo checkpoint.
+  - Se la HP è 0, il personaggio muore e riparte dall'ultimo checkpoint.
   - Possibilità di utilizzare oggetti curativi.
-- **Sanità mentale**:
-  - SFX (audio (del pg ?)), VFX (allucinazioni horror, pensieri negativi)
-  - Visibile al giocatore nella GUI.
-    - Si manifesta al diminuire della salute (health <= 20 ? sanita - 20), morte di un Amico (sanita - 30), ?
+
+- **Sanità mentale**: 
+
+  - **Effetti**:
+    - Decremento della salute: -1 Hp (ogni 3 minuti) quando Sanità mentale = 50
+    - SFX (affanno), VFX (allucinazioni horror)
+    - Possibilità di poter essere controllato dal Boss (blocco wasd per qualche secondo) se la sua sanità mentale = 60
+    
+  - **Cosa la decrementa**.
+    - Se la HP <= 20 ALLORA -20 sanità
+    - Morte di un Amico = -30 sanità
+    - Danno subito da un nemico = -10 sanità
+
+  - **Cosa la incremente**
+    - Si recupera con cibo e oggetti medici.
+
+  - **Visibilità nella GUI Player**
     - Valore pari a player.maxHealth all'inizio.
       - Esempio: sanita = 100 => "stefano sta bene mentalmente".
-    - Più scende, più trasparente è l'icona.
-  - Si recupera con cibo e oggetti medici.
+    - Al decrementare del suo valore la visibilità dell'icona sarà maggiore
+
+
+
 - **Armi**:
   - **Melee (Corpo a corpo)**:
     - Armi bianche come coltello, mazza, bastone, ascia.

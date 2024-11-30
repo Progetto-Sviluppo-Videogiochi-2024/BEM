@@ -23,8 +23,8 @@
 - **Da Lancio**: sassi, bottiglie, ecc.
 
 ### Medicinali: recupera la salute del giocatore
-- **Medikit**: ripristina tutta la salute (HP + 100, sanita + 15)
-- **Bende**: ripristinano parte della salute (HP + 50, sanita + 10)
+- **Medikit**: ripristina tutta la salute (HP + 100, sanita + 25)
+- **Bende**: ripristinano parte della salute (HP + 50, sanita + 15)
 - **CraftItem**: oggetto creato tramite crafting dai fiori, ad esempio "soluzione medica" (HP + 10, sanita + 5)   
 - **Cibo**: recupera poca salute e poca sanità mentale (HP + 2, sanita + 10)
 - **Bevande**: recupera poca salute e poca sanità mentale (HP + 2, sanita + 10)
