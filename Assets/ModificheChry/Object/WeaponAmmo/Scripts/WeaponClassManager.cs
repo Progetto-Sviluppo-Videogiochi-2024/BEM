@@ -15,7 +15,7 @@ public class WeaponClassManager : MonoBehaviour
 
     [Header("Equip Weapons")]
     #region Switching-Equip Weapons
-    RigSwitcher CambiaRig;
+    public RigSwitcher CambiaRig;
     int currentWeaponIndex = -1;
     #endregion
     [HideInInspector] public GameObject currentWeapon;
@@ -167,6 +167,7 @@ public class WeaponClassManager : MonoBehaviour
         currentWeapon.transform.SetParent(null);
         currentWeapon = null;
         currentWeaponIndex = -1;
+        CambiaRig.RemoveCurrentRig();
     }
 
     public void SetCurrentWeapon(WeaponManager weapon)

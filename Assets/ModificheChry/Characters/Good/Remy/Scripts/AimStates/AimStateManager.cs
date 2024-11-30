@@ -50,6 +50,7 @@ public class AimStateManager : MonoBehaviour
     [Header("References Scripts")]
     #region References Scripts
     MovementStateManager movement;
+    public RigSwitcher CambiaRig;
     #endregion
 
     [Header("References")]
@@ -90,6 +91,8 @@ public class AimStateManager : MonoBehaviour
 
         idleFov = aimCam.m_Lens.FieldOfView;
         SwitchState(rifleIdleState);
+        CambiaRig = GetComponentInChildren<RigSwitcher>();
+        print(CambiaRig);
     }
 
     void Update()

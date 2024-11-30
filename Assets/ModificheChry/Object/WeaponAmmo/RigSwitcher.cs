@@ -35,7 +35,7 @@ public class RigSwitcher : MonoBehaviour
     }
     public void SetAim()
     {   
-        string rigCercato = "RigIdle" + weapon.name;
+        string rigCercato = "Rig" + weapon.name;
         currentWeapon.transform.localPosition = weapon.AimPosition;
         currentWeapon.transform.localRotation = weapon.AimRotation;
         currentWeapon.transform.localScale = weapon.Scale;
@@ -51,6 +51,10 @@ public class RigSwitcher : MonoBehaviour
         }
     }
 
+    public void RemoveCurrentRig(){
+        currentRig.weight=0;
+    }
+    
     public void SwitchWeapon(GameObject newWeapon)
     {
         currentWeapon = newWeapon; // Cambia l'arma corrente

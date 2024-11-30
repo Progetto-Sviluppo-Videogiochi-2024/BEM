@@ -7,6 +7,7 @@ public class RifleIdleAimState : AimBaseState
     {
         aim.animator.SetBool("aiming", true);
         aim.currentFov = aim.aimFov;
+        aim.CambiaRig.SetAim();
     }
 
     public override void UpdateState(AimStateManager aim)
