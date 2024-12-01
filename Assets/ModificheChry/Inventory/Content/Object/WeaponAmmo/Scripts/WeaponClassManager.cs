@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using static Item;
 using static Weapon;
-using static RigSwitcher;
 
 public class WeaponClassManager : MonoBehaviour
 {

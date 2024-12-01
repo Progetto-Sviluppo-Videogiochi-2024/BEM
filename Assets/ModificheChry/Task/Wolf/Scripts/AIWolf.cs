@@ -85,8 +85,7 @@ public class AIWolf : MonoBehaviour
     private bool PlayerHasBait()
     {
         return PlayerPrefs.GetInt("hasBait") == 1;
-        // var items = InventoryManager.instance?.items;
-        // return items != null && items.Any(item => item.inventorySectionType == Item.ItemType.Collectibles && item.name.Contains("Bait"));
+        // var items = InventoryManager.instance?.items; return items != null && items.Any(item => item.inventorySectionType == Item.ItemType.Collectibles && item.name.Contains("Bait"));
     }
 
     public void PerformRaycastAttack() // Invocata da attack nell'animation del lupo
@@ -115,7 +114,7 @@ public class AIWolf : MonoBehaviour
 
         if (distanceToPlayer > wolf.maxSightDistance) // Se il player è abbastanza lontano, il lupo lo segue
         {
-            animator.SetFloat("speed", player.GetComponent<MovementStateManager>().currentMoveSpeed * 1.5f);
+            animator.SetFloat("speed", player.GetComponent<MovementStateManager>().currentMoveSpeed * 40f);
             agent.SetDestination(player.position);
             agent.isStopped = false;
         }

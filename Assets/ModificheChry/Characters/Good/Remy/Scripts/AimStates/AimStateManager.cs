@@ -50,7 +50,7 @@ public class AimStateManager : MonoBehaviour
     [Header("References Scripts")]
     #region References Scripts
     MovementStateManager movement;
-    public RigSwitcher CambiaRig;
+    public RigSwitcher cambiaRig;
     #endregion
 
     [Header("References")]
@@ -61,6 +61,10 @@ public class AimStateManager : MonoBehaviour
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+        aimCam = GetComponentInChildren<CinemachineVirtualCamera>();
+        movement = GetComponent<MovementStateManager>();
+
         if (aimPos != null) return; // aggiunto io, perché mi scoccio a resettare tutte le variabili della Scena
         aimPos = new GameObject("Aim Position").transform;
         aimPos.name = "AimPosition";
@@ -80,25 +84,23 @@ public class AimStateManager : MonoBehaviour
 
     void Start()
     {
-        camFollowPosition = transform.GetChild(0); // Prende il primo figlio del player, il transform di CameraFollowPosition
         if (crosshair != null) crosshair.SetActive(false);
-        movement = GetComponent<MovementStateManager>();
+
+        camFollowPosition = transform.GetChild(0); // Prende il primo figlio del player, il transform di CameraFollowPosition
         xFollowPosition = camFollowPosition.localPosition.x;
         ogYposition = camFollowPosition.localPosition.y;
         yFollowPosition = ogYposition;
-        aimCam = GetComponentInChildren<CinemachineVirtualCamera>();
-        animator = GetComponent<Animator>();
-
         idleFov = aimCam.m_Lens.FieldOfView;
+
         SwitchState(rifleIdleState);
-        CambiaRig = GetComponentInChildren<RigSwitcher>();
-        print(CambiaRig);
+
+        cambiaRig = GetComponentInChildren<RigSwitcher>();
     }
 
     void Update()
     {
         if (animator.GetBool("sit")) return;
-        
+
         xAxis += Input.GetAxisRaw("Mouse X") * mouseSense;
         yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
         yAxis = Mathf.Clamp(yAxis, -80, 80);
@@ -114,17 +116,6 @@ public class AimStateManager : MonoBehaviour
             aimPos.position = Vector3.Lerp(aimPos.position, hit.point, Time.deltaTime * aimSmoothSpeed);
             Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red); // TODO: da togliere poi
         }
-        // else se gira la visuale, aimPos FISSA poco più avanti del pg per evitare che faccia strani movimenti 
-
-        // if (Input.GetMouseButton(0))
-        // {
-        //     crosshair.SetActive(true);
-        //     //UpdateCrosshairPosition();
-        // }
-        // else
-        // {
-        //     crosshair.SetActive(false);
-        // }
 
         MoveCamera();
 

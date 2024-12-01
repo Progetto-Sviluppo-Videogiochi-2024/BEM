@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 33730199074784402}
   - component: {fileID: 23429048093195576}
   - component: {fileID: 5481552162414128923}
+  - component: {fileID: 3088404022823137084}
   m_Layer: 0
   m_Name: Larch01
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977261233423868}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000021855694, y: -1.1102232e-16, z: 1.1102232e-16, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -106,3 +107,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 16, z: 1}
   m_Center: {x: -0.093931675, y: 7.439981, z: 0.06397772}
+--- !u!208 &3088404022823137084
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977261233423868}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.935, y: 8.044001, z: 0.84}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.03, y: 7.4400005, z: 0.064}
+  m_TimeToStationary: 0.5

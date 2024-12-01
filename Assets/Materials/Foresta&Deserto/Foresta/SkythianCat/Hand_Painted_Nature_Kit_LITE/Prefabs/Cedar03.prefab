@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 33265709180256148}
   - component: {fileID: 23339686187338838}
   - component: {fileID: -5506018963765329669}
+  - component: {fileID: -4328875536905777301}
   m_Layer: 0
   m_Name: Cedar03
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1276113068307054}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000021855694, y: -1.1102232e-16, z: 1.1102232e-16, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -106,3 +107,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 12.771143, z: 1}
   m_Center: {x: 0.08424544, y: 5.383829, z: 0.118820906}
+--- !u!208 &-4328875536905777301
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276113068307054}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.13, y: 6.386, z: 1.05}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.01, y: 5.3840003, z: 0.119}
+  m_TimeToStationary: 0.5
