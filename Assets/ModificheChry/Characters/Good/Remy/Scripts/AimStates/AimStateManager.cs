@@ -64,22 +64,6 @@ public class AimStateManager : MonoBehaviour
         animator = GetComponent<Animator>();
         aimCam = GetComponentInChildren<CinemachineVirtualCamera>();
         movement = GetComponent<MovementStateManager>();
-
-        if (aimPos != null) return; // aggiunto io, perché mi scoccio a resettare tutte le variabili della Scena
-        aimPos = new GameObject("Aim Position").transform;
-        aimPos.name = "AimPosition";
-
-        aimPositionWeightedTransform.transform = aimPos;
-        aimPositionWeightedTransform.weight = 1;
-
-        multiAimConstraints = GetComponentsInChildren<MultiAimConstraint>();
-        foreach (var multiAimConstraint in multiAimConstraints)
-        {
-            var data = multiAimConstraint.data.sourceObjects;
-            data.Clear();
-            data.Add(aimPositionWeightedTransform);
-            multiAimConstraint.data.sourceObjects = data;
-        }
     }
 
     void Start()
@@ -92,8 +76,8 @@ public class AimStateManager : MonoBehaviour
         yFollowPosition = ogYposition;
         idleFov = aimCam.m_Lens.FieldOfView;
 
-        SwitchState(rifleIdleState);
-
+        //SwitchState(rifleIdleState);
+        currentFov = idleFov;
         cambiaRig = GetComponentInChildren<RigSwitcher>();
     }
 
@@ -119,7 +103,7 @@ public class AimStateManager : MonoBehaviour
 
         MoveCamera();
 
-        currentState.UpdateState(this);
+        currentState?.UpdateState(this);
     }
 
     private void LateUpdate()

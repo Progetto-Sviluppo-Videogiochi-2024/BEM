@@ -7,15 +7,10 @@ public class DefaultState : ActionBaseState
 
     public override void EnterState(ActionStateManager actions)
     {
-        actions.rightHandAim.weight = 1;
-        actions.leftHandIK.weight = 1;
     }
 
     public override void UpdateState(ActionStateManager actions)
     {
-        actions.rightHandAim.weight = Mathf.Lerp(actions.rightHandAim.weight, 1, Time.deltaTime * 10);
-        if (actions.leftHandIK.weight == 0) actions.leftHandIK.weight = 1;
-
         if (Input.GetKeyDown(KeyCode.R) && CanReload(actions))
         {
             actions.SwitchState(actions.reloadState);

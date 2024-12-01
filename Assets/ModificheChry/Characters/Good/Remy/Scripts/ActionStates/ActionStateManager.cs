@@ -10,11 +10,8 @@ public class ActionStateManager : MonoBehaviour
     public SwapState swapState = new();
     #endregion
 
-    [Header("Animation Rigging")]
-    #region Animation Rigging
-    public MultiAimConstraint rightHandAim;
-    public TwoBoneIKConstraint leftHandIK;
-    #endregion
+
+
 
     [Header("References")]
     #region References
@@ -49,8 +46,6 @@ public class ActionStateManager : MonoBehaviour
     public void WeaponReloaded() // 4 funzione invocata dall'animazione reloading
     {
         weaponAmmo.Reload();
-        rightHandAim.weight = 1;
-        leftHandIK.weight = 1;
         SwitchState(defaultState);
     }
 

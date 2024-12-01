@@ -18,6 +18,7 @@ public class RigSwitcher : MonoBehaviour
 
     public void SetIdle()
     {
+        print(currentWeapon);
         print(weapon); // è NULL
         string rigCercato = "RigIdle" + weapon.name;
         currentWeapon.transform.localPosition = weapon.IdlePosition;

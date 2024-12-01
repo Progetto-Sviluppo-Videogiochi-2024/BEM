@@ -148,11 +148,11 @@ public class MovementStateManager : MonoBehaviour
 
     private bool CanInactivity()
     {
-        return !(animator.GetBool("aiming") || animator.GetBool("reloading") // Se il giocatore sta mirando o ricaricando
+        return animator.GetBool("aiming") || animator.GetBool("reloading") // Se il giocatore sta mirando o ricaricando
             || animator.GetBool("pickingUp") // Se il giocatore sta raccogliendo un oggetto
             || animator.GetBool("sit") // Se il giocatore è seduto
             || animator.GetFloat("hInput") != 0 || animator.GetFloat("vInput") != 0 // Se il giocatore si sta muovendo
-            || animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon")); // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
+            || animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon"); // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
     }
 
     private void PlayFootsteps()
