@@ -38,10 +38,13 @@ public class ItemPickup : MonoBehaviour
 
         if (isPlayerInRange && item.isPickUp) // Se è vicino a un oggetto raccoglibile
         {
+            print($"{isPlayerInRange} && {item.isPickUp} - {item.nameItem}");
             if (!animator.GetBool("pickingUp") && Input.GetKeyDown(KeyCode.Space))
             {
+                print("Space");
                 if (item.inventorySectionType.Equals(Item.ItemType.ConsumableEquipable) && InventoryManager.instance.IsInventoryFull())
                 { tooltip?.ShowTooltip("Non ho più spazio nello zaino.", 5f); return; }
+                print("PickUp");
                 PickUp();
             }
             else if (animator.GetBool("pickingUp") && (animator.GetFloat("vInput") > 0 || animator.GetFloat("hInput") > 0)) CancelPickup();
@@ -110,6 +113,7 @@ public class ItemPickup : MonoBehaviour
         // Controlla se il giocatore entra nel raggio di raccolta
         if (other.CompareTag("Player"))
         {
+            print($"{item.isPickUp} - {item.nameItem}");
             isPlayerInRange = true;
         }
     }
