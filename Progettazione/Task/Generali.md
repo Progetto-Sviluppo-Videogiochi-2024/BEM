@@ -12,23 +12,22 @@
      1. **Scenario 1:** "Persona" che dorme.
      2. **Scenario 2:** "Persona" che dorme, fissata da un mutante.
      3. **Scenario 3:** "Persona" morta (possibili graffi o segni) cosparsa di sangue, e il mutante è scomparso.
-     4. **Scenario 4:**  
-        - "Persona" scomparsa, sangue e mutante scomparsi.  
-        - Oppure, "Persona" che dorme senza sangue e senza mutante.
-2. **Foro** tra la libreria e il dipinto:
-   - Stesse possibilità di **Scenario 1** sopra.
+     4. **Scenario 4:** "Persona" che dorme senza sangue e senza mutante || Stanza vuota quindi pura sua allucinazione.
 
 ## Scena2
 
+- Discorso con UB bloccato dopo aver portato il lupo (forse dovuto all'evento del nodo -> taskfucile.cs)
 - **Task di sparare col fucile:**
   - Mancano **rig layer**, dialoghi e controlli.
-- Manca l'**ammo del fucile** di Scena2 (potremmo usare anche la stessa per ogni arma).
+
 - **Salute Mentale**
   - Implementare respiro affannoso per Stefano quando si attiva la sanità mentale
-- **Tests** - Il lupo: Il lupo si è fermato nella posizione corretta, il problema degli alberi possiamo lasciarlo per il lupo secondo me XD
-
-?
-- Discorso con uomo baita bloccato dopo aver portato il lupo (forse dovuto all'evento del nodo -> task fucile)
+- **Tests**:
+  - **Lupo**:
+    - Potrebbe arrivare a destinazione ma continua a _camminare_ e non va in idle (penso di averlo fixato @ccorvino3)
+    - Potrebbe decidere di _non attaccare_ a volte (penso di averlo fixato @ccorvino3)
+    - _Non collide_ con alberi, lago, ecc...
+- Decidere per le **ammo** _cosa fare_
 
 ## Scena 3
 
@@ -36,7 +35,7 @@
 
 ## Generali
 
-- **salvataggio/caricamento**
+- **Salvataggio/Caricamento**
   - Da implementare
 - **Sezioni MainMenu e GPM**
   - Da implementare (esempio Opzioni ecc) inoltre bisogna cambiare il nome di alcuni e scriverli in italiano, eccetto "Play Game" o altri comunemente usati
