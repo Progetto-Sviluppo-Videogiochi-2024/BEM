@@ -94,8 +94,8 @@ public class MovementStateManager : MonoBehaviour
         currentState = newState;
         currentState.EnterState(this);
 
-        if (currentState == crouchState) controller.center = new Vector3(controller.center.x, -0.29f, controller.center.z); // testato con questo valore perché stava sopra il terreno else sprofonda un po', magari dovuto al bug dell'animazione?
-        else controller.center = new Vector3(controller.center.x, 0.0f, controller.center.z);
+        if (currentState == crouchState) controller.center = new(controller.center.x, -0.29f, controller.center.z); // testato con questo valore perché stava sopra il terreno else sprofonda un po', magari dovuto al bug dell'animazione?
+        else controller.center = new(controller.center.x, 0.0f, controller.center.z);
     }
 
     private void GetDirectionAndMove()
@@ -146,14 +146,12 @@ public class MovementStateManager : MonoBehaviour
         return elapsedTime >= idleTimeThreshold;
     }
 
-    private bool CanInactivity()
-    {
-        return !(animator.GetBool("aiming") || animator.GetBool("reloading") // Se il giocatore sta mirando o ricaricando
+    private bool CanInactivity() => 
+        !(animator.GetBool("aiming") || animator.GetBool("reloading") // Se il giocatore sta mirando o ricaricando
             || animator.GetBool("pickingUp") // Se il giocatore sta raccogliendo un oggetto
             || animator.GetBool("sit") // Se il giocatore è seduto
             || animator.GetFloat("hInput") != 0 || animator.GetFloat("vInput") != 0 // Se il giocatore si sta muovendo
             || animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon")); // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
-    }
 
     private void PlayFootsteps()
     {

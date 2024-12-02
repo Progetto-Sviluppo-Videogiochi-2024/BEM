@@ -8,11 +8,11 @@
 ### **JumpScare (opzionale, se c'è tempo):**
 #### **Stanza adiacente:**
 1. **Foro** dietro ai libri della libreria:
-   - Se il player rimuove i libri e ci interagisce, vede:
-     1. **Scenario 1:** "Persona" che dorme.
-     2. **Scenario 2:** "Persona" che dorme, fissata da un mutante.
+   - Se il player rimuove i libri e ci interagisce, vede: // C'è un buco lì?
+     1. **Scenario 1:** "Persona" seduta. // L'ex conquilino doveva essere proprio un guardone.
+     2. **Scenario 2:** "Persona" seduta, fissata da un mutante.
      3. **Scenario 3:** "Persona" morta (possibili graffi o segni) cosparsa di sangue, e il mutante è scomparso.
-     4. **Scenario 4:** "Persona" che dorme senza sangue e senza mutante || Stanza vuota quindi pura sua allucinazione.
+     4. **Scenario 4:** Stanza vuota quindi pura sua allucinazione.
 
 ## Scena2
 
@@ -26,7 +26,7 @@
   - **Lupo**:
     - Potrebbe arrivare a destinazione ma continua a _camminare_ e non va in idle (penso di averlo fixato @ccorvino3)
     - Potrebbe decidere di _non attaccare_ a volte (penso di averlo fixato @ccorvino3)
-    - _Non collide_ con alberi, lago, ecc...
+    - _Non collide_ con alberi, ~~lago~~, ecc...
 - Decidere per le **ammo** _cosa fare_
 
 ## Scena 3

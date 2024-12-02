@@ -50,7 +50,7 @@ public class GestoreScena : MonoBehaviour
         nUIOpen += isOpen ? 1 : -1;
         nUIOpen = Mathf.Max(0, nUIOpen);  // Assicura che il valore non scenda mai sotto 0
 
-        print($"UI aperte: ('prima' {(isOpen ? +1 : -1)}) {nUIOpen} (invocata in {debug})");
+        // print($"UI aperte: ('prima' {(isOpen ? +1 : -1)}) {nUIOpen} (invocata in {debug})");
         ToggleCursor(nUIOpen > 0);  // Cambia visibilità del cursore se almeno una UI è aperta
     }
 

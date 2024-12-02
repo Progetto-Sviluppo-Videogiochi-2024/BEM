@@ -29,6 +29,11 @@ public class BooleanAccessor : MonoBehaviour
         { "fiori", false }, // Se il giocatore ha parlato con Gaia in scena2 (task)
         { "soluzione", false } // Se il giocatore è giunto nel dialogo di Gaia a craftare la soluzione in scena2
     };
+
+    private Dictionary<string, int> intValues = new()
+    {
+        { "nInteractionBookShelf", 0 } // Contatore delle interazioni con lo scaffale dei libri in scena0
+    };
     #endregion
 
     void Awake()
@@ -62,10 +67,20 @@ public class BooleanAccessor : MonoBehaviour
 
     public void ResetBoolValues()
     {
-        foreach (var key in boolValues.Keys.ToList())
-        {
-            boolValues[key] = false; // Resetta tutti i valori booleani
-        }
+        foreach (var key in boolValues.Keys.ToList()) boolValues[key] = false; // Resetta tutti i valori booleani
+    }
+
+    public void SetIntOnDialogueE(string nomeInt, int value)
+    {
+        if (intValues.ContainsKey(nomeInt)) intValues[nomeInt] += value;
+        else Debug.LogWarning("BooleanAccessor: nomeInt don't found - " + nomeInt);
+    }
+
+    public int GetIntFromThis(string nomeInt) => intValues.ContainsKey(nomeInt) ? intValues[nomeInt] : 0;
+
+    public void ResetIntValues()
+    {
+        foreach (var key in intValues.Keys.ToList()) intValues[key] = 0; // Resetta tutti i valori interi
     }
 
     private void TakeBA(Scene scene, LoadSceneMode mode)
