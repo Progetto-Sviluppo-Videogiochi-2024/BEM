@@ -24,9 +24,23 @@
   - Implementare respiro affannoso per Stefano quando si attiva la sanità mentale
 - **Tests**:
   - **Lupo**:
-    - Potrebbe arrivare a destinazione ma continua a _camminare_ e non va in idle (penso di averlo fixato @ccorvino3)
-    - Potrebbe decidere di _non attaccare_ a volte (penso di averlo fixato @ccorvino3)
+    - ~~Potrebbe arrivare a destinazione ma continua a _camminare_ e non va in idle (penso di averlo fixato @ccorvino3)~~ 
+    - ~~ Potrebbe decidere di _non attaccare_ a volte (penso di averlo fixato @ccorvino3)~~ 
+      03.12.24: @marco Effettuato Test dopo la Build, si posiziona correttamente
     - _Non collide_ con alberi, ~~lago~~, ecc...
+  - **Libreria**
+    - A volte lo Spacebar non funzionara e non avviene l'interazione oppure non lo permette dopo la prima transizione
+  - **Radio**
+    - Appena arrivo in Scena2 la musica è già attiva nonostante ho impostato il blocco in ManagerScena2 allo start
+  - **Urgete**
+    - Bug Dialogo per l'event dell'uomo Baita pre-shoting
+
+**Implementazioni facoltative**
+  - Togliere l'erba che va dal sentiero di destra verso l'uomo baita, soprtutto quella sul terreno
+  - Inserire punti di riferimento in ogni sentiero, possibilmente diversi.
+  - Nel primo dialogo potremmo aggiungere qualcosa che dica al giocatore che ora può premere ALT per lo swithc camera e che se non si vuole perdere 
+    può seguire i sentieri ma niente gli vieta di non entrare nelle boscaglie
+  
 - Decidere per le **ammo** _cosa fare_
 
 ## Scena 3
