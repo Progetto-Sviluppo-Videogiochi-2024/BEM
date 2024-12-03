@@ -26,10 +26,18 @@ public class TriggerBooks : NPCDialogueBase
     private bool isTransitioning = false; // Stato per il blocco della transizione tra le telecamere
     private bool isViewingHole = false; // Stato per il blocco della visuale sul buco
     private const int maxScenes = 8; // Numero massimo di scenari (pari -> dialogo stefano, dispari -> camera dietro il buco)
+    private float mouseSensitivity = 3f; // Sensibilità del mouse
+    private float maxXRotation = 40f; // Limite massimo di rotazione sull'asse X
+    private float maxYRotation = 40f; // Limite massimo di rotazione sull'asse Y
+    private bool allowSecondaryCameraControl = false; // Abilita il controllo del mouse per la camera dietro il muro
+    private Vector2 currentSecondaryCameraRotation = Vector2.zero; // Rotazione attuale della camera secondaria
+    private Quaternion initialRotation; // Rotazione iniziale della telecamera secondaria
     #endregion
 
     void Start()
     {
+        initialRotation = behindHoleWallCam.transform.localRotation;
+
         booleanAccessor = BooleanAccessor.istance;
         booleanAccessor.SetIntOnDialogueE("nInteractionBookShelf", 0);
 
@@ -97,6 +105,30 @@ public class TriggerBooks : NPCDialogueBase
         yield return new WaitForSeconds(3f); // Aspetta la fine del blend
 
         isTransitioning = false;
+        allowSecondaryCameraControl = toCam == behindHoleWallCam;
+    }
+
+    private void LateUpdate()
+    {
+        if (allowSecondaryCameraControl) HandleSecondaryCameraControl();
+    }
+
+    private void HandleSecondaryCameraControl()
+    {
+        // Ottieni il movimento del mouse
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        // Aggiorna la rotazione, rispettando i limiti
+        currentSecondaryCameraRotation.x = Mathf.Clamp(currentSecondaryCameraRotation.x - mouseY, -maxXRotation, maxXRotation);
+        currentSecondaryCameraRotation.y = Mathf.Clamp(currentSecondaryCameraRotation.y + mouseX, -maxYRotation, maxYRotation);
+
+        // Applica la rotazione relativa alla rotazione iniziale
+        Quaternion rotationX = Quaternion.AngleAxis(currentSecondaryCameraRotation.x, Vector3.right);
+        Quaternion rotationY = Quaternion.AngleAxis(currentSecondaryCameraRotation.y, Vector3.up);
+
+        // Combina la rotazione iniziale con le nuove rotazioni
+        behindHoleWallCam.transform.localRotation = initialRotation * rotationY * rotationX;
     }
 
     private void ManageJumpscare(int nInteractionBookShelf)
