@@ -123,11 +123,7 @@ public class ManagerScena0 : MonoBehaviour
         }
     }
 
-    void StartSecondDialogue()
-    {
-        // Avvia il secondo dialogo e definisci il delegato per il terzo dialogo
-        StartConversation(() => StandUpAndWASD("wasd"), () => StartCoroutine(WaitAndStartThirdDialogue(10f)));
-    }
+    void StartSecondDialogue() => StartConversation(() => StandUpAndWASD("wasd"), () => StartCoroutine(WaitAndStartThirdDialogue(10f)));
 
     IEnumerator WaitAndStartThirdDialogue(float waitTime)
     {

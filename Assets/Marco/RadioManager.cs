@@ -48,7 +48,7 @@ public class RadioManager : MonoBehaviour
         // Configura i listener per i pulsanti
         SalvaButton.onClick.AddListener(() => { Save(); RemoveButtonFocus(); });
         OnOffButton.onClick.AddListener(() => { OnOff(); RemoveButtonFocus(); });
-        CloseRadioUI.onClick.AddListener(() => { CloseRadio(); RemoveButtonFocus(); });
+        CloseRadioUI.onClick.AddListener(() => { ToggleRadio(false); RemoveButtonFocus(); });
     }
 
     void Update()
@@ -71,10 +71,7 @@ public class RadioManager : MonoBehaviour
         // TODO: manca la funzione per fargli impostare la canzone scorrendo la rotella della radio
     }
 
-    private void RemoveButtonFocus()
-    {
-        EventSystem.current.SetSelectedGameObject(null);
-    }
+    private void RemoveButtonFocus() => EventSystem.current.SetSelectedGameObject(null);
 
     private void ToggleRadio(bool isOpen)
     {
@@ -123,11 +120,6 @@ public class RadioManager : MonoBehaviour
         audioSource.Play();
     }
 
-    private void CloseRadio()
-    {
-        ToggleRadio(false);
-    }
-
     private void Save()
     {
         // TODO: fare una classe per salvare e caricare i dati e invocare qui quella funzione
@@ -157,6 +149,8 @@ public class RadioManager : MonoBehaviour
 
         Time.timeScale = 0;
     }
+
+    public void MuteRadio(bool mute) => audioSource.mute = mute;
 
     private void OnTriggerEnter(Collider other)
     {

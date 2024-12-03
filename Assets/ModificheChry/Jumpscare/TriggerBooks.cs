@@ -8,7 +8,9 @@ public class TriggerBooks : NPCDialogueBase
     [Header("References")]
     #region References
     private BooleanAccessor booleanAccessor; // Riferimento al boolean accessor
-    [SerializeField] CinemachineBrain cinemachineBrain; // Riferimento al CinemachineBrain
+    [SerializeField] RadioManager radioManager; // Riferimento al RadioManager
+    [SerializeField] AudioClip clipJumpscare; // Clip audio del jumpscare
+    AudioSource audioSource; // Riferimento all'AudioSource
     [SerializeField] CinemachineVirtualCamera behindPlayerCam; // Camera dietro il personaggio
     [SerializeField] CinemachineVirtualCamera behindHoleWallCam; // Camera dietro il buco nel muro
     [SerializeField] Transform gothicSitting; // Riferimento alla gotica seduta
@@ -33,6 +35,8 @@ public class TriggerBooks : NPCDialogueBase
 
         gothicDeathBlood.gameObject.SetActive(false);
         mutant.gameObject.SetActive(false);
+
+        audioSource = GetComponent<AudioSource>();
 
         imageElefant = imageTv.GetChild(0).gameObject;
         imageDistorsion = imageTv.GetChild(1).gameObject;
@@ -71,6 +75,7 @@ public class TriggerBooks : NPCDialogueBase
         var nInteractionBookShelf = booleanAccessor.GetIntFromThis("nInteractionBookShelf");
         if (nInteractionBookShelf % 2 == 0) // Camera su Stefano
         {
+            StopAudio();
             StartConversation(conversations[Mathf.CeilToInt(nInteractionBookShelf / 2f)]);
             if (nInteractionBookShelf == maxScenes) { enabled = false; return; }
         }
@@ -99,20 +104,35 @@ public class TriggerBooks : NPCDialogueBase
         switch (nInteractionBookShelf)
         {
             case 3: // Appare il mutante
+                PlayAudio();
                 imageElefant.SetActive(false);
                 imageDistorsion.SetActive(true);
                 mutant.gameObject.SetActive(true);
                 break;
             case 5: // Appare la gotica morta col sangue (scompare la gotica seduta) e il mutante
+                PlayAudio();
                 gothicSitting.gameObject.SetActive(false);
                 gothicDeathBlood.gameObject.SetActive(true);
                 mutant.gameObject.SetActive(false);
                 break;
             case 7: // Scompare la gotica morta col sangue e il mutante
+                StopAudio();
                 imageDistorsion.SetActive(false);
                 gothicDeathBlood.gameObject.SetActive(false);
                 mutant.gameObject.SetActive(false);
                 break;
         }
     }
+
+    private void PlayAudio()
+    {
+        radioManager.MuteRadio(true);
+
+        audioSource.clip = clipJumpscare;
+        audioSource.playOnAwake = false;
+        audioSource.loop = true;
+        audioSource.Play();
+    }
+
+    private void StopAudio() { radioManager.MuteRadio(false); audioSource.Stop(); }
 }

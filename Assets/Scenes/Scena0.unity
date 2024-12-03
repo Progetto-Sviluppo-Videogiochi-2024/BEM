@@ -4494,6 +4494,7 @@ GameObject:
   - component: {fileID: 344034079}
   - component: {fileID: 344034081}
   - component: {fileID: 344034080}
+  - component: {fileID: 344034082}
   m_Layer: 0
   m_Name: BooksTrigger
   m_TagString: Untagged
@@ -4536,7 +4537,8 @@ MonoBehaviour:
   - {fileID: 381568518}
   - {fileID: 1628792892}
   player: {fileID: 382626873}
-  cinemachineBrain: {fileID: 943647431}
+  radioManager: {fileID: 3248865212947396944}
+  clipJumpscare: {fileID: 8300000, guid: 821a98a76bfa2ee42963f6f9ff765db9, type: 3}
   behindPlayerCam: {fileID: 440239388}
   behindHoleWallCam: {fileID: 376232582}
   gothicSitting: {fileID: 1425270622}
@@ -4564,6 +4566,102 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.5, y: 1.95, z: 1.47}
   m_Center: {x: 0, y: 0.97, z: 0.51}
+--- !u!82 &344034082
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344034078}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &345933660 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4433314630135694, guid: 7eeb0cdde00cbd146872b82a9886b849, type: 3}
@@ -8576,6 +8674,7 @@ Transform:
   m_Children:
   - {fileID: 2111200877}
   - {fileID: 376232583}
+  - {fileID: 432254744}
   - {fileID: 1425270622}
   - {fileID: 689900672}
   - {fileID: 1948463633}
@@ -8589,7 +8688,6 @@ Transform:
   - {fileID: 954881971}
   - {fileID: 1943411937}
   - {fileID: 722126637}
-  - {fileID: 432254744}
   - {fileID: 96529820}
   - {fileID: 4000011544464166}
   m_Father: {fileID: 0}
@@ -10472,11 +10570,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 3
-  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":285.2,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Usa
+  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":189.700012,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Usa
     'Q' per poter utilizzare lo Smartphone di Stefano.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial
-    Smartphone\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":284.7,\"yPos\":158.40004},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Stefano
+    Smartphone\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":189.200012,\"yPos\":158.40004},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Stefano
     prende nota delle sue attivit\xE0 e obiettivi, utilizzalo quando ti senti spaesato.\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial
-    Smartphone\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":286.300018,\"yPos\":296.000061},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Stefano
+    Smartphone\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":190.800018,\"yPos\":296.000061},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Stefano
     pu\xF2 interagire con gli oggetti che hanno un contorno arancione.\\r\\nUsa la
     barra spaziatrice per raccogliere quelli vicini a lui, se ti muovi potresti interrompere
     la raccolta\",\"parentUIDs\":[1],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial
