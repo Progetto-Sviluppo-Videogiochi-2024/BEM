@@ -123,6 +123,57 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &4666363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4666365}
+  - component: {fileID: 4666364}
+  m_Layer: 0
+  m_Name: ConversationEventInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &4666364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls: []
+  NodeID: 0
+  TMPFont: {fileID: 0}
+  Icon: {fileID: 21300000, guid: a19104c67948e8b48bf12af8b0d6a653, type: 3}
+  Audio: {fileID: 0}
+--- !u!4 &4666365
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666363}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -431.70538, y: -2.8649504, z: -294.754}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 381568517}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4733315
 GameObject:
   m_ObjectHideFlags: 0
@@ -1669,7 +1720,7 @@ GameObject:
   - component: {fileID: 144494877}
   - component: {fileID: 144494878}
   m_Layer: 0
-  m_Name: Gothic2
+  m_Name: GothicSee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2958,6 +3009,57 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 248249124}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &249324184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 249324185}
+  - component: {fileID: 249324186}
+  m_Layer: 0
+  m_Name: ConversationEventInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &249324185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249324184}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -431.70538, y: -2.8649504, z: -294.754}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1839036748}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &249324186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249324184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls: []
+  NodeID: 0
+  TMPFont: {fileID: 0}
+  Icon: {fileID: 21300000, guid: a19104c67948e8b48bf12af8b0d6a653, type: 3}
+  Audio: {fileID: 0}
 --- !u!4 &254962268 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4077954582164608, guid: 7f800f58f6f744e4c901f3fd51f67d67, type: 3}
@@ -3666,56 +3768,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5683775855584890536, guid: bec52fe7749d6384a9199ed3e886c02c, type: 3}
   m_PrefabInstance: {fileID: 5723587154277965865}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &308565639
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 308565640}
-  - component: {fileID: 308565641}
-  m_Layer: 0
-  m_Name: Gothic
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &308565640
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 308565639}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1425270622}
-  - {fileID: 689900672}
-  m_Father: {fileID: 748298950}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &308565641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 308565639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1278119d0679a6e44abb1f6842336885, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  blood: {fileID: 313674753}
-  mutante: {fileID: 1672678782}
-  hasEnd: 0
 --- !u!1 &310355399
 GameObject:
   m_ObjectHideFlags: 0
@@ -3808,9 +3860,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313674752}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.6988525, y: 0.611, z: -2.817047}
-  m_LocalScale: {x: 0.39863712, y: 0.39863712, z: 0.39863712}
+  m_LocalRotation: {x: 0.003186086, y: -0.993128, z: 0.027847102, w: -0.11362737}
+  m_LocalPosition: {x: -0.0008407994, y: -0.058190726, z: -0.9664804}
+  m_LocalScale: {x: 0.17460634, y: 0.1746063, z: 0.1746063}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 384623497}
@@ -3820,7 +3872,7 @@ Transform:
   - {fileID: 935748508}
   - {fileID: 1429009838}
   - {fileID: 920632759}
-  m_Father: {fileID: 748298950}
+  m_Father: {fileID: 689900672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &313688318
 PrefabInstance:
@@ -4324,8 +4376,13 @@ MonoBehaviour:
   - {fileID: 144494878}
   - {fileID: 1839036749}
   - {fileID: 381568518}
+  - {fileID: 1628792892}
+  player: {fileID: 382626873}
   behindPlayerCam: {fileID: 440239388}
   behindHoleWallCam: {fileID: 376232582}
+  gothicSitting: {fileID: 1425270622}
+  gothicDeathBlood: {fileID: 689900672}
+  mutant: {fileID: 1672678782}
 --- !u!65 &344034081
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4525,14 +4582,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 376232581}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00013821761, y: 0.9995738, z: -0.028795682, w: 0.004798032}
+  m_LocalRotation: {x: -0.0061201365, y: 0.9924694, z: -0.10020663, w: 0.07018443}
   m_LocalPosition: {x: -7.965851, y: 2.9101422, z: 0.7628174}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 246249782}
   m_Father: {fileID: 748298950}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 11.423, y: 171.757, z: -1.532}
 --- !u!1 &381568516
 GameObject:
   m_ObjectHideFlags: 0
@@ -4544,7 +4601,7 @@ GameObject:
   - component: {fileID: 381568517}
   - component: {fileID: 381568518}
   m_Layer: 0
-  m_Name: Gothic4
+  m_Name: GothicDeath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4562,7 +4619,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4666365}
   m_Father: {fileID: 443484414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &381568518
@@ -4578,12 +4636,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 1
-  json: 
-  saveVersion: 0
+  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[],\"EditorInfo\":{\"isRoot\":true,\"xPos\":189.700012,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Oh
+    cazzo! \xC8... \xE8 morta! E c'\xE8 sangue ovunque... Ma dov'\xE8 finito quell'essere?!\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
+  saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}
   DefaultFont: {fileID: 0}
-  NodeSerializedDataList: []
+  NodeSerializedDataList:
+  - {fileID: 4666364}
   ContinueFont: {fileID: 0}
   EndConversationFont: {fileID: 0}
   Event:
@@ -5193,6 +5253,7 @@ Transform:
   - {fileID: 144494877}
   - {fileID: 1839036748}
   - {fileID: 381568517}
+  - {fileID: 1628792891}
   m_Father: {fileID: 691301540}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &450545755 stripped
@@ -5474,7 +5535,7 @@ GameObject:
   - component: {fileID: 473857297}
   - component: {fileID: 473857298}
   m_Layer: 0
-  m_Name: Gothic1
+  m_Name: GothicPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5510,7 +5571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentIDCounter: 1
   json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[],\"EditorInfo\":{\"isRoot\":true,\"xPos\":189.700012,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ma...
-    un buco? Dietro i libri?! Che diavolo... Chiss\xE0 cosa c'\xE8 dentro!\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
+    un buco? Dietro i libri?! Che diavolo... Chiss\xE0 cosa c'\xE8 dietro!\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
   saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}
@@ -7509,7 +7570,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 308565640}
+    m_TransformParent: {fileID: 748298950}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 89f3e25f80c3f5a409447d3ad877512b, type: 3}
       propertyPath: m_LocalScale.x
@@ -7525,7 +7586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89f3e25f80c3f5a409447d3ad877512b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.2
+      value: -6.200012
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89f3e25f80c3f5a409447d3ad877512b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7533,7 +7594,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89f3e25f80c3f5a409447d3ad877512b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.97
+      value: -4.970001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89f3e25f80c3f5a409447d3ad877512b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7567,9 +7628,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gothic@Death
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 89f3e25f80c3f5a409447d3ad877512b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 89f3e25f80c3f5a409447d3ad877512b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 313674753}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89f3e25f80c3f5a409447d3ad877512b, type: 3}
 --- !u!4 &689900672 stripped
@@ -8017,6 +8085,57 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4859418046888544, guid: 93a05457281f2e44ebb512db1fbd1e9e, type: 3}
   m_PrefabInstance: {fileID: 143914424}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &736335481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 736335482}
+  - component: {fileID: 736335483}
+  m_Layer: 0
+  m_Name: ConversationEventInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &736335482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736335481}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -431.70538, y: -2.8649504, z: -294.754}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1628792891}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &736335483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736335481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls: []
+  NodeID: 0
+  TMPFont: {fileID: 0}
+  Icon: {fileID: 21300000, guid: a19104c67948e8b48bf12af8b0d6a653, type: 3}
+  Audio: {fileID: 0}
 --- !u!1001 &741860100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8190,9 +8309,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 376232583}
-  - {fileID: 308565640}
+  - {fileID: 1425270622}
+  - {fileID: 689900672}
   - {fileID: 1672678782}
-  - {fileID: 313674753}
   - {fileID: 1948463633}
   - {fileID: 498868155}
   - {fileID: 228347352}
@@ -11857,11 +11976,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   conversations:
   - {fileID: 1348346929}
-  isConversationActive: 0
   player: {fileID: 382626873}
   canOpen: 0
-  radio: {fileID: 3248865212947396944}
   gestoreScena: {fileID: 1582097249}
+  radio: {fileID: 3248865212947396944}
   confirmNextUI: {fileID: 308201581}
 --- !u!65 &1013432648
 BoxCollider:
@@ -16875,7 +16993,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 308565640}
+    m_TransformParent: {fileID: 748298950}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e7bbd28d0b4dca545bd01a9ef1fd6393, type: 3}
       propertyPath: m_LocalScale.x
@@ -18609,6 +18727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startViewCam: {fileID: 1875255423}
   behindPlayerCam: {fileID: 440239388}
+  triggerBooks: {fileID: 344034080}
   booleanAccessor: {fileID: 17239921}
   backPackPlayer: {fileID: 692319338}
   tutorialScript: {fileID: 1091499067}
@@ -19391,6 +19510,65 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.74, y: 0.81, z: 2.7}
   m_Center: {x: 0, y: 0.1, z: 0.14}
+--- !u!1 &1628792890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1628792891}
+  - component: {fileID: 1628792892}
+  m_Layer: 0
+  m_Name: GothicHallucination
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1628792891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628792890}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 736335482}
+  m_Father: {fileID: 443484414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1628792892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628792890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83189876d4d389f43b7dd2e925aa112e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentIDCounter: 1
+  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[],\"EditorInfo\":{\"isRoot\":true,\"xPos\":189.700012,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Non
+    c'\xE8 niente?! Ma ero sicuro di aver visto qualcosa! Che diamine sta succedendo?!\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
+  saveVersion: 110
+  DefaultName: 
+  DefaultSprite: {fileID: 0}
+  DefaultFont: {fileID: 0}
+  NodeSerializedDataList:
+  - {fileID: 736335483}
+  ContinueFont: {fileID: 0}
+  EndConversationFont: {fileID: 0}
+  Event:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1635807113 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4077954582164608, guid: 7f800f58f6f744e4c901f3fd51f67d67, type: 3}
@@ -19888,7 +20066,7 @@ Transform:
   m_GameObject: {fileID: 1672678781}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1799927, y: 1.8499999, z: -1.1499939}
+  m_LocalPosition: {x: -9.27, y: 1.8499999, z: -2.69}
   m_LocalScale: {x: 1.4879, y: 5.222529, z: 1.4879}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21689,7 +21867,7 @@ GameObject:
   - component: {fileID: 1839036748}
   - component: {fileID: 1839036749}
   m_Layer: 0
-  m_Name: Gothic3
+  m_Name: GothicSeeMutant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21707,7 +21885,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 249324185}
   m_Father: {fileID: 443484414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1839036749
@@ -21723,12 +21902,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 1
-  json: 
-  saveVersion: 0
+  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[],\"EditorInfo\":{\"isRoot\":true,\"xPos\":189.700012,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Aspetta...
+    quella \xE8 una persona?! Ma... cos'\xE8 quella cosa che la sta fissando?!\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
+  saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}
   DefaultFont: {fileID: 0}
-  NodeSerializedDataList: []
+  NodeSerializedDataList:
+  - {fileID: 249324186}
   ContinueFont: {fileID: 0}
   EndConversationFont: {fileID: 0}
   Event:

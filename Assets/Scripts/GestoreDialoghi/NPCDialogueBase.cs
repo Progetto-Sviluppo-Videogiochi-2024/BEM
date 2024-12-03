@@ -10,9 +10,9 @@ public abstract class NPCDialogueBase : MonoBehaviour
 
     [Header("Settings")]
     #region Settings
-    static bool clickEndHandled = true; // Flag per gestire la fine della conversazione una sola volta
-    public bool isConversationActive = false;  // Stato della conversazione
-    private bool isInRange = false;  // Se il giocatore è nel raggio
+    protected static bool clickEndHandled = true; // Flag per gestire la fine della conversazione una sola volta
+    protected bool isConversationActive = false;  // Stato della conversazione
+    protected bool isInRange = false;  // Se il giocatore è nel raggio
     #endregion
 
     [Header("References")]
@@ -22,13 +22,14 @@ public abstract class NPCDialogueBase : MonoBehaviour
 
     protected abstract void StartDialogue(); // Metodo astratto per la logica personalizzata (override nelle classi derivate)
 
-    private void Update()
+    protected virtual void Update()
     {
         if (!clickEndHandled && ConversationManager.Instance.hasClickedEnd)
         {
             isConversationActive = false;
             clickEndHandled = true;
-            
+
+            print("NPCDialogueBase.Update 1.if: " + gameObject.name);
             GestoreScena.ChangeCursorActiveStatus(false, "NPCDialogueBase.update: " + gameObject.transform.parent.name);
             player.GetComponent<MovementStateManager>().enabled = true;
         }
@@ -37,7 +38,8 @@ public abstract class NPCDialogueBase : MonoBehaviour
         {
             ConversationManager.Instance.hasClickedEnd = false;
             clickEndHandled = false;
-            
+            print("NPCDialogueBase.Update 2.if: " + gameObject.name);
+
             StartDialogue(); // Avvia il dialogo (metodo astratto che deve invocare StartConversation)
             player.GetComponent<MovementStateManager>().enabled = false;
         }
@@ -69,12 +71,12 @@ public abstract class NPCDialogueBase : MonoBehaviour
         ConversationManager.OnConversationEnded -= HandleConversationEnded; // Scollega l'evento
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) isInRange = true; // Quando il giocatore entra nell'area
     }
 
-    private void OnTriggerExit(Collider other)
+    protected void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player")) isInRange = false; // Quando il giocatore esce dall'area
     }

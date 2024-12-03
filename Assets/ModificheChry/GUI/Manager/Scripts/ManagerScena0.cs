@@ -21,6 +21,7 @@ public class ManagerScena0 : MonoBehaviour
 
     [Header("References")]
     #region References
+    [SerializeField] TriggerBooks triggerBooks; // Riferimento al pickup dei libri da togliere dalla libreria
     private ConversationManager conversationManager; // Riferimento al ConversationManager
     public BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
     public GameObject backPackPlayer; // Riferimento al GameObject dello zaino del giocatore
@@ -55,11 +56,17 @@ public class ManagerScena0 : MonoBehaviour
         backPackPlayer.SetActive(false);
 
         // Tutorial
+        triggerBooks.enabled = false;
+        triggerBooks.GetComponentInChildren<ItemPickup>().enabled = false;
         conversationManager = ConversationManager.Instance;
         conversationManager.hasClickedEnd = false;
         diario.AggiungiMissione("Lista degli oggetti per Pasquetta: Zaino e Torcia");
         StartConversation(
-            () => { GestoreScena.ChangeCursorActiveStatus(true, "scena0.premereE"); tutorialScript.StartTutorial("premereE"); print("PremereE"); },
+            () =>
+            {
+                GestoreScena.ChangeCursorActiveStatus(true, "scena0.premereE");
+                tutorialScript.StartTutorial("premereE");
+            },
             () => Invoke(nameof(StartSecondDialogue), 0f)
         );
     }
@@ -89,7 +96,7 @@ public class ManagerScena0 : MonoBehaviour
 
     private void StandUpAndWASD(string dialogue)
     {
-        if (animator.GetBool("sit") && conversationManager.hasClickedEnd)
+        if (!booleanAccessor.GetBoolFromThis("wasd") && animator.GetBool("sit") && conversationManager.hasClickedEnd)
         {
             conversationManager.hasClickedEnd = false;
             SwitchCamera(10, 5);
@@ -107,11 +114,12 @@ public class ManagerScena0 : MonoBehaviour
 
     private void PostAction(string dialogue)
     {
-        if (conversationManager.hasClickedEnd)
+        if (!booleanAccessor.GetBoolFromThis(dialogue) && conversationManager.hasClickedEnd)
         {
             conversationManager.hasClickedEnd = false;
             GestoreScena.ChangeCursorActiveStatus(true, "scena0." + dialogue);
             tutorialScript.StartTutorial(dialogue); // Invoca "dialogue" (quest, zaino)
+            if (dialogue == "zaino") { triggerBooks.enabled = true; triggerBooks.GetComponentInChildren<ItemPickup>().enabled = true; }
         }
     }
 
