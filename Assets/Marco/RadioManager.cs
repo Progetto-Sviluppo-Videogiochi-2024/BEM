@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DialogueEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RadioManager : MonoBehaviour
@@ -23,7 +24,7 @@ public class RadioManager : MonoBehaviour
     #region Settings
     private bool isInRange = false; // Indica se il giocatore è vicino alla radio
     private bool isRadioOpen = false; // Indica se il canvas della radio è aperto
-    [HideInInspector] public bool isOn = false; // Indica se la radio è accesa
+    public bool isOn = false; // Indica se la radio è accesa
     private int currentSongIndex = 0; // Indice della canzone attuale
     private Color onColor = Color.green;
     private Color offColor = Color.red;
@@ -42,7 +43,7 @@ public class RadioManager : MonoBehaviour
         radioCanvas.SetActive(false);
 
         audioSource = GetComponent<AudioSource>();
-        PlayAudio();
+        if (SceneManager.GetActiveScene().name == "Scena0") PlayAudio();
 
         // Configura i listener per i pulsanti
         SalvaButton.onClick.AddListener(() => { Save(); RemoveButtonFocus(); });
@@ -156,22 +157,6 @@ public class RadioManager : MonoBehaviour
 
         Time.timeScale = 0;
     }
-
-    public void SetRadioState(bool turnOn)
-    {
-        if (turnOn && !isOn) // Accendi se non è già accesa
-        {
-            PlayAudio();
-        }
-        else if (!turnOn && isOn) // Spegni se è accesa
-        {
-            isOn = false;
-            audioSource.Stop();
-            audioSource.clip = null;
-            OnOffButton.GetComponent<Image>().color = offColor;
-        }
-    }
-
 
     private void OnTriggerEnter(Collider other)
     {

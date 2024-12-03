@@ -1,5 +1,80 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2801297403282766753
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7213217861962172309}
+  - component: {fileID: 4191795813846404418}
+  - component: {fileID: 5809141943865535736}
+  m_Layer: 0
+  m_Name: ItemIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7213217861962172309
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2801297403282766753}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.4811534, y: 0.4811534, z: 0.4811534}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 244080852153890009}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 487, y: -265}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4191795813846404418
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2801297403282766753}
+  m_CullTransparentMesh: 1
+--- !u!114 &5809141943865535736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2801297403282766753}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &3559526117940656332
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,6 +109,7 @@ Transform:
   - {fileID: 3615375421150431383}
   - {fileID: 3603137299542284298}
   - {fileID: 4914397040770525764}
+  - {fileID: 7213217861962172309}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8588662516318457023
@@ -48,15 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a952a1da213d5b4abccd800a10e6325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponImage: {fileID: 863600015991346814}
-  ammoText: {fileID: 2967779637597672281}
-  bloodSplatterImage: {fileID: 190810376630485136}
-  sanityIcon: {fileID: 4581270223141434562}
-  assaultRifleSprite: {fileID: 21300000, guid: f5b427712069ae84bac0cdc0a2ac5b7e, type: 3}
-  shotgunSprite: {fileID: 21300000, guid: 72b0c762d46f12943a69ca9af0779c22, type: 3}
-  pistolSprite: {fileID: 21300000, guid: 96f8f48c80c26fa4ea1a54d5c23e7b03, type: 3}
-  pistolHSprite: {fileID: 21300000, guid: eff2afeb7e57a394e870e0d549b11fc5, type: 3}
-  huntingRifleSprite: {fileID: 21300000, guid: 832d52f3d6b90a540a8e59df4d10e65c, type: 3}
+  player: {fileID: 0}
+  extraAmmo: 0
 --- !u!1 &4205398907270063156
 GameObject:
   m_ObjectHideFlags: 0

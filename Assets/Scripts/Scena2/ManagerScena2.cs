@@ -43,7 +43,6 @@ public class ManagerScena2 : MonoBehaviour
         fenceHole.enabled = false;
 
         //Setta la radio come spenta
-        radioManager.SetRadioState(false);
 
         // Inizializza l'audio source
         audioSource = GetComponent<AudioSource>();
