@@ -10,6 +10,7 @@ public class PlayerUIController : MonoBehaviour
     private TextMeshProUGUI ammoText; // Testo per le munizioni rimanenti dell'arma equipaggiata
     private Image bloodSplatterImage; // Immagine del sangue sullo schermo
     private Image sanityIcon; // Icona della sanità mentale del giocatore
+    private Image itemIcon; // Icona dell'oggetto equipaggiato
     #endregion
 
     [Header("References")]
@@ -24,6 +25,7 @@ public class PlayerUIController : MonoBehaviour
         ammoText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         bloodSplatterImage = transform.GetChild(2).GetComponent<Image>();
         sanityIcon = transform.GetChild(3).GetComponent<Image>();
+        itemIcon = transform.GetChild(4).GetComponent<Image>();
     }
 
     public void UpdateWeaponUI()
@@ -53,6 +55,20 @@ public class PlayerUIController : MonoBehaviour
         color.a = alpha; // Maggiore è il danno, più alta è l'opacità
         bloodSplatterImage.color = color;
     }
+
+    //public void UpdateItemIcon()
+    //{
+    //    var currentItem = player.itemClassManager.currentItem;
+    //    if (currentItem == null)
+    //    {
+    //        itemIcon.enabled = false;
+    //        return;
+    //    }
+
+    //    var item = currentItem.GetComponent<ItemController>().item;
+    //    itemIcon.sprite = item.image;
+    //    itemIcon.enabled = true;
+    //}
 
     public void UpdateSanityIcon() => sanityIcon.enabled = player.health <= player.maxHealth / 2; // Icona visibile sse la salute è <= 50%
 }

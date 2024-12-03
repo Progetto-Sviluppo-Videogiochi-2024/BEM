@@ -157,6 +157,22 @@ public class RadioManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    public void SetRadioState(bool turnOn)
+    {
+        if (turnOn && !isOn) // Accendi se non è già accesa
+        {
+            PlayAudio();
+        }
+        else if (!turnOn && isOn) // Spegni se è accesa
+        {
+            isOn = false;
+            audioSource.Stop();
+            audioSource.clip = null;
+            OnOffButton.GetComponent<Image>().color = offColor;
+        }
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) isInRange = true;

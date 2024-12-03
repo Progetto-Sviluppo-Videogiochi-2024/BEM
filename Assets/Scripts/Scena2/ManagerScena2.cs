@@ -32,6 +32,7 @@ public class ManagerScena2 : MonoBehaviour
     public Animator lupo; // Riferimento all'animatore del lupo
     public BooleanAccessor booleanAccessor; // Riferimento al booleanAccessor
     public FenceHole fenceHole; // Riferimento al buco della recinzione
+    public RadioManager radioManager; // Riferimento al radio manager
     #endregion
 
     // Dati Inventario scena2
@@ -40,6 +41,9 @@ public class ManagerScena2 : MonoBehaviour
     void Start()
     {
         fenceHole.enabled = false;
+
+        //Setta la radio come spenta
+        radioManager.SetRadioState(false);
 
         // Inizializza l'audio source
         audioSource = GetComponent<AudioSource>();
