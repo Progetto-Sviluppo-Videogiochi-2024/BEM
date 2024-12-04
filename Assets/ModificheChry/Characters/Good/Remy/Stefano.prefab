@@ -3845,6 +3845,7 @@ GameObject:
   - component: {fileID: 6179740159162328765}
   - component: {fileID: 558229761100861310}
   - component: {fileID: 382562861756499450}
+  - component: {fileID: 3197126566714963816}
   - component: {fileID: 6210869153763198755}
   - component: {fileID: 5108731268196132760}
   - component: {fileID: 3470761793812644815}
@@ -4038,6 +4039,7 @@ MonoBehaviour:
   aimMask:
     serializedVersion: 2
     m_Bits: 384
+  cambiaRig: {fileID: 0}
   animator: {fileID: 0}
   crosshair: {fileID: 0}
 --- !u!114 &558229761100861310
@@ -4052,8 +4054,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b26b2d5f2742524891f8fcb079b9f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightHandAim: {fileID: 7872913839406716658}
-  leftHandIK: {fileID: 5092046356270225363}
   animator: {fileID: 0}
   currentWeapon: {fileID: 0}
   weaponAmmo: {fileID: 0}
@@ -4069,12 +4069,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba7363e15937fc346836bcb90ed47b19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CambiaRig: {fileID: 0}
   currentWeapon: {fileID: 0}
   weaponHolder: {fileID: 5208636377288230537}
   recoilFollowPosition: {fileID: 6202738913388072802}
   animator: {fileID: 0}
   actions: {fileID: 0}
   weaponsEquipable: []
+--- !u!114 &3197126566714963816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8815816322042133858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2d5c4e6c3f7944c8b781fa3990115f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltip: {fileID: 0}
+  itemEquipable: {fileID: 0}
 --- !u!114 &6210869153763198755
 MonoBehaviour:
   m_ObjectHideFlags: 0

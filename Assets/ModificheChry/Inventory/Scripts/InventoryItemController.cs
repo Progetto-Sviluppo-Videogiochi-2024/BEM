@@ -230,22 +230,11 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void AddItem(Item item)
-    {
-        this.item = item;
-    }
+    public void AddItem(Item item) => this.item = item;
 
-    private bool IsEquipable()
-    {
-        // Controlla se l'oggetto è equipaggiabile
-        return item.own && item.qta > 0 && item.inventorySectionType == ItemType.ConsumableEquipable;
-    }
+    private bool IsEquipable() => item.own && item.qta > 0 && item.inventorySectionType == ItemType.ConsumableEquipable;
 
-    private bool IsAlsoConsumable()
-    {
-        // Controlla se l'oggetto è equipaggiabile e consumabile
-        return IsEquipable() && item.isUsable && item.isStackable && item.tagType == ItemTagType.Item;
-    }
+    public bool IsAlsoConsumable() => IsEquipable() && item.isUsable && item.isStackable && item.tagType == ItemTagType.Item;
     #endregion
 
     /* FUNZIONALITA' SOTTO-MENU */
@@ -352,35 +341,21 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private List<string> GetIngredientsRecipe(string input)
-    {
-        if (input.Contains(","))
-        {
-            return input.Split(',')
-                        .Select(element => element.Trim())
-                        .Where(element => !string.IsNullOrEmpty(element))
-                        .ToList();
-        }
-        else // Se non ci sono virgole, c'è un solo ingrediente
-        {
-            return new List<string> { input.Trim() };
-        }
-    }
+    private List<string> GetIngredientsRecipe(string input) =>
+        input.Contains(",") ?
+            input.Split(',')
+                .Select(element => element.Trim())
+                .Where(element => !string.IsNullOrEmpty(element))
+                .ToList() :
+            new List<string> { input.Trim() };
 
-    public void OpenCloseInspectUI(bool openMenu)
-    {
-        inspectMenu.gameObject.SetActive(openMenu);
-    }
+    public void OpenCloseInspectUI(bool openMenu) => inspectMenu.gameObject.SetActive(openMenu);
 
-    private bool IsInspectItemUIActive()
-    {
-        return inspectMenu.gameObject.activeSelf;
-    }
+    private bool IsInspectItemUIActive() => inspectMenu.gameObject.activeSelf;
 
     /* Usa */
     public void UseItem(GameObject buttonClicked)
     {
-        print(tooltip == null ? "Tooltip not found" : tooltip.name);
         var button = buttonClicked.GetComponent<Button>();
         if (IsAlsoConsumable())
         {

@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 using static Item;
 using static Weapon;
 
 public class WeaponClassManager : MonoBehaviour
 {
-   // [Header("Animation Rigging")]
-   // #region Animation Rigging
-   // [SerializeField] TwoBoneIKConstraint leftHandIK;
-   // #endregion
+    // [Header("Animation Rigging")]
+    // #region Animation Rigging
+    // [SerializeField] TwoBoneIKConstraint leftHandIK;
+    // #endregion
 
     [Header("Equip Weapons")]
     #region Switching-Equip Weapons
@@ -37,7 +36,7 @@ public class WeaponClassManager : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         actions = GetComponent<ActionStateManager>();
-        CambiaRig =  GetComponentInChildren<RigSwitcher>();
+        CambiaRig = GetComponentInChildren<RigSwitcher>();
         aim = GetComponent<AimStateManager>();
     }
 
@@ -116,14 +115,13 @@ public class WeaponClassManager : MonoBehaviour
             // Imposta l'arma corrente
             currentWeapon = weaponsEquipable[index].gameObject;
             currentWeapon.name = weaponsEquipable[index].gameObject.name;
-            
+
             // Attiva e posiziona la nuova arma
             currentWeapon.SetActive(true);
             currentWeapon.transform.SetParent(weaponHolder);
             //currentWeapon.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity); serve ???
-            print("qui arrivo");
             CambiaRig.SwitchWeapon(currentWeapon);
-             aim.SwitchState(aim.rifleIdleState);
+            aim.SwitchState(aim.rifleIdleState);
             currentWeaponIndex = index; // Aggiorna l'indice dell'arma corrente
 
             // Rimuovi eventuali componenti non necessari dall'arma
@@ -133,8 +131,6 @@ public class WeaponClassManager : MonoBehaviour
             }
 
             SetCurrentWeapon(weaponsEquipable[index]);
-
-            // Imposta le trasformazioni dell'arma equipaggiata
         }
     }
 
@@ -155,17 +151,14 @@ public class WeaponClassManager : MonoBehaviour
 
     private bool AlreadyEquippedRemoveHand(int index)
     {
-        if (index == currentWeaponIndex && currentWeapon != null)
-        {
-            RemoveWeaponHand();
-            return true;
-        }
+        if (index == currentWeaponIndex && currentWeapon != null) { RemoveWeaponHand(); return true; }
         return false; // Se non era equipaggiato, ritorna false
     }
 
     private void RemoveWeaponHand()
     {
         if (currentWeapon == null) return;
+
         currentWeapon.SetActive(false);
         currentWeapon.transform.SetParent(null);
         currentWeapon = null;
@@ -184,7 +177,7 @@ public class WeaponClassManager : MonoBehaviour
 
     public void SwitchWeapon(float direction)
     {
-        if (weaponsEquipable.Count <= 1) return; 
+        if (weaponsEquipable.Count <= 1) return;
 
         weaponsEquipable[currentWeaponIndex].gameObject.SetActive(false);
         if (direction < 0)

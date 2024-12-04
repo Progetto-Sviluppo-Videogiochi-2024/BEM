@@ -47,19 +47,17 @@ public class InventoryUIController : MonoBehaviour
         weightSlider.maxValue = 6.0f; // Peso massimo degli oggetti equipaggiabili
     }
 
-    private List<GameObject> GetButtonInventoryList()
-    {
-        // Lista con tutti i button figli di inventoryPanel che iniziano per "List"
-        return inventoryPanel.transform
+    private List<GameObject> GetButtonInventoryList() =>
+        inventoryPanel.transform
             .Cast<Transform>()
             .Where(child => child.gameObject.name.StartsWith("List"))
             .Select(child => child.gameObject)
             .ToList();
-    }
 
     public void ListItems(List<Item> items)
     {
         // Pulisci la vista dell'inventario (disattiva gli oggetti)
+        items = items.Where(item => item != null).ToList();
         ClearInventoryView();
 
         // Aggiorna l'interfaccia utente dell'inventario
@@ -70,16 +68,15 @@ public class InventoryUIController : MonoBehaviour
     private void ClearInventoryView()
     {
         // Distruggi tutti gli oggetti nell'inventario
-        foreach (Transform item in itemContent)
-        {
-            Destroy(item.gameObject);
-        }
+        foreach (Transform item in itemContent) Destroy(item.gameObject);
     }
 
     private void UpdateInventoryView(List<Item> items, string inventoryActiveSection)
     {
         // Prendo la lista degli item attivi nella sezione selezionata
-        List<Item> itemsActiveSection = GetItemsActiveSection(items, inventoryActiveSection);
+        List<Item> itemsActiveSection = GetItemsActiveSection(items, inventoryActiveSection)
+                                            .Where(item => item != null)
+                                            .ToList();
 
         bool isActiveList = inventoryActiveSection == ItemType.Collectibles.ToString();
         enableRemove.gameObject.SetActive(!isActiveList);
@@ -88,6 +85,8 @@ public class InventoryUIController : MonoBehaviour
         var invMan = InventoryManager.instance;
         foreach (var item in itemsActiveSection)
         {
+            if (item == null) continue; // Salta l'item se è nullo
+
             // Istanzia un nuovo item nell'inventario con i dati dell'item attuale
             GameObject newItem = Instantiate(inventoryItemPrefab, itemContent);
             newItem.name = item.nameItem;
@@ -122,10 +121,8 @@ public class InventoryUIController : MonoBehaviour
         invMan.SetInventoryItems();
     }
 
-    private List<Item> GetItemsActiveSection(List<Item> items, string inventoryActiveSection)
-    {
-        return items.Where(item => item.inventorySectionType.ToString() == inventoryActiveSection).ToList();
-    }
+    private List<Item> GetItemsActiveSection(List<Item> items, string inventoryActiveSection) =>
+        items.Where(item => item.inventorySectionType.ToString() == inventoryActiveSection).ToList();
 
     public void SelectSectionInventory(GameObject clickedButton)
     {

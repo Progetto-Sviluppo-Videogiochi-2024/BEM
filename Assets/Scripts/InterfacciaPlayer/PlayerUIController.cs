@@ -28,6 +28,14 @@ public class PlayerUIController : MonoBehaviour
         itemIcon = transform.GetChild(4).GetComponent<Image>();
     }
 
+    public void UpdateItemUI() // TODO: da testare
+    {
+        var currentItem = InventoryManager.instance.itemEquipable;
+        if (currentItem == null) { itemIcon.enabled = false; return; }
+        itemIcon.sprite = currentItem.image;
+        itemIcon.enabled = true;
+    }
+
     public void UpdateWeaponUI()
     {
         var currentWeapon = player.weaponClassManager.currentWeapon;
@@ -55,20 +63,6 @@ public class PlayerUIController : MonoBehaviour
         color.a = alpha; // Maggiore è il danno, più alta è l'opacità
         bloodSplatterImage.color = color;
     }
-
-    //public void UpdateItemIcon()
-    //{
-    //    var currentItem = player.itemClassManager.currentItem;
-    //    if (currentItem == null)
-    //    {
-    //        itemIcon.enabled = false;
-    //        return;
-    //    }
-
-    //    var item = currentItem.GetComponent<ItemController>().item;
-    //    itemIcon.sprite = item.image;
-    //    itemIcon.enabled = true;
-    //}
 
     public void UpdateSanityIcon() => sanityIcon.enabled = player.health <= player.maxHealth / 2; // Icona visibile sse la salute è <= 50%
 }

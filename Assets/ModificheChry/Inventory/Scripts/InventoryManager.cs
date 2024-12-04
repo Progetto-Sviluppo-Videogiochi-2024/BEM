@@ -21,7 +21,8 @@ public class InventoryManager : MonoBehaviour
     public List<Item> weaponsEquipable = new(); // Lista delle armi equipaggiabili
 
     [Header("References Scripts")]
-    [HideInInspector] public WeaponClassManager weaponClassManager;
+    [HideInInspector] public WeaponClassManager weaponClassManager; // Script che gestisce le armi equipaggiabili
+    private ItemClassManager itemClassManager; // Script che gestisce gli oggetti consumabili
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         weaponClassManager = FindObjectOfType<WeaponClassManager>();
+        itemClassManager = weaponClassManager.GetComponent<ItemClassManager>();
         inventoryItemsToRemove = new();
     }
 
@@ -58,6 +60,8 @@ public class InventoryManager : MonoBehaviour
 
     public void Remove(Item item, bool canDecreaseQta)
     {
+        if (item == null) return;
+
         if (item.qta > 0 && canDecreaseQta)
         {
             item.qta--;
@@ -82,10 +86,7 @@ public class InventoryManager : MonoBehaviour
         InventoryUIController.instance.UpdateWeightSlider();
     }
 
-    public void SetInventoryItems()
-    {
-        inventoryItems = itemContent.GetComponentsInChildren<InventoryItemController>();
-    }
+    public void SetInventoryItems() => inventoryItems = itemContent.GetComponentsInChildren<InventoryItemController>();
 
     public void SortItems()
     {
@@ -167,17 +168,17 @@ public class InventoryManager : MonoBehaviour
 
     public void EquipItemPlayer(Item item)
     {
-        var weaponEquipable = weaponClassManager.weaponsEquipable;
-        var weaponManager = item.prefab.GetComponent<WeaponManager>();
         if (item.tagType == ItemTagType.Weapon)
         {
+            var weaponEquipable = weaponClassManager.weaponsEquipable;
+            var weaponManager = item.prefab.GetComponent<WeaponManager>();
             weaponsEquipable.Add(item);
             if (!weaponEquipable.Contains(weaponManager)) weaponEquipable.Add(weaponManager);
         }
         else if (item.tagType == ItemTagType.Item)
         {
             itemEquipable = item;
-            // TODO: script che tiene conto dell'item equipaggiato
+            itemClassManager.itemEquipable = SearchItem(item);
         }
     }
 
@@ -190,9 +191,21 @@ public class InventoryManager : MonoBehaviour
         }
         else if (item.tagType == ItemTagType.Item && itemEquipable == item)
         {
+            print("1. ItemEquipable: " + itemEquipable + " ItemClassManager: " + itemClassManager.itemEquipable);
             itemEquipable = null;
-            // TODO: script che tiene conto dell'item equipaggiato
+            itemClassManager.itemEquipable = null;
+            print("2. ItemEquipable: " + itemEquipable + " ItemClassManager: " + itemClassManager.itemEquipable);
         }
+    }
+
+    private InventoryItemController SearchItem(Item item)
+    {
+        foreach (var inventoryItem in inventoryItems)
+        {
+            if (inventoryItem == null) continue;
+            if (inventoryItem.item == item) return inventoryItem;
+        }
+        return null; // Non dovrebbe mai accadere credo
     }
 
     public int GetQtaItem(string ItemName)
@@ -207,20 +220,12 @@ public class InventoryManager : MonoBehaviour
         return 0;
     }
 
-    public void AddItem(Item item)
-    {
-        items.Add(item);
-    }
+    public void AddItem(Item item) => items.Add(item);
 
-    public float ComputeInventoryWeight()
-    {
-        return items
-                .Where(item => item.inventorySectionType != ItemType.Collectibles)
-                .Sum(item => item.weight * item.qta);
-    }
+    public float ComputeInventoryWeight() =>
+        items
+            .Where(item => item.inventorySectionType != ItemType.Collectibles)
+            .Sum(item => item.weight * item.qta);
 
-    public bool IsInventoryFull()
-    {
-        return ComputeInventoryWeight() >= InventoryUIController.instance.weightSlider.maxValue;
-    }
+    public bool IsInventoryFull() => ComputeInventoryWeight() >= InventoryUIController.instance.weightSlider.maxValue;
 }
