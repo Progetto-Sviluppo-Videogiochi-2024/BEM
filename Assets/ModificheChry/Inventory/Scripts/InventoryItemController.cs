@@ -12,6 +12,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
     [Header("Inventory Item Info Item")]
     #region Inventory Item Info Item
     public Item item; // L'oggetto dell'inventario
+    private InventoryManager inventoryManager; // Riferimento all'InventoryManager
     private static InventoryItemController currentlySelectedItem; // L'oggetto attualmente selezionato
     #endregion
 
@@ -38,6 +39,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
 
     void Start()
     {
+        inventoryManager = InventoryManager.instance;
         openMenuScript = FindObjectOfType<Player>().GetComponent<OpenInventory>();
 
         var invUIController = InventoryUIController.instance;
@@ -189,7 +191,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
     private void ToggleInventoryItemsRaycast(bool enable)
     {
         // Trova tutti gli item nell'inventario e abilita/disabilita il Raycast Target
-        foreach (Transform item in InventoryManager.instance.inventoryPanel.transform)
+        foreach (Transform item in inventoryManager.inventoryPanel.transform)
         {
             // Assicurati di accedere al componente Image o Text dell'item
             if (item.TryGetComponent<Image>(out var itemImage))
@@ -207,8 +209,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
 
     public void EnableItemRemove()
     {
-        var invMan = InventoryManager.instance;
-        foreach (Transform item in invMan.itemContent)
+        foreach (Transform item in inventoryManager.itemContent)
         {
             // Ottieni l'item associato all'InventoryItemController di questo Transform
             var itemRemove = item.GetComponent<InventoryItemController>().item;
@@ -221,10 +222,10 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
                     Debug.LogError("ToggleRemoveItem not found!");
                     return;
                 }
-                if (toggleRemove.isOn && !invMan.inventoryItemsToRemove.Contains(itemRemove))
-                    invMan.inventoryItemsToRemove.Add(itemRemove);
-                else if (!toggleRemove.isOn && invMan.inventoryItemsToRemove.Contains(itemRemove))
-                    invMan.inventoryItemsToRemove.Remove(itemRemove);
+                if (toggleRemove.isOn && !inventoryManager.inventoryItemsToRemove.Contains(itemRemove))
+                    inventoryManager.inventoryItemsToRemove.Add(itemRemove);
+                else if (!toggleRemove.isOn && inventoryManager.inventoryItemsToRemove.Contains(itemRemove))
+                    inventoryManager.inventoryItemsToRemove.Remove(itemRemove);
                 break;
             }
         }
@@ -310,7 +311,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
     {
         if (ingredients.Count != qtaIngredients.Count)
         {
-            Debug.LogError("List of ingredients and list of quantity ingredients are not the same length! Check the inspector of the item recipe");
+            Debug.LogError("ingredients.count <> quantityIngr.count! Check the inspector of the item recipe.");
             return;
         }
 
@@ -320,8 +321,9 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         else indexIngredientCraft = indexIngredient;
 
         // Mostro l'ingrediente corrente
-        foreach (var item in InventoryManager.instance.items)
+        foreach (var item in inventoryManager.items)
         {
+            if (item == null) continue;
             if (item.nameItem == ingredients[indexIngredientCraft]) // Se l'item è un ingrediente e io ce l'ho
             {
                 inspectMenu.Find("SliderShowIngredientsRecipe/NameIngredient").GetComponent<TextMeshProUGUI>().text = item.nameItem;
@@ -336,7 +338,6 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
                 inspectMenu.Find("SliderShowIngredientsRecipe/ImgIngredient").GetComponent<Image>().sprite = imgDefault;
                 inspectMenu.Find("SliderShowIngredientsRecipe/QtaIngredient").GetComponent<TextMeshProUGUI>().text =
                     "0 / " + qtaIngredients[indexIngredientCraft].ToString();
-                break;
             }
         }
     }
@@ -371,7 +372,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
     {
         if (IsEquipable() || IsAlsoConsumable())
         {
-            InventoryManager.instance.Remove(item, true);
+            inventoryManager.Remove(item, true);
             OpenCloseInspectUI(false);
         }
     }
@@ -394,26 +395,25 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             // }
 
             // Crearlo e aggiungerlo all'inventario
-            var invManager = InventoryManager.instance;
-            invManager.Add(item.craftItem);
+            inventoryManager.Add(item.craftItem);
 
             // Togliere quelle qta dall'inventario (se qta = 0 rimuoverlo dall'inventario)
             foreach (var ingredient in ingredients)
             {
-                var itemInInventory = invManager.items.Find(item => item.nameItem == ingredient);
+                var itemInInventory = inventoryManager.items.Find(item => item.nameItem == ingredient);
                 if (itemInInventory == null) return; // Non dovrebbe mai accadere
                 itemInInventory.qta -= int.Parse(qtaIngredients[ingredients.IndexOf(ingredient)]);
                 if (itemInInventory.qta == 0)
                 {
-                    invManager.Remove(itemInInventory, false);
-                    if (invManager.inventoryItemsToRemove.Contains(itemInInventory)) invManager.inventoryItemsToRemove.Remove(itemInInventory);
-                    if (invManager.itemEquipable == itemInInventory) invManager.itemEquipable = null;
-                    else if (invManager.weaponsEquipable.Contains(itemInInventory)) invManager.weaponsEquipable.Remove(itemInInventory);
+                    inventoryManager.Remove(itemInInventory, false);
+                    if (inventoryManager.inventoryItemsToRemove.Contains(itemInInventory)) inventoryManager.inventoryItemsToRemove.Remove(itemInInventory);
+                    if (inventoryManager.itemEquipable == itemInInventory) inventoryManager.itemEquipable = null;
+                    else if (inventoryManager.weaponsEquipable.Contains(itemInInventory)) inventoryManager.weaponsEquipable.Remove(itemInInventory);
                 }
             }
 
             // Aggiornare la UI
-            InventoryUIController.instance.ListItems(invManager.items);
+            InventoryUIController.instance.ListItems(inventoryManager.items);
 
             if (IsInspectItemUIActive())
             {
@@ -424,11 +424,11 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
 
     private /*(bool, string)*/ bool CanCraftItem()
     {
-        if (InventoryManager.instance.IsInventoryFull()) return false; // L'inventario è pieno
+        if (inventoryManager.IsInventoryFull()) return false; // L'inventario è pieno
 
         for (int i = 0; i < ingredients.Count; i++)
         {
-            var itemInInventory = InventoryManager.instance.items.Find(item => item.nameItem == ingredients[i]);
+            var itemInInventory = inventoryManager.items.Find(item => item != null && item.nameItem == ingredients[i]);
 
             // Se l'item non è trovato nell'inventario o non ha quantità sufficienti
             if (itemInInventory == null) return false; //(false, ingredients[i]);
@@ -479,12 +479,12 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             if (transform.Find("LabelEquipable").gameObject.activeSelf) // Se è equipaggiato, per disequipaggiarlo
             {
                 buttonTextEquip.text = "Equipaggia";
-                InventoryManager.instance.UnequipItemPlayer(item);
+                inventoryManager.UnequipItemPlayer(item);
             }
             else // Se non è equipaggiato, per equipaggiarlo
             {
                 buttonTextEquip.text = "Disequipaggia";
-                InventoryManager.instance.EquipItemPlayer(item);
+                inventoryManager.EquipItemPlayer(item);
             }
             labelEquipable.SetActive(!labelEquipable.activeSelf);
         }
