@@ -50,10 +50,10 @@ public class MovementStateManager : MonoBehaviour
 
     [Header("Audio Settings")]
     #region Audio Settings
-    public AudioClip walkCrouchClip;
+    //public AudioClip walkCrouchClip;
     public AudioClip runClip;
-    private float footstepInterval = 0.5f;
-    float footstepTimer;
+    //private float footstepInterval = 0.5f;
+    //float footstepTimer;
     #endregion
 
     [Header("References")]
@@ -146,76 +146,84 @@ public class MovementStateManager : MonoBehaviour
         return elapsedTime >= idleTimeThreshold;
     }
 
-    private bool CanInactivity() => 
+    private bool CanInactivity() =>
         !(animator.GetBool("aiming") || animator.GetBool("reloading") // Se il giocatore sta mirando o ricaricando
             || animator.GetBool("pickingUp") // Se il giocatore sta raccogliendo un oggetto
             || animator.GetBool("sit") // Se il giocatore è seduto
             || animator.GetFloat("hInput") != 0 || animator.GetFloat("vInput") != 0 // Se il giocatore si sta muovendo
             || animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon")); // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
 
- /*   private void PlayFootsteps()
-    {
-        if (!IsGrounded() || (h == 0 && v == 0)) return; // Se non sta camminando o non tocca il suolo
+    /*   private void PlayFootsteps()
+       {
+           if (!IsGrounded() || (h == 0 && v == 0)) return; // Se non sta camminando o non tocca il suolo
 
-        footstepTimer -= Time.deltaTime;
-        if (footstepTimer <= 0f)
-        {
-            footstepTimer = footstepInterval;
+           footstepTimer -= Time.deltaTime;
+           if (footstepTimer <= 0f)
+           {
+               footstepTimer = footstepInterval;
 
-            // Imposta i parametri della clip e del volume in base allo stato corrente
-            if (currentState == walkingState || currentState == crouchState)
-            {
-                audioSource.clip = walkCrouchClip; // Usa la stessa clip per camminata e accovacciamento
+               // Imposta i parametri della clip e del volume in base allo stato corrente
+               if (currentState == walkingState || currentState == crouchState)
+               {
+                   audioSource.clip = walkCrouchClip; // Usa la stessa clip per camminata e accovacciamento
 
-                if (currentState == walkingState)
-                {
-                    footstepInterval = 0.5f; // Frequenza passi camminata
-                    audioSource.volume = 0.6f; // Rumore moderato per la camminata
-                }
-                else if (currentState == crouchState)
-                {
-                    footstepInterval = 0.8f; // Frequenza più bassa per l'accovacciamento
-                    audioSource.volume = 0.3f; // Rumore ridotto per accovacciamento
-                }
-            }
-            else if (currentState == runningState)
-            {
-                audioSource.clip = runClip; // Usa una clip specifica per la corsa
-                footstepInterval = 0.3f; // Frequenza più alta per la corsa
-                audioSource.volume = 1.0f; // Rumore massimo per la corsa
-            }
+                   if (currentState == walkingState)
+                   {
+                       footstepInterval = 0.5f; // Frequenza passi camminata
+                       audioSource.volume = 0.6f; // Rumore moderato per la camminata
+                   }
+                   else if (currentState == crouchState)
+                   {
+                       footstepInterval = 0.8f; // Frequenza più bassa per l'accovacciamento
+                       audioSource.volume = 0.3f; // Rumore ridotto per accovacciamento
+                   }
+               }
+               else if (currentState == runningState)
+               {
+                   audioSource.clip = runClip; // Usa una clip specifica per la corsa
+                   footstepInterval = 0.3f; // Frequenza più alta per la corsa
+                   audioSource.volume = 1.0f; // Rumore massimo per la corsa
+               }
 
-            if (audioSource.clip != null)
-            {
-               audioSource.Play();
-            }
-        }
-    }*/
+               if (audioSource.clip != null)
+               {
+                  audioSource.Play();
+               }
+           }
+       }*/
 
     public void PlayRunning()
-    {   
+    {
         audioSource.clip = runClip;
         audioSource.volume = 0.2f;
-        if (audioSource.clip != null){
+        if (audioSource.clip != null)
+        {
             audioSource.Play();
-        }else{
-            print("Niente da fare");}
+        }
+        else
+        {
+            print("Clip == null");
+        }
     }
 
     public void StopRunning()
-    {   
-        
-        if (audioSource.clip != null){
-            audioSource.Stop();
-        }else{
-            print("Niente da fare");}
-    }
-    void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        var taskFucile = hit.gameObject.GetComponent<TaskFucile>();
-        if (taskFucile != null && taskFucile.playerInRange)
+
+        if (audioSource.clip != null)
         {
-            taskFucile.PlayerCollision();
+            audioSource.Stop();
+        }
+        else
+        {
+            print("Clip == null");
         }
     }
+    //void OnControllerColliderHit(ControllerColliderHit hit)
+    //{
+    //    var taskFucile = hit.gameObject.GetComponent<TaskFucile>();
+    //    if (taskFucile != null && taskFucile.playerInRange)
+    //    {
+    //        taskFucile.PlayerCollision();
+    //    }
+    //}
 }

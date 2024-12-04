@@ -13,6 +13,7 @@ public class TaskFucile : MonoBehaviour
     #region References
     private Weapon weaponClone; // Riferimento al fucile clonato
     public GameObject fucile; // Riferimento al fucile
+    public GameObject paretiAreaTask; // Riferimento alle pareti dell'area task
     public Transform player; // Riferimento al player
     public NPCConversation[] conversations; // Conversazioni con l'uomo baita per il tutorial del fucile
     [HideInInspector] public GameObject areaTask; // Riferimento a dove il player può raccogliere il fucile e iniziare il tutorial
@@ -20,7 +21,6 @@ public class TaskFucile : MonoBehaviour
 
     [Header("Settings")]
     #region Settings
-    private bool isConversationActive = false; // Indica se la conversazione è attiva
     private bool weaponHandled = false; // Indica se l'arma è stata gestita
     [HideInInspector] public bool playerInRange = false; // Indica se è vicino al tronco
     private const int maxTargetHit = 3; // Numero di bottiglie da colpire per completare il tutorial
@@ -32,8 +32,6 @@ public class TaskFucile : MonoBehaviour
         conversationManager = ConversationManager.Instance;
         booleanAccessor = BooleanAccessor.istance;
         fucile.GetComponent<ItemPickup>().enabled = false;
-        areaTask = transform.GetChild(0).gameObject;
-        areaTask.SetActive(false);
         ResetPlayerProgress();
     }
 
@@ -43,7 +41,7 @@ public class TaskFucile : MonoBehaviour
         if (booleanAccessor.GetBoolFromThis("cocaColaDone")) { enabled = false; return; }
         if (!playerInRange || !booleanAccessor.GetBoolFromThis("wolfDone")) return;
 
-        if (!weaponHandled) HandleWeaponTask();
+        if (!weaponHandled && booleanAccessor.GetBoolFromThis("cocaCola")) HandleWeaponTask();
         if (weaponClone == null) return;
 
         StatusTask();
@@ -58,9 +56,10 @@ public class TaskFucile : MonoBehaviour
         if (fucile.activeSelf)
         {
             player.GetComponent<ItemDetector>().RemoveItemDetection(weaponClone.prefab);
+            paretiAreaTask.SetActive(true);
             fucile.SetActive(false);
             weaponClone.prefab.GetComponent<ItemPickup>().enabled = false;
-            GetComponent<BoxCollider>().isTrigger = false;
+            //GetComponent<BoxCollider>().isTrigger = false;
         }
     }
 
@@ -105,7 +104,8 @@ public class TaskFucile : MonoBehaviour
     {
         // Distruggere dalla scena l'arma clonata ?
         fucile.SetActive(true);
-        GetComponent<BoxCollider>().isTrigger = true;
+        paretiAreaTask.SetActive(false);
+        //GetComponent<BoxCollider>().isTrigger = true;
         InventoryManager.instance.Remove(weaponClone, true);
     }
 
@@ -115,12 +115,6 @@ public class TaskFucile : MonoBehaviour
         {
             playerInRange = _playerInRange;
         }
-    }
-
-    public void PlayerCollision()
-    {
-        if (isConversationActive) return;
-        conversationManager.StartConversation(conversations[0]); // Parte UomoBaitaAlert
     }
 
     void OnTriggerEnter(Collider other)
