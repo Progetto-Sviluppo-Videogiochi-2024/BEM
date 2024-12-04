@@ -177,10 +177,10 @@ public class InventoryManager : MonoBehaviour
         }
         else if (item.tagType == ItemTagType.Item)
         {
+            var invItemContr = SearchItem(item);
+            if (itemClassManager.itemEquipable != null && invItemContr != itemClassManager.itemEquipable) itemClassManager.itemEquipable.EquipItem(); // Disequipaggia l'item prima equipaggiato
             itemEquipable = item;
-            print("ItemEquipable: " + itemEquipable);
-            itemClassManager.itemEquipable = SearchItem(item);
-            print("ItemClassManager: " + itemClassManager.itemEquipable);
+            itemClassManager.itemEquipable = invItemContr; // Equipaggia il nuovo item
         }
     }
 
@@ -193,10 +193,8 @@ public class InventoryManager : MonoBehaviour
         }
         else if (item.tagType == ItemTagType.Item && itemEquipable == item)
         {
-            print("1. ItemEquipable: " + itemEquipable + " ItemClassManager: " + itemClassManager.itemEquipable);
             itemEquipable = null;
             itemClassManager.itemEquipable = null;
-            print("2. ItemEquipable: " + itemEquipable + " ItemClassManager: " + itemClassManager.itemEquipable);
         }
     }
 
@@ -214,10 +212,7 @@ public class InventoryManager : MonoBehaviour
     {
         foreach (var item in items)
         {
-            if (item.nameItem == ItemName)
-            {
-                return item.qta;
-            }
+            if (item.nameItem == ItemName) return item.qta;
         }
         return 0;
     }

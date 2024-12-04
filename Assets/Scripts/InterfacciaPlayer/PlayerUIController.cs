@@ -33,8 +33,6 @@ public class PlayerUIController : MonoBehaviour
         var currentItem = InventoryManager.instance.itemEquipable;
         if (currentItem == null) { itemIcon.enabled = false; return; }
         itemIcon.sprite = currentItem.icon;
-        print("Item icon: " + itemIcon.sprite.name); 
-        print("Current item: " + currentItem.nameItem);
         itemIcon.enabled = true;
     }
 

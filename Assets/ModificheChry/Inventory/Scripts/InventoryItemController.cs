@@ -407,7 +407,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
                 {
                     inventoryManager.Remove(itemInInventory, false);
                     if (inventoryManager.inventoryItemsToRemove.Contains(itemInInventory)) inventoryManager.inventoryItemsToRemove.Remove(itemInInventory);
-                    if (inventoryManager.itemEquipable == itemInInventory) inventoryManager.itemEquipable = null;
+                    // if (inventoryManager.itemEquipable == itemInInventory) inventoryManager.itemEquipable = null; // TODO: Non ricordo se errore di copilot o è una mia idea sbagliata
                     else if (inventoryManager.weaponsEquipable.Contains(itemInInventory)) inventoryManager.weaponsEquipable.Remove(itemInInventory);
                 }
             }
