@@ -153,7 +153,7 @@ public class MovementStateManager : MonoBehaviour
             || animator.GetFloat("hInput") != 0 || animator.GetFloat("vInput") != 0 // Se il giocatore si sta muovendo
             || animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon")); // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
 
-    private void PlayFootsteps()
+ /*   private void PlayFootsteps()
     {
         if (!IsGrounded() || (h == 0 && v == 0)) return; // Se non sta camminando o non tocca il suolo
 
@@ -187,11 +187,29 @@ public class MovementStateManager : MonoBehaviour
 
             if (audioSource.clip != null)
             {
-                audioSource.Play();
+               audioSource.Play();
             }
         }
+    }*/
+
+    public void PlayRunning()
+    {   
+        audioSource.clip = runClip;
+        audioSource.volume = 0.2f;
+        if (audioSource.clip != null){
+            audioSource.Play();
+        }else{
+            print("Niente da fare");}
     }
 
+    public void StopRunning()
+    {   
+        
+        if (audioSource.clip != null){
+            audioSource.Stop();
+        }else{
+            print("Niente da fare");}
+    }
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         var taskFucile = hit.gameObject.GetComponent<TaskFucile>();

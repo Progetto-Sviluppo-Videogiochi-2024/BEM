@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+
 public class WalkingState : MovementBaseState
 {
     public override void EnterState(MovementStateManager movement) => movement.animator.SetBool("walking", true);
@@ -11,10 +13,11 @@ public class WalkingState : MovementBaseState
         else if (movement.moveDirection.magnitude < 0.1f) ExitState(movement, movement.idleState);
 
         movement.currentMoveSpeed = movement.v < 0 ? movement.walkBackSpeed : movement.walkSpeed;
+       
     }
 
     void ExitState(MovementStateManager movement, MovementBaseState newState)
-    {
+    {   
         movement.animator.SetBool("walking", false);
         movement.SwitchState(newState);
     }

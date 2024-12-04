@@ -47,6 +47,7 @@ public class ManagerScena2 : MonoBehaviour
         // Inizializza l'audio source
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = forestSound;
+        audioSource.volume = 0.2f;
         audioSource.loop = true;
         audioSource.Play();
 

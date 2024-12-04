@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class RunningState : MovementBaseState
 {
-    public override void EnterState(MovementStateManager movement) => movement.animator.SetBool("running", true);
+    public override void EnterState(MovementStateManager movement){ 
+        movement.animator.SetBool("running", true);
+        movement.PlayRunning();
+    }
 
     public override void UpdateState(MovementStateManager movement)
     {
@@ -13,7 +16,8 @@ public class RunningState : MovementBaseState
     }
 
     void ExitState(MovementStateManager movement, MovementBaseState newState)
-    {
+    {   
+        movement.StopRunning();
         movement.animator.SetBool("running", false);
         movement.SwitchState(newState);
     }
