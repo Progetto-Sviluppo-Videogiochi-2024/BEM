@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        playerUIController.UpdateItemUI();
         var ammo = weaponClassManager.actions.weaponAmmo;
         if (ammo == null) return;
         playerUIController.extraAmmo = ammo.extraAmmo;

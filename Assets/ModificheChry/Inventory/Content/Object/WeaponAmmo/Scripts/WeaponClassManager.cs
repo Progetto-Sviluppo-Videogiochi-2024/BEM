@@ -163,7 +163,7 @@ public class WeaponClassManager : MonoBehaviour
         currentWeapon.transform.SetParent(null);
         currentWeapon = null;
         currentWeaponIndex = -1;
-        CambiaRig.RemoveCurrentRig();
+        //CambiaRig.RemoveCurrentRig();
         aim.currentState = null;
     }
 

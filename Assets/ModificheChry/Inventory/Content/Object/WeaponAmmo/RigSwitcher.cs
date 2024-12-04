@@ -23,16 +23,16 @@ public class RigSwitcher : MonoBehaviour
         string rigCercato = "RigIdle" + weapon.name;
         currentWeapon.transform.localPosition = weapon.IdlePosition;
         currentWeapon.transform.localRotation = weapon.IdleRotation;
-        foreach (Rig rig in allRigs)
-        {
-            if (rig.name == rigCercato)
-            {
-                if (currentRig != null) { currentRig.weight = 0; }
-                rig.weight = 1;
-                currentRig = rig;
-                break;
-            }
-        }
+        //foreach (Rig rig in allRigs)
+        //{
+        //    if (rig.name == rigCercato)
+        //    {
+        //        if (currentRig != null) { currentRig.weight = 0; }
+        //        rig.weight = 1;
+        //        currentRig = rig;
+        //        break;
+        //    }
+        //}
     }
     public void SetAim()
     {
@@ -40,16 +40,16 @@ public class RigSwitcher : MonoBehaviour
         currentWeapon.transform.localPosition = weapon.AimPosition;
         currentWeapon.transform.localRotation = weapon.AimRotation;
         currentWeapon.transform.localScale = weapon.Scale;
-        foreach (Rig rig in allRigs)
-        {
-            if (rig.name == rigCercato)
-            {
-                if (currentRig != null) { currentRig.weight = 0; }
-                rig.weight = 1;
-                currentRig = rig;
-                break;
-            }
-        }
+        //foreach (Rig rig in allRigs)
+        //{
+        //    if (rig.name == rigCercato)
+        //    {
+        //        if (currentRig != null) { currentRig.weight = 0; }
+        //        rig.weight = 1;
+        //        currentRig = rig;
+        //        break;
+        //    }
+        //}
     }
 
     public void RemoveCurrentRig()

@@ -178,7 +178,9 @@ public class InventoryManager : MonoBehaviour
         else if (item.tagType == ItemTagType.Item)
         {
             itemEquipable = item;
+            print("ItemEquipable: " + itemEquipable);
             itemClassManager.itemEquipable = SearchItem(item);
+            print("ItemClassManager: " + itemClassManager.itemEquipable);
         }
     }
 
