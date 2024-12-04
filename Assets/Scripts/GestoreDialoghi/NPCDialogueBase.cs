@@ -29,7 +29,7 @@ public abstract class NPCDialogueBase : MonoBehaviour
             isConversationActive = false;
             clickEndHandled = true;
 
-            print("NPCDialogueBase.Update 1.if: " + gameObject.name);
+            // print("NPCDialogueBase.Update 1.if: " + gameObject.name);
             GestoreScena.ChangeCursorActiveStatus(false, "NPCDialogueBase.update: " + gameObject.transform.parent.name);
             player.GetComponent<MovementStateManager>().enabled = true;
         }
@@ -38,7 +38,7 @@ public abstract class NPCDialogueBase : MonoBehaviour
         {
             ConversationManager.Instance.hasClickedEnd = false;
             clickEndHandled = false;
-            print("NPCDialogueBase.Update 2.if: " + gameObject.name);
+            // print("NPCDialogueBase.Update 2.if: " + gameObject.name);
 
             StartDialogue(); // Avvia il dialogo (metodo astratto che deve invocare StartConversation)
             player.GetComponent<MovementStateManager>().enabled = false;

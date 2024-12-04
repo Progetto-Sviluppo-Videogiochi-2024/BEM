@@ -1343,7 +1343,7 @@ GameObject:
   - component: {fileID: 77808235}
   m_Layer: 0
   m_Name: ParetiAreaTaskFucile
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1362,9 +1362,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 795275471}
+  - {fileID: 434520322}
   - {fileID: 1672087065}
   - {fileID: 865334990}
-  - {fileID: 434520322}
   m_Father: {fileID: 1180137783}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &79482831
@@ -6729,10 +6729,9 @@ GameObject:
   - component: {fileID: 434520325}
   - component: {fileID: 434520324}
   - component: {fileID: 434520323}
-  - component: {fileID: 434520326}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6746,8 +6745,8 @@ Transform:
   m_GameObject: {fileID: 434520321}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 243.85, y: 0.870697, z: -94.700005}
-  m_LocalScale: {x: 0.27267, y: 2.575, z: 6.3411226}
+  m_LocalPosition: {x: 244.46, y: 0.870697, z: -93.78}
+  m_LocalScale: {x: 0.27267, y: 2.575, z: 4.5004}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 77808235}
@@ -6823,19 +6822,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 434520321}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &434520326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 434520321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26a3551e8efc01e44ab3439c3585c97d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conversations: {fileID: 616888395}
 --- !u!1001 &443061579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12270,10 +12256,9 @@ GameObject:
   - component: {fileID: 795275474}
   - component: {fileID: 795275473}
   - component: {fileID: 795275472}
-  - component: {fileID: 795275476}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12287,8 +12272,8 @@ Transform:
   m_GameObject: {fileID: 795275470}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 255.9, y: 0.870697, z: -95.08}
-  m_LocalScale: {x: 0.27267, y: 2.575, z: 5.769817}
+  m_LocalPosition: {x: 252.66, y: 0.870697, z: -93.62}
+  m_LocalScale: {x: 0.27267, y: 2.575, z: 4.5003996}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 77808235}
@@ -12364,19 +12349,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 795275470}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &795275476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795275470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26a3551e8efc01e44ab3439c3585c97d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conversations: {fileID: 616888395}
 --- !u!1 &796262124
 GameObject:
   m_ObjectHideFlags: 0
@@ -13429,10 +13401,9 @@ GameObject:
   - component: {fileID: 865334993}
   - component: {fileID: 865334992}
   - component: {fileID: 865334991}
-  - component: {fileID: 865334994}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13445,13 +13416,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865334989}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7180401, z: -0, w: 0.6960018}
-  m_LocalPosition: {x: 249.89, y: 0.6806946, z: -97.130005}
-  m_LocalScale: {x: 0.27267, y: 2.575, z: 11.713911}
+  m_LocalRotation: {x: -0, y: 0.70536125, z: -0, w: 0.7088481}
+  m_LocalPosition: {x: 248.53, y: 0.6806946, z: -95.81}
+  m_LocalScale: {x: 0.27267, y: 2.575, z: 7.876147}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 77808235}
-  m_LocalEulerAnglesHint: {x: 0, y: 91.786, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 89.717, z: 0}
 --- !u!65 &865334991
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13523,19 +13494,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865334989}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &865334994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 865334989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26a3551e8efc01e44ab3439c3585c97d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conversations: {fileID: 616888395}
 --- !u!1001 &868190378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21750,19 +21708,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 19
-  json: "{\"Options\":[],\"Parameters\":[{\"__type\":\"EditableBoolParameter:#DialogueEditor\",\"ParameterName\":\"wolfDone\",\"BoolValue\":false}],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[{\"__type\":\"EditableBoolCondition:#DialogueEditor\",\"ParameterName\":\"wolfDone\",\"CheckType\":0,\"RequiredValue\":false}],\"NodeUID\":1},{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[{\"__type\":\"EditableBoolCondition:#DialogueEditor\",\"ParameterName\":\"wolfDone\",\"CheckType\":0,\"RequiredValue\":true}],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":244.399963,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"...\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":-7.60031128,\"yPos\":20.0001221},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Dov'\xE8
-    la mia piccola Layal?\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":14}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":240.400482,\"yPos\":152.799713},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ecco,
-    il tuo \\\"cucciolo\\\"...\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":4}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":238.7998,\"yPos\":438.40033},\"ID\":3,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ottimo,
-    avvicinati al ceppo vicino quella sedia.\",\"parentUIDs\":[14],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":5}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":-6.00027466,\"yPos\":435.199768},\"ID\":4,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Impugna
+  json: "{\"Options\":[],\"Parameters\":[{\"__type\":\"EditableBoolParameter:#DialogueEditor\",\"ParameterName\":\"wolfDone\",\"BoolValue\":false}],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[{\"__type\":\"EditableBoolCondition:#DialogueEditor\",\"ParameterName\":\"wolfDone\",\"CheckType\":0,\"RequiredValue\":false}],\"NodeUID\":1},{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[{\"__type\":\"EditableBoolCondition:#DialogueEditor\",\"ParameterName\":\"wolfDone\",\"CheckType\":0,\"RequiredValue\":true}],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":274.1,\"yPos\":-356.4},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"...\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":22.0997314,\"yPos\":-358.399872},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Dov'\xE8
+    la mia piccola Layal?\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":14}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":270.100525,\"yPos\":-225.600281},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ecco,
+    il tuo \\\"cucciolo\\\"...\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Stefano\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":4}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":268.499847,\"yPos\":60.0003662},\"ID\":3,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ottimo,
+    avvicinati al ceppo vicino quella sedia.\",\"parentUIDs\":[14],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":5}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":23.6997681,\"yPos\":56.7998047},\"ID\":4,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Impugna
     la canna del fucile con la mano sinistra e la destra sul grilletto, se non sei
-    mancino! Spara le bottiglie che si trovano sui ceppi difronte a te.\",\"parentUIDs\":[3],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":6}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":-6.000229,\"yPos\":564.8022},\"ID\":5,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Raccogli
-    l'arma premendo SPACEBAR\",\"parentUIDs\":[4],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":7}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":237.19986,\"yPos\":560.802368},\"ID\":6,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Apri
-    il tuo Zaino premendo 'I', clicca sull'arma e seleziona \\\"Equipaggia\\\"\",\"parentUIDs\":[5],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":8}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":240.39978,\"yPos\":671.206848},\"ID\":7,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Quando
+    mancino! Spara le bottiglie che si trovano sui ceppi difronte a te.\",\"parentUIDs\":[3],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":6}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":23.6998138,\"yPos\":186.402283},\"ID\":5,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Raccogli
+    l'arma premendo SPACEBAR\",\"parentUIDs\":[4],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":7}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":266.8999,\"yPos\":182.4024},\"ID\":6,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Apri
+    il tuo Zaino premendo 'I', clicca sull'arma e seleziona \\\"Equipaggia\\\"\",\"parentUIDs\":[5],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":8}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":270.099823,\"yPos\":292.806763},\"ID\":7,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Quando
     possiedi pi\xF9 armi equipaggiate, puoi premere i tasti numerici (esempio: 1,
-    2, 3) o la rotella del mouse per cambiare arma rapidamente.\",\"parentUIDs\":[6],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":11}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":-14.0002136,\"yPos\":676.807},\"ID\":8,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Tieni
-    premuto Click Destro del mouse per mirare e Click Sinistro per sparare\",\"parentUIDs\":[7],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":12}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":-11.6002045,\"yPos\":787.2079},\"ID\":11,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Puoi
-    caricare l'arma premendo 'R'\",\"parentUIDs\":[8],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":241.19989,\"yPos\":788.807556},\"ID\":12,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Spara
-    le bottiglie per esercitarti\",\"parentUIDs\":[11],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":3}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":237.500366,\"yPos\":301.5982},\"ID\":14,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ottimo.
+    2, 3) o la rotella del mouse per cambiare arma rapidamente.\",\"parentUIDs\":[6],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":11}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":15.6998291,\"yPos\":298.406921},\"ID\":8,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Tieni
+    premuto Click Destro del mouse per mirare e Click Sinistro per sparare\",\"parentUIDs\":[7],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":12}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":18.0998383,\"yPos\":408.808075},\"ID\":11,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Puoi
+    caricare l'arma premendo 'R'\",\"parentUIDs\":[8],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":270.899933,\"yPos\":410.4078},\"ID\":12,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Spara
+    le bottiglie per esercitarti\",\"parentUIDs\":[11],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"[TUTORIAL]\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":3}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":267.2004,\"yPos\":-76.80179},\"ID\":14,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Ottimo.
     Abbiamo un accordo, e io mantengo sempre la parola. Sei pronto a far volare quelle
     bottiglie?\",\"parentUIDs\":[2],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Uomo\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
   saveVersion: 110
@@ -24625,7 +24583,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450987948}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daf8767a1607b2b43abfe12f0b536aee, type: 3}
   m_Name: 
@@ -24656,7 +24614,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 5.26, y: 2.39, z: 3.76}
   m_Center: {x: -8.36, y: 1.22, z: 3.23}
@@ -28503,10 +28461,9 @@ GameObject:
   - component: {fileID: 1672087068}
   - component: {fileID: 1672087067}
   - component: {fileID: 1672087066}
-  - component: {fileID: 1672087069}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28519,13 +28476,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672087064}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7180401, z: -0, w: 0.6960018}
-  m_LocalPosition: {x: 249.62, y: 0.6806946, z: -92.57}
-  m_LocalScale: {x: 0.27267, y: 2.575, z: 12.738482}
+  m_LocalRotation: {x: -0, y: 0.7059636, z: -0, w: 0.7082482}
+  m_LocalPosition: {x: 248.57999, y: 0.6806946, z: -91.55}
+  m_LocalScale: {x: 0.27267, y: 2.575, z: 7.8813972}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 77808235}
-  m_LocalEulerAnglesHint: {x: 0, y: 91.786, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 89.815, z: 0}
 --- !u!65 &1672087066
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28597,19 +28554,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672087064}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1672087069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1672087064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26a3551e8efc01e44ab3439c3585c97d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conversations: {fileID: 616888395}
 --- !u!4 &1672099671 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3008297296413678391, guid: cb422acdc199d6e42910f589b81c283b, type: 3}
@@ -31231,19 +31175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Event:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TaskFucile, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
+      m_Calls: []
   NodeID: 3
   TMPFont: {fileID: 0}
   Icon: {fileID: 21300000, guid: 2a00749aef8cde04f81371e80f83266c, type: 3}
@@ -36981,7 +36913,7 @@ Transform:
   m_GameObject: {fileID: 2121948061106987402}
   serializedVersion: 2
   m_LocalRotation: {x: 0.01767017, y: 0.83144987, z: -0.026486766, w: 0.5546868}
-  m_LocalPosition: {x: 365.54868, y: 102.00665, z: 103.90682}
+  m_LocalPosition: {x: 382.5387, y: 102.00665, z: 103.806816}
   m_LocalScale: {x: 0.4060001, y: 0.9216, z: 0.21620008}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37176,7 +37108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1564219359167129860, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 128
+      value: 144.99
       objectReference: {fileID: 0}
     - target: {fileID: 1564219359167129860, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -37184,7 +37116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1564219359167129860, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -199
+      value: -199.1
       objectReference: {fileID: 0}
     - target: {fileID: 1564219359167129860, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -37948,7 +37880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8009980397889083650, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.6168488
+      value: 0.6167994
       objectReference: {fileID: 0}
     - target: {fileID: 8009980397889083650, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -37956,7 +37888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8009980397889083650, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.05561
+      value: -7.0554824
       objectReference: {fileID: 0}
     - target: {fileID: 8009980397889083650, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -38058,6 +37990,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stefano
       objectReference: {fileID: 0}
+    - target: {fileID: 8872560105779087072, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
+      propertyPath: conversation
+      value: 
+      objectReference: {fileID: 616888395}
     - target: {fileID: 8872560105779087072, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
       propertyPath: playerUIController
       value: 

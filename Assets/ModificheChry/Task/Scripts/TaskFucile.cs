@@ -29,6 +29,7 @@ public class TaskFucile : MonoBehaviour
     void Start()
     {
         // P.S.: lascio l'aura attiva per far capire che è interagibile solo dopo la quest del lupo
+        paretiAreaTask.SetActive(false);
         conversationManager = ConversationManager.Instance;
         booleanAccessor = BooleanAccessor.istance;
         fucile.GetComponent<ItemPickup>().enabled = false;
@@ -59,7 +60,6 @@ public class TaskFucile : MonoBehaviour
             paretiAreaTask.SetActive(true);
             fucile.SetActive(false);
             weaponClone.prefab.GetComponent<ItemPickup>().enabled = false;
-            //GetComponent<BoxCollider>().isTrigger = false;
         }
     }
 
@@ -70,7 +70,6 @@ public class TaskFucile : MonoBehaviour
         {
             conversationManager.StartConversation(conversations[2]); // Parte UomoBaitaLost
             booleanAccessor.SetBoolOnDialogueE("cocaColaDone");
-            TaskFailed();
             TaskReset();
             return;
         }
@@ -80,66 +79,28 @@ public class TaskFucile : MonoBehaviour
             conversationManager.StartConversation(conversations[1]); // Parte UomoBaitaWin
             booleanAccessor.SetBoolOnDialogueE("cocaColaDone");
             TaskReset();
-            // Distruggere il playerprefs se non serve più nel gioco
-            // OPPURE qualcosa per le statistiche di scena ? (es. "Stefano ha sparato 3 bottiglie con 3 colpi")
+            // Distruggere il playerprefs se non serve più nel gioco || qualcosa per le statistiche di scena ?
         }
     }
 
     public Item GetPlayerFucile() => InventoryManager.instance.items.Find(weapon => weapon.nameItem == "Fucile da caccia");
 
-    public void VisibleAreaPickup() => areaTask.SetActive(true); // Invocato dal DE di UomoBaita2
-
     private void ResetPlayerProgress() { PlayerPrefs.SetInt("nTargetHit", 0); PlayerPrefs.Save(); }
-
-    private void TaskFailed()
-    {
-        conversationManager.SetBool("cocaCola", false);
-        booleanAccessor.ResetBoolValue("cocaCola");
-        booleanAccessor.ResetBoolValue("cocaColaDone");
-        fucile.GetComponent<ItemPickup>().enabled = true;
-        ResetPlayerProgress();
-    }
 
     private void TaskReset()
     {
-        // Distruggere dalla scena l'arma clonata ?
+        InventoryManager.instance.Remove(weaponClone, true);
         fucile.SetActive(true);
         paretiAreaTask.SetActive(false);
-        //GetComponent<BoxCollider>().isTrigger = true;
-        InventoryManager.instance.Remove(weaponClone, true);
+        Destroy(weaponClone);
     }
 
     private void PlayerTrigger(Collider other, bool _playerInRange)
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = _playerInRange;
-        }
+        if (other.CompareTag("Player")) playerInRange = _playerInRange;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        PlayerTrigger(other, true);
-    }
+    void OnTriggerEnter(Collider other) => PlayerTrigger(other, true);
 
-    void OnTriggerExit(Collider other)
-    {
-        PlayerTrigger(other, false);
-    }
+    void OnTriggerExit(Collider other) => PlayerTrigger(other, false);
 }
-
-// Dopo aver concluso la missione del lupo:
-
-// Vincoliamo il giocatore a seguire il tutorial:
-
-// - L'uomo Baita dice a Stefano di raccogliere il fucile
-// - Appena lo fa, compaiono 4 muri invisibili, tipo area trigger, se stefano Collide con essi, viene avviato un dialogo dell'uomo baita che dice "Non barare ragazzo, resta vicino al tronco".
-
-// - Nel fucile inseriamo solo 10 proiettili, nessun limite di tempo, lui deve apprendere la meccanica del combattimento a distanza.
-
-// - Il tutorial termina quando le 3 bottiglie sono state sparate OPPURE quando ha finito i proiettili del fucile.
-
-// - Quando il tutorial termina, i muri invisibili vengono disattivati, l'arma si posiziona sul tronco, senza aura e senza pick-up, per far comprendere che non è interagibile, quindi il tutorial avviene solo una volta.
-// Tanto se ha sparato 10 proiettili bene o male ha capito come si spara.
-
-// - Ricompensa: Se spara 3 bottiglie e restano 7 proiettili significa che ha sparato con successo le 3 bottiglie con i primi 3 colpi, in tal caso gli conferiamo una ricompensa, altrimenti niente.
