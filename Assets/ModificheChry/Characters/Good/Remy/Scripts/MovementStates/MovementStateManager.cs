@@ -76,16 +76,13 @@ public class MovementStateManager : MonoBehaviour
     {
         GetDirectionAndMove();
         Gravity();
-        // PlayFootsteps();
+
+        if (!CanInactivity()) ToggleInactivity(animator, false);
 
         animator.SetFloat("hInput", h);
         animator.SetFloat("vInput", v);
 
         currentState.UpdateState(this);
-    }
-
-    private void FixedUpdate()
-    {
         Inactive();
     }
 
@@ -116,67 +113,49 @@ public class MovementStateManager : MonoBehaviour
 
     private void Gravity()
     {
-        if (!IsGrounded())
-        {
-            velocity.y += gravity * Time.deltaTime;
-        }
-        else if (velocity.y < 0)
-        {
-            velocity.y = -2f; // Piccolo valore per mantenere il personaggio a contatto con il suolo
-        }
-
+        if (!IsGrounded()) velocity.y += gravity * Time.deltaTime;
+        else if (velocity.y < 0) velocity.y = -2f; // Piccolo valore per mantenere il personaggio a contatto con il suolo
         controller.Move(velocity * Time.deltaTime);
     }
 
     private void Inactive()
     {
-        if (!animator.GetBool("inactive") && CanInactivity() && CheckInactivityTimer())
-        {
-            animator.SetBool("inactive", true);
-            animator.SetInteger("nInactive", 1);
-            elapsedTime = 0.0f;
-        }
+        if (h != 0 || v != 0) { ToggleInactivity(animator, false); return; }
+        if (!animator.GetBool("inactive") && CanInactivity() && CheckInactivityTimer()) ToggleInactivity(animator, true);
     }
 
     private bool CheckInactivityTimer()
     {
         if (h == 0 && v == 0 && !animator.GetBool("inactive")) elapsedTime += Time.deltaTime;
         else elapsedTime = 0.0f;
-
         return elapsedTime >= idleTimeThreshold;
     }
 
+    private void ToggleInactivity(Animator animator, bool isInactive)
+    {
+        elapsedTime = 0.0f;
+        animator.SetBool("inactive", isInactive);
+        animator.SetInteger("nInactive", 1);
+    }
+
     private bool CanInactivity() =>
-        !(animator.GetBool("aiming") || animator.GetBool("reloading") // Se il giocatore sta mirando o ricaricando
+        !(animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon")) // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
+            || animator.GetBool("aiming") || animator.GetBool("reloading") // Se il giocatore sta mirando o ricaricando
             || animator.GetBool("pickingUp") // Se il giocatore sta raccogliendo un oggetto
-            || animator.GetBool("sit") // Se il giocatore è seduto
-            || animator.GetFloat("hInput") != 0 || animator.GetFloat("vInput") != 0 // Se il giocatore si sta muovendo
-            || animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon")); // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
+            || h != 0 || v != 0 // Se il giocatore si sta muovendo
+            || animator.GetBool("sit"); // Se il giocatore è seduto
 
     public void PlayRunning()
     {
         audioSource.clip = runClip;
         audioSource.volume = 0.2f;
-        if (audioSource.clip != null)
-        {
-            audioSource.Play();
-        }
-        else
-        {
-            print("Clip == null");
-        }
+        if (audioSource.clip != null) audioSource.Play();
+        else print("Clip == null");
     }
 
     public void StopRunning()
     {
-
-        if (audioSource.clip != null)
-        {
-            audioSource.Stop();
-        }
-        else
-        {
-            print("Clip == null");
-        }
+        if (audioSource.clip != null) audioSource.Stop();
+        else print("Clip == null");
     }
 }

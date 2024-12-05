@@ -15,9 +15,10 @@ public class WeaponClassManager : MonoBehaviour
     #region Switching-Equip Weapons
     public RigSwitcher CambiaRig;
     int currentWeaponIndex = -1;
-    #endregion
     [HideInInspector] public GameObject currentWeapon;
     public Transform weaponHolder;
+    private bool isWeaponEquipFinished = true;
+    #endregion
 
     [Header("References")]
     #region References
@@ -45,8 +46,9 @@ public class WeaponClassManager : MonoBehaviour
         for (int i = 0; i < weaponsEquipable.Count; i++)
         {
             // Se il tasto premuto è tra 1 e 3 e l'arma associata a quello slot è impostata
-            if (Input.GetKeyDown(KeyCode.Alpha1 + i) && KeyCode.Alpha1 + i <= KeyCode.Alpha3 && weaponsEquipable[i] != null)
+            if (isWeaponEquipFinished && Input.GetKeyDown(KeyCode.Alpha1 + i) && KeyCode.Alpha1 + i <= KeyCode.Alpha3 && weaponsEquipable[i] != null)
             {
+                isWeaponEquipFinished = false;
                 TakeParametersAnimation(i);
                 return;
             }
@@ -90,6 +92,7 @@ public class WeaponClassManager : MonoBehaviour
         // Aspetta che l'animazione di equipaggiamento sia finita
         yield return new WaitUntil(() => IsAnimationFinished("Action", animation, 0.10f));
 
+        isWeaponEquipFinished = true;
         animator.SetBool(boolWeapon, !animator.GetBool(boolWeapon));
         EquipWeapon(index);
     }

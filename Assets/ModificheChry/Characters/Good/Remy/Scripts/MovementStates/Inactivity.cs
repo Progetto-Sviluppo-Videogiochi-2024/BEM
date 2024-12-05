@@ -33,29 +33,23 @@ public class Inactivity : StateMachineBehaviour
     private float GetLengthAnimationInactivity(Animator animator, int layerIndex) => animator.GetCurrentAnimatorStateInfo(layerIndex).length;
 
     private bool CanInactivity(Animator animator) =>
-        !(animator.GetBool("aiming") || animator.GetBool("reloading") // Se il giocatore sta mirando o ricaricando
+        !(animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon")) // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
+            || animator.GetBool("aiming") || animator.GetBool("reloading") // Se il giocatore sta mirando o ricaricando
             || animator.GetBool("pickingUp") // Se il giocatore sta raccogliendo un oggetto
-            || IsMoving(animator) // Se il giocatore si sta muovendo
-            || animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon")); // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
+            || IsMoving(animator); // Se il giocatore si sta muovendo
 
     private void ResetInactivity(Animator animator)
     {
         inactivityTimer = 0.0f;
         animator.SetBool("inactive", false);
-        animator.SetInteger("nInactive", 0);
+        animator.SetInteger("nInactive", 1);
     }
 
     private void CycleToNextInactivity(Animator animator)
     {
         inactivityTimer = 0.0f;
-        if (animator.GetBool("sit")) animator.SetInteger("nInactive", (animator.GetInteger("nInactive") % 2) + 1); // Cicla 1, 2
-        else // Se il giocatore non è seduto
-        {
-            int currentInactive = animator.GetInteger("nInactive");
-
-            if (currentInactive == 1) animator.SetInteger("nInactive", 3);
-            else if (currentInactive == 3) animator.SetInteger("nInactive", 1);
-        }
+        if (animator.GetBool("sit")) animator.SetInteger("nInactive", (animator.GetInteger("nInactive") % 2) + 1); // Cicla 1, 2 se è seduto
+        else animator.SetInteger("nInactive", animator.GetInteger("nInactive") == 1 ? 3 : 1); // Cicla 1, 3 se non è seduto
     }
 
     private bool IsMoving(Animator animator) => animator.GetFloat("hInput") != 0 || animator.GetFloat("vInput") != 0;
