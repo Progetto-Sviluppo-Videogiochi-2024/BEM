@@ -270,6 +270,12 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: nInactive
     m_EventTreshold: 1
+  - m_ConditionMode: 2
+    m_ConditionEvent: aiming
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: reloading
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1413316255718326591}
   m_Solo: 0
@@ -347,7 +353,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 9031901328575937048}
-    m_Position: {x: 600, y: 120, z: 0}
+    m_Position: {x: 590, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 739219094007831825}
     m_Position: {x: 350, y: -100, z: 0}

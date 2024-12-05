@@ -33,10 +33,10 @@ public class Inactivity : StateMachineBehaviour
     private float GetLengthAnimationInactivity(Animator animator, int layerIndex) => animator.GetCurrentAnimatorStateInfo(layerIndex).length;
 
     private bool CanInactivity(Animator animator) =>
-        !(animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon")) // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
+        !(animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon") // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
             || animator.GetBool("aiming") || animator.GetBool("reloading") // Se il giocatore sta mirando o ricaricando
             || animator.GetBool("pickingUp") // Se il giocatore sta raccogliendo un oggetto
-            || IsMoving(animator); // Se il giocatore si sta muovendo
+            || IsMoving(animator)); // Se il giocatore si sta muovendo
 
     private void ResetInactivity(Animator animator)
     {
