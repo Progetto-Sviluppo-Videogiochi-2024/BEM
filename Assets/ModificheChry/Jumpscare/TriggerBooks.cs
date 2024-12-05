@@ -19,6 +19,7 @@ public class TriggerBooks : NPCDialogueBase
     [SerializeField] Transform imageTv; // Riferimento all'immagine della TV
     private GameObject imageElefant; // Riferimento all'immagine dell'elefante
     private GameObject imageDistorsion; // Riferimento all'immagine della distorsione
+    [SerializeField] Light TvLight; // Riferimento alla luce della TV
     #endregion
 
     [Header("Settings")]
@@ -140,18 +141,21 @@ public class TriggerBooks : NPCDialogueBase
                 imageElefant.SetActive(false);
                 imageDistorsion.SetActive(true);
                 mutant.gameObject.SetActive(true);
+                StartCoroutine(FlickerLight(12f, 0.1f, 0.5f)); // 5 secondi di durata, intervallo tra 0.1 e 0.5 secondi
                 break;
             case 5: // Appare la gotica morta col sangue (scompare la gotica seduta) e il mutante
                 PlayAudio();
                 gothicSitting.gameObject.SetActive(false);
                 gothicDeathBlood.gameObject.SetActive(true);
                 mutant.gameObject.SetActive(false);
+                StartCoroutine(FlickerLight(12f, 0.1f, 0.5f)); // 5 secondi di durata, intervallo tra 0.1 e 0.5 secondi
                 break;
             case 7: // Scompare la gotica morta col sangue e il mutante
                 StopAudio();
                 imageDistorsion.SetActive(false);
                 gothicDeathBlood.gameObject.SetActive(false);
                 mutant.gameObject.SetActive(false);
+                TvLight.gameObject.SetActive(false);
                 break;
         }
     }
@@ -167,4 +171,24 @@ public class TriggerBooks : NPCDialogueBase
     }
 
     private void StopAudio() { radioManager.MuteRadio(false); audioSource.Stop(); }
+
+    private IEnumerator FlickerLight(float duration, float minInterval, float maxInterval)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            // Alterna lo stato della luce (accesa/spenta)
+            TvLight.enabled = !TvLight.enabled;
+
+            // Aspetta un intervallo casuale prima di cambiare stato
+            float flickerInterval = Random.Range(minInterval, maxInterval);
+            yield return new WaitForSeconds(flickerInterval);
+
+            elapsedTime += flickerInterval;
+        }
+        // Assicurati che la luce rimanga accesa alla fine
+        if (TvLight != null) TvLight.enabled = true;
+    }
+
 }
