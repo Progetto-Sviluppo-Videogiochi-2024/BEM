@@ -31,7 +31,7 @@ public class WeaponManager : MonoBehaviour
     Light muzzleFlashLight;
     ParticleSystem muzzleFlashParticles;
     float lightIntensity;
-    float lightReturnSpeed = 20;
+    const float lightReturnSpeed = 20;
     #endregion
 
     [Header("Enemy Properties")]
@@ -88,7 +88,7 @@ public class WeaponManager : MonoBehaviour
         bulletPrefab = weapon.ammo.ammoPrefab;
 
         ammo = GetComponent<WeaponAmmo>();
-        ammo.ammoData = weapon.ammo;
+        ammo.data = weapon.ammo;
 
         audioSource = GetComponent<AudioSource>();
 
@@ -115,7 +115,7 @@ public class WeaponManager : MonoBehaviour
     {
         fireRateTimer += Time.deltaTime;
         if (fireRateTimer < fireRate) return false; // Se il timer non è ancora scaduto, non sparare
-        if (ammo.leftAmmo == 0) return false; // Se le munizioni sono finite, non sparare
+        if (ammo.currentAmmo == 0) return false; // Se le munizioni sono finite, non sparare
         if (actions.currentState == actions.reloadState) return false; // Se si sta ricaricando, non sparare
         if (actions.currentState == actions.swapState) return false; // Se si sta cambiando arma, non sparare
         if (EventSystem.current.IsPointerOverGameObject()) return false; // Se il mouse è sopra un UI, non sparare
@@ -133,7 +133,7 @@ public class WeaponManager : MonoBehaviour
         audioSource.PlayOneShot(fireSound);
         recoil.TriggerRecoil();
         TriggerMuzzleFlash();
-        ammo.leftAmmo--;
+        ammo.currentAmmo--;
         for (int i = 0; i < bulletsPerShot; i++)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -160,11 +160,7 @@ public class WeaponManager : MonoBehaviour
     private bool IsClickingOnInteractiveObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            if (hit.transform.GetComponent<ItemPickup>() != null) return true;
-        }
-
+        if (Physics.Raycast(ray, out RaycastHit hit)) return hit.transform.GetComponent<ItemPickup>() != null;
         return false; // Se non c'è nulla di interattivo, ritorna false
     }
 }

@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
         if (ammo == null) return;
         playerUIController.extraAmmo = ammo.extraAmmo;
         playerUIController.UpdateWeaponUI();
-        playerUIController.UpdateAmmoCount(ammo.leftAmmo);
+        playerUIController.UpdateAmmoCount(ammo.currentAmmo);
 
         if (health <= sanitaMentale) // TODO: da implementare
         { }

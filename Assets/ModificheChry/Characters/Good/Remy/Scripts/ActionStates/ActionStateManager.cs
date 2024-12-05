@@ -10,9 +10,6 @@ public class ActionStateManager : MonoBehaviour
     public SwapState swapState = new();
     #endregion
 
-
-
-
     [Header("References")]
     #region References
     [HideInInspector] public Animator animator;
@@ -32,10 +29,7 @@ public class ActionStateManager : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void Update()
-    {
-        currentState.UpdateState(this);
-    }
+    void Update() => currentState.UpdateState(this);
 
     public void SwitchState(ActionBaseState newState)
     {

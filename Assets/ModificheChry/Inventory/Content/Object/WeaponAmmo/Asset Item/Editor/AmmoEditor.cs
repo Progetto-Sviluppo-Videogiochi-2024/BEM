@@ -40,8 +40,8 @@ public class AmmoEditor : Editor
         EditorGUILayout.LabelField("Ammo Info", EditorStyles.boldLabel);
         ammo.ammoPrefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Ammo Prefab", "Prefab del proiettile"), ammo.ammoPrefab, typeof(GameObject), true);
         ammo.ammoType = (Ammo.AmmoType)EditorGUILayout.EnumPopup(new GUIContent("Ammo Type", "Tipo di proiettile"), ammo.ammoType);
-        ammo.nAmmo = EditorGUILayout.IntField(new GUIContent("Number Ammo", "Numero di proiettili per caricatore"), ammo.nAmmo);
-        ammo.maxAmmo = EditorGUILayout.IntField(new GUIContent("Max Ammo", "Numero massimo di proiettili"), ammo.maxAmmo);
+        ammo.nAmmo = EditorGUILayout.IntField(new GUIContent("Clipsize Ammo", "Numero di proiettili per caricatore"), ammo.nAmmo);
+        ammo.maxAmmo = EditorGUILayout.IntField(new GUIContent("Totals Ammo", "Numero massimo di proiettili"), ammo.maxAmmo);
         ammo.damageAmmo = EditorGUILayout.FloatField(new GUIContent("Damage Ammo", "Danno del proiettile"), ammo.damageAmmo);
 
         // Assicura che il cambiamento venga salvato

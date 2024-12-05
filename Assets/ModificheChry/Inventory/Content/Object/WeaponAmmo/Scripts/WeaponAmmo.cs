@@ -4,9 +4,9 @@ public class WeaponAmmo : MonoBehaviour
 {
     [Header("Ammo")]
     #region Ammo
-    [HideInInspector] public int clipSize; // Dimensione del caricatore
+    [HideInInspector] public int clipSize; // Dimensione del caricatore (un caricatore ha 'clipsize' munizioni)
     [HideInInspector] public int extraAmmo; // Munizioni extra (escluse quelle nel caricatore)
-    [HideInInspector] public int leftAmmo; // Munizioni attuali
+    [HideInInspector] public int currentAmmo; // Munizioni attuali nel caricatore corrente
     #endregion
 
     [Header("Audio properties")]
@@ -18,40 +18,41 @@ public class WeaponAmmo : MonoBehaviour
 
     [Header("References")]
     #region References
-    [HideInInspector] public Ammo ammoData; // Dati delle munizioni
+    [HideInInspector] public Ammo data; // Dati delle munizioni
     #endregion
 
     void Start()
     {
-        if (ammoData == null) return;
-        leftAmmo = ammoData.nAmmo;
-        extraAmmo = ammoData.maxAmmo - ammoData.nAmmo;
+        if (data == null) return;
+        clipSize = data.nAmmo;
+        currentAmmo = clipSize;
+        extraAmmo = data.maxAmmo - data.nAmmo;
     }
 
-    private void Update()
+    private void Update() // TODO: da cancellare siccome lo fa in DefaultState.cs
     {
-        if (Input.GetKeyDown(KeyCode.R)) Reload();
+        if (Input.GetKeyDown(KeyCode.Space)) currentAmmo--; // per testing (simula sparo)
     }
 
     public void Reload()
     {
         if (extraAmmo >= clipSize)
         {
-            int ammoToReload = clipSize - leftAmmo;
+            int ammoToReload = clipSize - currentAmmo;
             extraAmmo -= ammoToReload;
-            leftAmmo += ammoToReload;
+            currentAmmo += ammoToReload;
         }
         else if (extraAmmo > 0)
         {
-            if (extraAmmo + leftAmmo > clipSize)
+            if (extraAmmo + currentAmmo > clipSize)
             {
-                int leftOverAmmo = extraAmmo + leftAmmo - clipSize;
+                int leftOverAmmo = extraAmmo + currentAmmo - clipSize;
                 extraAmmo = leftOverAmmo;
-                leftAmmo = clipSize;
+                currentAmmo = clipSize;
             }
             else
             {
-                leftAmmo += extraAmmo;
+                currentAmmo += extraAmmo;
                 extraAmmo = 0;
             }
         }
