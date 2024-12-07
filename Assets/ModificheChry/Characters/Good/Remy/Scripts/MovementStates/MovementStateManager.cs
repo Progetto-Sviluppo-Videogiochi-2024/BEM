@@ -35,8 +35,8 @@ public class MovementStateManager : MonoBehaviour
 
     [Header("Inactivity Settings")]
     #region Inactivity Settings
-    private readonly float idleTimeThreshold = 5.0f; // Tempo di inattività
-    public float elapsedTime = 0.0f; // Tempo trascorso dall'ultima inattività
+    private readonly float maxTimeInactivity = 5.0f; // Timer di inattività
+    public float timerInactivity = 0.0f; // Tempo trascorso dall'ultima inattività
     #endregion
 
     [Header("States")]
@@ -78,14 +78,14 @@ public class MovementStateManager : MonoBehaviour
         Gravity();
 
         if (!CanInactivity()) ToggleInactivity(animator, false);
+        else Inactive();
 
         animator.SetFloat("hInput", h);
         animator.SetFloat("vInput", v);
-
         currentState.UpdateState(this);
-        Inactive();
     }
 
+    // Per gli stati di movimento
     public void SwitchState(MovementBaseState newState)
     {
         currentState = newState;
@@ -104,6 +104,7 @@ public class MovementStateManager : MonoBehaviour
         controller.Move(currentMoveSpeed * Time.deltaTime * moveDirection.normalized);
     }
 
+    // Per la gravità
     private bool IsGrounded()
     {
         spherePosition = new(transform.position.x, transform.position.y - groundYOffset, transform.position.z);
@@ -118,33 +119,56 @@ public class MovementStateManager : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    // Per l'inattività
     private void Inactive()
     {
-        if (h != 0 || v != 0) { ToggleInactivity(animator, false); return; }
-        if (!animator.GetBool("inactive") && CanInactivity() && CheckInactivityTimer()) ToggleInactivity(animator, true);
+        if (!animator.GetBool("inactive") && CheckInactivityTimer()) { timerInactivity = 0; animator.SetInteger("nInactive", 1); animator.SetBool("inactive", true); }
+        else if (!IsIdleFinished()) return; // Se è in corso, non fare nulla
+        else if (CheckInactivityTimer()) CycleToNextInactivity();
     }
+
+    private bool IsMoving() => h != 0 || v != 0; // Si muove quindi
 
     private bool CheckInactivityTimer()
     {
-        if (h == 0 && v == 0 && !animator.GetBool("inactive")) elapsedTime += Time.deltaTime;
-        else elapsedTime = 0.0f;
-        return elapsedTime >= idleTimeThreshold;
+        if (!IsMoving()) timerInactivity += Time.deltaTime;
+        else timerInactivity = 0.0f;
+        return timerInactivity >= maxTimeInactivity;
     }
 
     private void ToggleInactivity(Animator animator, bool isInactive)
     {
-        elapsedTime = 0.0f;
+        timerInactivity = 0.0f;
         animator.SetBool("inactive", isInactive);
-        animator.SetInteger("nInactive", 1);
+        animator.SetInteger("nInactive", 0);
+    }
+
+    private void CycleToNextInactivity()
+    {
+        timerInactivity = 0.0f;
+        if (animator.GetBool("sit")) animator.SetInteger("nInactive", animator.GetInteger("nInactive") == 1 ? 2 : 1); // Cicla 1, 2 se è seduto
+        else animator.SetInteger("nInactive", animator.GetInteger("nInactive") == 1 ? 3 : 1); // Cicla 1, 3 se non è seduto
     }
 
     private bool CanInactivity() =>
-        !(animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon")) // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano
-            || animator.GetBool("aiming") || animator.GetBool("reloading") // Se il giocatore sta mirando o ricaricando
+        !(animator.GetBool("hasCutWeapon") || animator.GetBool("hasFireWeapon") // Se il giocatore ha un'arma bianca o da fuoco equipaggiata in mano (la ricarica è implicita nell'avere l'arma in mano o equipaggiata)
+            || animator.GetBool("aiming") // Se il giocatore sta mirando
             || animator.GetBool("pickingUp") // Se il giocatore sta raccogliendo un oggetto
-            || h != 0 || v != 0 // Se il giocatore si sta muovendo
-            || animator.GetBool("sit"); // Se il giocatore è seduto
+            || IsMoving() // Se il giocatore si sta muovendo
+            || animator.GetBool("sit")); // Se il giocatore è seduto
 
+    private bool TakeBoolIdle(AnimatorStateInfo stateInfo, string boolAnimName) =>
+        stateInfo.IsName(boolAnimName) && stateInfo.normalizedTime >= 1f;
+
+    private bool IsIdleFinished()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(3); // Indice del "Layer" dell'animator
+        return TakeBoolIdle(stateInfo, "Shoulder Rubbing Inactive") ||
+            TakeBoolIdle(stateInfo, "Listening To Music Inactive") ||
+            TakeBoolIdle(stateInfo, "Looking Around Inactive");
+    }
+
+    // Per l'SFX
     public void PlayRunning()
     {
         audioSource.clip = runClip;
