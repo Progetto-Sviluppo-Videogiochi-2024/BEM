@@ -171,7 +171,7 @@ public class InventoryManager : MonoBehaviour
         if (item.tagType == ItemTagType.Weapon)
         {
             var weaponEquipable = weaponClassManager.weaponsEquipable;
-            var weaponManager = item.prefab.GetComponent<WeaponManager>();
+            var weaponManager = (item as Weapon).prefab.GetComponent<WeaponManager>();
             weaponsEquipable.Add(item);
             if (!weaponEquipable.Contains(weaponManager)) weaponEquipable.Add(weaponManager);
         }

@@ -17,9 +17,9 @@ public class Item : ScriptableObject
     public ItemEffectType effectType; // Tipo di effetto dell'oggetto
     public float weight; // Peso dell'oggetto
 
-    [Header("Prefab Info")]
-    [Tooltip("Prefab dell'oggetto, da assegnare solo per gli oggetti istanziabili nel corpo del pg (es. armi, oggetti?)")] // TODO: Vale anche per gli oggetti o abbiamo detto di no?
-    public GameObject prefab; // Prefab dell'oggetto
+    // [Header("Prefab Info")]
+    // [Tooltip("Prefab dell'oggetto, da assegnare solo per gli oggetti istanziabili nel corpo del pg (es. armi, oggetti?)")] // TODO: Vale anche per gli oggetti o abbiamo detto di no?
+    // public GameObject prefab; // Prefab dell'oggetto
 
     [Header("Recipe Info")]
     [Tooltip("Nome degli ingredienti necessari alla creazione dell'oggetto (separati da ',')")]

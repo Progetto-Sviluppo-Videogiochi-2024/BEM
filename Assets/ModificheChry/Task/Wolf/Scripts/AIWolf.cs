@@ -114,14 +114,16 @@ public class AIWolf : MonoBehaviour
 
         if (distanceToPlayer > wolf.maxSightDistance) // Se il player è abbastanza lontano, il lupo lo segue
         {
-            animator.SetFloat("speed", player.GetComponent<MovementStateManager>().currentMoveSpeed * 40f);
+            agent.speed = player.GetComponent<MovementStateManager>().currentMoveSpeed;
+            animator.SetFloat("speed", agent.speed);
             agent.SetDestination(player.position);
             agent.isStopped = false;
         }
         else // Se è abbastanza vicino, il lupo si ferma
         {
-            agent.isStopped = true;
+            agent.speed = 0f;
             animator.SetFloat("speed", 0f);
+            agent.isStopped = true;
         }
     }
 

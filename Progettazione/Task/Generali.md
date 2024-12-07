@@ -1,47 +1,26 @@
 # **BUG / DIFETTI**
 
-## **Scena 0**
-
-### **Problemi di movimento:**
-- Dopo che il **pg** si alza, dovrebbe guardare verso il letto, **non** verso la finestra (evitare la retromarcia del pg).
-
-### **JumpScare (opzionale, se c'è tempo):**
-#### **Stanza adiacente:**
-1. **Foro** dietro ai libri della libreria:
-   - Se il player rimuove i libri e ci interagisce, vede: // C'è un buco lì?
-     1. **Scenario 1:** "Persona" seduta. // L'ex conquilino doveva essere proprio un guardone.
-     2. **Scenario 2:** "Persona" seduta, fissata da un mutante.
-     3. **Scenario 3:** "Persona" morta (possibili graffi o segni) cosparsa di sangue, e il mutante è scomparso.
-     4. **Scenario 4:** Stanza vuota quindi pura sua allucinazione.
+## Scena 0 
 
 ## Scena2
 
-- Discorso con UB bloccato dopo aver portato il lupo (forse dovuto all'evento del nodo -> taskfucile.cs)
-- **Task di sparare col fucile:**
-  - Mancano **rig layer**, dialoghi e controlli.
-
+- **Lupo:**
+  - Non collide con gli alberi (solo lago fixato)
 - **Salute Mentale**
   - Implementare respiro affannoso per Stefano quando si attiva la sanità mentale
+
 - **Tests**:
   - **Lupo**:
     - ~~Potrebbe arrivare a destinazione ma continua a _camminare_ e non va in idle (penso di averlo fixato @ccorvino3)~~ 
-    - ~~ Potrebbe decidere di _non attaccare_ a volte (penso di averlo fixato @ccorvino3)~~ 
-      03.12.24: @marco Effettuato Test dopo la Build, si posiziona correttamente
+    - ~~Potrebbe decidere di _non attaccare_ a volte (penso di averlo fixato @ccorvino3)~~
+      - 03.12.24: @marco Effettuato Test dopo la Build, si posiziona correttamente
     - _Non collide_ con alberi, ~~lago~~, ecc...
-  - **Libreria**
-    - A volte lo Spacebar non funzionara e non avviene l'interazione oppure non lo permette dopo la prima transizione
-  - **Radio**
-    - Appena arrivo in Scena2 la musica è già attiva nonostante ho impostato il blocco in ManagerScena2 allo start
-  - **Urgete**
-    - Bug Dialogo per l'event dell'uomo Baita pre-shoting
 
 **Implementazioni facoltative**
-  - Togliere l'erba che va dal sentiero di destra verso l'uomo baita, soprtutto quella sul terreno
+  - Togliere l'erba che va dal sentiero di destra verso l'uomo baita, soprattutto quella sul terreno
   - Inserire punti di riferimento in ogni sentiero, possibilmente diversi.
-  - Nel primo dialogo potremmo aggiungere qualcosa che dica al giocatore che ora può premere ALT per lo swithc camera e che se non si vuole perdere 
+  - Nel primo dialogo potremmo aggiungere qualcosa che dica al giocatore che ora può premere ALT per lo switch camera e che se non si vuole perdere 
     può seguire i sentieri ma niente gli vieta di non entrare nelle boscaglie
-  
-- Decidere per le **ammo** _cosa fare_
 
 ## Scena 3
 

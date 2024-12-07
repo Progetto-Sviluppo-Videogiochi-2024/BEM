@@ -7,7 +7,6 @@ public class WeaponManager : MonoBehaviour
     #region Fire Rate
     [SerializeField] float fireRate;
     float fireRateTimer;
-    [SerializeField] bool semiAuto;
     public LayerMask layerMask;
     #endregion
 
@@ -22,7 +21,6 @@ public class WeaponManager : MonoBehaviour
 
     [Header("Audio Properties")]
     #region Audio Properties
-    [SerializeField] AudioClip fireSound;
     [HideInInspector] public AudioSource audioSource;
     #endregion
 
@@ -39,11 +37,11 @@ public class WeaponManager : MonoBehaviour
     public float enemykickBackForce = 100;
     #endregion
 
-    [Header("Animation Rigging Properties")]
-    #region Animation Rigging Properties
-    [HideInInspector] public Transform leftHandTarget;
-    [HideInInspector] public Transform leftHandHint;
-    #endregion
+    // [Header("Animation Rigging Properties")]
+    // #region Animation Rigging Properties
+    // [HideInInspector] public Transform leftHandTarget;
+    // [HideInInspector] public Transform leftHandHint;
+    // #endregion
 
     [Header("References Scripts")]
     #region References
@@ -70,30 +68,29 @@ public class WeaponManager : MonoBehaviour
 
         aim = GetComponentInParent<AimStateManager>();
         actions = GetComponentInParent<ActionStateManager>();
-
-        bulletSpawnPoint = gameObject.transform.Find("BulletSpawnPoint");
-        muzzleFlashParticles = bulletSpawnPoint.GetComponentInChildren<ParticleSystem>();
-
         bloom = GetComponent<WeaponBloom>();
-        muzzleFlashLight = bulletSpawnPoint.GetComponentInChildren<Light>();
-        lightIntensity = 2;
-        muzzleFlashLight.intensity = 0;
 
         fireRateTimer = fireRate;
     }
 
     private void OnEnable()
     {
+        bulletSpawnPoint = gameObject.transform.Find("BulletSpawnPoint");
+        muzzleFlashParticles = bulletSpawnPoint.GetComponentInChildren<ParticleSystem>();
+        muzzleFlashLight = bulletSpawnPoint.GetComponentInChildren<Light>();
+        lightIntensity = 2;
+        muzzleFlashLight.intensity = 0;
+
         damage = weapon.ammo.damageAmmo;
-        bulletPrefab = weapon.ammo.ammoPrefab;
+        bulletPrefab = weapon.ammo.prefab;
 
         ammo = GetComponent<WeaponAmmo>();
         ammo.data = weapon.ammo;
 
         audioSource = GetComponent<AudioSource>();
 
-        leftHandTarget = this.gameObject.transform.Find("LeftHandIK_target");
-        leftHandHint = this.gameObject.transform.Find("LeftHandIK_hint");
+        // leftHandTarget = this.gameObject.transform.Find("LeftHandIK_target");
+        // leftHandHint = this.gameObject.transform.Find("LeftHandIK_hint");
     }
 
     void Update()
@@ -107,21 +104,22 @@ public class WeaponManager : MonoBehaviour
     private bool Validate()
     {
         // Script valido sse è attaccato ad un oggetto con ItemController e il root è un Player
-        if (GetComponent<ItemController>() == null || !transform.root.CompareTag("Player")) return false;
+        if (GetComponent<ItemController>() == null || !transform.root.GetChild(0).CompareTag("Player")) return false;
         return true;
     }
 
     bool ShouldFire()
     {
         fireRateTimer += Time.deltaTime;
+        if (aim.currentState == aim.rifleIdleState) return false; // Se sta in idle con l'arma, non sparare
         if (fireRateTimer < fireRate) return false; // Se il timer non è ancora scaduto, non sparare
         if (ammo.currentAmmo == 0) return false; // Se le munizioni sono finite, non sparare
         if (actions.currentState == actions.reloadState) return false; // Se si sta ricaricando, non sparare
         if (actions.currentState == actions.swapState) return false; // Se si sta cambiando arma, non sparare
         if (EventSystem.current.IsPointerOverGameObject()) return false; // Se il mouse è sopra un UI, non sparare
-        if (IsClickingOnInteractiveObject()) return false; // Se si sta cliccando su un oggetto interattivo, non sparare
-        if (semiAuto && Input.GetKeyDown(KeyCode.Mouse0)) return true; // Se l'arma è semi automatica e si preme il tasto sinistro del mouse, sparare
-        if (!semiAuto && Input.GetKey(KeyCode.Mouse0)) return true; // Se l'arma è automatica e si tiene premuto il tasto sinistro del mouse, sparare
+        if (IsClickingOnInteractiveObject()) return false; // Se si sta cliccando su un oggetto interattivo (raccoglibile, ecc.), non sparare
+        if (weapon.semiAuto && Input.GetKeyDown(KeyCode.Mouse0)) return true; // Se l'arma è semi automatica e si preme il tasto sinistro del mouse, sparare
+        if (!weapon.semiAuto && Input.GetKey(KeyCode.Mouse0)) return true; // Se l'arma è automatica e si tiene premuto il tasto sinistro del mouse, sparare
         return false;
     }
 
@@ -130,14 +128,15 @@ public class WeaponManager : MonoBehaviour
         fireRateTimer = 0;
         bulletSpawnPoint.LookAt(aim.aimPos);
         bulletSpawnPoint.localEulerAngles = bloom.BloomAngle(bulletSpawnPoint);
-        audioSource.PlayOneShot(fireSound);
+        audioSource.PlayOneShot(weapon.fireSound);
         recoil.TriggerRecoil();
         TriggerMuzzleFlash();
         ammo.currentAmmo--;
         for (int i = 0; i < bulletsPerShot; i++)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 10f, layerMask))
+            Debug.DrawRay(ray.origin, ray.direction * weapon.distance, Color.white, 10f); // Visualizza il raggio nella scena per debug
+            if (Physics.Raycast(ray, out RaycastHit hit, weapon.distance, layerMask))
             {
                 GameObject currentBullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
                 Vector3 direction = (hit.point - bulletSpawnPoint.position).normalized;

@@ -29,7 +29,7 @@ public class AimStateManager : MonoBehaviour
 
     [Header("Aim Settings")]
     #region Aim Settings
-    [HideInInspector] public Transform aimPos;
+    public Transform aimPos;
     [SerializeField] float aimSmoothSpeed = 20;
     [SerializeField] LayerMask aimMask;
     #endregion
@@ -41,11 +41,11 @@ public class AimStateManager : MonoBehaviour
     public RifleIdleAimState rifleIdleAimState = new();
     #endregion
 
-    [Header("Animation rigging settings")]
-    #region Animation rigging settings
-    MultiAimConstraint[] multiAimConstraints;
-    WeightedTransform aimPositionWeightedTransform;
-    #endregion
+    // [Header("Animation rigging settings")]
+    // #region Animation rigging settings
+    // MultiAimConstraint[] multiAimConstraints;
+    // WeightedTransform aimPositionWeightedTransform;
+    // #endregion
 
     [Header("References Scripts")]
     #region References Scripts
@@ -68,7 +68,7 @@ public class AimStateManager : MonoBehaviour
 
     void Start()
     {
-        if (crosshair != null) crosshair.SetActive(false);
+        crosshair?.SetActive(false);
 
         camFollowPosition = transform.GetChild(0); // Prende il primo figlio del player, il transform di CameraFollowPosition
         xFollowPosition = camFollowPosition.localPosition.x;
@@ -91,12 +91,9 @@ public class AimStateManager : MonoBehaviour
 
         aimCam.m_Lens.FieldOfView = Mathf.Lerp(aimCam.m_Lens.FieldOfView, currentFov, Time.deltaTime * fovSmoothSpeed);
 
-        // Vector2 screenCentre = new(Screen.width / 2, Screen.height / 2);
-        // Ray ray = Camera.main.ScreenPointToRay(screenCentre);
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(new(Screen.width / 2, Screen.height / 2));
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimMask))
         {
-            // aimPos.position = hit.point;
             aimPos.position = Vector3.Lerp(aimPos.position, hit.point, Time.deltaTime * aimSmoothSpeed);
             Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red); // TODO: da togliere poi
         }
@@ -117,7 +114,7 @@ public class AimStateManager : MonoBehaviour
     public void SwitchState(AimBaseState newState)
     {
         currentState = newState;
-        currentState.EnterState(this);
+        currentState?.EnterState(this);
     }
 
     void MoveCamera()

@@ -82,8 +82,8 @@ public class ItemPickup : MonoBehaviour
             {
                 if (item.tagType == Item.ItemTagType.Weapon)
                 {
-                    item.prefab = Instantiate(gameObject);
-                    item.prefab.SetActive(false);
+                    (item as Weapon).prefab = Instantiate(gameObject);
+                    (item as Weapon).prefab.SetActive(false);
                 }
                 InventoryManager.instance.Add(item);
                 InventoryUIController.instance.ListItems(InventoryManager.instance.items);

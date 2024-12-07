@@ -18,7 +18,6 @@ MonoBehaviour:
   value: 0
   effectType: 0
   weight: 3
-  prefab: {fileID: 0}
   ingredientsRecipe: 
   qtaIngredientsRecipe: 
   craftItem: {fileID: 0}
@@ -33,10 +32,17 @@ MonoBehaviour:
   qta: 1
   icon: {fileID: 21300000, guid: d2ecb98760d09f140bdd3157e2369552, type: 3}
   image: {fileID: 21300000, guid: 8d3aa07679217ce4cb7b560b49da29dc, type: 3}
+  prefab: {fileID: 0}
   weaponType: 1
   rangeType: 1
   ammo: {fileID: 11400000, guid: 38e8ed4a6dd5a9648a9ad3788345e0fa, type: 2}
+  distance: 50
+  semiAuto: 1
   isThrowable: 0
+  fireSound: {fileID: 8300000, guid: 82ca27e5d8b94c6468659c860e6487c2, type: 3}
+  magInSound: {fileID: 8300000, guid: f18e2d8cd1508f7458a61f9dc0936614, type: 3}
+  magOutSound: {fileID: 8300000, guid: 6a22a917621779b4c99f8ac06c64e00d, type: 3}
+  releaseSlideSound: {fileID: 8300000, guid: 5e56b7a90838ab047b08ac8c2604e563, type: 3}
   IdlePosition: {x: -0.181975, y: 0.05600014, z: 0.671003}
   IdleRotation: {x: -0.10827694, y: 0.4666286, z: -0.057683446, w: -0.87590325}
   AimPosition: {x: 0.243, y: 0.71, z: 1.134}

@@ -25,9 +25,9 @@ public class Bullet : MonoBehaviour // TODO: adattare questo script per il proge
         print("Bullet hit: " + hitObject.name);
 
         var booleanAccessor = BooleanAccessor.istance;
-        if (hitObject.CompareTag("Shootable") && hitObject.name.Contains("CocaCola") && booleanAccessor.GetBoolFromThis("cocaCola"))
+        if (hitObject.CompareTag("Shootable") && hitObject.name.Contains("Shootable") && booleanAccessor.GetBoolFromThis("cocaCola"))
         {
-            PlayerPrefs.SetInt("CocaCola", PlayerPrefs.GetInt("CocaCola") + 1);
+            PlayerPrefs.SetInt("nTargetHit", PlayerPrefs.GetInt("nTargetHit") + 1);
             PlayerPrefs.Save();
         }
 

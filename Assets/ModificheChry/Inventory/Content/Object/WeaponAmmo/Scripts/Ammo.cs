@@ -4,7 +4,7 @@ using UnityEngine;
 public class Ammo : Item
 {
     [Header("Info Ammo")]
-    public GameObject ammoPrefab; // Prefab delle munizioni
+    public GameObject prefab; // Prefab delle munizioni
     public AmmoType ammoType; // Tipo di munizioni
     public int nAmmo = 0; // Numero di munizioni per caricatore
     public int maxAmmo = 0; // Numero massimo di munizioni

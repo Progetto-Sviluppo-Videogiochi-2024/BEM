@@ -1,3 +1,4 @@
+using System.Collections;
 using DialogueEditor;
 using UnityEngine;
 
@@ -11,12 +12,12 @@ public class TaskFucile : MonoBehaviour
 
     [Header("References")]
     #region References
-    private Weapon weaponClone; // Riferimento al fucile clonato
+    WeaponAmmo ammo; // Riferimento alle munizioni del fucile
+    private Weapon weapon; // Riferimento al fucile (weapon.prefab è l'arma clonata)
     public GameObject fucile; // Riferimento al fucile
     public GameObject paretiAreaTask; // Riferimento alle pareti dell'area task
     public Transform player; // Riferimento al player
     public NPCConversation[] conversations; // Conversazioni con l'uomo baita per il tutorial del fucile
-    [HideInInspector] public GameObject areaTask; // Riferimento a dove il player può raccogliere il fucile e iniziare il tutorial
     #endregion
 
     [Header("Settings")]
@@ -43,56 +44,65 @@ public class TaskFucile : MonoBehaviour
         if (!playerInRange || !booleanAccessor.GetBoolFromThis("wolfDone")) return;
 
         if (!weaponHandled && booleanAccessor.GetBoolFromThis("cocaCola")) HandleWeaponTask();
-        if (weaponClone == null) return;
+        if (weapon == null) return;
 
         StatusTask();
-    }
-
-    private void HandleWeaponTask()
-    {
-        var itemClone = GetPlayerFucile();
-        if (itemClone == null) { fucile.GetComponent<ItemPickup>().enabled = true; return; }
-        weaponHandled = true;
-        weaponClone = itemClone as Weapon;
-        if (fucile.activeSelf)
-        {
-            player.GetComponent<ItemDetector>().RemoveItemDetection(weaponClone.prefab);
-            paretiAreaTask.SetActive(true);
-            fucile.SetActive(false);
-            weaponClone.prefab.GetComponent<ItemPickup>().enabled = false;
-        }
-    }
-
-    private void StatusTask()
-    {
-        if (PlayerPrefs.GetInt("nTargetHit") < maxTargetHit && weaponClone.prefab.GetComponent<WeaponAmmo>().extraAmmo == 0 &&
-            booleanAccessor.GetBoolFromThis("cocaCola")) // Ha perso
-        {
-            conversationManager.StartConversation(conversations[2]); // Parte UomoBaitaLost
-            booleanAccessor.SetBoolOnDialogueE("cocaColaDone");
-            TaskReset();
-            return;
-        }
-
-        if (PlayerPrefs.GetInt("nTargetHit") == maxTargetHit) // Ha vinto
-        {
-            conversationManager.StartConversation(conversations[1]); // Parte UomoBaitaWin
-            booleanAccessor.SetBoolOnDialogueE("cocaColaDone");
-            TaskReset();
-            // Distruggere il playerprefs se non serve più nel gioco || qualcosa per le statistiche di scena ?
-        }
     }
 
     public Item GetPlayerFucile() => InventoryManager.instance.items.Find(weapon => weapon.nameItem == "Fucile da caccia");
 
     private void ResetPlayerProgress() { PlayerPrefs.SetInt("nTargetHit", 0); PlayerPrefs.Save(); }
 
+    private void HandleWeaponTask()
+    {
+        var weaponInInventory = GetPlayerFucile();
+        if (weaponInInventory == null) { fucile.GetComponent<ItemPickup>().enabled = true; return; }
+        weaponHandled = true;
+        weapon = weaponInInventory as Weapon;
+        if (fucile.activeSelf)
+        {
+            player.GetComponent<ItemDetector>().RemoveItemDetection(weapon.prefab);
+            paretiAreaTask.SetActive(true);
+            fucile.SetActive(false);
+            weapon.prefab.GetComponent<ItemPickup>().enabled = false;
+            ammo = weapon.prefab.GetComponent<WeaponAmmo>();
+        }
+    }
+
+    private void StatusTask()
+    {
+        if (PlayerPrefs.GetInt("nTargetHit") <= maxTargetHit && ammo.extraAmmo == 0) // Non ne ho colpite 3 e ho finito le munizioni
+        {
+            StartCoroutine(HandleTaskWithSFX(2)); // UomoBaitaLost
+        }
+        else if (PlayerPrefs.GetInt("nTargetHit") == maxTargetHit) // Ne ho colpite 3
+        {
+            StartCoroutine(HandleTaskWithSFX((ammo.extraAmmo + ammo.currentAmmo == weapon.ammo.maxAmmo - maxTargetHit) ? 1 : 2)); // Se 1 è UomoBaitaWin, se 2 UomoBaitaLost
+        }
+        // else Non ne ho colpite 3 e ho ancora munizioni => task in corso
+    }
+
+    private IEnumerator HandleTaskWithSFX(int indexConversation)
+    {
+        yield return new WaitForSeconds(1.25f); // Aspetta che il suono si completi (modifica il tempo in base alla durata dell'SFX)
+        conversationManager.StartConversation(conversations[indexConversation]);
+        TaskReset();
+    }
+
     private void TaskReset()
     {
-        InventoryManager.instance.Remove(weaponClone, true);
+        var aimPlayer = player.GetComponent<AimStateManager>();
+        aimPlayer.SwitchState(null);
+        aimPlayer.crosshair.SetActive(false);
+        aimPlayer.animator.SetBool("aiming", false);
+        aimPlayer.currentFov = aimPlayer.idleFov;
+
+        weapon.prefab.SetActive(false);
+        booleanAccessor.SetBoolOnDialogueE("cocaColaDone");
+        InventoryManager.instance.Remove(weapon, true);
         fucile.SetActive(true);
         paretiAreaTask.SetActive(false);
-        Destroy(weaponClone);
+        fucile.GetComponent<ItemPickup>().enabled = false;
     }
 
     private void PlayerTrigger(Collider other, bool _playerInRange)

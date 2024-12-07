@@ -122,7 +122,6 @@ public class WeaponClassManager : MonoBehaviour
             // Attiva e posiziona la nuova arma
             currentWeapon.SetActive(true);
             currentWeapon.transform.SetParent(weaponHolder);
-            //currentWeapon.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity); serve ???
             CambiaRig.SwitchWeapon(currentWeapon);
             aim.SwitchState(aim.rifleIdleState);
             currentWeaponIndex = index; // Aggiorna l'indice dell'arma corrente
@@ -141,7 +140,7 @@ public class WeaponClassManager : MonoBehaviour
     {
         if (item.tagType == ItemTagType.Weapon)
         {
-            GameObject itemPrefab = item.prefab;
+            GameObject itemPrefab = (item as Weapon).prefab;
             if (weaponsEquipable.Contains(itemPrefab.GetComponent<WeaponManager>()))
             {
                 RemoveWeaponHand();
@@ -166,15 +165,15 @@ public class WeaponClassManager : MonoBehaviour
         currentWeapon.transform.SetParent(null);
         currentWeapon = null;
         currentWeaponIndex = -1;
-        //CambiaRig.RemoveCurrentRig();
+        // CambiaRig.RemoveCurrentRig();
         aim.currentState = null;
     }
 
     public void SetCurrentWeapon(WeaponManager weapon)
     {
         if (actions == null) actions = GetComponent<ActionStateManager>();
-        /*leftHandIK.data.target = weapon.leftHandTarget;
-        leftHandIK.data.hint = weapon.leftHandHint;*/
+        // leftHandIK.data.target = weapon.leftHandTarget;
+        // leftHandIK.data.hint = weapon.leftHandHint;
         actions.SetWeapon(weapon);
     }
 

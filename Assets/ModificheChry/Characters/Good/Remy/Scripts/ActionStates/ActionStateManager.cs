@@ -43,11 +43,11 @@ public class ActionStateManager : MonoBehaviour
         SwitchState(defaultState);
     }
 
-    public void MagOut() => audioSource.PlayOneShot(weaponAmmo.magOutSound); // 1 funzione invocata dall'animazione reloading
+    public void MagOut() => audioSource.PlayOneShot(currentWeapon.weapon.magOutSound); // 1 funzione invocata dall'animazione reloading
 
-    public void MagIn() => audioSource.PlayOneShot(weaponAmmo.magInSound); // 2 funzione invocata dall'animazione reloading
+    public void MagIn() => audioSource.PlayOneShot(currentWeapon.weapon.magInSound); // 2 funzione invocata dall'animazione reloading
 
-    public void ReleaseSlide() => audioSource.PlayOneShot(weaponAmmo.releaseSlideSound); // 3 funzione invocata dall'animazione reloading
+    public void ReleaseSlide() => audioSource.PlayOneShot(currentWeapon.weapon.releaseSlideSound); // 3 funzione invocata dall'animazione reloading
 
     public void SetWeapon(WeaponManager weapon)
     {

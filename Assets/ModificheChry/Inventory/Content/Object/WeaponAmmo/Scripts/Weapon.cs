@@ -4,27 +4,36 @@ using UnityEngine;
 public class Weapon : Item // Weapon estende Item
 {
     [Header("Info Weapon")]
+    public GameObject prefab; // Prefab dell'arma
     public WeaponType weaponType; // Tipo di arma (da mischia, da fuoco)
     public RangeType rangeType; // Tipo di raggio (corto, medio)
     public Ammo ammo; // Munizioni dell'arma (se applicabile)
+    public float distance; // Distanza massima di tiro dell'arma
+    public bool semiAuto; // Se l'arma è semiautomatica (cioè spara un colpo per volta)
     public bool isThrowable; // Se l'arma è da lancio (coltelli, bottiglie)
-    
+
+    [Header("Audio Properties")]
+    public AudioClip fireSound; // Suono di sparo
+    public AudioClip magInSound; // Suono di inserimento del caricatore
+    public AudioClip magOutSound; // Suono di estrazione del caricatore
+    public AudioClip releaseSlideSound; // Suono di rilascio del caricatore
+
     [Header("Positioning Weapon in Hands")]
     public Vector3 IdlePosition; // Posizione dell'arma equipaggiata
     public Quaternion IdleRotation; // Rotazione dell'arma equipaggiata
-     public Vector3 AimPosition; // Posizione dell'arma equipaggiata
+    public Vector3 AimPosition; // Posizione dell'arma equipaggiata
     public Quaternion AimRotation; // Rotazione dell'arma equipaggiata
     public Vector3 Scale; // Scala dell'arma equipaggiata
-    
+
     public enum WeaponType
     {
-        Melee,      // Armi da mischia (coltelli, asce, mazze)
-        Ranged     // Armi da fuoco (pistole, fucili)
+        Melee, // Armi da mischia (coltelli, asce, mazze)
+        Ranged // Armi da fuoco (pistole, fucili)
     }
 
     public enum RangeType
     {
-        ShortRange,  // Corto raggio (pistole, fucili a pompa)
-        MediumRange  // Medio raggio (fucili d'assalto)
+        ShortRange, // Corto raggio (pistole, fucili a pompa)
+        MediumRange // Medio raggio (fucili d'assalto)
     }
 }
