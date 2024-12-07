@@ -71,7 +71,7 @@ public class TaskFucile : MonoBehaviour
 
     private void StatusTask()
     {
-        if (PlayerPrefs.GetInt("nTargetHit") <= maxTargetHit && ammo.extraAmmo == 0) // Non ne ho colpite 3 e ho finito le munizioni
+        if (PlayerPrefs.GetInt("nTargetHit") <= maxTargetHit && ammo.extraAmmo + ammo.currentAmmo == 0) // Non ne ho colpite 3 e ho finito le munizioni
         {
             StartCoroutine(HandleTaskWithSFX(2)); // UomoBaitaLost
         }
