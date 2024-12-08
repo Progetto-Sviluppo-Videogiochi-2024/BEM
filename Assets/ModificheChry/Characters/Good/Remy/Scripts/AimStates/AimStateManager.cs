@@ -119,7 +119,12 @@ public class AimStateManager : MonoBehaviour
 
     void MoveCamera()
     {
-        if (Input.GetKeyDown(KeyCode.LeftAlt)) xFollowPosition = -xFollowPosition;
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            print("Alt pressed");
+            xFollowPosition = -xFollowPosition;
+        }
+
         if (movement.currentState == movement.crouchState) yFollowPosition = crouchCamHeight;
         else yFollowPosition = ogYposition;
 
