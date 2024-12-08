@@ -1,7 +1,6 @@
-using DialogueEditor;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour // TODO: adattare questo script per il progetto quando spara villain o oggetti (se necessario)
+public class Bullet : MonoBehaviour
 {
     [Header("Bullet Settings")]
     #region Bullet Settings
@@ -27,10 +26,13 @@ public class Bullet : MonoBehaviour // TODO: adattare questo script per il proge
         var booleanAccessor = BooleanAccessor.istance;
         if (hitObject.CompareTag("Shootable") && hitObject.name.Contains("Shootable") && booleanAccessor.GetBoolFromThis("cocaCola"))
         {
-            PlayerPrefs.SetInt("nTargetHit", PlayerPrefs.GetInt("nTargetHit") + 1);
-            PlayerPrefs.Save();
+            if (hit.collider.TryGetComponent<Bottle>(out var bottle))
+            {
+                bottle.Explode(hitObject);
+                PlayerPrefs.SetInt("nTargetHit", PlayerPrefs.GetInt("nTargetHit") + 1);
+                PlayerPrefs.Save();
+            }
         }
-
         if (hitObject.transform.root.gameObject.GetComponent<EnemyHealth>())
         {
             EnemyHealth enemyHealth = hitObject.transform.root.gameObject.GetComponent<EnemyHealth>();
@@ -43,6 +45,7 @@ public class Bullet : MonoBehaviour // TODO: adattare questo script per il proge
                 enemyHealth.isDead = true;
             }
         }
+
         Destroy(this.gameObject);
     }
 }
