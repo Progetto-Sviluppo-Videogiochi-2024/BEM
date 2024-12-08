@@ -77,8 +77,14 @@ public class MovementStateManager : MonoBehaviour
         GetDirectionAndMove();
         Gravity();
 
-        if (!CanInactivity()) ToggleInactivity(animator, false);
-        else Inactive();
+        if (!CanInactivity())
+        {
+            ToggleInactivity(animator, false);
+        }
+        else if (CheckInactivityTimer())
+        {
+            Inactive();
+        }
 
         animator.SetFloat("hInput", h);
         animator.SetFloat("vInput", v);
@@ -131,10 +137,22 @@ public class MovementStateManager : MonoBehaviour
 
     private bool CheckInactivityTimer()
     {
-        if (!IsMoving()) timerInactivity += Time.deltaTime;
-        else timerInactivity = 0.0f;
+        // Se viene rilevato un input da tastiera, resetta il timer
+        if (Input.anyKey || Input.GetMouseButton(0) || Input.GetMouseButton(1) || 
+        Mathf.Abs(Input.GetAxis("Mouse X")) > 0.01f || Mathf.Abs(Input.GetAxis("Mouse Y")) > 0.01f)
+        {
+            timerInactivity = 0.0f;
+            return false;
+        }
+
+        // Incrementa il timer di inattività
+        timerInactivity += Time.deltaTime;
+
+        // Ritorna true solo se supera il tempo massimo di inattività
         return timerInactivity >= maxTimeInactivity;
     }
+
+
 
     private void ToggleInactivity(Animator animator, bool isInactive)
     {
