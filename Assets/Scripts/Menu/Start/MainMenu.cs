@@ -15,10 +15,13 @@ public class MainMenu : MonoBehaviour
 
     [Header("UI Elements")]
     [SerializeField] GameObject nameGameObject; // Riferimento all'oggetto NameGame
-    private TextMeshProUGUI nameGameText; // Campo per il componente TextMeshProUGUI
-    private Color originalColor; // Colore originale del testo
-    private Vector3 originalPosition; // Posizione originale del testo
-    private Quaternion originalRotation; // Rotazione originale del testo
+    //[SerializeField] GameObject startGame; // Riferimento all'oggetto StartGame
+    //[SerializeField] GameObject continueGame; // Riferimento all'oggetto continueGame
+    //private Color originalColor; // Colore originale del testo
+    //private Vector3 originalPosition; // Posizione originale del testo
+    //private Quaternion originalRotation; // Rotazione originale del testo
+    private Coroutine glitchCoroutineTitle; // Per memorizzare la Coroutine attiva
+    private Coroutine glitchCoroutineButton;
 
     [Header("Audio Settings")]
     public AudioClip audioClip; // Clip audio per la musica di sottofondo
@@ -90,50 +93,130 @@ public class MainMenu : MonoBehaviour
         // GameObject nameGameObject = GameObject.Find("Menu/StartUI/NameGame"); // Trova l'oggetto NameGame e il suo TextMeshProUGUI
         if (nameGameObject != null)
         {
-            if (nameGameObject.TryGetComponent<TextMeshProUGUI>(out nameGameText))
+            if (nameGameObject.TryGetComponent(out TextMeshProUGUI nameGameText))
             {
+                Color originalColor; // Colore originale del testo
+                Vector3 originalPosition; // Posizione originale del testo
+                Quaternion originalRotation; // Rotazione originale del testo
                 originalColor = nameGameText.color;
                 originalPosition = nameGameText.transform.position;
                 originalRotation = nameGameText.transform.rotation;
-                StartCoroutine(GlitchEffectCoroutine());
+                StartCoroutine(GlitchEffectCoroutine(nameGameText, originalColor, originalPosition, originalRotation));
             }
             else Debug.LogError("Componente TextMeshProUGUI non trovato su NameGame.");
         }
         else Debug.LogError("Oggetto NameGame non trovato nella gerarchia.");
     }
 
-    private IEnumerator GlitchEffectCoroutine()
+    public void CreateGlitchText(GameObject buttonUI)
+    {
+        if (buttonUI != null)
+        {
+            var ButtonUIText = buttonUI.GetComponentInChildren<TextMeshProUGUI>();
+            if (ButtonUIText != null)
+            {
+                Color originalColor; // Colore originale del testo
+                Vector3 originalPosition; // Posizione originale del testo
+                Quaternion originalRotation; // Rotazione originale del testo
+                bool oneTime = true; // Se true, l'effetto glitch si verifica una sola volta
+                originalColor = ButtonUIText.color;
+                originalPosition = ButtonUIText.transform.position;
+                originalRotation = ButtonUIText.transform.rotation;
+
+                // Avvia la Coroutine e salvala
+                glitchCoroutineButton = StartCoroutine(GlitchEffectCoroutine(ButtonUIText, originalColor, originalPosition, originalRotation, oneTime));
+            }
+            else
+            {
+                Debug.LogError("Componente TextMeshProUGUI non trovato su " + buttonUI.name);
+            }
+        }
+        else
+        {
+            Debug.LogError("Oggetto buttonUI non trovato nella gerarchia.");
+        }
+    }
+
+    private IEnumerator GlitchEffectCoroutine(TextMeshProUGUI textUI, Color originalColor, Vector3 originalPosition, Quaternion originalRotation)
     {
         while (true)
         {
-            // Cambia il colore e applica tremolio
-            if (nameGameText != null)
+            if (textUI != null)
             {
-                nameGameText.color = glitchColor;
+                textUI.color = glitchColor;
 
                 // Applica tremolio alla posizione e alla rotazione
                 float shakeTime = glitchDuration;
                 while (shakeTime > 0)
                 {
-                    nameGameText.transform.SetPositionAndRotation(originalPosition + Random.insideUnitSphere * shakeIntensity, Quaternion.Euler(
-                        originalRotation.eulerAngles + new Vector3(
+                    textUI.transform.SetPositionAndRotation(
+                        originalPosition + Random.insideUnitSphere * shakeIntensity,
+                        Quaternion.Euler(originalRotation.eulerAngles + new Vector3(
                             Random.Range(-shakeIntensity, shakeIntensity),
                             Random.Range(-shakeIntensity, shakeIntensity),
                             Random.Range(-shakeIntensity, shakeIntensity)
-                        )
-                    ));
+                        ))
+                    );
                     shakeTime -= Time.deltaTime;
                     yield return null;
                 }
 
                 // Ripristina la posizione e la rotazione originali
-                nameGameText.transform.SetPositionAndRotation(originalPosition, originalRotation);
+                textUI.transform.SetPositionAndRotation(originalPosition, originalRotation);
 
                 // Ripristina il colore
-                nameGameText.color = originalColor;
+                textUI.color = originalColor;
                 yield return new WaitForSeconds(glitchInterval);
             }
-            else yield break; // Interrompe il ciclo se l'elemento TextMeshProUGUI non è stato assegnato
+            else
+            {
+                yield break; // Interrompe il ciclo se l'elemento TextMeshProUGUI non è stato assegnato
+            }
         }
     }
+
+    private IEnumerator GlitchEffectCoroutine(TextMeshProUGUI textUI, Color originalColor, Vector3 originalPosition, Quaternion originalRotation, bool oneTime)
+    {
+        if (textUI != null)
+        {
+            // Applica il colore del glitch
+            textUI.color = glitchColor;
+
+            // Applica tremolio alla posizione e alla rotazione
+            float shakeTime = glitchDuration;
+            while (shakeTime > 0)
+            {
+                textUI.transform.SetPositionAndRotation(
+                    originalPosition + Random.insideUnitSphere * shakeIntensity,
+                    Quaternion.Euler(originalRotation.eulerAngles + new Vector3(
+                        Random.Range(-shakeIntensity, shakeIntensity),
+                        Random.Range(-shakeIntensity, shakeIntensity),
+                        Random.Range(-shakeIntensity, shakeIntensity)
+                    ))
+                );
+                shakeTime -= Time.deltaTime;
+                yield return null;
+            }
+
+            // Ripristina la posizione e la rotazione originali
+            textUI.transform.SetPositionAndRotation(originalPosition, originalRotation);
+
+            // Ripristina il colore originale
+            textUI.color = originalColor;
+
+            if (!oneTime)
+            {
+                // Se non è oneTime (quindi deve ripetersi in loop), ripeti l'effetto
+                yield return new WaitForSeconds(glitchInterval);
+                StartCoroutine(GlitchEffectCoroutine(textUI, originalColor, originalPosition, originalRotation, oneTime));
+            }
+        }
+        else
+        {
+            yield break; // Se textUI è null, esci dalla coroutine
+        }
+    }
+
 }
+
+
