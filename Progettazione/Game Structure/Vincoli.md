@@ -24,7 +24,7 @@
 - **Sanità mentale**: 
 
   - **Effetti**:
-    - Decremento della salute: -1 Hp (ogni 3 minuti) quando Sanità mentale = 50
+    - Decremento della salute: -1 Hp (ogni 3 minuti) quando Sanità mentale <= 50
     - SFX (affanno), VFX (allucinazioni horror)
     - Possibilità di poter essere controllato dal Boss (blocco wasd per qualche secondo) se la sua sanità mentale = 60
     

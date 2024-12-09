@@ -7,8 +7,9 @@ public class Player : MonoBehaviour
     #region Player Status
     [HideInInspector] public int maxHealth = 100; // Salute massima
     public int health; // Salute attuale
-    [HideInInspector] public int sanitaMentale; // TODO: da cambiare // Salute mentale
+    public int sanitaMentale; // TODO: da cambiare // Salute mentale
     [HideInInspector] public bool isDead = false; // Stato del giocatore (vivo/morto)
+    [HideInInspector] public bool menteSana=true;
     #endregion
 
     [Header("References")]
@@ -17,35 +18,52 @@ public class Player : MonoBehaviour
     [HideInInspector] public WeaponClassManager weaponClassManager; // Riferimento al componente WeaponClassManager
     public PlayerUIController playerUIController; // Riferimento al componente PlayerUIController
     private RagdollManager ragdollManager; // Riferimento al componente RagdollManager
+    private AudioSource audiosource;
+    public AudioClip clip;
     #endregion
 
     void Start()
     {
         sanitaMentale = maxHealth;
+        menteSana = true;
         health = maxHealth;
         weaponClassManager = GetComponent<WeaponClassManager>();
         ragdollManager = GetComponent<RagdollManager>();
+        
     }
 
     private void Update()
-    {
+    {   
         playerUIController.UpdateItemUI();
         var ammo = weaponClassManager.actions.weaponAmmo;
         if (ammo == null) return;
         playerUIController.extraAmmo = ammo.extraAmmo;
         playerUIController.UpdateWeaponUI();
         playerUIController.UpdateAmmoCount(ammo.currentAmmo);
-
-        if (health <= sanitaMentale) // TODO: da implementare
-        { }
+        //Ho aggiunto il controllo qui per avere un controllo attivo, 
+        //in PlayBreathing o UpdateHealth il controllo sarebbe stato sporadico.
+        //if(audiosource.isPlaying && audiosource.time >= 15.0f && menteSana == false)
+        //{print("prova");}
+        if (sanitaMentale<=50){
+                    health-=1;
+                }
     }
 
     public void UpdateHealth(int amount)
-    {
+    {   //TODO: distinguere tipo di cura se per la salute o per la sanità mentale
         if (IsDead()) return; // Se è morto, non fare nulla
-
+        //TODO: trovare un modo per distinguere la cura della sanità mentale da quella  della salute
         health += amount;
-        // TODO: aggiungere modifiche alla sanitaMentale
+        if (amount<0) sanitaMentale-=50;
+
+        if(sanitaMentale<=50) menteSana=false;
+        
+        if (menteSana == false) PlayBreathing();
+	
+        if(sanitaMentale>50 && menteSana==false) {
+        menteSana=true;
+        PlayBreathing();
+        }
         if (health >= maxHealth) { health = maxHealth; return; }
         playerUIController.UpdateBloodSplatter(health, maxHealth);
         playerUIController.UpdateSanityIcon();
@@ -76,5 +94,21 @@ public class Player : MonoBehaviour
         {
             ConversationManager.Instance.StartConversation(conversation);
         }
+    }
+
+    private void PlayBreathing(){
+        if (audiosource == null){
+        audiosource = gameObject.AddComponent<AudioSource>();
+        audiosource.loop = true;
+        audiosource.clip = clip;
+        audiosource.time = 5.0f;
+        }
+        if (audiosource.clip != null){
+            audiosource.Play();
+            if(audiosource.isPlaying == false)audiosource.Play();
+            else if(menteSana == true){
+                print("loop annullato");
+                audiosource.loop = false;}
+        }else{print("Non va l'audio");}
     }
 }
