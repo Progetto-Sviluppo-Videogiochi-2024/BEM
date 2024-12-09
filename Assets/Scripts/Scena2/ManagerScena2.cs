@@ -77,6 +77,7 @@ public class ManagerScena2 : MonoBehaviour
         {
             flagNextScene = true;
             fenceHole.enabled = true;
+            diario.AggiungiMissione("Oltrepassa la recinzione");
         }
     }
 

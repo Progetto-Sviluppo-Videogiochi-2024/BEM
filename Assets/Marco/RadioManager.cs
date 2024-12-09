@@ -49,6 +49,8 @@ public class RadioManager : MonoBehaviour
         SalvaButton.onClick.AddListener(() => { Save(); RemoveButtonFocus(); });
         OnOffButton.onClick.AddListener(() => { OnOff(); RemoveButtonFocus(); });
         CloseRadioUI.onClick.AddListener(() => { ToggleRadio(false); RemoveButtonFocus(); });
+
+        currentSongIndex = 0; // Imposta la canzone attuale a 0
     }
 
     void Update()
@@ -104,7 +106,6 @@ public class RadioManager : MonoBehaviour
     {
         if (songs.Count <= 0) return;
 
-        currentSongIndex = Random.Range(0, songs.Count);
         audioSource.clip = songs[currentSongIndex];
         audioSource.playOnAwake = false;
         audioSource.loop = false;
@@ -139,6 +140,7 @@ public class RadioManager : MonoBehaviour
             audioSource.clip = null;
             audioSource.Stop();
             OnOffButton.GetComponent<Image>().color = offColor;
+            currentSongIndex = (currentSongIndex + 1) % songs.Count;
         }
         else if (isRadioOpen && !isOn) // Se spenta, accendi
         {
