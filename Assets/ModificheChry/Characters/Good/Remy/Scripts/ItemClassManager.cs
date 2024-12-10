@@ -34,7 +34,7 @@ public class ItemClassManager : MonoBehaviour
 
             if (itemEquipable.item.effectType == ItemEffectType.Health)
             {
-                player.UpdateHealth(itemEquipable.item.value);
+                player.UpdateStatusPlayer(itemEquipable.item.value, itemEquipable.item.valueSanita);
                 itemEquipable.RemoveItem();
             }
         }

@@ -49,12 +49,13 @@ public class Player : MonoBehaviour
         //}
     }
 
-    public void UpdateHealth(int amount)
+    public void UpdateStatusPlayer(int amountHealth, int amountSanita)
     {   // TODO: distinguere tipo di cura se per la salute o per la sanità mentale
         if (IsDead()) return; // Se è morto, non fare nulla
         // TODO: trovare un modo per distinguere la cura della sanità mentale da quella della salute
-        health += amount;
-        if (amount < 0) sanitaMentale -= 10;
+        health += amountHealth;
+        sanitaMentale += amountSanita;
+        if (amountHealth < 0) sanitaMentale -= 10;
 
         if (sanitaMentale <= 40) menteSana = false;
 
@@ -65,7 +66,7 @@ public class Player : MonoBehaviour
             menteSana = true;
             PlayBreathing();
         }
-        if (health >= maxHealth) { health = maxHealth; return; }
+        if (health >= maxHealth) { health = maxHealth;}
         playerUIController.UpdateBloodSplatter(health, maxHealth);
         playerUIController.UpdateSanityIcon();
     }

@@ -29,7 +29,11 @@ public class ItemEditor : Editor
             item.effectType = (Item.ItemEffectType)EditorGUILayout.EnumPopup(new GUIContent("Effect Type", "Tipo di effetto dell'oggetto, solo per gli oggetti consumabili"), item.effectType);
         }
 
-        if (item.isUsable) item.value = EditorGUILayout.IntField(new GUIContent("Value", "Valore usato da effectType"), item.value);
+        if (item.isUsable)
+        {
+            item.value = EditorGUILayout.IntField(new GUIContent("Health", "Valore vita conferita dall'oggetto"), item.value);
+            item.valueSanita = EditorGUILayout.IntField(new GUIContent("Value Sanity", "Valore della sanità mentale conferita dall'oggetto"), item.valueSanita);
+        }
 
         if (item.inventorySectionType == Item.ItemType.ConsumableEquipable)
         {

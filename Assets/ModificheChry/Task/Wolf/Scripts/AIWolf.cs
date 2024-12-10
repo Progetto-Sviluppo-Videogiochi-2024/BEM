@@ -95,7 +95,7 @@ public class AIWolf : MonoBehaviour
         Vector3 rayDirection = (player.position - transform.position).normalized;
         if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, wolf.distanceAttackMelee)) // Se colpisce il player
         {
-            hit.collider.transform.root.GetChild(0).GetComponent<Player>()?.UpdateHealth(wolf.melee1Damage);
+            hit.collider.transform.root.GetChild(0).GetComponent<Player>()?.UpdateStatusPlayer(wolf.melee1Damage, 0);
         }
         isAttacking = false;
     }

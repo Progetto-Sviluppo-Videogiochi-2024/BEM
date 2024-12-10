@@ -363,7 +363,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             var player = FindObjectOfType<Player>();
             if (player.health >= player.maxHealth && player.sanitaMentale >= player.maxHealth) { button.interactable = false; tooltip.ShowTooltip("Non ne ho bisogno!", 5f); return; }
             else button.interactable = true;
-            if (item.effectType == ItemEffectType.Health) { player.UpdateHealth(item.value); RemoveItem(); }
+            if (item.effectType == ItemEffectType.Health) { player.UpdateStatusPlayer(item.value, item.valueSanita); RemoveItem(); }
         }
     }
 

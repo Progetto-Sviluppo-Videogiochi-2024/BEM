@@ -12,6 +12,7 @@ public class Item : ScriptableObject
     [Header("Consumable-Equipable Info")]
     [Tooltip("Oggetti: Valore usato da effectType")]
     public int value; // Valore dell'oggetto
+    public int valueSanita; // Valore della sanità mentale  
     
     [Tooltip("Tipo di effetto dell'oggetto, solo per gli oggetti consumabili")]
     public ItemEffectType effectType; // Tipo di effetto dell'oggetto
