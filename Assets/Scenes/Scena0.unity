@@ -9332,6 +9332,9 @@ PrefabInstance:
       addedObject: {fileID: 1875255422}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8815816322042133858, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
+      insertIndex: 12
+      addedObject: {fileID: 1536092246}
+    - targetCorrespondingSourceObject: {fileID: 8815816322042133858, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1536092231}
     - targetCorrespondingSourceObject: {fileID: 1680314046516614087, guid: b05cef8117a7ae64b857ddf4bddf65c3, type: 3}
@@ -20866,6 +20869,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f02ac9658a1854fb39e56698d3af8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1536092246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382626873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e435d366a96150b4097ec7c52b8870b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField:
+    Part1: 2958747861
+    Part2: 1192415118
+    Part3: 2107258802
+    Part4: 3263867394
+  data:
+    <Id>k__BackingField:
+      Part1: 0
+      Part2: 0
+      Part3: 0
+      Part4: 0
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    health: 0
+    sanitaMentale: 0
+    isDead: 0
+    menteSana: 0
 --- !u!1001 &1536317730
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21302,6 +21334,7 @@ GameObject:
   - component: {fileID: 1582097250}
   - component: {fileID: 1582097249}
   - component: {fileID: 1582097251}
+  - component: {fileID: 1582097253}
   - component: {fileID: 1582097252}
   m_Layer: 0
   m_Name: ManagerScena0
@@ -21368,6 +21401,34 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1582097248}
   m_Enabled: 1
+--- !u!114 &1582097253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582097248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0f79c2d8c6cba4e8baeefd419b4f22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameData:
+    name: 
+    currentSceneName: 
+    nSlotSave: 0
+    playerData:
+      <Id>k__BackingField:
+        Part1: 0
+        Part2: 0
+        Part3: 0
+        Part4: 0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
+      health: 0
+      sanitaMentale: 0
+      isDead: 0
+      menteSana: 0
 --- !u!1001 &1590436339
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using TMPro;
 public class MainMenu : MonoBehaviour
 {
     [Header("Scene Transition Settings")]
-    private GestoreScena transition;
+    private GestoreScena transition; // Riferimento al GestoreScena per la transizione tra le scene
 
     [Header("UI Glitch Settings")]
     [SerializeField] private Color glitchColor = Color.red; // Colore del glitch
@@ -14,14 +14,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private float shakeIntensity = 5f; // Intensità del tremolio
 
     [Header("UI Elements")]
-    [SerializeField] GameObject nameGameObject; // Riferimento all'oggetto NameGame
-    //[SerializeField] GameObject startGame; // Riferimento all'oggetto StartGame
-    //[SerializeField] GameObject continueGame; // Riferimento all'oggetto continueGame
-    //private Color originalColor; // Colore originale del testo
-    //private Vector3 originalPosition; // Posizione originale del testo
-    //private Quaternion originalRotation; // Rotazione originale del testo
-    private Coroutine glitchCoroutineTitle; // Per memorizzare la Coroutine attiva
-    private Coroutine glitchCoroutineButton;
+    [SerializeField] GameObject nameGameObject; // GameObject per il titolo del gioco
+    private Coroutine glitchCoroutineTitle; // Per memorizzare la Coroutine attiva (per il titolo)
+    private Coroutine glitchCoroutineButton; // Per memorizzare la Coroutine attiva (per i pulsanti)
 
     [Header("Audio Settings")]
     public AudioClip audioClip; // Clip audio per la musica di sottofondo
@@ -58,6 +53,13 @@ public class MainMenu : MonoBehaviour
         transition.GoToTransitionScene();
     }
 
+    public void LoadGame()
+    {
+        StopAudio();
+
+        // Caricare uno degli slot di salvataggio (da implementare), poi invocare la scena di transizione
+    }
+
     public void QuitGame()
     {
         // Ferma la musica e chiudi il gioco
@@ -70,15 +72,9 @@ public class MainMenu : MonoBehaviour
     {
         // Aggiungi un componente AudioSource se non esiste
         audioSource = GetComponent<AudioSource>();
-
-        // Imposta il clip audio
         audioSource.clip = audioClip;
-
-        // Configura l'AudioSource
         audioSource.loop = true; // Imposta loop su true per riprodurre l'audio in loop
         audioSource.playOnAwake = true;
-
-        // Riproduci l'audio
         audioSource.Play();
     }
 
@@ -216,7 +212,4 @@ public class MainMenu : MonoBehaviour
             yield break; // Se textUI è null, esci dalla coroutine
         }
     }
-
 }
-
-

@@ -1,0 +1,119 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+[Serializable]
+public class GameData
+{
+    public string name; // Nome del gioco salvato
+    public string currentSceneName; // Nome della scena attuale
+    public DateTime saveTime; // Data e ora del salvataggio
+    public int nSlotSave; // Numero dello slot di salvataggio
+    public PlayerData playerData; // Dati del giocatore
+    // Inventario?
+    // Oggetti equipaggiati?
+    // PlayerPrefs?
+    // BA?
+    // Quest?
+    // Etc.
+}
+
+public interface ISaveable
+{
+    SerializableGuid Id { get; set; }
+}
+
+public interface IBind<TData> where TData : ISaveable
+{
+    SerializableGuid Id { get; set; }
+    void Bind(TData data);
+}
+
+public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
+{
+    [SerializeField] public GameData gameData;
+    IDataService dataService;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        dataService = new FileDataService(new JsonSerializer());
+    }
+
+    void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
+
+    void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MainMenu" || scene.name == "Transizione") return;
+
+        Bind<GameCharacter, PlayerData>(gameData.playerData);
+    }
+
+    void Bind<T, TData>(TData data) where T : MonoBehaviour, IBind<TData> where TData : ISaveable, new()
+    {
+        var entity = FindObjectsByType<T>(FindObjectsSortMode.None).FirstOrDefault();
+        if (entity != null)
+        {
+            data ??= new TData { Id = entity.Id }; // Lo assegna sse data è NULL
+            entity.Bind(data);
+        }
+    }
+
+    void Bind<T, TData>(List<TData> datas) where T : MonoBehaviour, IBind<TData> where TData : ISaveable, new()
+    {
+        var entities = FindObjectsByType<T>(FindObjectsSortMode.None);
+        foreach (var entity in entities)
+        {
+            var data = datas.FirstOrDefault(d => d.Id == entity.Id);
+            if (data == null)
+            {
+                data = new TData { Id = entity.Id };
+                datas.Add(data);
+            }
+            entity.Bind(data);
+        }
+    }
+
+    public void NewGame()
+    {
+        gameData = new GameData
+        {
+            name = "New Game",
+            currentSceneName = "Scena0"
+        };
+        SceneManager.LoadScene(gameData.currentSceneName);
+    }
+
+    public void SaveGame(int nSlotSave)
+    {
+        gameData.name = $"Slot {nSlotSave}";
+        gameData.saveTime = DateTime.Now;
+        gameData.currentSceneName = SceneManager.GetActiveScene().name;
+        gameData.nSlotSave = nSlotSave;
+
+        var player = FindObjectsByType<GameCharacter>(FindObjectsSortMode.None).FirstOrDefault();
+        if (player != null)
+        {
+            player.SavePlayerData();
+            gameData.playerData = player.data;
+        }
+
+        dataService.Save(gameData);
+    }
+
+    public void LoadGame(string fileName)
+    {
+        gameData = dataService.Load(fileName);
+
+        if (string.IsNullOrWhiteSpace(gameData.currentSceneName)) gameData.currentSceneName = "Scena0";
+        SceneManager.LoadScene(gameData.currentSceneName);
+    }
+
+    public void ReloadGame() => LoadGame(gameData.name);
+
+    public void DeleteGame(string gameName) => dataService.Delete(gameName);
+}

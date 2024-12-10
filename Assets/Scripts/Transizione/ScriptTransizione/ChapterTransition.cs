@@ -25,7 +25,7 @@ public class ChapterTransition : MonoBehaviour
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        
+
         chapterText = panel.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         continueButton = panel.transform.GetChild(1).GetComponent<Button>();
         continueText = continueButton.GetComponentInChildren<TextMeshProUGUI>();
@@ -40,10 +40,7 @@ public class ChapterTransition : MonoBehaviour
     // Funzione pubblica per impostare il testo del capitolo in runtime
     public void SetChapterText(string chapterTitle)
     {
-        if (chapterText != null)
-        {
-            chapterText.text = chapterTitle;
-        }
+        if (chapterText != null) chapterText.text = chapterTitle;
     }
 
     public void ChangeScene() => SceneManager.LoadScene(PlayerPrefs.GetString("NextScene"));

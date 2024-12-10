@@ -7,9 +7,9 @@ public class Player : MonoBehaviour
     #region Player Status
     [HideInInspector] public int maxHealth = 100; // Salute massima
     public int health; // Salute attuale
-    public int sanitaMentale; // TODO: da cambiare // Salute mentale
+    public int sanitaMentale; // Salute mentale
     [HideInInspector] public bool isDead = false; // Stato del giocatore (vivo/morto)
-    [HideInInspector] public bool menteSana=true;
+    [HideInInspector] public bool menteSana = true; // Stato della salute mentale ("sano"/"malato")
     #endregion
 
     [Header("References")]
@@ -27,13 +27,14 @@ public class Player : MonoBehaviour
         sanitaMentale = maxHealth;
         menteSana = true;
         health = maxHealth;
+
         weaponClassManager = GetComponent<WeaponClassManager>();
         ragdollManager = GetComponent<RagdollManager>();
-        
+
     }
 
     private void Update()
-    {   
+    {
         playerUIController.UpdateItemUI();
         var ammo = weaponClassManager.actions.weaponAmmo;
         if (ammo == null) return;
@@ -44,25 +45,27 @@ public class Player : MonoBehaviour
         //in PlayBreathing o UpdateHealth il controllo sarebbe stato sporadico.
         //if(audiosource.isPlaying && audiosource.time >= 15.0f && menteSana == false)
         //{print("prova");}
-        if (sanitaMentale<=50){
-                    health-=1;
-                }
+        if (sanitaMentale <= 50)
+        {
+            health -= 1;
+        }
     }
 
     public void UpdateHealth(int amount)
-    {   //TODO: distinguere tipo di cura se per la salute o per la sanità mentale
+    {   // TODO: distinguere tipo di cura se per la salute o per la sanità mentale
         if (IsDead()) return; // Se è morto, non fare nulla
-        //TODO: trovare un modo per distinguere la cura della sanità mentale da quella  della salute
+        // TODO: trovare un modo per distinguere la cura della sanità mentale da quella della salute
         health += amount;
-        if (amount<0) sanitaMentale-=50;
+        if (amount < 0) sanitaMentale -= 50;
 
-        if(sanitaMentale<=50) menteSana=false;
-        
+        if (sanitaMentale <= 50) menteSana = false;
+
         if (menteSana == false) PlayBreathing();
-	
-        if(sanitaMentale>50 && menteSana==false) {
-        menteSana=true;
-        PlayBreathing();
+
+        if (sanitaMentale > 50 && menteSana == false)
+        {
+            menteSana = true;
+            PlayBreathing();
         }
         if (health >= maxHealth) { health = maxHealth; return; }
         playerUIController.UpdateBloodSplatter(health, maxHealth);
@@ -96,19 +99,25 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void PlayBreathing(){
-        if (audiosource == null){
-        audiosource = gameObject.AddComponent<AudioSource>();
-        audiosource.loop = true;
-        audiosource.clip = clip;
-        audiosource.time = 5.0f;
+    private void PlayBreathing()
+    {
+        if (audiosource == null)
+        {
+            audiosource = gameObject.AddComponent<AudioSource>();
+            audiosource.loop = true;
+            audiosource.clip = clip;
+            audiosource.time = 5.0f;
         }
-        if (audiosource.clip != null){
+        if (audiosource.clip != null)
+        {
             audiosource.Play();
-            if(audiosource.isPlaying == false)audiosource.Play();
-            else if(menteSana == true){
+            if (audiosource.isPlaying == false) audiosource.Play();
+            else if (menteSana == true)
+            {
                 print("loop annullato");
-                audiosource.loop = false;}
-        }else{print("Non va l'audio");}
+                audiosource.loop = false;
+            }
+        }
+        else { print("Non va l'audio"); }
     }
 }
