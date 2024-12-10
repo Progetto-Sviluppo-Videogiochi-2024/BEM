@@ -41,14 +41,12 @@ public class Player : MonoBehaviour
         playerUIController.extraAmmo = ammo.extraAmmo;
         playerUIController.UpdateWeaponUI();
         playerUIController.UpdateAmmoCount(ammo.currentAmmo);
-        //Ho aggiunto il controllo qui per avere un controllo attivo, 
-        //in PlayBreathing o UpdateHealth il controllo sarebbe stato sporadico.
         //if(audiosource.isPlaying && audiosource.time >= 15.0f && menteSana == false)
         //{print("prova");}
-        if (sanitaMentale <= 50)
-        {
-            health -= 1;
-        }
+        //if (sanitaMentale <= 50)
+        //{
+        //    health -= 1;
+        //}
     }
 
     public void UpdateHealth(int amount)
@@ -56,9 +54,9 @@ public class Player : MonoBehaviour
         if (IsDead()) return; // Se è morto, non fare nulla
         // TODO: trovare un modo per distinguere la cura della sanità mentale da quella della salute
         health += amount;
-        if (amount < 0) sanitaMentale -= 50;
+        if (amount < 0) sanitaMentale -= 10;
 
-        if (sanitaMentale <= 50) menteSana = false;
+        if (sanitaMentale <= 40) menteSana = false;
 
         if (menteSana == false) PlayBreathing();
 
@@ -106,7 +104,6 @@ public class Player : MonoBehaviour
             audiosource = gameObject.AddComponent<AudioSource>();
             audiosource.loop = true;
             audiosource.clip = clip;
-            audiosource.time = 5.0f;
         }
         if (audiosource.clip != null)
         {
