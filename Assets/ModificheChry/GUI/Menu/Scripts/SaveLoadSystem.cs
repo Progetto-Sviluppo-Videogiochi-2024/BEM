@@ -35,6 +35,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
 {
     [SerializeField] public GameData gameData;
     IDataService dataService;
+    private bool isLoading = false;
 
     protected override void Awake()
     {
@@ -49,6 +50,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "MainMenu" || scene.name == "Transizione") return;
+        if (!isLoading) return;
 
         Bind<GameCharacter, PlayerData>(gameData.playerData);
     }
@@ -85,6 +87,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
             name = "New Game",
             currentSceneName = "Scena0"
         };
+        isLoading = false;
         SceneManager.LoadScene(gameData.currentSceneName);
     }
 
@@ -110,6 +113,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         gameData = dataService.Load(fileName);
 
         if (string.IsNullOrWhiteSpace(gameData.currentSceneName)) gameData.currentSceneName = "Scena0";
+        isLoading = true;
         SceneManager.LoadScene(gameData.currentSceneName);
     }
 
