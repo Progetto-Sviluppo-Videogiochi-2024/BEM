@@ -119,16 +119,24 @@ public class AimStateManager : MonoBehaviour
 
     void MoveCamera()
     {
+        // Gestione del cambio di spalla con LeftAlt
         if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
             print("Alt pressed");
             xFollowPosition = -xFollowPosition;
         }
 
-        if (movement.currentState == movement.crouchState) yFollowPosition = crouchCamHeight;
-        else yFollowPosition = ogYposition;
+        // Modifica della posizione verticale della camera in base al crouch
+        if (movement.currentState == movement.crouchState)
+            yFollowPosition = crouchCamHeight;  // Altezza della camera durante il crouch
+        else
+            yFollowPosition = ogYposition;  // Ripristina l'altezza originale
 
+        // Calcolo della nuova posizione della telecamera
         Vector3 newFollowPosition = new(xFollowPosition, yFollowPosition, camFollowPosition.localPosition.z);
+
+        // Movimentazione della telecamera verso la nuova posizione in modo fluido
         camFollowPosition.localPosition = Vector3.Lerp(camFollowPosition.localPosition, newFollowPosition, Time.deltaTime * shoulderSwapSpeed);
     }
+
 }

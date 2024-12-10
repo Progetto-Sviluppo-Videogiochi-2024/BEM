@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [Header("References")]
     #region References
     public NPCConversation conversation; // Conversazione quando il player prova a uscire dal campo di gioco con il fucile
+    public NPCConversation conversationMuroConfine; // Conversazione quando il player prova a uscire dal campo di gioco
     [HideInInspector] public WeaponClassManager weaponClassManager; // Riferimento al componente WeaponClassManager
     public PlayerUIController playerUIController; // Riferimento al componente PlayerUIController
     private RagdollManager ragdollManager; // Riferimento al componente RagdollManager
@@ -66,7 +67,7 @@ public class Player : MonoBehaviour
             menteSana = true;
             PlayBreathing();
         }
-        if (health >= maxHealth) { health = maxHealth;}
+        if (health >= maxHealth) { health = maxHealth; }
         playerUIController.UpdateBloodSplatter(health, maxHealth);
         playerUIController.UpdateSanityIcon();
     }
@@ -95,6 +96,9 @@ public class Player : MonoBehaviour
         if (hit.gameObject.CompareTag("Wall") && CanReadDE())
         {
             ConversationManager.Instance.StartConversation(conversation);
+        }
+        if (hit.gameObject.CompareTag("WallConfine")){
+            ConversationManager.Instance.StartConversation(conversationMuroConfine);
         }
     }
 
