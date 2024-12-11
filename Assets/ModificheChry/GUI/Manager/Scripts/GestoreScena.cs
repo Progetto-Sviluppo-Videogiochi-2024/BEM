@@ -26,6 +26,15 @@ public class GestoreScena : MonoBehaviour
         if (tooltip != null) InventoryUIController.instance.tooltip = tooltip;
     }
 
+    public string GetChapterBySceneName(string sceneName) => sceneName switch
+    {
+        "Scena0" => "Capitolo 1: Preparativi per l'Avventura",
+        "Scena1" => "Capitolo 2: In Viaggio Verso la Foresta",
+        "Scena2" => "Capitolo 3: Arrivo e Scoperte nella Foresta",
+        "Scena3" => "Capitolo 4: Un'Inquietante Sorpresa",
+        _ => "Capitolo: Sconosciuto" // Non dovrebbe mai accadere se le scene sono correttamente definite
+    };
+
     public void GoToTransitionScene()
     {
         PlayerPrefs.SetString("CurrentChapter", nextChapter);

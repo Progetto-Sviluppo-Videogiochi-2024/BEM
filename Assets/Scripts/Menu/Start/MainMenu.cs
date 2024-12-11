@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject nameGameObject; // GameObject per il titolo del gioco
     private Coroutine glitchCoroutineTitle; // Per memorizzare la Coroutine attiva (per il titolo)
     private Coroutine glitchCoroutineButton; // Per memorizzare la Coroutine attiva (per i pulsanti)
+    public Transform slotUI; // Indica la lista degli slot di salvataggio (da configurare a runtime sulla base dei suoi slot creati e salvati)
 
     [Header("Audio Settings")]
     public AudioClip audioClip; // Clip audio per la musica di sottofondo
@@ -33,12 +34,7 @@ public class MainMenu : MonoBehaviour
         CreateGlitchText();
     }
 
-    void Update()
-    {
-        ActivateMenuFromKeyboard();
-    }
-
-    private void ActivateMenuFromKeyboard()
+    private void ActivateMenuFromKeyboard() // Invocarlo, se lo implementiamo, in Update
     {
         // TODO: implementare le feature del menu con la tastiera
         // problema: troppi riferimenti se come attributi del cs
@@ -47,24 +43,16 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        // Ferma la musica quando si avvia il gioco
-        StopAudio();
-
+        StopAudio(); // Ferma la musica quando si avvia il gioco
         transition.GoToTransitionScene();
     }
 
-    public void LoadGame()
-    {
-        StopAudio();
-
-        // Caricare uno degli slot di salvataggio (da implementare), poi invocare la scena di transizione
-    }
+    // public void LoadGame() { } // Implementato già nell'inspector del button Continue del MM
 
     public void QuitGame()
     {
         // Ferma la musica e chiudi il gioco
         StopAudio();
-
         Application.Quit();
     }
 
@@ -78,11 +66,7 @@ public class MainMenu : MonoBehaviour
         audioSource.Play();
     }
 
-    private void StopAudio()
-    {
-        // Interrompi l'audio
-        audioSource.Stop();
-    }
+    private void StopAudio() => audioSource.Stop();
 
     private void CreateGlitchText()
     {

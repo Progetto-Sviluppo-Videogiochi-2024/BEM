@@ -7,4 +7,5 @@ public interface IDataService
     void Delete(string name);
     void DeleteAll();
     IEnumerable<string> ListSaves();
+    bool SearchSlotFileByUI(string str1, string str2);
 }

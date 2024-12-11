@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 [Serializable]
 public class GameData
 {
-    public string name; // Nome del gioco salvato
+    public string fileName; // Nome del file di salvataggio
     public string currentSceneName; // Nome della scena attuale
+    // Dati livello? // Dati importanti della scena attuale
     public DateTime saveTime; // Data e ora del salvataggio
     public int nSlotSave; // Numero dello slot di salvataggio
     public PlayerData playerData; // Dati del giocatore
@@ -34,7 +35,7 @@ public interface IBind<TData> where TData : ISaveable
 public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
 {
     [SerializeField] public GameData gameData;
-    IDataService dataService;
+    [HideInInspector] public IDataService dataService;
     private bool isLoading = false;
 
     protected override void Awake()
@@ -84,7 +85,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
     {
         gameData = new GameData
         {
-            name = "New Game",
+            fileName = $"Slot {dataService.ListSaves().Count() + 1}",
             currentSceneName = "Scena0"
         };
         isLoading = false;
@@ -93,7 +94,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
 
     public void SaveGame(int nSlotSave)
     {
-        gameData.name = $"Slot {nSlotSave}";
+        gameData.fileName = $"Slot {nSlotSave}";
         gameData.saveTime = DateTime.Now;
         gameData.currentSceneName = SceneManager.GetActiveScene().name;
         gameData.nSlotSave = nSlotSave;
@@ -117,7 +118,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         SceneManager.LoadScene(gameData.currentSceneName);
     }
 
-    public void ReloadGame() => LoadGame(gameData.name);
+    public void ReloadGame() => LoadGame(gameData.fileName);
 
-    public void DeleteGame(string gameName) => dataService.Delete(gameName);
+    public void DeleteGame(string fileName) => dataService.Delete(fileName);
 }

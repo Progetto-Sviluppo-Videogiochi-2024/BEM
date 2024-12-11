@@ -23,11 +23,12 @@ public class ManagerScena1 : MonoBehaviour
     private ConversationManager conversationManager; // Riferimento al ConversationManager
     [SerializeField] private NPCConversation dialogue; // Riferimento alla conversazione del gruppo di ragazzi
     private AudioSource audioSource; // Riferimento all'AudioSource
-    public BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
+    private BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
     #endregion
 
     void Start()
     {
+        booleanAccessor = BooleanAccessor.istance;
         gestoreScena = GetComponent<GestoreScena>();
         conversationManager = ConversationManager.Instance;
         nameScene = SceneManager.GetActiveScene().name;
