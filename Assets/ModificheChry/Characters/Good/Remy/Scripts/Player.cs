@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
         health += amountHealth;
         sanitaMentale += amountSanita;
         if (amountHealth < 0) sanitaMentale -= 10;
+        if (health <= 20) sanitaMentale -= 15;
 
         if (sanitaMentale <= 40) menteSana = false;
 
@@ -68,8 +69,9 @@ public class Player : MonoBehaviour
             PlayBreathing();
         }
         if (health >= maxHealth) { health = maxHealth; }
+        if (sanitaMentale < 0) { sanitaMentale = 0; }
         playerUIController.UpdateBloodSplatter(health, maxHealth);
-        playerUIController.UpdateSanityIcon();
+        playerUIController.UpdateSanityIcon(sanitaMentale, maxHealth);
     }
 
     private bool IsDead()

@@ -64,5 +64,14 @@ public class PlayerUIController : MonoBehaviour
         bloodSplatterImage.color = color;
     }
 
-    public void UpdateSanityIcon() => sanityIcon.enabled = player.health <= player.maxHealth / 2; // Icona visibile sse la salute è <= 50%
+    public void UpdateSanityIcon(int sanitaMentale, int maxHealth)
+    {
+        // Mostra l'icona della sanità mentale e aumenta l'opacità in base ai danni subiti
+        sanityIcon.enabled = sanitaMentale < maxHealth; // Attiva l'icona se la sanità mentale è diminuita
+        float alpha = 1 - ((float)sanitaMentale / maxHealth);
+        Color color = sanityIcon.color;
+        color.a = alpha; // Maggiore è il danno, più alta è l'opacità
+        sanityIcon.color = color;
+    }
+
 }
