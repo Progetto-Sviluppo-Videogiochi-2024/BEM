@@ -13,21 +13,16 @@ public class FileDataService : IDataService
 
     public FileDataService(ISerializer serializer)
     {
-        dataPath = Application.persistentDataPath;
+        dataPath = Application.persistentDataPath + "/Saves";
         fileExtension = "json";
         this.serializer = serializer;
     }
 
+    public bool DoesSaveExist(string slotFileName) => File.Exists(GetFilePath(slotFileName));
+
     string GetFilePath(string fileName) => Path.Combine(dataPath, string.Concat(fileName, ".", fileExtension));
 
-    public bool SearchSlotFileByUI(string str1, string str2)
-    {
-        // Estrai i numeri dalle due stringhe
-        var numbers1 = Regex.Matches(str1, @"\d+").Cast<Match>().Select(m => m.Value);
-        var numbers2 = Regex.Matches(str2, @"\d+").Cast<Match>().Select(m => m.Value);
-
-        return numbers1.Intersect(numbers2).Any(); // Controlla se i numeri estratti sono uguali
-    }
+    public bool SearchSlotFileByUI(string savedSlot, string UISlot) => savedSlot[^1] == UISlot[^1];
 
     public void Delete(string fileName)
     {

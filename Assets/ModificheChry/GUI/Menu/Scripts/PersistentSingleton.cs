@@ -16,7 +16,7 @@ public class PersistentSingleton<T> : MonoBehaviour where T : MonoBehaviour
                 if (_instance == null)
                 {
                     // Crea un nuovo GameObject e aggiungi il componente se non esiste
-                    GameObject singletonObject = new GameObject(typeof(T).Name);
+                    GameObject singletonObject = new(typeof(T).Name);
                     _instance = singletonObject.AddComponent<T>();
                 }
 

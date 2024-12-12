@@ -8,4 +8,5 @@ public interface IDataService
     void DeleteAll();
     IEnumerable<string> ListSaves();
     bool SearchSlotFileByUI(string str1, string str2);
+    bool DoesSaveExist(string slotFileName);
 }

@@ -46,7 +46,7 @@ public class RadioManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Scena0") PlayAudio();
 
         // Configura i listener per i pulsanti
-        SalvaButton.onClick.AddListener(() => { Save(); RemoveButtonFocus(); });
+        SalvaButton.onClick.AddListener(() => { /*Save();*/ RemoveButtonFocus(); });
         OnOffButton.onClick.AddListener(() => { OnOff(); RemoveButtonFocus(); });
         CloseRadioUI.onClick.AddListener(() => { ToggleRadio(false); RemoveButtonFocus(); });
 
@@ -121,12 +121,7 @@ public class RadioManager : MonoBehaviour
         audioSource.Play();
     }
 
-    private void Save()
-    {
-        // TODO: fare una classe per salvare e caricare i dati e invocare qui quella funzione
-        print("Salva");
-        Time.timeScale = 0;
-    }
+    // private void Save() {} // Invocata già nell'inspector di Salva (bottone della radio canvas) 
 
     private void OnOff()
     { // TODO: vedere a fine gioco se deve essere riprodotta una canzone random, la prossima oppure "mutarla" quando spammo il pulsante

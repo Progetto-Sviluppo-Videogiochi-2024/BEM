@@ -50,10 +50,7 @@ public class MovementStateManager : MonoBehaviour
 
     [Header("Audio Settings")]
     #region Audio Settings
-    //public AudioClip walkCrouchClip;
     public AudioClip runClip;
-    //private float footstepInterval = 0.5f;
-    //float footstepTimer;
     #endregion
 
     [Header("References")]
@@ -138,7 +135,7 @@ public class MovementStateManager : MonoBehaviour
     private bool CheckInactivityTimer()
     {
         // Se viene rilevato un input da tastiera, resetta il timer
-        if (Input.anyKey || Input.GetMouseButton(0) || Input.GetMouseButton(1) || 
+        if (Input.anyKey || Input.GetMouseButton(0) || Input.GetMouseButton(1) ||
         Mathf.Abs(Input.GetAxis("Mouse X")) > 0.01f || Mathf.Abs(Input.GetAxis("Mouse Y")) > 0.01f)
         {
             timerInactivity = 0.0f;
@@ -151,8 +148,6 @@ public class MovementStateManager : MonoBehaviour
         // Ritorna true solo se supera il tempo massimo di inattività
         return timerInactivity >= maxTimeInactivity;
     }
-
-
 
     private void ToggleInactivity(Animator animator, bool isInactive)
     {
@@ -192,12 +187,10 @@ public class MovementStateManager : MonoBehaviour
         audioSource.clip = runClip;
         audioSource.volume = 0.2f;
         if (audioSource.clip != null) audioSource.Play();
-        else print("Clip == null");
     }
 
     public void StopRunning()
     {
         if (audioSource.clip != null) audioSource.Stop();
-        else print("Clip == null");
     }
 }
