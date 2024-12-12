@@ -420,9 +420,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1506490330}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
+      - m_Target: {fileID: 822377361}
+        m_TargetAssemblyTypeName: SlotBaseManager, Assembly-CSharp
+        m_MethodName: ToggleLoadSaveUI
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -680,6 +680,7 @@ MonoBehaviour:
   gameData:
     fileName: 
     currentSceneName: 
+    saveTimeString: 0001-01-01 00:00:00
     nSlotSave: 0
     playerData:
       <Id>k__BackingField:
@@ -1597,6 +1598,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 780252456}
   m_CullTransparentMesh: 1
+--- !u!114 &822377361 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5396504170532128943, guid: 855d5cc3b123706479c33d039b9cff29, type: 3}
+  m_PrefabInstance: {fileID: 3880586048899961312}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b9dbe7537d5044f9ad7db4d9bc3c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &873695318
 GameObject:
   m_ObjectHideFlags: 0
@@ -3442,6 +3454,10 @@ PrefabInstance:
       propertyPath: gestoreScena
       value: 
       objectReference: {fileID: 1675797445}
+    - target: {fileID: 5396504170532128943, guid: 855d5cc3b123706479c33d039b9cff29, type: 3}
+      propertyPath: loadSavePanel
+      value: 
+      objectReference: {fileID: 1506490330}
     - target: {fileID: 6892733415141279802, guid: 855d5cc3b123706479c33d039b9cff29, type: 3}
       propertyPath: m_Name
       value: Slot 3
@@ -3493,6 +3509,22 @@ PrefabInstance:
     - target: {fileID: 7349892337127166484, guid: 855d5cc3b123706479c33d039b9cff29, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7806799233200532285, guid: 855d5cc3b123706479c33d039b9cff29, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 822377361}
+    - target: {fileID: 7806799233200532285, guid: 855d5cc3b123706479c33d039b9cff29, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7806799233200532285, guid: 855d5cc3b123706479c33d039b9cff29, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleLoadSaveUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7806799233200532285, guid: 855d5cc3b123706479c33d039b9cff29, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SlotBaseManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8296519866183856525, guid: 855d5cc3b123706479c33d039b9cff29, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3551,9 +3583,25 @@ PrefabInstance:
       propertyPath: gestoreScena
       value: 
       objectReference: {fileID: 1675797445}
+    - target: {fileID: 2067365195800910340, guid: 5ec4c94ac450f9d408820cd1ebba6f68, type: 3}
+      propertyPath: loadSavePanel
+      value: 
+      objectReference: {fileID: 4157171486572672255}
     - target: {fileID: 2630584369130279010, guid: 5ec4c94ac450f9d408820cd1ebba6f68, type: 3}
       propertyPath: m_Name
       value: Slot 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841179495883195878, guid: 5ec4c94ac450f9d408820cd1ebba6f68, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4157171486572672254}
+    - target: {fileID: 2841179495883195878, guid: 5ec4c94ac450f9d408820cd1ebba6f68, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleLoadSaveUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841179495883195878, guid: 5ec4c94ac450f9d408820cd1ebba6f68, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SlotBaseManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3194563966543501900, guid: 5ec4c94ac450f9d408820cd1ebba6f68, type: 3}
       propertyPath: m_Name
@@ -3656,6 +3704,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ec4c94ac450f9d408820cd1ebba6f68, type: 3}
+--- !u!114 &4157171486572672254 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2067365195800910340, guid: 5ec4c94ac450f9d408820cd1ebba6f68, type: 3}
+  m_PrefabInstance: {fileID: 4157171486572672253}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24650d5a542af0943bafff374a81b02a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &4157171486572672255 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3662997446925241711, guid: 5ec4c94ac450f9d408820cd1ebba6f68, type: 3}
+  m_PrefabInstance: {fileID: 4157171486572672253}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4858560219574996338 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 325696800098810835, guid: 037794c6212b4054d95dc23b5018831c, type: 3}

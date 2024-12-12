@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class FileDataService : IDataService
@@ -28,7 +26,7 @@ public class FileDataService : IDataService
     {
         string fileLocation = GetFilePath(fileName);
 
-        if (!File.Exists(fileLocation)) File.Delete(fileLocation);
+        if (File.Exists(fileLocation)) File.Delete(fileLocation);
     }
 
     public void DeleteAll()
@@ -36,14 +34,9 @@ public class FileDataService : IDataService
         foreach (string filePath in Directory.GetFiles(dataPath)) File.Delete(filePath);
     }
 
-    public IEnumerable<string> ListSaves()
-    {
-        foreach (string path in Directory.EnumerateFiles(dataPath))
-        {
-            if (!Path.GetFileNameWithoutExtension(path).StartsWith("Slot")) continue; // Non è un file di salvataggio
-            if (Path.GetExtension(path) == fileExtension) yield return Path.GetFileNameWithoutExtension(path);
-        }
-    }
+    public List<string> ListSaves() => Directory.Exists(dataPath) 
+        ? new(Array.ConvertAll(Directory.GetFiles(dataPath, "Slot *.json"), Path.GetFileNameWithoutExtension)) 
+        : throw new DirectoryNotFoundException($"La directory specificata non esiste: {dataPath}");
 
     public GameData Load(string fileName)
     {

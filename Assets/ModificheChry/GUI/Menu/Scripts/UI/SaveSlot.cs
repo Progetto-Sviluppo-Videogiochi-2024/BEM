@@ -1,9 +1,46 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+using System.Collections.Generic;
 
 public class SaveSlot : SlotBaseManager
 {
+    public override void ListSlotUI()
+    {
+        var savedSlots = saveLoadSystem.dataService.ListSaves();
+        var slotList = content.Cast<Transform>().ToList();
+        var savedSlotQueue = new Queue<string>(savedSlots);
+
+        for (int i = 0; i < slotList.Count; i++)
+        {
+            var currentUISlot = slotList[i];
+
+            // Se ci sono ancora salvataggi disponibili
+            if (savedSlotQueue.Count > 0)
+            {
+                var savedSlotName = savedSlotQueue.Peek();
+
+                if (saveLoadSystem.dataService.SearchSlotFileByUI(savedSlotName, currentUISlot.name))
+                {
+                    ToggleSlotUI(currentUISlot, false);
+                    LoadSlotUI(currentUISlot, savedSlotName);
+                    savedSlotQueue.Dequeue();
+                }
+                else // Slot non corrispondente
+                {
+                    ToggleSlotUI(currentUISlot, true);
+                    ConfigureEmptySlot(currentUISlot);
+                }
+            }
+            else // Non ci sono più salvataggi, configura lo slot come vuoto
+            {
+                ToggleSlotUI(currentUISlot, true);
+                ConfigureEmptySlot(currentUISlot);
+            }
+        }
+    }
+
     protected override void LoadSlotUI(Transform slot, string savedSlotName)
     {
         var gameData = saveLoadSystem.dataService.Load(savedSlotName);

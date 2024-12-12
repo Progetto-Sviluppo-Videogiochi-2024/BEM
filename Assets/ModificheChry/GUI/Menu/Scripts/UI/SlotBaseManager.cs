@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,6 +8,7 @@ public abstract class SlotBaseManager : MonoBehaviour
 {
     [Header("UI Slot")]
     #region UI Slot
+    [SerializeField] private GameObject loadSavePanel; // Pannello di caricamento/salvataggio
     [SerializeField] protected Transform content; // Content che contiene gli slot
     [SerializeField] protected Transform confirmSlot; // Pannello di conferma del caricamento/salvataggio
     [SerializeField] protected Button yesButton; // Bottone di conferma del confirmSlot
@@ -19,6 +18,7 @@ public abstract class SlotBaseManager : MonoBehaviour
 
     [Header("References")]
     #region References
+    private GameObject player; // Riferimento al giocatore
     protected SaveLoadSystem saveLoadSystem; // Riferimento al SaveLoadSystem
     [SerializeField] protected GestoreScena gestoreScena; // Riferimento al GestoreScena
     #endregion
@@ -28,54 +28,34 @@ public abstract class SlotBaseManager : MonoBehaviour
     protected string currentSlotOpened = null; // Nome dello slot aperto da cui confermare il caricamento/salvataggio
     #endregion
 
-    protected void Start() => infoSceneSlot.SetActive(false);
+    protected void Awake()
+    {
+        loadSavePanel.SetActive(false);
+        infoSceneSlot.SetActive(false);
+        player = GameObject.FindGameObjectWithTag("Player");
+        saveLoadSystem = SaveLoadSystem.Instance;
+    }
 
     protected void OnEnable() => ListSlotUI();
 
+    public void ToggleLoadSaveUI(bool active)
+    {
+        loadSavePanel.SetActive(active);
+        GestoreScena.ChangeCursorActiveStatus(active, "SlotBaseManager.ToggleUI: " + loadSavePanel.name);
+        if (player != null)
+        {
+            player.GetComponent<Animator>().SetFloat("hInput", 0);
+            player.GetComponent<Animator>().SetFloat("vInput", 0);
+            player.GetComponent<MovementStateManager>().enabled = !active;
+            player.GetComponent<AimStateManager>().enabled = !active;
+        }
+        Time.timeScale = active ? 0 : 1; // 0 = pausa, 1 = gioco normale
+        if (confirmSlot.gameObject.activeSelf) confirmSlot.gameObject.SetActive(false);
+    }
+
     protected abstract void LoadSlotUI(Transform slot, string savedSlotName);
 
-    public void ListSlotUI()
-    {
-        if (saveLoadSystem == null) saveLoadSystem = SaveLoadSystem.Instance;
-
-        var savedSlots = saveLoadSystem.dataService.ListSaves();
-        print($"Numero di slot salvati: {savedSlots.Count()}");
-
-        var slotList = content.Cast<Transform>().ToList();
-
-        var savedSlotQueue = new Queue<string>(savedSlots);
-        print($"Slot Queue: {string.Join(", ", savedSlotQueue.ToArray())}");
-
-        for (int i = 0; i < slotList.Count; i++)
-        {
-            var currentUISlot = slotList[i];
-
-            // Se ci sono ancora salvataggi disponibili
-            if (savedSlotQueue.Count > 0)
-            {
-                var savedSlotName = savedSlotQueue.Peek();
-                print($"Slot salvato: {savedSlotName} per lo slot {currentUISlot.name}");
-
-                if (saveLoadSystem.dataService.SearchSlotFileByUI(savedSlotName, currentUISlot.name))
-                {
-                    print($"Slot {currentUISlot.name} - {savedSlotName}");
-                    ToggleSlotUI(currentUISlot, false);
-                    LoadSlotUI(currentUISlot, savedSlotName);
-                    savedSlotQueue.Dequeue();
-                }
-                else // Slot non corrispondente
-                {
-                    ToggleSlotUI(currentUISlot, true);
-                    ConfigureEmptySlot(currentUISlot);
-                }
-            }
-            else // Non ci sono più salvataggi, configura lo slot come vuoto
-            {
-                ToggleSlotUI(currentUISlot, true);
-                ConfigureEmptySlot(currentUISlot);
-            }
-        }
-    }
+    public abstract void ListSlotUI();
 
     protected void DeleteSlotUI(Transform slot) // Invocata dal bottone "-" figlio di ogni slot del LG
     {

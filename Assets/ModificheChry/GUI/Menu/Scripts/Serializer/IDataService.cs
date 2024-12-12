@@ -6,7 +6,7 @@ public interface IDataService
     GameData Load(string name);
     void Delete(string name);
     void DeleteAll();
-    IEnumerable<string> ListSaves();
+    List<string> ListSaves();
     bool SearchSlotFileByUI(string str1, string str2);
     bool DoesSaveExist(string slotFileName);
 }
