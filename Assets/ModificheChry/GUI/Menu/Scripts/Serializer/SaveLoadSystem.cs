@@ -9,7 +9,7 @@ public class GameData: ISerializationCallbackReceiver
 {
     public string fileName; // Nome del file di salvataggio
     public string currentSceneName; // Nome della scena attuale
-    // Dati livello? // Dati importanti della scena attuale
+    // Dati livello? // Dati importanti della scena attuale per le statistiche
     [NonSerialized] public DateTime saveTime; // Data e ora del salvataggio in formato DateTime
     [SerializeField] private string saveTimeString; // Data e ora del salvataggio in formato stringa
     public int nSlotSave; // Numero dello slot di salvataggio
@@ -22,10 +22,7 @@ public class GameData: ISerializationCallbackReceiver
     // Etc.
 
     // Imposta saveTime da saveTimeString durante la deserializzazione
-    public void OnBeforeSerialize()
-    {
-        saveTimeString = saveTime.ToString("yyyy-MM-dd HH:mm:ss"); // Formatta la data
-    }
+    public void OnBeforeSerialize() => saveTimeString = saveTime.ToString("yyyy-MM-dd HH:mm:ss"); // Formato: "yyyy-MM-dd HH:mm:ss"
 
     // Riconverte saveTimeString in DateTime durante la deserializzazione
     public void OnAfterDeserialize()

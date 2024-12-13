@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,21 +32,18 @@ public class LoadSlot : SlotBaseManager
         }
     }
 
-    protected override void LoadSlotUI(Transform slot, string savedSlotName)
-    {
-        var gameData = saveLoadSystem.dataService.Load(savedSlotName);
-        var slotSavedList = slot.Find("Saved");
-
-        slotSavedList.GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = $"Slot {gameData.nSlotSave}"; // "Slot i + 1"
-        slotSavedList.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = gestoreScena.GetChapterBySceneName(gameData.currentSceneName); // "Capitolo: Nome Capitolo"
-        slotSavedList.GetChild(2).GetComponentInChildren<TextMeshProUGUI>().text = gameData.saveTime.ToString(); // "Data e Ora"
-
-        ConfigureSlotButton(slotSavedList.GetComponentInChildren<Button>(), () => { DeleteSlotUI(slot); currentSlotOpened = null; slot.GetComponent<Button>().onClick.RemoveAllListeners(); });
-        ConfigureSlotButton(slot.GetComponent<Button>(), () => OpenConfirmPanel(savedSlotName));
-        SetMouseHoverSlot(slot);
-    }
-
     public override void OnYesActionSlot() => SaveLoadSystem.Instance.LoadGame(currentSlotOpened);
 
-    protected override string GetConfirmMessage() => $"Vuoi caricare il gioco da questo slot ?";
+    protected override void OnYesDeleteSlot(Transform slot) // Per cancellare uno slot specifico
+    {
+        DeleteSlotUI(slot);
+        ConfigureSlotButton(slot.GetComponent<Button>(), () => { }); // Disabilita il click
+        SetMouseHoverSlot(slot, () => { }, () => { }); // Disabilita l'hover
+        OnNoConfirmSlot();
+    }
+
+    protected override string GetConfirmMessage() =>
+        isClickedOnDelete
+            ? "Vuoi eliminare il salvataggio da questo slot ?"
+            : $"Vuoi caricare il gioco da questo slot ?";
 }

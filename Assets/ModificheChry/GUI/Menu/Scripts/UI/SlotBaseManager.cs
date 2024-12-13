@@ -1,7 +1,9 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public abstract class SlotBaseManager : MonoBehaviour
@@ -25,6 +27,7 @@ public abstract class SlotBaseManager : MonoBehaviour
 
     [Header("Slot Settings")]
     #region Slot Settings
+    protected bool isClickedOnDelete = false; // Flag per il click sul bottone "-" di uno slot per eliminare il salvataggio
     protected string currentSlotOpened = null; // Nome dello slot aperto da cui confermare il caricamento/salvataggio
     #endregion
 
@@ -41,7 +44,8 @@ public abstract class SlotBaseManager : MonoBehaviour
     public void ToggleLoadSaveUI(bool active)
     {
         loadSavePanel.SetActive(active);
-        GestoreScena.ChangeCursorActiveStatus(active, "SlotBaseManager.ToggleUI: " + loadSavePanel.name);
+        if (SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "Transizione")
+            GestoreScena.ChangeCursorActiveStatus(active, "SlotBaseManager.ToggleUI: " + loadSavePanel.name);
         if (player != null)
         {
             player.GetComponent<Animator>().SetFloat("hInput", 0);
@@ -53,11 +57,26 @@ public abstract class SlotBaseManager : MonoBehaviour
         if (confirmSlot.gameObject.activeSelf) confirmSlot.gameObject.SetActive(false);
     }
 
-    protected abstract void LoadSlotUI(Transform slot, string savedSlotName);
+    protected void LoadSlotUI(Transform slot, string savedSlotName)
+    {
+        var gameData = saveLoadSystem.dataService.Load(savedSlotName);
+        var slotSavedList = slot.Find("Saved");
+
+        slotSavedList.GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = $"Slot {gameData.nSlotSave}"; // "Slot nSlotSave"
+        slotSavedList.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = gestoreScena.GetChapterBySceneName(gameData.currentSceneName); // "Capitolo: Nome Capitolo"
+        slotSavedList.GetChild(2).GetComponentInChildren<TextMeshProUGUI>().text = gameData.saveTime.ToString(); // "Data e Ora"
+
+        var deleteButton = slotSavedList.GetComponentInChildren<Button>();
+        ConfigureSlotButton(deleteButton, () => { OpenConfirmDeletePanel(slot); }); // Per "Delete" al click
+        SetMouseHoverSlot(deleteButton.transform, () => { isClickedOnDelete = true; }, () => { isClickedOnDelete = false; }); // Per "Delete" all'hover
+
+        ConfigureSlotButton(slot.GetComponent<Button>(), () => OpenConfirmPanel(savedSlotName)); // Per "Load/Save" al click
+        SetMouseHoverSlot(slot, () => { OnSlotEnter(infoSceneSlot.transform); }, () => { OnSlotExit(infoSceneSlot.transform); }); // Per mostrare le info della scena all'hover
+    }
 
     public abstract void ListSlotUI();
 
-    protected void DeleteSlotUI(Transform slot) // Invocata dal bottone "-" figlio di ogni slot del LG
+    protected void DeleteSlotUI(Transform slot) // Invocata dal bottone "Delete" di ogni slot salvato
     {
         // Quando listo gli slot già controllo se lo slot è presente
         saveLoadSystem.DeleteGame(slot.name);
@@ -82,7 +101,7 @@ public abstract class SlotBaseManager : MonoBehaviour
         slot.GetChild(1).gameObject.SetActive(!active); // Per "Saved"
     }
 
-    protected void SetMouseHoverSlot(Transform slot)
+    protected void SetMouseHoverSlot(Transform slot, Action enter, Action exit) // Per mostrare le info della scena o per eliminare uno slot
     {
         // Per evitare trigger multipli
         var eventTrigger = slot.GetComponent<EventTrigger>();
@@ -91,12 +110,12 @@ public abstract class SlotBaseManager : MonoBehaviour
 
         // Configura l'evento OnPointerEnter
         var pointerEnterEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
-        pointerEnterEntry.callback.AddListener((eventData) => OnSlotEnter(infoSceneSlot.transform));
+        pointerEnterEntry.callback.AddListener((eventData) => enter());
         eventTrigger.triggers.Add(pointerEnterEntry);
 
         // Configura l'evento OnPointerExit
         var pointerExitEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
-        pointerExitEntry.callback.AddListener((eventData) => OnSlotExit(infoSceneSlot.transform));
+        pointerExitEntry.callback.AddListener((eventData) => exit());
         eventTrigger.triggers.Add(pointerExitEntry);
     }
 
@@ -108,7 +127,16 @@ public abstract class SlotBaseManager : MonoBehaviour
 
     public void OnSlotExit(Transform infoSceneSlot) => infoSceneSlot.gameObject.SetActive(false);
 
-    protected void OpenConfirmPanel(string slotName)
+    protected void OpenConfirmDeletePanel(Transform slot) // Per cancellare uno slot specifico
+    {
+        confirmSlot.gameObject.SetActive(true);
+        confirmSlot.GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = GetConfirmMessage();
+
+        ConfigureSlotButton(yesButton, () => OnYesDeleteSlot(slot));
+        ConfigureSlotButton(noButton, OnNoConfirmSlot);
+    }
+
+    protected void OpenConfirmPanel(string slotName) // Per salvare e caricare uno slot specifico
     {
         currentSlotOpened = slotName;
         confirmSlot.gameObject.SetActive(true);
@@ -118,11 +146,17 @@ public abstract class SlotBaseManager : MonoBehaviour
         ConfigureSlotButton(noButton, OnNoConfirmSlot);
     }
 
-    public void OnYesConfirmSlot() { confirmSlot.gameObject.SetActive(false); OnYesActionSlot(); }
-
-    public void OnNoConfirmSlot() { confirmSlot.gameObject.SetActive(false); currentSlotOpened = null; }
+    public void OnYesConfirmSlot() // Per salvare e caricare uno slot specifico
+    {
+        confirmSlot.gameObject.SetActive(false);
+        OnYesActionSlot();
+    }
 
     public abstract void OnYesActionSlot();
+
+    protected abstract void OnYesDeleteSlot(Transform slot); // Per cancellare uno slot specifico
+
+    public void OnNoConfirmSlot() { confirmSlot.gameObject.SetActive(false); currentSlotOpened = null; isClickedOnDelete = false; }
 
     protected abstract string GetConfirmMessage();
 }
