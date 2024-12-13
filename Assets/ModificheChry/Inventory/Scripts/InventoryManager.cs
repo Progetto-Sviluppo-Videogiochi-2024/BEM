@@ -32,13 +32,39 @@ public class InventoryManager : MonoBehaviour
             return;
         }
         instance = this;
-    }
-
-    private void Start()
-    {
         weaponClassManager = FindObjectOfType<WeaponClassManager>();
         itemClassManager = weaponClassManager.GetComponent<ItemClassManager>();
         inventoryItemsToRemove = new();
+    }
+
+    public Item CreateItemInstance(ItemData itemData)
+    {
+        // Crea una nuova istanza di Item o delle sue sottoclassi
+        Item itemInstance = null;
+
+        itemInstance = itemData.type switch
+        {
+            "Weapon" => ScriptableObject.CreateInstance<Weapon>(),// Crea una nuova istanza di Weapon
+            "Ammo" => ScriptableObject.CreateInstance<Ammo>(),// Crea una nuova istanza di Ammo
+            _ => ScriptableObject.CreateInstance<Item>(),// Crea una nuova istanza di Item
+        };
+
+        // Inizializza l'oggetto Item con i dati
+        itemInstance.Initialize(itemData); // Supponendo che tu abbia un metodo Initialize che setta le proprietà dell'item
+        return itemInstance;
+    }
+
+
+    public void ClearInventory()
+    {
+        // Pulisce la lista degli oggetti nell'inventario
+        items.Clear();
+
+        // Pulisce la UI degli oggetti nell'inventario
+        foreach (Transform child in itemContent)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     public void Add(Item item)

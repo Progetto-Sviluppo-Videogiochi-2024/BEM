@@ -6,7 +6,7 @@ public class GameCharacter : MonoBehaviour, IBind<PlayerData>
     [field: SerializeField] public SerializableGuid Id { get; set; } = SerializableGuid.NewGuid(); // ID univoco del giocatore
     [SerializeField] public PlayerData data; // Dati del giocatore
 
-    public void Bind(PlayerData data) // Per caricare i dati del giocatore da un file di salvataggio
+    public void Bind(PlayerData data) // Carica da file
     {
         this.data = data;
         this.data.Id = Id;
@@ -20,7 +20,7 @@ public class GameCharacter : MonoBehaviour, IBind<PlayerData>
         }
     }
 
-    public void SavePlayerData() // Per salvare i dati del giocatore in un file di salvataggio
+    public void SavePlayerData() // Salva su file
     {
         data.position = transform.position;
         data.rotation = transform.rotation;

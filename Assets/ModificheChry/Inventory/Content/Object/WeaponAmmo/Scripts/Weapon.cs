@@ -36,4 +36,26 @@ public class Weapon : Item // Weapon estende Item
         ShortRange, // Corto raggio (pistole, fucili a pompa)
         MediumRange // Medio raggio (fucili d'assalto)
     }
+
+    public void Initialize(WeaponData itemData)
+    {
+        base.Initialize(itemData);
+        if (itemData is not WeaponData weaponData) return;
+        prefab = Resources.Load<GameObject>(weaponData.prefabName);
+        weaponType = weaponData.weaponType;
+        rangeType = weaponData.rangeType;
+        ammo = Resources.Load<Ammo>(weaponData.ammoName);
+        distance = weaponData.distance;
+        semiAuto = weaponData.semiAuto;
+        isThrowable = weaponData.isThrowable;
+        fireSound = Resources.Load<AudioClip>(weaponData.fireSoundPath);
+        magInSound = Resources.Load<AudioClip>(weaponData.magInSoundPath);
+        magOutSound = Resources.Load<AudioClip>(weaponData.magOutSoundPath);
+        releaseSlideSound = Resources.Load<AudioClip>(weaponData.releaseSlideSoundPath);
+        IdlePosition = weaponData.IdlePosition;
+        IdleRotation = weaponData.IdleRotation;
+        AimPosition = weaponData.AimPosition;
+        AimRotation = weaponData.AimRotation;
+        Scale = weaponData.Scale;
+    }
 }

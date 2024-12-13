@@ -475,7 +475,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         if (IsEquipable())
         {
             GameObject labelEquipable = transform.Find("LabelEquipable").gameObject;
-            TextMeshProUGUI buttonTextEquip = transform.Find($"{optionsMenu.name}/EquipButton").GetComponent<Button>().GetComponentInChildren<TextMeshProUGUI>();
+            TextMeshProUGUI buttonTextEquip = transform.Find($"{optionsMenu.name}/EquipButton").GetComponentInChildren<TextMeshProUGUI>();
             if (transform.Find("LabelEquipable").gameObject.activeSelf) // Se è equipaggiato, per disequipaggiarlo
             {
                 buttonTextEquip.text = "Equipaggia";
@@ -490,4 +490,6 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         }
     }
     #endregion
+
+    public override string ToString() => item.nameItem;
 }

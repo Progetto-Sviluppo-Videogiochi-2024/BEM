@@ -14,7 +14,7 @@ public class GameData: ISerializationCallbackReceiver
     [SerializeField] private string saveTimeString; // Data e ora del salvataggio in formato stringa
     public int nSlotSave; // Numero dello slot di salvataggio
     public PlayerData playerData; // Dati del giocatore
-    // Inventario?
+    public InventoryData inventoryData; // Dati dell'inventario
     // Oggetti equipaggiati?
     // PlayerPrefs?
     // BA?
@@ -66,6 +66,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         if (scene.name == "MainMenu" || scene.name == "Transizione") return;
         if (!isLoading) return;
         Bind<GameCharacter, PlayerData>(gameData.playerData);
+        Bind<GameInventory, InventoryData>(gameData.inventoryData);
     }
 
     void Bind<T, TData>(TData data) where T : MonoBehaviour, IBind<TData> where TData : ISaveable, new()
@@ -116,6 +117,13 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         {
             player.SavePlayerData();
             gameData.playerData = player.data;
+        }
+
+        var inventory = FindObjectsByType<GameInventory>(FindObjectsSortMode.None).FirstOrDefault();
+        if (inventory != null)
+        {
+            inventory.SaveInventoryData();
+            gameData.inventoryData = inventory.data;
         }
 
         dataService.Save(gameData);

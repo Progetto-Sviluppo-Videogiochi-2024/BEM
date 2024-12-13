@@ -18,4 +18,15 @@ public class Ammo : Item
         AssaultRifleAmmo, // Munizioni per fucili d'assalto
         SniperAmmo // Munizioni per fucili da cecchino
     }
+
+    public void Initialize(AmmoData itemData)
+    {
+        base.Initialize(itemData);
+        if (itemData is not AmmoData ammoData) return;
+        prefab = ammoData.prefab;
+        ammoType = ammoData.ammoType;
+        nAmmo = ammoData.nAmmo;
+        maxAmmo = ammoData.maxAmmo;
+        damageAmmo = ammoData.damageAmmo;
+    }
 }

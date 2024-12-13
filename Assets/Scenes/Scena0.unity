@@ -6707,6 +6707,13 @@ MonoBehaviour:
       sanitaMentale: 0
       isDead: 0
       menteSana: 0
+    inventoryData:
+      <Id>k__BackingField:
+        Part1: 0
+        Part2: 0
+        Part3: 0
+        Part4: 0
+      items: []
 --- !u!4 &478439213
 Transform:
   m_ObjectHideFlags: 0
@@ -7617,6 +7624,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2090146226}
+    - target: {fileID: 7806799233200532285, guid: 855d5cc3b123706479c33d039b9cff29, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7806799233200532285, guid: 855d5cc3b123706479c33d039b9cff29, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ToggleLoadSaveUI
@@ -30841,6 +30852,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Radio
       objectReference: {fileID: 0}
+    - target: {fileID: 2707763759881339576, guid: 227559add021ee449aeae1cd62f77734, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4245672754345034473, guid: 227559add021ee449aeae1cd62f77734, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -30974,9 +30989,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4974936531672497403, guid: bec52fe7749d6384a9199ed3e886c02c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974936531672497403, guid: bec52fe7749d6384a9199ed3e886c02c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974936531672497403, guid: bec52fe7749d6384a9199ed3e886c02c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2090146226}
+    - target: {fileID: 4974936531672497403, guid: bec52fe7749d6384a9199ed3e886c02c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974936531672497403, guid: bec52fe7749d6384a9199ed3e886c02c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleLoadSaveUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974936531672497403, guid: bec52fe7749d6384a9199ed3e886c02c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SlotBaseManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974936531672497403, guid: bec52fe7749d6384a9199ed3e886c02c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974936531672497403, guid: bec52fe7749d6384a9199ed3e886c02c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5984091523491316485, guid: bec52fe7749d6384a9199ed3e886c02c, type: 3}
       propertyPath: m_Name
       value: GamePlayMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 5984091523491316485, guid: bec52fe7749d6384a9199ed3e886c02c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6557683983472319192, guid: bec52fe7749d6384a9199ed3e886c02c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

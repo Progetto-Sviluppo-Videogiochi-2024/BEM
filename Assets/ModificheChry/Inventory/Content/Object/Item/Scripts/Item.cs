@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Create New Item")]
@@ -13,7 +12,7 @@ public class Item : ScriptableObject
     [Tooltip("Oggetti: Valore usato da effectType")]
     public int value; // Valore dell'oggetto
     public int valueSanita; // Valore della sanità mentale  
-    
+
     [Tooltip("Tipo di effetto dell'oggetto, solo per gli oggetti consumabili")]
     public ItemEffectType effectType; // Tipo di effetto dell'oggetto
     public float weight; // Peso dell'oggetto
@@ -74,4 +73,28 @@ public class Item : ScriptableObject
         Scene // Oggetti di scena ma non presenti nell'inventario
         // trofei? altro ?
     }
+
+    public virtual void Initialize(ItemData itemData)
+    {
+        nameItem = itemData.nameItem;
+        description = itemData.description;
+        tagType = itemData.tagType;
+        value = itemData.value;
+        valueSanita = itemData.valueSanita;
+        effectType = itemData.effectType;
+        weight = itemData.weight;
+        ingredientsRecipe = itemData.ingredientsRecipe;
+        qtaIngredientsRecipe = itemData.qtaIngredientsRecipe;
+        isUsable = itemData.isUsable;
+        isShooting = itemData.isShooting;
+        isPickUp = itemData.isPickUp;
+        canDestroy = itemData.canDestroy;
+        isInCraft = itemData.isInCraft;
+        isStackable = itemData.isStackable;
+        inventorySectionType = itemData.inventorySectionType;
+        own = itemData.own;
+        qta = itemData.qta;
+    }
+
+    public override string ToString() => nameItem;
 }

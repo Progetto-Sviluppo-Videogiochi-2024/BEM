@@ -7,12 +7,10 @@ public class GamePlayMenuManager : MonoBehaviour
 {
     [Header("UI Elements")]
     public GameObject gamePlayMenuCanvas;
-    //public Button buttonMainMenu;
     public Button buttonCheckpoint;
     public Button buttonLoadGame;
     public Button buttonOptions;
     public Button buttonResumeGame;
-    //public Button buttonQuit;
 
     [Header("Settings")]
     #region Settings
@@ -38,13 +36,10 @@ public class GamePlayMenuManager : MonoBehaviour
         buttonLoadGame.onClick.AddListener(LoadGame);
         buttonOptions.onClick.AddListener(OpenOptions);
         buttonResumeGame.onClick.AddListener(ReturnToGame);
-        //buttonMainMenu.onClick.AddListener(ReturnToMainMenu);
     }
 
     void Update()
     {
-        // if (isMenuOpen) ToggleScripts(true);
-
         if (Input.GetKeyDown(KeyCode.P))
         {
             ToggleMenu(!isMenuOpen);
@@ -76,10 +71,7 @@ public class GamePlayMenuManager : MonoBehaviour
     }
 
     // Metodo per ripristinare Time.timeScale e chiudere il menu
-    private void ResumeGame()
-    {
-        ToggleMenu(false);        
-    }
+    private void ResumeGame() => ToggleMenu(false);
 
     public void ReturnToMainMenu() // Passato dall'inspector quando fa "sì" al pannello di conferma
     {
@@ -102,8 +94,8 @@ public class GamePlayMenuManager : MonoBehaviour
 
     private void LoadGame()
     {
-        print("Carica Partita Salvata");
         ResumeGame(); // Chiude il menu e riprende il gioco
+        // Passata una funzione come listener al pulsante di carica game per aprire quel canvas quindi non serve farlo da codice
     }
 
     private void OpenOptions()

@@ -65,7 +65,7 @@ public class InventoryUIController : MonoBehaviour
         UpdateInventoryView(items, GetActiveSection());
     }
 
-    private void ClearInventoryView()
+    public void ClearInventoryView()
     {
         // Distruggi tutti gli oggetti nell'inventario
         foreach (Transform item in itemContent) Destroy(item.gameObject);
