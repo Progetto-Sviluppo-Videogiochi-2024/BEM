@@ -22,6 +22,7 @@ public class InventoryUIController : MonoBehaviour
                                           // - item - armi: ma abilitare qta e peso
                                           // - chiavi - documenti - oggetti nascosti - ammo: ma disabilitare qta e peso
     public RectTransform inspectMenuRecipe; // Il menu Ispeziona della ricetta
+    public RectTransform ZoomMenu;
 
     [Header("Inventory State")]
     private string currentActiveSection = ""; // Sezione attiva dell'inventario
@@ -96,7 +97,7 @@ public class InventoryUIController : MonoBehaviour
             invItemCon.item = item;
             invItemCon.tooltip = tooltip;
             invItemCon.inspectMenu = item.tagType == ItemTagType.Recipe ? inspectMenuRecipe : inspectMenuItem;
-
+            invItemCon.ZoomMenu = ZoomMenu;
             // Per gestire il toggle dell'item in base alla sezione attiva
             if (isActiveList) // Se "Collectibles", impedisco la rimozione degli oggetti "Collectibles"
             {

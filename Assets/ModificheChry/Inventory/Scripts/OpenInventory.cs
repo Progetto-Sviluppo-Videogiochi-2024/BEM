@@ -75,7 +75,6 @@ public class OpenInventory : MonoBehaviour
         inventoryCanvas.SetActive(isInventoryOpen);
         GestoreScena.ChangeCursorActiveStatus(isInventoryOpen, "Inventory");
         if (!isInventoryOpen) GetComponent<AimStateManager>().enabled = true;
-
         // Chiudi il menu ispeziona se l'inventario viene chiuso
         if (isOpen && itemInspectOpen != null)
         {

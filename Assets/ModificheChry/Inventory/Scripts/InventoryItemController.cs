@@ -25,6 +25,8 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
     [Header("Inspect Item Sub-menu Options")]
     #region Inspect Item Sub-menu Options
     public Transform inspectMenu; // Il menu Ispeziona dell'item/collezionabile
+    public Transform ZoomMenu; // Il menu Ispeziona dell'item/collezionabile
+    
     public int indexIngredientCraft = 0; // Indice dell'ingrediente per la creazione dell'oggetto
     private List<string> ingredients = new(); // Lista degli ingredienti della ricetta
     private List<string> qtaIngredients = new(); // Lista delle quantità degli ingredienti della ricetta
@@ -91,7 +93,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         }
 
         inspectMenu = item.tagType == ItemTagType.Recipe ? invUIController.inspectMenuRecipe : invUIController.inspectMenuItem;
-
+        ZoomMenu = invUIController.ZoomMenu;
         if (item.tagType == ItemTagType.Recipe)
         {
             ingredients = GetIngredientsRecipe(item.ingredientsRecipe);
@@ -141,6 +143,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             else OpenCloseOptions(false);
         }
         if (IsInspectItemUIActive()) OpenCloseInspectUI(false);
+        if (IsZoomActive()) OpenCloseZoom(false);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -245,7 +248,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
     {
         // Nascondi il menu ispeziona all'inizio
         OpenCloseInspectUI(false);
-
+        OpenCloseZoom(false);
         // Mostra il menu appropriato dell'item cliccato
         ShowItemMenu();
 
@@ -259,6 +262,11 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         inspectMenu.Find("NameItem").GetComponent<TextMeshProUGUI>().text = item.nameItem;
         inspectMenu.Find("ImgItem").GetComponent<Image>().sprite = item.image;
         inspectMenu.Find("DescriptionItem").GetComponent<TextMeshProUGUI>().text = item.description;
+
+        // Aggiungi un listener al click sull'immagine per aprire o chiudere lo zoom
+        var imgButton = inspectMenu.Find("ImgItem").GetComponent<Button>();
+        imgButton.onClick.RemoveAllListeners(); // Rimuove eventuali listener precedenti
+        imgButton.onClick.AddListener(() => OpenCloseZoom(!IsZoomActive()));
 
         if (item.tagType == ItemTagType.Recipe)
         {
@@ -351,8 +359,9 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             new List<string> { input.Trim() };
 
     public void OpenCloseInspectUI(bool openMenu) => inspectMenu.gameObject.SetActive(openMenu);
-
+    public void OpenCloseZoom(bool openMenu) => ZoomMenu.gameObject.SetActive(openMenu);
     private bool IsInspectItemUIActive() => inspectMenu.gameObject.activeSelf;
+    private bool IsZoomActive() => ZoomMenu.gameObject.activeSelf;
 
     /* Usa */
     public void UseItem(GameObject buttonClicked)
@@ -374,6 +383,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         {
             inventoryManager.Remove(item, true);
             OpenCloseInspectUI(false);
+            OpenCloseZoom(false);
         }
     }
 
