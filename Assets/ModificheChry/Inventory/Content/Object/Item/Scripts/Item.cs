@@ -94,6 +94,8 @@ public class Item : ScriptableObject
         inventorySectionType = itemData.inventorySectionType;
         own = itemData.own;
         qta = itemData.qta;
+        icon = itemData.icon;
+        image = itemData.image;
     }
 
     public override string ToString() => nameItem;

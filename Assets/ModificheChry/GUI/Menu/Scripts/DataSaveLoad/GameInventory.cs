@@ -26,16 +26,10 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
             }
 
             // Se c'è un oggetto equipaggiato, lo equipaggiamo
-            // if (data.itemEquipable != null)
-            // {
-            //     inventory.EquipItemPlayer(data.itemEquipable);
-            // }
+            // if (data.itemEquipable != null) inventory.EquipItemPlayer(data.itemEquipable);
 
             // // Equipaggia le armi se ci sono
-            // foreach (var weapon in data.weaponsEquipable)
-            // {
-            //     inventory.EquipItemPlayer(weapon);
-            // }
+            // foreach (var weapon in data.weaponsEquipable) inventory.EquipItemPlayer(weapon);
         }
     }
 
@@ -68,10 +62,8 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
                 }
             }
 
-            // Salva l'oggetto equipaggiato
+            // Salva l'oggetto e le armi equipaggiate
             // data.itemEquipable = inventory.itemEquipable;
-
-            // // Salva le armi equipaggiate
             // data.weaponsEquipable.Clear();
             // data.weaponsEquipable.AddRange(inventory.weaponsEquipable);
         }
@@ -109,6 +101,8 @@ public class ItemData
     public Item.ItemType inventorySectionType;
     public bool own;
     public int qta;
+    public Sprite icon;
+    public Sprite image;
 
     public ItemData() { }
 
@@ -133,6 +127,8 @@ public class ItemData
         inventorySectionType = item.inventorySectionType;
         own = item.own;
         qta = item.qta;
+        icon = item.icon;
+        image = item.image;
     }
 }
 
