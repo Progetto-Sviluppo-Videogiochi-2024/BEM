@@ -17,12 +17,17 @@ public class GestoreScena : MonoBehaviour
     [Header("References")]
     #region References
     public Tooltip tooltip; // Riferimento al tooltip per gli oggetti nell'inventario
+    [Tooltip("Riferimento alla testa del giocatore (per la visuale del nemico)")] public Transform playerHead; // Riferimento alla testa del giocatore (per la visuale del nemico)
     #endregion
 
-    void Start()
+    void Awake()
     {
         nUIOpen = 0; // Resettata a ogni nuova scena per evitare problemi (la precedente viene distrutta, quindi, anche se alcune saranno aperte prima del cambio, io la azzero all'inizio della nuova scena)
         ToggleCursor(SceneManager.GetActiveScene().name == "MainMenu");
+    }
+
+    void Start()
+    {
         if (tooltip != null) InventoryUIController.instance.tooltip = tooltip;
     }
 
@@ -56,10 +61,11 @@ public class GestoreScena : MonoBehaviour
     public static void ChangeCursorActiveStatus(bool isOpen, string debug)
     {
         // Gestione dell'apertura/chiusura delle UI
+        // var nUIOpenDebug = nUIOpen;
         nUIOpen += isOpen ? 1 : -1;
-        nUIOpen = Mathf.Max(0, nUIOpen);  // Assicura che il valore non scenda mai sotto 0
+        nUIOpen = Mathf.Max(0, nUIOpen); // Per evitare valori negativi
 
-        // print($"UI aperte: ('prima' {(isOpen ? +1 : -1)}) {nUIOpen} (invocata in {debug})");
+        // print($"UI aperte: ({nUIOpenDebug} {(isOpen ? "+ 1" : "- 1")}) {nUIOpen} (invocata in {debug})");
         ToggleCursor(nUIOpen > 0);  // Cambia visibilità del cursore se almeno una UI è aperta
     }
 

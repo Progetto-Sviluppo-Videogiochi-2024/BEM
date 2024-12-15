@@ -17,6 +17,7 @@ public class GameCharacter : MonoBehaviour, IBind<PlayerData>
             player.sanitaMentale = data.sanitaMentale;
             player.isDead = data.isDead;
             player.menteSana = data.menteSana;
+            player.transform.GetChild(0).SetPositionAndRotation(data.positionVcam, data.rotationVcam); // Setto "CameraFollowPosition"
         }
     }
 
@@ -31,6 +32,9 @@ public class GameCharacter : MonoBehaviour, IBind<PlayerData>
             data.sanitaMentale = player.sanitaMentale;
             data.isDead = player.isDead;
             data.menteSana = player.menteSana;
+            var vcam = player.transform.GetChild(0); // Prendo "CameraFollowPosition"
+            data.positionVcam = vcam.position;
+            data.rotationVcam = vcam.rotation;
         }
     }
 }
@@ -45,4 +49,6 @@ public class PlayerData : ISaveable
     public int sanitaMentale; // Salute mentale attuale
     public bool isDead; // Stato del giocatore (vivo/morto)
     public bool menteSana; // Stato della salute mentale ("sano"/"malato")
+    public Vector3 positionVcam; // Posizione della Virtual Camera
+    public Quaternion rotationVcam; // Rotazione della Virtual Camera
 }

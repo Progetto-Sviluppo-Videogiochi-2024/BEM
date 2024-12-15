@@ -1,6 +1,5 @@
 using UnityEngine;
 using DialogueEditor;
-using JetBrains.Annotations;
 
 public class ManagerScena2 : MonoBehaviour
 {
@@ -40,7 +39,9 @@ public class ManagerScena2 : MonoBehaviour
 
     void Start()
     {
-        fenceHole.enabled = false;
+        booleanAccessor = BooleanAccessor.istance;
+
+        fenceHole.enabled = false; // TODO: capire se può dare problemi per il save/load quindi anche l'if in update
 
         //Setta la radio come spenta
 
@@ -56,22 +57,24 @@ public class ManagerScena2 : MonoBehaviour
         diario.AggiungiMissione("Esplora la foresta (" + dialoghiEseguiti + " / " + dialoghiTotali + ")");
 
         // Avvia la conversazione iniziale
-        GestoreScena.ChangeCursorActiveStatus(true, "ManagerScena2.start"); // false quando hasClickedEnd è true
-        ConversationManager.Instance.StartConversation(intro);
+        if (!booleanAccessor.GetBoolFromThis("intro2"))
+        {
+            GestoreScena.ChangeCursorActiveStatus(true, "ManagerScena2.start"); // false quando hasClickedEnd è true
+            ConversationManager.Instance.StartConversation(intro);
+        }
     }
 
     void Update()
     {
-        if (!clickEndHandled && ConversationManager.Instance.hasClickedEnd)
+        if (!booleanAccessor.GetBoolFromThis("intro2") && !clickEndHandled && ConversationManager.Instance.hasClickedEnd)
         {
             clickEndHandled = true;
             ConversationManager.Instance.hasClickedEnd = false;
             GestoreScena.ChangeCursorActiveStatus(false, "ManagerScena2.update");
         }
 
-        var boolAccessor = BooleanAccessor.istance;
-        if (!hasFlowers && boolAccessor.GetBoolFromThis("fiori") && InventoryManager.instance.GetQtaItem("Viola") >= 3)
-        { hasFlowers = true; boolAccessor.SetBoolOnDialogueE("fioriRaccolti"); }
+        if (!hasFlowers && booleanAccessor.GetBoolFromThis("fiori") && InventoryManager.instance.GetQtaItem("Viola") >= 3)
+        { hasFlowers = true; booleanAccessor.SetBoolOnDialogueE("fioriRaccolti"); }
 
         if (!flagNextScene && CanGoNextScene())
         {

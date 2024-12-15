@@ -44,7 +44,8 @@ public abstract class SlotBaseManager : MonoBehaviour
     public void ToggleLoadSaveUI(bool active)
     {
         loadSavePanel.SetActive(active);
-        if (SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "Transizione")
+        var currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene != "MainMenu" && currentScene != "Transizione")
             GestoreScena.ChangeCursorActiveStatus(active, "SlotBaseManager.ToggleUI: " + loadSavePanel.name);
         if (player != null)
         {

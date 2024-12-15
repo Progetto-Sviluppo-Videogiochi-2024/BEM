@@ -5,19 +5,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [Serializable]
-public class GameData: ISerializationCallbackReceiver
+public class GameData : ISerializationCallbackReceiver
 {
     public string fileName; // Nome del file di salvataggio
     public string currentSceneName; // Nome della scena attuale
-    // Dati livello? // Dati importanti della scena attuale per le statistiche
     [NonSerialized] public DateTime saveTime; // Data e ora del salvataggio in formato DateTime
     [SerializeField] private string saveTimeString; // Data e ora del salvataggio in formato stringa
     public int nSlotSave; // Numero dello slot di salvataggio
-    public PlayerData playerData; // Dati del giocatore
-    public InventoryData inventoryData; // Dati dell'inventario
+    public PlayerData playerData; // Dati del giocatore (stato, trasform, vcam)
+    public InventoryData inventoryData; // Dati dell'inventario (oggetti raccolti)
+    public LevelData levelData; // Dati del livello (PlayerPrefs, BA, poi?)
     // Oggetti equipaggiati?
-    // PlayerPrefs?
-    // BA?
+    // Dati livello? // Dati importanti della scena attuale per le statistiche
     // Quest?
     // Etc.
 
@@ -67,6 +66,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         if (!isLoading) return;
         Bind<GameCharacter, PlayerData>(gameData.playerData);
         Bind<GameInventory, InventoryData>(gameData.inventoryData);
+        Bind<GameLevelData, LevelData>(gameData.levelData);
     }
 
     void Bind<T, TData>(TData data) where T : MonoBehaviour, IBind<TData> where TData : ISaveable, new()
@@ -79,7 +79,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         }
     }
 
-    void Bind<T, TData>(List<TData> datas) where T : MonoBehaviour, IBind<TData> where TData : ISaveable, new()
+    void Bind<T, TData>(List<TData> datas) where T : MonoBehaviour, IBind<TData> where TData : ISaveable, new() // TODO: non so dove usarlo
     {
         var entities = FindObjectsByType<T>(FindObjectsSortMode.None);
         foreach (var entity in entities)
@@ -98,7 +98,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
     {
         gameData = new GameData
         {
-            fileName = $"Slot {dataService.ListSaves().Count() + 1}",
+            fileName = $"Slot {dataService.ListSaves().Count() + 1}", // TODO: forse da cambiare in "Slot 1" o togliere proprio ?
             currentSceneName = "Scena0"
         };
         isLoading = false;
@@ -126,6 +126,13 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
             gameData.inventoryData = inventory.data;
         }
 
+        var level = FindObjectsByType<GameLevelData>(FindObjectsSortMode.None).FirstOrDefault();
+        if (level != null)
+        {
+            level.SaveLevelData();
+            gameData.levelData = level.data;
+        }
+
         dataService.Save(gameData);
     }
 
@@ -138,7 +145,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         SceneManager.LoadScene(gameData.currentSceneName);
     }
 
-    public void ReloadGame() => LoadGame(gameData.fileName);
+    public void ReloadGame() => LoadGame(gameData.fileName); // TODO: non so dove usarlo
 
     public void DeleteGame(string fileName) => dataService.Delete(fileName);
 }

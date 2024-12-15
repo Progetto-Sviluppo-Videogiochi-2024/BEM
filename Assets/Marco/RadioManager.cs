@@ -121,7 +121,7 @@ public class RadioManager : MonoBehaviour
         audioSource.Play();
     }
 
-    // private void Save() {} // Invocata già nell'inspector di Salva (bottone della radio canvas) 
+    // private void Save() {} // Invocata già nell'inspector di "Salva" (bottone della radio canvas) 
 
     private void OnOff()
     { // TODO: vedere a fine gioco se deve essere riprodotta una canzone random, la prossima oppure "mutarla" quando spammo il pulsante

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System;
 
 public class BooleanAccessor : MonoBehaviour
 {
@@ -12,13 +13,14 @@ public class BooleanAccessor : MonoBehaviour
 
     [Header("Data Storage")]
     #region Data Storage
-    private Dictionary<string, bool> boolValues = new()
+    public Dictionary<string, bool> boolValues = new()
     {
         { "premereE", false }, // Se il giocatore ha finito il primo dialogo di scena0
         { "wasd", false }, // Se il giocatore ha finito il secondo dialogo di scena0
         { "quest", false }, // Se il giocatore ha finito il terzo dialogo di scena0
         { "zaino", false }, // Se il giocatore ha finito il quarto dialogo di scena0
         { "radio", false }, // Se il giocatore ha spento la radio di scena0 (task)
+        { "intro2", false }, // Se il giocatore ha finito il dialogo intro in scena2
         { "cartello", false }, // Se il giocatore ha parlato con Jacob in scena2
         { "cartelloDone", false }, // Se il giocatore ha tolto il cartello dalla recinzione in scena2
         { "wolf", false }, // Se il giocatore ha parlato con UomoBaita in scena2 (task)
@@ -28,11 +30,6 @@ public class BooleanAccessor : MonoBehaviour
         { "fioriRaccolti", false }, // Se il giocatore ha raccolto 3 fiori in scena2
         { "fiori", false }, // Se il giocatore ha parlato con Gaia in scena2 (task)
         { "soluzione", false } // Se il giocatore è giunto nel dialogo di Gaia a craftare la soluzione in scena2
-    };
-
-    private Dictionary<string, int> intValues = new()
-    {
-        { "nInteractionBookShelf", 0 } // Contatore delle interazioni con lo scaffale dei libri in scena0
     };
     #endregion
 
@@ -70,19 +67,6 @@ public class BooleanAccessor : MonoBehaviour
         foreach (var key in boolValues.Keys.ToList()) boolValues[key] = false; // Resetta tutti i valori booleani
     }
 
-    public void SetIntOnDialogueE(string nomeInt, int value)
-    {
-        if (intValues.ContainsKey(nomeInt)) intValues[nomeInt] += value;
-        else Debug.LogWarning("BooleanAccessor: nomeInt don't found - " + nomeInt);
-    }
-
-    public int GetIntFromThis(string nomeInt) => intValues.ContainsKey(nomeInt) ? intValues[nomeInt] : 0;
-
-    public void ResetIntValues()
-    {
-        foreach (var key in intValues.Keys.ToList()) intValues[key] = 0; // Resetta tutti i valori interi
-    }
-
     private void TakeBA(Scene scene, LoadSceneMode mode)
     {
         // TODO: far partire il BA da main menu considerando però anche la questione del save del gioco 
@@ -106,8 +90,33 @@ public class BooleanAccessor : MonoBehaviour
             if (component.GetType().Name.StartsWith(managerObjectName)) // Se il componente ha lo stesso nome del GO
             {
                 component.GetType().GetField("booleanAccessor").SetValue(component, this);
-                return; // Uscire dal ciclo una volta trovato e settato BA
+                break; // Uscire dal ciclo una volta trovato e settato BA
             }
+        }
+    }
+
+    // Metodo per ottenere i valori booleani come lista di BoolData
+    public List<BoolData> GetBoolValues()
+    {
+        var list = new List<BoolData>();
+        foreach (var pair in boolValues) list.Add(new BoolData(pair.Key, pair.Value)); // Crea una nuova istanza di BoolData
+        return list;
+    }
+
+    // Metodo per impostare i valori booleani a partire da una lista di BoolData
+    public void SetBoolValues(List<BoolData> values)
+    {
+        if (values == null)
+        {
+            Debug.LogWarning("BooleanAccessor: values = " + values);
+            return;
+        }
+
+        // Ripristina i valori booleani nel dizionario
+        foreach (var value in values)
+        {
+            if (boolValues.ContainsKey(value.key)) boolValues[value.key] = value.value;
+            else Debug.LogWarning($"BooleanAccessor: Key '{value.key}' not found.");
         }
     }
 
@@ -115,5 +124,18 @@ public class BooleanAccessor : MonoBehaviour
     {
         // Rimuovi il listener quando l'oggetto viene distrutto
         if (istance == this) SceneManager.sceneLoaded -= TakeBA;
+    }
+}
+
+[Serializable]
+public class BoolData
+{
+    public string key;
+    public bool value;
+
+    public BoolData(string key, bool value)
+    {
+        this.key = key;
+        this.value = value;
     }
 }

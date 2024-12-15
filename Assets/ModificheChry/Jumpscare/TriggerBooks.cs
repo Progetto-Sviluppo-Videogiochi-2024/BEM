@@ -39,8 +39,8 @@ public class TriggerBooks : NPCDialogueBase
     {
         initialRotation = behindHoleWallCam.transform.localRotation;
 
-        booleanAccessor = BooleanAccessor.istance;
-        booleanAccessor.SetIntOnDialogueE("nInteractionBookShelf", 0);
+        PlayerPrefs.SetInt("nInteractionBookShelf", 0);
+        PlayerPrefs.Save();
 
         gothicDeathBlood.gameObject.SetActive(false);
         mutant.gameObject.SetActive(false);
@@ -81,7 +81,7 @@ public class TriggerBooks : NPCDialogueBase
             isViewingHole = false;
         }
 
-        var nInteractionBookShelf = booleanAccessor.GetIntFromThis("nInteractionBookShelf");
+        var nInteractionBookShelf = PlayerPrefs.GetInt("nInteractionBookShelf");
         if (nInteractionBookShelf % 2 == 0) // Camera su Stefano
         {
             StopAudio();
@@ -94,7 +94,7 @@ public class TriggerBooks : NPCDialogueBase
             StartCoroutine(SwitchCameraWithDelay(behindPlayerCam, behindHoleWallCam)); // Camera dietro il buco
             isViewingHole = true;
         }
-        booleanAccessor.SetIntOnDialogueE("nInteractionBookShelf", 1);
+        PlayerPrefs.SetInt("nInteractionBookShelf", PlayerPrefs.GetInt("nInteractionBookShelf") + 1);
     }
 
     private IEnumerator SwitchCameraWithDelay(CinemachineVirtualCamera fromCam, CinemachineVirtualCamera toCam)

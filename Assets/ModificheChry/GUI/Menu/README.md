@@ -1,0 +1,17 @@
+Procedura per il LoadSave:
+- Passare i prefab in questa path (Assets/ModificheChry/GUI/Menu/Prefab) alla scena che necessita del LoadSave:
+    - ConfirmSlotUI.prefab
+    - SaveGameUI.prefab
+    - LoadGameUI.prefab
+    - Slot.prefab no perché è già presente in SaveGameUI.prefab e LoadGameUI.prefab (nella content del panel)
+        - Pertanto nella content devono avere un numero alla fine del nome (es. Slot 1, Salvataggio 2, ecc.)
+- SaveListView deve avere il componente SaveSlot.cs e riempire i campi
+    - BackStartUI deve avere nell'onclick la funzione ToggleLoadSaveUI(false) passandogli il GO SaveListView di SaveGameUI
+- LoadListView deve avere il componente LoadSlot.cs e riempire i campi
+    - BackStartUI deve avere nell'onclick la funzione ToggleLoadSaveUI(false) passandogli il GO LoadListView di LoadGameUI
+    - Il button "Carica" del GPM deve avere nell'onclick la funzione ToggleLoadSaveUI(true) passandogli il GO LoadListView di LoadGameUI
+- Il button "Salva" della radio deve avere nell'onclick la funzione ToggleLoadSaveUI(true) passandogli il GO SaveListView di SaveGameUI
+- Creare nella scena il GO SaveLoad e aggiungere il componente SaveLoadSystem.cs
+- Aggiungere le classi T ai GO che necessitano di essere salvati
+    - Ex: Stefano -> GameCharacter, Inventory -> GameInventory, ecc.
+- 

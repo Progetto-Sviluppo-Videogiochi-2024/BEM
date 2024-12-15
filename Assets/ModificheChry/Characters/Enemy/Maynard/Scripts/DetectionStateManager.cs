@@ -16,13 +16,13 @@ public class DetectionStateManager : MonoBehaviour
 
     [Header("References Scripts")]
     #region References Scripts
-    GameManager gameManager;
+    GestoreScena gestoreScena;
     #endregion
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        playerHead = gameManager.playerHead;
+        gestoreScena = FindObjectOfType<GestoreScena>();
+        playerHead = gestoreScena?.playerHead;
     }
 
     private void FixedUpdate()
