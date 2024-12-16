@@ -264,9 +264,13 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         inspectMenu.Find("DescriptionItem").GetComponent<TextMeshProUGUI>().text = item.description;
 
         // Aggiungi un listener al click sull'immagine per aprire o chiudere lo zoom
-        var imgButton = inspectMenu.Find("ImgItem").GetComponent<Button>();
-        imgButton.onClick.RemoveAllListeners(); // Rimuove eventuali listener precedenti
-        imgButton.onClick.AddListener(() => OpenCloseZoom(!IsZoomActive()));
+        var LenteButton = inspectMenu.Find("Lente+").GetComponent<Button>();
+        if(item.tagType == ItemTagType.Document){
+            LenteButton.enabled = true;
+            LenteButton.onClick.RemoveAllListeners(); // Rimuove eventuali listener precedenti
+            LenteButton.onClick.AddListener(() => OpenCloseZoom(!IsZoomActive()));
+            ZoomMenu.Find("Image").GetComponent<Image>().sprite = item.image;
+        }else{LenteButton.enabled = false;}
 
         if (item.tagType == ItemTagType.Recipe)
         {
