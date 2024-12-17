@@ -13,6 +13,7 @@ public class OpenInventory : MonoBehaviour
     [Header("References")]
     #region References
     [HideInInspector] public InventoryItemController itemInspectOpen; // L'oggetto con ispeziona aperto
+    [HideInInspector] private Transform zoomMenu; // Il menu di zoom per i documenti
     #endregion
 
     void Start()
@@ -21,6 +22,7 @@ public class OpenInventory : MonoBehaviour
         {
             // Nascondi il Canvas dell'inventario all'avvio
             inventoryCanvas.SetActive(false);
+            zoomMenu = inventoryCanvas.transform.Find("Zoom");
 
             // Per chiudere l'inventario e aggiungerne l'evento di chiusura al click sul bottone
             inventoryCanvas.transform.Find("Inventory/Close").GetComponent<Button>().onClick
@@ -75,6 +77,8 @@ public class OpenInventory : MonoBehaviour
         inventoryCanvas.SetActive(isInventoryOpen);
         GestoreScena.ChangeCursorActiveStatus(isInventoryOpen, "Inventory");
         if (!isInventoryOpen) GetComponent<AimStateManager>().enabled = true;
+        if (!isOpen && zoomMenu.gameObject.activeSelf) zoomMenu.gameObject.SetActive(false);
+
         // Chiudi il menu ispeziona se l'inventario viene chiuso
         if (isOpen && itemInspectOpen != null)
         {

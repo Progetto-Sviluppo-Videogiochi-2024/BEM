@@ -25,8 +25,8 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
     [Header("Inspect Item Sub-menu Options")]
     #region Inspect Item Sub-menu Options
     public Transform inspectMenu; // Il menu Ispeziona dell'item/collezionabile
-    public Transform ZoomMenu; // Il menu Ispeziona dell'item/collezionabile
-    
+    public Transform zoomMenu; // Il menu Ispeziona dell'item/collezionabile
+
     public int indexIngredientCraft = 0; // Indice dell'ingrediente per la creazione dell'oggetto
     private List<string> ingredients = new(); // Lista degli ingredienti della ricetta
     private List<string> qtaIngredients = new(); // Lista delle quantità degli ingredienti della ricetta
@@ -93,7 +93,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         }
 
         inspectMenu = item.tagType == ItemTagType.Recipe ? invUIController.inspectMenuRecipe : invUIController.inspectMenuItem;
-        ZoomMenu = invUIController.ZoomMenu;
+        zoomMenu = invUIController.ZoomMenu;
         if (item.tagType == ItemTagType.Recipe)
         {
             ingredients = GetIngredientsRecipe(item.ingredientsRecipe);
@@ -264,13 +264,17 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         inspectMenu.Find("DescriptionItem").GetComponent<TextMeshProUGUI>().text = item.description;
 
         // Aggiungi un listener al click sull'immagine per aprire o chiudere lo zoom
-        var LenteButton = inspectMenu.Find("Lente+").GetComponent<Button>();
-        if(item.tagType == ItemTagType.Document){
-            LenteButton.enabled = true;
-            LenteButton.onClick.RemoveAllListeners(); // Rimuove eventuali listener precedenti
-            LenteButton.onClick.AddListener(() => OpenCloseZoom(!IsZoomActive()));
-            ZoomMenu.Find("Image").GetComponent<Image>().sprite = item.image;
-        }else{LenteButton.enabled = false;}
+        var lenteButton = inspectMenu.Find("Lente+").GetComponent<Button>();
+        if (item.tagType == ItemTagType.Document)
+        {
+            lenteButton.enabled = true;
+            lenteButton.onClick.RemoveAllListeners(); // Rimuove eventuali listener precedenti
+            lenteButton.onClick.AddListener(() => OpenCloseZoom(!IsZoomActive()));
+            SetColorButton(lenteButton);
+            SetColorButton(inspectMenu.Find("ImgItem").GetComponent<Button>());
+            zoomMenu.GetComponent<Image>().sprite = item.image;
+        }
+        else lenteButton.enabled = false;
 
         if (item.tagType == ItemTagType.Recipe)
         {
@@ -296,6 +300,13 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             qta.gameObject.SetActive(false);
             weight.gameObject.SetActive(false);
         }
+    }
+
+    private void SetColorButton(Button button)
+    {
+        var colors = button.colors;
+        colors.highlightedColor = new(120 / 255f, 120 / 255f, 120 / 255f, 1f);
+        button.colors = colors;
     }
 
     private void ShowCreateItemOption()
@@ -363,9 +374,9 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             new List<string> { input.Trim() };
 
     public void OpenCloseInspectUI(bool openMenu) => inspectMenu.gameObject.SetActive(openMenu);
-    public void OpenCloseZoom(bool openMenu) => ZoomMenu.gameObject.SetActive(openMenu);
+    public void OpenCloseZoom(bool openMenu) => zoomMenu.gameObject.SetActive(openMenu);
     private bool IsInspectItemUIActive() => inspectMenu.gameObject.activeSelf;
-    private bool IsZoomActive() => ZoomMenu.gameObject.activeSelf;
+    private bool IsZoomActive() => zoomMenu.gameObject.activeSelf;
 
     /* Usa */
     public void UseItem(GameObject buttonClicked)

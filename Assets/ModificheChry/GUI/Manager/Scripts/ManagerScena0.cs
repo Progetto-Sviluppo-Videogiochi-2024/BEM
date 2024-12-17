@@ -3,6 +3,8 @@ using UnityEngine;
 using DialogueEditor;
 using Cinemachine;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 public class ManagerScena0 : MonoBehaviour
 {
@@ -30,40 +32,48 @@ public class ManagerScena0 : MonoBehaviour
     public TutorialScript tutorialScript; // Riferimento diretto allo script del tutorial
     public Diario diario; // Riferimento diretto allo script del diario
     public Door door; // Riferimento alla porta
+    List<PlayerPrefsData> playerPrefsData; // Dati del PlayerPrefs
     #endregion
 
     void Start()
     {
-        // Reset delle variabili
-        PlayerPrefs.SetInt("hasBackpack", 0);
-        PlayerPrefs.SetInt("hasTorch", 0);
-        PlayerPrefs.Save();
-        booleanAccessor.ResetBoolValues();
-        backPackTaken = false;
-        torchTaken = false;
-
-        // Switch delle camere
-        SwitchCamera(5, 10);
-
-        // Gestione del personaggio
+        // Ottengo i riferimenti
+        booleanAccessor = BooleanAccessor.istance;
+        GameData gameData = SaveLoadSystem.Instance.gameData;
+        playerPrefsData = gameData.levelData.playerPrefs;
         player = FindObjectOfType<Player>().gameObject;
         animator = player.GetComponent<Animator>();
-        animator.SetBool("inactive", true);
-        animator.SetInteger("nInactive", 1);
-        animator.SetBool("sit", true);
-        player.GetComponent<MovementStateManager>().enabled = false;
-        animator.SetLayerWeight(animator.GetLayerIndex("Movement"), 0);
-        backPackPlayer.SetActive(false);
-
-        // Tutorial
-        triggerBooks.enabled = false;
-        triggerBooks.GetComponentInChildren<ItemPickup>().enabled = false;
         conversationManager = ConversationManager.Instance;
-        conversationManager.hasClickedEnd = false;
-        diario.AggiungiMissione("Lista degli oggetti per Pasquetta: Zaino e Torcia");
+
+        // Init PlayerPrefs
+        PlayerPrefs.SetInt("hasBackpack", playerPrefsData.Where(p => p.key == "hasBackpack").Select(p => p.value).FirstOrDefault());
+        PlayerPrefs.SetInt("hasTorch", playerPrefsData.Where(p => p.key == "hasTorch").Select(p => p.value).FirstOrDefault());
+        PlayerPrefs.Save();
+        // backPackTaken = false;
+        // torchTaken = false;
+
+        // Per una nuova game session
+        if (!booleanAccessor.GetBoolFromThis("premereE"))
+        {
+            booleanAccessor.ResetBoolValues();
+            SwitchCamera(5, 10); // Camera davanti Stefano
+            animator.SetBool("inactive", true);
+            animator.SetInteger("nInactive", 1);
+            animator.SetBool("sit", true);
+            player.GetComponent<MovementStateManager>().enabled = false;
+            animator.SetLayerWeight(animator.GetLayerIndex("Movement"), 0);
+            backPackPlayer.SetActive(false);
+            diario.AggiungiMissione("Lista degli oggetti per Pasquetta: Zaino e Torcia");
+            triggerBooks.enabled = false;
+            triggerBooks.GetComponentInChildren<ItemPickup>().enabled = false;
+            conversationManager.hasClickedEnd = false;
+        }
+        else SwitchCamera(10, 5); // Camera dietro Stefano
+
         StartConversation(
             () =>
             {
+                if (booleanAccessor.GetBoolFromThis("premereE")) { conversationManager.hasClickedEnd = true; return; }
                 GestoreScena.ChangeCursorActiveStatus(true, "scena0.premereE");
                 tutorialScript.StartTutorial("premereE");
             },
@@ -77,7 +87,7 @@ public class ManagerScena0 : MonoBehaviour
         if (!door.canOpen && backPackTaken && torchTaken)
         {
             diario.CompletaMissione("Lista degli oggetti per Pasquetta: Zaino e Torcia");
-            door.canOpen = true; // Almeno entra solo una volta nell'if
+            door.canOpen = true;
         }
 
         // Gestione degli oggetti raccolti
@@ -96,7 +106,7 @@ public class ManagerScena0 : MonoBehaviour
 
     private void StandUpAndWASD(string dialogue)
     {
-        if (!booleanAccessor.GetBoolFromThis("wasd") && animator.GetBool("sit") && conversationManager.hasClickedEnd)
+        if (!booleanAccessor.GetBoolFromThis(dialogue) && animator.GetBool("sit") && conversationManager.hasClickedEnd)
         {
             conversationManager.hasClickedEnd = false;
             SwitchCamera(10, 5);
@@ -110,6 +120,7 @@ public class ManagerScena0 : MonoBehaviour
             GestoreScena.ChangeCursorActiveStatus(true, "scena0.wasd");
             tutorialScript.StartTutorial(dialogue); // Invoca WASD&Mouse
         }
+        else conversationManager.hasClickedEnd = true;
     }
 
     private void PostAction(string dialogue)
@@ -121,6 +132,7 @@ public class ManagerScena0 : MonoBehaviour
             tutorialScript.StartTutorial(dialogue); // Invoca "dialogue" (quest, zaino)
             if (dialogue == "zaino") { triggerBooks.enabled = true; triggerBooks.GetComponentInChildren<ItemPickup>().enabled = true; }
         }
+        else conversationManager.hasClickedEnd = true;
     }
 
     void StartSecondDialogue() => StartConversation(() => StandUpAndWASD("wasd"), () => StartCoroutine(WaitAndStartThirdDialogue(10f)));

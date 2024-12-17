@@ -48,10 +48,13 @@ public class LevelData : ISaveable
     public List<PlayerPrefsData> playerPrefs = new(); // Lista per memorizzare i dati di PlayerPrefs
 
     [Header("Dati livello")]
-    // Dati importanti della scena attuale per le statistiche
+    // TODO: Dati importanti della scena attuale per le statistiche
 
     [Header("Dati del BA")]
     public List<BoolData> booleanAccessor = new(); // Dati booleani del BA
+
+    [Header("Dati delle quest")]
+    public List<QuestData> questData = new(); // Dati delle quest
 }
 
 [Serializable]
@@ -64,5 +67,20 @@ public class PlayerPrefsData
     {
         this.key = key;
         this.value = value;
+    }
+}
+
+[Serializable]
+public class QuestData
+{
+    public string title;
+    public string description;
+    public bool isCompleted;
+
+    public QuestData(string title, string description, bool isCompleted)
+    {
+        this.title = title;
+        this.description = description;
+        this.isCompleted = isCompleted;
     }
 }

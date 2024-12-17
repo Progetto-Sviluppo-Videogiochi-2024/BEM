@@ -13,10 +13,8 @@ public class GameData : ISerializationCallbackReceiver
     [SerializeField] private string saveTimeString; // Data e ora del salvataggio in formato stringa
     public int nSlotSave; // Numero dello slot di salvataggio
     public PlayerData playerData; // Dati del giocatore (stato, trasform, vcam)
-    public InventoryData inventoryData; // Dati dell'inventario (oggetti raccolti)
-    public LevelData levelData; // Dati del livello (PlayerPrefs, BA, poi?)
-    // Oggetti equipaggiati?
-    // Dati livello? // Dati importanti della scena attuale per le statistiche
+    public InventoryData inventoryData; // Dati dell'inventario (oggetti raccolti) // Oggetti equipaggiati?
+    public LevelData levelData; // Dati del livello (PlayerPrefs, BA, poi?) // Dati livello? // Dati importanti della scena attuale per le statistiche
     // Quest?
     // Etc.
 

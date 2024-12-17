@@ -99,7 +99,7 @@ public class BooleanAccessor : MonoBehaviour
     public List<BoolData> GetBoolValues()
     {
         var list = new List<BoolData>();
-        foreach (var pair in boolValues) list.Add(new BoolData(pair.Key, pair.Value)); // Crea una nuova istanza di BoolData
+        foreach (var pair in boolValues) list.Add(new BoolData(pair.Key, pair.Value)); // Crea una nuova istanza di BoolData}
         return list;
     }
 
