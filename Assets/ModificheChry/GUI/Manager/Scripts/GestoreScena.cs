@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,7 @@ public class GestoreScena : MonoBehaviour
     [Header("Static References")]
     #region Static References
     private static int nUIOpen = 0; // Numero di UI aperte nella scena corrente
+    public static List<string> collectedItemIds = new(); // Lista degli ID degli oggetti raccolti o interagiti 
     #endregion
 
     [Header("References")]

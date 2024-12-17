@@ -19,11 +19,11 @@ public class ManagerScena1 : MonoBehaviour
 
     [Header("References")]
     #region References
+    [HideInInspector] public BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
     private GestoreScena gestoreScena; // Riferimento al GestoreScena
     private ConversationManager conversationManager; // Riferimento al ConversationManager
     [SerializeField] private NPCConversation dialogue; // Riferimento alla conversazione del gruppo di ragazzi
     private AudioSource audioSource; // Riferimento all'AudioSource
-    private BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
     #endregion
 
     void Start()

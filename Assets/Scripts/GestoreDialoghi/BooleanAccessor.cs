@@ -69,8 +69,6 @@ public class BooleanAccessor : MonoBehaviour
 
     private void TakeBA(Scene scene, LoadSceneMode mode)
     {
-        // TODO: far partire il BA da main menu considerando però anche la questione del save del gioco 
-
         string sceneName = scene.name; // Nome della scena appena caricata
         string sceneNumber = sceneName[^1..]; // Ultimo carattere
 

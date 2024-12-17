@@ -56,12 +56,7 @@ public class TriggerBooks : NPCDialogueBase
 
     protected override void Update()
     {
-        if (PlayerPrefs.GetInt("nInteractionBookShelf") == maxScenes + 1)
-        {
-            GetComponentInChildren<ItemPickup>().enabled = false;
-            enabled = false;
-            return;
-        }
+        if (PlayerPrefs.GetInt("nInteractionBookShelf") == maxScenes + 1) { enabled = false; return; }
 
         if (!clickEndHandled && ConversationManager.Instance.hasClickedEnd)
         {

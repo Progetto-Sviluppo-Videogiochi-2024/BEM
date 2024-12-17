@@ -26,7 +26,7 @@ public class ManagerScena0 : MonoBehaviour
     #region References
     [SerializeField] TriggerBooks triggerBooks; // Riferimento al pickup dei libri da togliere dalla libreria
     private ConversationManager conversationManager; // Riferimento al ConversationManager
-    public BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
+    [HideInInspector] public BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
     public GameObject backPackPlayer; // Riferimento al GameObject dello zaino del giocatore
     private GameObject player; // Riferimento al GameObject del giocatore
     private Animator animator; // Riferimento all'Animator del giocatore

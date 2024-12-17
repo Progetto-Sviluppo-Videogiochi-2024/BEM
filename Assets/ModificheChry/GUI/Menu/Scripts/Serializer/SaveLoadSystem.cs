@@ -14,20 +14,14 @@ public class GameData : ISerializationCallbackReceiver
     public int nSlotSave; // Numero dello slot di salvataggio
     public PlayerData playerData; // Dati del giocatore (stato, trasform, vcam)
     public InventoryData inventoryData; // Dati dell'inventario (oggetti raccolti) // Oggetti equipaggiati?
-    public LevelData levelData; // Dati del livello (PlayerPrefs, BA, poi?) // Dati livello? // Dati importanti della scena attuale per le statistiche
-    // Quest?
-    // Etc.
+    public LevelData levelData; // Dati del livello (PlayerPrefs, BA) // Dati livello? // Dati importanti della scena attuale per le statistiche
+    public List<string> collectedItemIds; // ID degli oggetti raccolti o interagiti
 
-    // Imposta saveTime da saveTimeString durante la deserializzazione
-    public void OnBeforeSerialize() => saveTimeString = saveTime.ToString("yyyy-MM-dd HH:mm:ss"); // Formato: "yyyy-MM-dd HH:mm:ss"
+    public void OnBeforeSerialize() => saveTimeString = saveTime.ToString("yyyy-MM-dd HH:mm:ss"); // Formato: "yyyy-MM-dd HH:mm:ss" // Imposta saveTime da saveTimeString durante la deserializzazione
 
-    // Riconverte saveTimeString in DateTime durante la deserializzazione
-    public void OnAfterDeserialize()
+    public void OnAfterDeserialize() // Riconverte saveTimeString in DateTime durante la deserializzazione
     {
-        if (!string.IsNullOrEmpty(saveTimeString))
-        {
-            saveTime = DateTime.Parse(saveTimeString);
-        }
+        if (!string.IsNullOrEmpty(saveTimeString)) saveTime = DateTime.Parse(saveTimeString);
     }
 }
 
@@ -131,6 +125,8 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
             level.SaveLevelData();
             gameData.levelData = level.data;
         }
+        gameData.collectedItemIds = GestoreScena.collectedItemIds;
+        print($"Item raccolti: {string.Join(", ", gameData.collectedItemIds)}");
 
         dataService.Save(gameData);
     }

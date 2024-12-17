@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ItemPickup : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class ItemPickup : MonoBehaviour
     [HideInInspector] public Item item; // Oggetto da raccogliere
     private bool isPlayerInRange = false; // Per sapere se il giocatore è vicino all'oggetto
     private bool isItemAdded = false; // Flag per assicurarsi che l'oggetto venga aggiunto solo una volta
+    private string itemId; // ID dell'oggetto
     #endregion
 
     [Header("References")]
@@ -30,6 +32,10 @@ public class ItemPickup : MonoBehaviour
         var player = FindObjectOfType<Player>().gameObject;
         openMenuScript = player.GetComponent<OpenInventory>();
         animator = player.GetComponent<Animator>();
+
+        // Verifica se l'oggetto è stato raccolto
+        itemId = GenerateItemId();
+        if (GestoreScena.collectedItemIds.Contains(itemId)) Destroy(gameObject); // Distruggi l'oggetto se è già stato raccolto}
     }
 
     void Update()
@@ -46,6 +52,14 @@ public class ItemPickup : MonoBehaviour
             }
             else if (animator.GetBool("pickingUp") && (animator.GetFloat("vInput") > 0 || animator.GetFloat("hInput") > 0)) CancelPickup();
         }
+    }
+
+    private string GenerateItemId()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        string objectName = gameObject.name;
+        Vector3 position = transform.position;
+        return $"{sceneName}_{objectName}_{position.x}_{position.y}_{position.z}";
     }
 
     // private bool CheckClickMouseItem()
@@ -89,10 +103,10 @@ public class ItemPickup : MonoBehaviour
                 InventoryUIController.instance.ListItems(InventoryManager.instance.items);
             }
             FindObjectOfType<GestoreScena>().SetItemScene(item);
-
             isItemAdded = true;
 
             FindObjectOfType<Player>().GetComponent<ItemDetector>().RemoveItemDetection(gameObject);
+            if (!GestoreScena.collectedItemIds.Contains(itemId)) GestoreScena.collectedItemIds.Add(itemId);
             if (item.canDestroy) Destroy(gameObject);
         }
 
