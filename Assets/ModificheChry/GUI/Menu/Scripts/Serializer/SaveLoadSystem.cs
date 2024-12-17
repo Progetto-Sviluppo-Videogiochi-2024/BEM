@@ -62,6 +62,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
     {
         if (scene.name == "MainMenu" || scene.name == "Transizione") return;
         if (!isLoading) return;
+        Time.timeScale = 1;
         Bind<GameCharacter, PlayerData>(gameData.playerData);
         Bind<GameInventory, InventoryData>(gameData.inventoryData);
         Bind<GameLevelData, LevelData>(gameData.levelData);

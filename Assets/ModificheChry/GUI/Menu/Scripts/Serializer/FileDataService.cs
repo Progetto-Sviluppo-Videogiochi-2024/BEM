@@ -23,7 +23,6 @@ public class FileDataService : IDataService
         }
     }
 
-
     public bool DoesSaveExist(string slotFileName) => File.Exists(GetFilePath(slotFileName));
 
     string GetFilePath(string fileName) => Path.Combine(dataPath, string.Concat(fileName, ".", fileExtension));
@@ -42,8 +41,8 @@ public class FileDataService : IDataService
         foreach (string filePath in Directory.GetFiles(dataPath)) File.Delete(filePath);
     }
 
-    public List<string> ListSaves() => Directory.Exists(dataPath) 
-        ? new(Array.ConvertAll(Directory.GetFiles(dataPath, "Slot *.json"), Path.GetFileNameWithoutExtension)) 
+    public List<string> ListSaves() => Directory.Exists(dataPath)
+        ? new(Array.ConvertAll(Directory.GetFiles(dataPath, "Slot *.json"), Path.GetFileNameWithoutExtension))
         : throw new DirectoryNotFoundException($"La directory specificata non esiste: {dataPath}");
 
     public GameData Load(string fileName)
