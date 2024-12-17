@@ -35,6 +35,7 @@ public class GameLevelData : MonoBehaviour, IBind<LevelData>
     public void SaveLevelData() // Salva su file
     {
         // PlayerPrefs
+        data.playerPrefs.Clear(); // Svuoto la lista per evitare duplicati
         data.playerPrefs.Add(new PlayerPrefsData("hasBackpack", PlayerPrefs.GetInt("hasBackpack")));
         data.playerPrefs.Add(new PlayerPrefsData("hasTorch", PlayerPrefs.GetInt("hasTorch")));
         data.playerPrefs.Add(new PlayerPrefsData("hasBait", PlayerPrefs.GetInt("hasBait")));
