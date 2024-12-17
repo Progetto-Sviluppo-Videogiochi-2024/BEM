@@ -26,6 +26,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
     #region Inspect Item Sub-menu Options
     public Transform inspectMenu; // Il menu Ispeziona dell'item/collezionabile
     public Transform zoomMenu; // Il menu Ispeziona dell'item/collezionabile
+    private Button lenteButton; // Bottone per lo zoom dell'immagine
 
     public int indexIngredientCraft = 0; // Indice dell'ingrediente per la creazione dell'oggetto
     private List<string> ingredients = new(); // Lista degli ingredienti della ricetta
@@ -99,6 +100,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             ingredients = GetIngredientsRecipe(item.ingredientsRecipe);
             qtaIngredients = GetIngredientsRecipe(item.qtaIngredientsRecipe);
         }
+        lenteButton = inspectMenu.parent.GetChild(1).Find("Lente+").GetComponent<Button>();
     }
 
     private void Update()
@@ -264,17 +266,16 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         inspectMenu.Find("DescriptionItem").GetComponent<TextMeshProUGUI>().text = item.description;
 
         // Aggiungi un listener al click sull'immagine per aprire o chiudere lo zoom
-        var lenteButton = inspectMenu.Find("Lente+").GetComponent<Button>();
         if (item.tagType == ItemTagType.Document)
         {
-            lenteButton.enabled = true;
+            lenteButton.gameObject.SetActive(true);
             lenteButton.onClick.RemoveAllListeners(); // Rimuove eventuali listener precedenti
             lenteButton.onClick.AddListener(() => OpenCloseZoom(!IsZoomActive()));
             SetColorButton(lenteButton);
             SetColorButton(inspectMenu.Find("ImgItem").GetComponent<Button>());
             zoomMenu.GetComponent<Image>().sprite = item.image;
         }
-        else lenteButton.enabled = false;
+        else lenteButton.gameObject.SetActive(false);
 
         if (item.tagType == ItemTagType.Recipe)
         {

@@ -31,21 +31,15 @@ public class Diario : MonoBehaviour
 
     void Start()
     {
-        if (scrollView != null)
-        {
-            scrollView.SetActive(false);
-        }
-        else
-        {
-            Debug.LogError("ScrollView non assegnato!");
-        }
+        if (scrollView != null) scrollView.SetActive(false);
+        else Debug.LogError("ScrollView non assegnato!");
 
         AggiornaDiarioUI();
     }
 
     void Update()
     {
-        if (diarioVisibile) { ToggleCinematic(); }
+        if (diarioVisibile) ToggleCinematic();
         if (Input.GetKeyDown(KeyCode.Q)) ToggleDiario(!diarioVisibile);
     }
 
@@ -109,10 +103,7 @@ public class Diario : MonoBehaviour
             // Invoca l'evento per notificare il completamento della missione
             OnMissionCompleted?.Invoke(missione);
         }
-        else
-        {
-            // print("La missione non è presente nel diario.");
-        }
+        // else // print("La missione non è presente nel diario.");
     }
 
     private void AggiornaDiarioUI()
@@ -124,41 +115,23 @@ public class Diario : MonoBehaviour
         }
 
         // Rimuove tutti gli elementi esistenti
-        foreach (Transform child in content)
-        {
-            Destroy(child.gameObject);
-        }
-
-        // Aggiunge le missioni completate prima
-        foreach (string missione in missioniCompletate)
-        {
-            SetMissione("<s>- " + missione + "</s>"); // Applicazione dello strikethrough per le completate
-        }
+        foreach (Transform child in content) Destroy(child.gameObject);
 
         // Aggiunge le missioni attive
-        foreach (string missione in missioniAttive)
-        {
-            SetMissione("- " + missione);
-        }
+        foreach (string missione in missioniAttive) SetMissione("- " + missione);
+
+        // Aggiunge le missioni completate prima
+        foreach (string missione in missioniCompletate) SetMissione("<s>- " + missione + "</s>"); // Applicazione dello strikethrough per le completate
 
         // Se non ci sono missioni attive o completate, mostra "Nessuna attività"
-        if (missioniAttive.Count == 0 && missioniCompletate.Count == 0)
-        {
-            SetMissione("Nessuna attività");
-        }
+        if (missioniAttive.Count == 0 && missioniCompletate.Count == 0) SetMissione("Nessuna attività");
     }
 
     private void SetMissione(string missione)
     {
         GameObject missionObj = Instantiate(missionPrefab, content);
         TMP_Text missionText = missionObj.GetComponent<TMP_Text>();
-        if (missionText != null)
-        {
-            missionText.text = missione;
-        }
-        else
-        {
-            Debug.LogError("Prefab di missione non ha un componente TMP_Text!");
-        }
+        if (missionText != null) missionText.text = missione;
+        else Debug.LogError("Prefab di missione non ha un componente TMP_Text!");
     }
 }

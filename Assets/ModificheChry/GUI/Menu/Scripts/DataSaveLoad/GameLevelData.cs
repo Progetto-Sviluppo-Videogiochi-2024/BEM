@@ -22,6 +22,14 @@ public class GameLevelData : MonoBehaviour, IBind<LevelData>
         // BA
         var booleanAccessor = BooleanAccessor.istance;
         booleanAccessor?.SetBoolValues(data.booleanAccessor);
+
+        // Quest
+        var diario = FindObjectOfType<Diario>();
+        if (diario != null)
+        {
+            diario.missioniAttive = new(data.questAttive);
+            diario.missioniCompletate = new(data.questCompletate);
+        }
     }
 
     public void SaveLevelData() // Salva su file
@@ -36,6 +44,14 @@ public class GameLevelData : MonoBehaviour, IBind<LevelData>
         // BA
         var booleanAccessor = BooleanAccessor.istance;
         if (booleanAccessor != null) data.booleanAccessor = booleanAccessor.GetBoolValues();
+
+        // Quest
+        var diario = FindObjectOfType<Diario>();
+        if (diario != null)
+        {
+            data.questAttive = new(diario.missioniAttive);
+            data.questCompletate = new(diario.missioniCompletate);
+        }
     }
 }
 
@@ -54,33 +70,19 @@ public class LevelData : ISaveable
     public List<BoolData> booleanAccessor = new(); // Dati booleani del BA
 
     [Header("Dati delle quest")]
-    public List<QuestData> questData = new(); // Dati delle quest
+    public List<string> questAttive = new(); // Lista per memorizzare le quest attive
+    public List<string> questCompletate = new(); // Lista per memorizzare le quest completate
 }
 
 [Serializable]
 public class PlayerPrefsData
 {
-    public string key;
-    public int value;
+    public string key; // Nome assegnato alla chiave di PlayerPrefs
+    public int value; // Valore assegnato alla chiave di PlayerPrefs
 
     public PlayerPrefsData(string key, int value)
     {
         this.key = key;
         this.value = value;
-    }
-}
-
-[Serializable]
-public class QuestData
-{
-    public string title;
-    public string description;
-    public bool isCompleted;
-
-    public QuestData(string title, string description, bool isCompleted)
-    {
-        this.title = title;
-        this.description = description;
-        this.isCompleted = isCompleted;
     }
 }

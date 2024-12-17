@@ -18,7 +18,6 @@ public class ManagerScena2 : MonoBehaviour
     [Header("Settings")]
     #region Settings
     private bool flagNextScene = false; // Flag per cambiare scena
-    private bool clickEndHandled = false; // Flag per evitare che esegua più volte il codice nel metodo Update quando si clicca su "End"
     private bool hasFlowers = false; // Flag per i fiori
     #endregion
 
@@ -66,9 +65,9 @@ public class ManagerScena2 : MonoBehaviour
 
     void Update()
     {
-        if (!booleanAccessor.GetBoolFromThis("intro2") && !clickEndHandled && ConversationManager.Instance.hasClickedEnd)
+        if (!booleanAccessor.GetBoolFromThis("intro2") && ConversationManager.Instance.hasClickedEnd)
         {
-            clickEndHandled = true;
+            SetDEBool("intro2");
             ConversationManager.Instance.hasClickedEnd = false;
             GestoreScena.ChangeCursorActiveStatus(false, "ManagerScena2.update");
         }
@@ -80,6 +79,7 @@ public class ManagerScena2 : MonoBehaviour
         {
             flagNextScene = true;
             fenceHole.enabled = true;
+            diario.CompletaMissione("Esplora la foresta (" + dialoghiEseguiti + " / " + dialoghiTotali + ")");
             diario.AggiungiMissione("Oltrepassa la recinzione");
         }
     }
