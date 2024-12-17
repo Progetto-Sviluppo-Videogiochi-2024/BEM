@@ -162,10 +162,13 @@ public class WeaponData : ItemData
         distance = weapon.distance;
         semiAuto = weapon.semiAuto;
         isThrowable = weapon.isThrowable;
+#if UNITY_EDITOR
         fireSoundPath = AssetDatabase.GetAssetPath(weapon.fireSound);
         magInSoundPath = AssetDatabase.GetAssetPath(weapon.magInSound);
         magOutSoundPath = AssetDatabase.GetAssetPath(weapon.magOutSound);
         releaseSlideSoundPath = AssetDatabase.GetAssetPath(weapon.releaseSlideSound);
+#endif
+
         IdlePosition = weapon.IdlePosition;
         IdleRotation = weapon.IdleRotation;
         AimPosition = weapon.AimPosition;

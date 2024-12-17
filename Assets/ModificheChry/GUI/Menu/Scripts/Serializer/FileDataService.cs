@@ -14,7 +14,15 @@ public class FileDataService : IDataService
         dataPath = Application.persistentDataPath + "/Saves";
         fileExtension = "json";
         this.serializer = serializer;
+
+        // Crea la directory se non esiste
+        if (!Directory.Exists(dataPath))
+        {
+            Directory.CreateDirectory(dataPath);
+            Debug.Log($"Directory di salvataggio creata: {dataPath}");
+        }
     }
+
 
     public bool DoesSaveExist(string slotFileName) => File.Exists(GetFilePath(slotFileName));
 
