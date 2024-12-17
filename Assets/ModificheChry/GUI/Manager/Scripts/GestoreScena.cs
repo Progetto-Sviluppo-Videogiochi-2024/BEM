@@ -45,6 +45,7 @@ public class GestoreScena : MonoBehaviour
         PlayerPrefs.SetString("CurrentChapter", nextChapter);
         PlayerPrefs.SetString("NextScene", nextScene);
         PlayerPrefs.Save();
+        if (nextScene == "Scena0") Destroy(SaveLoadSystem.Instance.gameObject);
 
         SceneManager.LoadScene("Transizione");
     }

@@ -13,6 +13,7 @@ public class ManagerScena0 : MonoBehaviour
     private Action onDialogueEnd; // Delegato per la fine del dialogo (per passare al prossimo)
     private bool backPackTaken = false; // Variabile di controllo per lo zaino
     private bool torchTaken = false; // Variabile di controllo per la torcia
+    private float waitTime = 5f; // Tempo di attesa per l'avvio del prossimo dialogo
     #endregion
 
     [Header("Camere")]
@@ -130,12 +131,12 @@ public class ManagerScena0 : MonoBehaviour
             conversationManager.hasClickedEnd = false;
             GestoreScena.ChangeCursorActiveStatus(true, "scena0." + dialogue);
             tutorialScript.StartTutorial(dialogue); // Invoca "dialogue" (quest, zaino)
-            if (dialogue == "zaino") { triggerBooks.enabled = true; triggerBooks.GetComponentInChildren<ItemPickup>().enabled = true; }
+            if (dialogue == "zaino" && PlayerPrefs.GetInt("nInteractionBookShelf") != 9) { triggerBooks.enabled = true; triggerBooks.GetComponentInChildren<ItemPickup>().enabled = true; }
         }
         else conversationManager.hasClickedEnd = true;
     }
 
-    void StartSecondDialogue() => StartConversation(() => StandUpAndWASD("wasd"), () => StartCoroutine(WaitAndStartThirdDialogue(10f)));
+    void StartSecondDialogue() => StartConversation(() => StandUpAndWASD("wasd"), () => StartCoroutine(WaitAndStartThirdDialogue(waitTime)));
 
     IEnumerator WaitAndStartThirdDialogue(float waitTime)
     {
@@ -143,7 +144,7 @@ public class ManagerScena0 : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
 
         // Avvia il terzo dialogo e definisci il delegato per il quarto dialogo
-        StartConversation(() => PostAction("quest"), () => StartCoroutine(WaitAndStartFourthDialogue(10f)));
+        StartConversation(() => PostAction("quest"), () => StartCoroutine(WaitAndStartFourthDialogue(waitTime)));
     }
 
     IEnumerator WaitAndStartFourthDialogue(float waitTime)

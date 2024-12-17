@@ -2,12 +2,12 @@ using UnityEngine;
 using Cinemachine;
 using DialogueEditor;
 using System.Collections;
+using System.Linq;
 
 public class TriggerBooks : NPCDialogueBase
 {
     [Header("References")]
     #region References
-    private BooleanAccessor booleanAccessor; // Riferimento al boolean accessor
     [SerializeField] RadioManager radioManager; // Riferimento al RadioManager
     [SerializeField] AudioClip clipJumpscare; // Clip audio del jumpscare
     AudioSource audioSource; // Riferimento all'AudioSource
@@ -27,9 +27,9 @@ public class TriggerBooks : NPCDialogueBase
     private bool isTransitioning = false; // Stato per il blocco della transizione tra le telecamere
     private bool isViewingHole = false; // Stato per il blocco della visuale sul buco
     private const int maxScenes = 8; // Numero massimo di scenari (pari -> dialogo stefano, dispari -> camera dietro il buco)
-    private float mouseSensitivity = 3f; // Sensibilità del mouse
-    private float maxXRotation = 40f; // Limite massimo di rotazione sull'asse X
-    private float maxYRotation = 40f; // Limite massimo di rotazione sull'asse Y
+    private const float mouseSensitivity = 3f; // Sensibilità del mouse
+    private const float maxXRotation = 40f; // Limite massimo di rotazione sull'asse X
+    private const float maxYRotation = 40f; // Limite massimo di rotazione sull'asse Y
     private bool allowSecondaryCameraControl = false; // Abilita il controllo del mouse per la camera dietro il muro
     private Vector2 currentSecondaryCameraRotation = Vector2.zero; // Rotazione attuale della camera secondaria
     private Quaternion initialRotation; // Rotazione iniziale della telecamera secondaria
@@ -39,7 +39,9 @@ public class TriggerBooks : NPCDialogueBase
     {
         initialRotation = behindHoleWallCam.transform.localRotation;
 
-        PlayerPrefs.SetInt("nInteractionBookShelf", 0);
+        GameData gameData = SaveLoadSystem.Instance.gameData;
+        var playerPrefsData = gameData.levelData.playerPrefs;
+        PlayerPrefs.SetInt("nInteractionBookShelf", playerPrefsData.Where(p => p.key == "nInteractionBookShelf").Select(p => p.value).FirstOrDefault());
         PlayerPrefs.Save();
 
         gothicDeathBlood.gameObject.SetActive(false);
@@ -54,6 +56,8 @@ public class TriggerBooks : NPCDialogueBase
 
     protected override void Update()
     {
+        if (PlayerPrefs.GetInt("nInteractionBookShelf") == maxScenes + 1) { enabled = false; return; }
+
         if (!clickEndHandled && ConversationManager.Instance.hasClickedEnd)
         {
             isConversationActive = false;
@@ -75,6 +79,7 @@ public class TriggerBooks : NPCDialogueBase
 
     protected override void StartDialogue()
     {
+        print(PlayerPrefs.GetInt("nInteractionBookShelf"));
         if (isViewingHole)
         {
             StartCoroutine(SwitchCameraWithDelay(behindHoleWallCam, behindPlayerCam)); // Camera su Stefano
@@ -86,7 +91,6 @@ public class TriggerBooks : NPCDialogueBase
         {
             StopAudio();
             StartConversation(conversations[Mathf.CeilToInt(nInteractionBookShelf / 2f)]);
-            if (nInteractionBookShelf == maxScenes) { enabled = false; return; }
         }
         else // Camera sulla Persona
         {
