@@ -74,7 +74,7 @@ public class GameLevelData : MonoBehaviour, IBind<LevelData>
             data.characters.Add(
                 new CharacterData(
                     $"{character.name}_{SceneManager.GetActiveScene().name}",
-                    "Movement", // Richiede che speed = 0, per la sit del lupo
+                    "Movement", // Richiede che speed = 0, per la sit del lupo // TODO: farlo generico
                     character.transform.position,
                     character.transform.rotation)
             );
