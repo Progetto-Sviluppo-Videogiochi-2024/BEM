@@ -21,7 +21,7 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
             foreach (var itemData in data.items)
             {
                 Item itemInstance = inventory.CreateItemInstance(itemData);
-                itemInstance.name = itemData.nameItem;
+                // itemInstance.name = itemData.nameItem;
                 inventory.Add(itemInstance);
             }
 
@@ -45,19 +45,19 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
                 if (item is Weapon weapon)
                 {
                     var weaponData = new WeaponData(weapon);
-                    weapon.name = $"{weapon.nameItem}";
+                    // weapon.name = $"{weapon.nameItem}";
                     data.items.Add(weaponData);
                 }
                 else if (item is Ammo ammo)
                 {
                     var ammoData = new AmmoData(ammo);
-                    ammo.name = $"{ammo.nameItem}";
+                    // ammo.name = $"{ammo.nameItem}";
                     data.items.Add(ammoData);
                 }
                 else
                 {
                     var itemData = new ItemData(item);
-                    item.name = $"{item.nameItem}";
+                    // item.name = $"{item.nameItem}";
                     data.items.Add(itemData);
                 }
             }

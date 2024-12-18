@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using DialogueEditor;
 using UnityEngine;
 
@@ -51,7 +52,11 @@ public class TaskFucile : MonoBehaviour
 
     public Item GetPlayerFucile() => InventoryManager.instance.items.Find(weapon => weapon.nameItem == "Fucile da caccia");
 
-    private void ResetPlayerProgress() { PlayerPrefs.SetInt("nTargetHit", 0); PlayerPrefs.Save(); }
+    private void ResetPlayerProgress()
+    {
+        PlayerPrefs.SetInt("hasBait", SaveLoadSystem.Instance.gameData.levelData.playerPrefs.Where(p => p.key == "nTargetHit").Select(p => p.value).FirstOrDefault());
+        PlayerPrefs.Save();
+    }
 
     private void HandleWeaponTask()
     {

@@ -126,7 +126,6 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
             gameData.levelData = level.data;
         }
         gameData.collectedItemIds = GestoreScena.collectedItemIds;
-        print($"Item raccolti: {string.Join(", ", gameData.collectedItemIds)}");
 
         dataService.Save(gameData);
     }

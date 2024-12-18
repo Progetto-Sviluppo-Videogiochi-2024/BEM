@@ -50,8 +50,6 @@ public class ManagerScena0 : MonoBehaviour
         PlayerPrefs.SetInt("hasBackpack", playerPrefsData.Where(p => p.key == "hasBackpack").Select(p => p.value).FirstOrDefault());
         PlayerPrefs.SetInt("hasTorch", playerPrefsData.Where(p => p.key == "hasTorch").Select(p => p.value).FirstOrDefault());
         PlayerPrefs.Save();
-        // backPackTaken = false;
-        // torchTaken = false;
 
         // Per una nuova game session
         if (!booleanAccessor.GetBoolFromThis("premereE"))

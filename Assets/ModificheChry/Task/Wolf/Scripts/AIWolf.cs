@@ -40,13 +40,13 @@ public class AIWolf : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         player = FindAnyObjectByType<Player>().transform;
 
-        PlayerPrefs.SetInt("hasBait", 0);
+        PlayerPrefs.SetInt("hasBait", SaveLoadSystem.Instance.gameData.levelData.playerPrefs.Where(p => p.key == "hasBait").Select(p => p.value).FirstOrDefault());
         PlayerPrefs.Save();
     }
 
     void Update()
     {
-        if (booleanAccessor.GetBoolFromThis("wolfDone")) { this.enabled = false; return; } // Se la quest è completata, disabilita lo script
+        if (booleanAccessor.GetBoolFromThis("wolfDone")) { ResetWolf(); this.enabled = false; return; } // Se la quest è completata, disabilita lo script
         if (agent == null || !agent.isActiveAndEnabled || !agent.isOnNavMesh) return; // Se l'agente non è attivo o non è sulla navmesh
         if (!animator.GetBool("nearPlayer")) return; // Se non è vicino al player
         if (!hasBait && booleanAccessor.GetBoolFromThis("wolf") && PlayerHasBait()) { hasBait = true; animator.SetBool("followPlayer", true); }
@@ -82,11 +82,7 @@ public class AIWolf : MonoBehaviour
 
     private bool IsNear(Transform target, float distance) => Vector3.Distance(transform.position, target.position) <= distance;
 
-    private bool PlayerHasBait()
-    {
-        return PlayerPrefs.GetInt("hasBait") == 1;
-        // var items = InventoryManager.instance?.items; return items != null && items.Any(item => item.inventorySectionType == Item.ItemType.Collectibles && item.name.Contains("Bait"));
-    }
+    private bool PlayerHasBait() => PlayerPrefs.GetInt("hasBait") == 1;
 
     public void PerformRaycastAttack() // Invocata da attack nell'animation del lupo
     {
@@ -137,14 +133,19 @@ public class AIWolf : MonoBehaviour
 
     private void ResetAtTarget()
     {
+        ResetWolf();
+        booleanAccessor.SetBoolOnDialogueE("wolfDone");
+        diario.CompletaMissione("Riporta il cucciolo");
+        diario.AggiungiMissione("Spara le bottiglie");
+    }
+
+    private void ResetWolf()
+    {
         animator.SetFloat("speed", 0f);
         agent.stoppingDistance = wolf.stopDistance;
         agent.velocity = Vector3.zero;
         agent.isStopped = true;
         agent.ResetPath();
-        booleanAccessor.SetBoolOnDialogueE("wolfDone");
-        diario.CompletaMissione("Riporta il cucciolo");
-        diario.AggiungiMissione("Spara le bottiglie");
     }
 
     private IEnumerator RotateTowardsPlayerAndAttack()
@@ -179,6 +180,7 @@ public class AIWolf : MonoBehaviour
         {
             animator.SetBool("nearPlayer", true);
 
+            if (booleanAccessor.GetBoolFromThis("wolfDone")) return; // Se la quest è completata, non fare nulla
             if (animator.GetBool("followPlayer") && booleanAccessor.GetBoolFromThis("wolf")) return;
 
             if (!audioSource.isPlaying) audioSource.PlayOneShot(growl); // Suona il ringhio del lupo

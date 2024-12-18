@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameLevelData : MonoBehaviour, IBind<LevelData>
 {
@@ -30,6 +31,17 @@ public class GameLevelData : MonoBehaviour, IBind<LevelData>
             diario.missioniAttive = new(data.questAttive);
             diario.missioniCompletate = new(data.questCompletate);
         }
+
+        var characters = GameObject.FindGameObjectsWithTag("NPCDynamic");
+        foreach (var character in characters)
+        {
+            var characterData = data.characters.Find(c => c.nameCharacter == $"{character.name}_{SceneManager.GetActiveScene().name}");
+            if (characterData != null)
+            {
+                character.transform.SetPositionAndRotation(characterData.position, characterData.rotation);
+                character.GetComponent<Animator>().Play(characterData.currentAnimation);
+            }
+        }
     }
 
     public void SaveLevelData() // Salva su file
@@ -53,6 +65,20 @@ public class GameLevelData : MonoBehaviour, IBind<LevelData>
             data.questAttive = new(diario.missioniAttive);
             data.questCompletate = new(diario.missioniCompletate);
         }
+
+        // Personaggi dinamici
+        var characters = GameObject.FindGameObjectsWithTag("NPCDynamic");
+        data.characters.Clear(); // Svuoto la lista per evitare duplicati
+        foreach (var character in characters)
+        {
+            data.characters.Add(
+                new CharacterData(
+                    $"{character.name}_{SceneManager.GetActiveScene().name}",
+                    "Movement", // Richiede che speed = 0, per la sit del lupo
+                    character.transform.position,
+                    character.transform.rotation)
+            );
+        }
     }
 }
 
@@ -66,6 +92,7 @@ public class LevelData : ISaveable
 
     [Header("Dati livello")]
     // TODO: Dati importanti della scena attuale per le statistiche
+    public List<CharacterData> characters = new(); // Lista per memorizzare i dati dei personaggi dinamici
 
     [Header("Dati del BA")]
     public List<BoolData> booleanAccessor = new(); // Dati booleani del BA
@@ -85,5 +112,22 @@ public class PlayerPrefsData
     {
         this.key = key;
         this.value = value;
+    }
+}
+
+[Serializable]
+public class CharacterData
+{
+    public string nameCharacter; // Nome del personaggio dinamico
+    public string currentAnimation; // Animazione corrente del personaggio
+    public Vector3 position; // Posizione del personaggio
+    public Quaternion rotation; // Rotazione del personaggio
+
+    public CharacterData(string nameCharacter, string currentAnimation, Vector3 position, Quaternion rotation)
+    {
+        this.nameCharacter = nameCharacter;
+        this.currentAnimation = currentAnimation;
+        this.position = position;
+        this.rotation = rotation;
     }
 }

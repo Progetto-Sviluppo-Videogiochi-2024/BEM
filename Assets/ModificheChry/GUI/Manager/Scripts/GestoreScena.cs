@@ -56,7 +56,7 @@ public class GestoreScena : MonoBehaviour
     {
         if (item.nameItem.Contains("Zaino")) PlayerPrefs.SetInt("hasBackpack", 1);
         else if (item.nameItem.Contains("Torcia")) PlayerPrefs.SetInt("hasTorch", 1);
-        else if (item.name.Contains("Bait")) PlayerPrefs.SetInt("hasBait", 1);
+        else if (item.nameItem.Contains("Salsiccia")) PlayerPrefs.SetInt("hasBait", 1);
 
         PlayerPrefs.Save();
     }
