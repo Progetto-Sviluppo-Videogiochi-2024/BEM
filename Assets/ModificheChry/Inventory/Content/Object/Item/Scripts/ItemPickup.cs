@@ -12,8 +12,15 @@ public class ItemPickup : MonoBehaviour
     private string itemId; // ID dell'oggetto
     #endregion
 
+    // [Header("Camera Pickup Settings")]
+    // #region Camera Pickup Settings
+    // private Transform playerCamera; // Riferimento alla camera del giocatore
+    // private Vector3 originalCameraPosition; // Posizione originale della camera
+    // #endregion
+
     [Header("References")]
     #region References
+    private Transform player;
     public Tooltip tooltip; // Riferimento al tooltip
     private Animator animator; // Riferimento all'Animator del giocatore
     #endregion
@@ -29,9 +36,11 @@ public class ItemPickup : MonoBehaviour
         gamePlayMenuManager = FindObjectOfType<GamePlayMenuManager>();
         item = GetComponent<ItemController>().item;
 
-        var player = FindObjectOfType<Player>().gameObject;
+        player = FindObjectOfType<Player>().transform;
         openMenuScript = player.GetComponent<OpenInventory>();
         animator = player.GetComponent<Animator>();
+        // playerCamera = player.GetChild(0);
+        // originalCameraPosition = playerCamera.position;
 
         // Verifica se l'oggetto è stato raccolto
         itemId = GenerateItemId();
@@ -62,25 +71,29 @@ public class ItemPickup : MonoBehaviour
         return $"{sceneName}_{objectName}_{position.x}_{position.y}_{position.z}";
     }
 
-    // private bool CheckClickMouseItem()
-    // { ex: if (Input.GetMouseButtonDown(0) && CheckClickMouseItem()) PickUp();
-    //     // Raycast per determinare se il clic è effettivamente sull'oggetto
-    //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //     if (Physics.Raycast(ray, out RaycastHit hit))
-    //     {
-    //         if (hit.transform == transform && !animator.GetBool("pickingUp")) return true;
-    //     }
-    //     return false;
-    // }
-
     private void PickUp()
     {
-        // Animo il giocatore per raccogliere l'oggetto
         animator.SetBool("pickingUp", true);
-        if (openMenuScript.isInventoryOpen || openMenuScript.itemInspectOpen != null)
-        { openMenuScript.ToggleInventory(false); }
+        if (openMenuScript.isInventoryOpen || openMenuScript.itemInspectOpen != null) openMenuScript.ToggleInventory(false);
+        // Vector3 targetCameraPosition = playerCamera.position - player.forward * 0.75f; // Nuova posizione lontano dal giocatore
+        // StartCoroutine(MoveCameraSmoothly(targetCameraPosition));
         StartCoroutine(WaitForEquipAnimation());
     }
+
+    // private IEnumerator MoveCameraSmoothly(Vector3 targetPosition)
+    // {
+    //     float timeElapsed = 0f;
+    //     float duration = 0.5f; // Durata dell'animazione di allontanamento
+
+    //     while (timeElapsed < duration)
+    //     {
+    //         playerCamera.position = Vector3.Lerp(playerCamera.position, targetPosition, timeElapsed / duration);
+    //         timeElapsed += Time.deltaTime;
+    //         yield return null;
+    //     }
+
+    //     playerCamera.position = targetPosition; // Assicurati che la camera arrivi esattamente alla posizione target
+    // }
 
     private void CancelPickup() => animator.SetBool("pickingUp", false);
 
@@ -111,6 +124,7 @@ public class ItemPickup : MonoBehaviour
         }
 
         animator.SetBool("pickingUp", false);
+        // StartCoroutine(MoveCameraSmoothly(originalCameraPosition));
     }
 
     private bool IsAnimationFinished(string layer, string animation, float normalizedTime)
