@@ -136,6 +136,8 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
 
         if (string.IsNullOrWhiteSpace(gameData.currentSceneName)) gameData.currentSceneName = "Scena0";
         isLoading = true;
+        GestoreScena.collectedItemIds = new(gameData.collectedItemIds ?? new List<string>());
+
         SceneManager.LoadScene(gameData.currentSceneName);
     }
 

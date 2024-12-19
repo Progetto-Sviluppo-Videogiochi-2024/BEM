@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using DialogueEditor;
 using UnityEngine;
 
@@ -14,13 +16,13 @@ public class Player : MonoBehaviour
 
     [Header("References")]
     #region References
-    public NPCConversation conversation; // Conversazione quando il player prova a uscire dal campo di gioco con il fucile
-    public NPCConversation conversationMuroConfine; // Conversazione quando il player prova a uscire dal campo di gioco
+    public List<NPCConversation> conversations; // Lista di possibili conversazioni che l'utente può avere
     [HideInInspector] public WeaponClassManager weaponClassManager; // Riferimento al componente WeaponClassManager
     public PlayerUIController playerUIController; // Riferimento al componente PlayerUIController
     private RagdollManager ragdollManager; // Riferimento al componente RagdollManager
     private AudioSource audiosource;
     public AudioClip clip;
+    public GameOverMenuManager gameOverMenuManager;
     #endregion
 
     void Start()
@@ -42,18 +44,12 @@ public class Player : MonoBehaviour
         playerUIController.extraAmmo = ammo.extraAmmo;
         playerUIController.UpdateWeaponUI();
         playerUIController.UpdateAmmoCount(ammo.currentAmmo);
-        //if(audiosource.isPlaying && audiosource.time >= 15.0f && menteSana == false)
-        //{print("prova");}
-        //if (sanitaMentale <= 50)
-        //{
-        //    health -= 1;
-        //}
     }
 
     public void UpdateStatusPlayer(int amountHealth, int amountSanita)
-    {   // TODO: distinguere tipo di cura se per la salute o per la sanità mentale
-        if (IsDead()) return; // Se è morto, non fare nulla
-        // TODO: trovare un modo per distinguere la cura della sanità mentale da quella della salute
+    {   // TODO: distinguere tipo di cura se per la salute o per la sanità mentale  // TODO: trovare un modo per distinguere la cura della sanità mentale da quella della salute
+        if (isDead) return; // Se è morto, non fare nulla
+
         health += amountHealth;
         sanitaMentale += amountSanita;
         if (amountHealth < 0) sanitaMentale -= 10;
@@ -68,24 +64,38 @@ public class Player : MonoBehaviour
             menteSana = true;
             PlayBreathing();
         }
-        if (health >= maxHealth) { health = maxHealth; }
-        if (sanitaMentale < 0) { sanitaMentale = 0; }
+        if (health >= maxHealth) health = maxHealth;
+        if (sanitaMentale < 0) sanitaMentale = 0;
         playerUIController.UpdateBloodSplatter(health, maxHealth);
         playerUIController.UpdateSanityIcon(sanitaMentale, maxHealth);
+
+        if (IsDead()) return;
     }
 
     private bool IsDead()
     {
-        if (isDead) return true; // Se era già morto, non fare nulla
-
         if (health <= 0) // Se è appena morto
         {
-            // ragdollManager.TriggerRagdoll();
+            Ragdoll();
+            StartCoroutine(TimeoutToGameOver());
             health = 0;
             isDead = true;
             return true;
         }
         return false;
+    }
+
+    private void Ragdoll()
+    {
+        GetComponent<Animator>().enabled = false;
+        GetComponent<MovementStateManager>().enabled = false;
+        ragdollManager.TriggerRagdoll();
+    }
+
+    private IEnumerator TimeoutToGameOver()
+    {
+        yield return new WaitForSeconds(4);
+        gameOverMenuManager.ToggleMenu(true);
     }
 
     private bool CanReadDE() =>
@@ -97,10 +107,11 @@ public class Player : MonoBehaviour
     {
         if (hit.gameObject.CompareTag("Wall") && CanReadDE())
         {
-            ConversationManager.Instance.StartConversation(conversation);
+            ConversationManager.Instance.StartConversation(conversations[0]);
         }
-        if (hit.gameObject.CompareTag("WallConfine")){
-            ConversationManager.Instance.StartConversation(conversationMuroConfine);
+        if (hit.gameObject.CompareTag("WallConfine"))
+        {
+            ConversationManager.Instance.StartConversation(conversations[1]);
         }
     }
 

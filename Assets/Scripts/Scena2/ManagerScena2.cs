@@ -79,9 +79,10 @@ public class ManagerScena2 : MonoBehaviour
         {
             flagNextScene = true;
             fenceHole.enabled = true;
-            diario.CompletaMissione("Esplora la foresta (" + dialoghiEseguiti + " / " + dialoghiTotali + ")");
             diario.AggiungiMissione("Oltrepassa la recinzione");
         }
+
+        if (dialoghiEseguiti == dialoghiTotali) diario.CompletaMissione("Esplora la foresta (" + dialoghiEseguiti + " / " + dialoghiTotali + ")");
     }
 
     private void OnEnable()

@@ -49,7 +49,7 @@ public class GestoreScena : MonoBehaviour
         PlayerPrefs.Save();
         if (nextScene == "Scena0")
         {
-            GestoreScena.collectedItemIds.Clear();
+            collectedItemIds.Clear();
             Destroy(SaveLoadSystem.Instance.gameObject);
         }
 

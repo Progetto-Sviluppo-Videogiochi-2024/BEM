@@ -28,10 +28,7 @@ public class GamePlayMenuManager : MonoBehaviour
         diario = FindObjectOfType<Diario>();
         player = FindAnyObjectByType<Player>()?.transform;
 
-        // Assicura che il menu sia inizialmente nascosto
         gamePlayMenuCanvas.SetActive(false);
-
-        // Configura i listener per i pulsanti
         buttonCheckpoint.onClick.AddListener(ReloadLastCheckpoint);
         buttonLoadGame.onClick.AddListener(LoadGame);
         buttonOptions.onClick.AddListener(OpenOptions);
@@ -40,10 +37,7 @@ public class GamePlayMenuManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ToggleMenu(!isMenuOpen);
-        }
+        if (Input.GetKeyDown(KeyCode.P)) ToggleMenu(!isMenuOpen);
     }
 
     private void ToggleMenu(bool isOpen)
@@ -52,7 +46,6 @@ public class GamePlayMenuManager : MonoBehaviour
         gamePlayMenuCanvas.SetActive(isMenuOpen);
         GestoreScena.ChangeCursorActiveStatus(isMenuOpen, "gamePlayMenu");
         ToggleScripts(isMenuOpen);
-
         Time.timeScale = isMenuOpen ? 0 : 1; // 0 = pausa, 1 = gioco normale
     }
 
@@ -73,10 +66,10 @@ public class GamePlayMenuManager : MonoBehaviour
     // Metodo per ripristinare Time.timeScale e chiudere il menu
     private void ResumeGame() => ToggleMenu(false);
 
-    public void ReturnToMainMenu() // Passato dall'inspector quando fa "sì" al pannello di conferma
+    public void ReturnToMainMenu() // Passato dall'inspector al "sì" del pannello di conferma
     {
         ResumeGame();
-        BooleanAccessor.istance.ResetBoolValues(); // Reset dei valori
+        BooleanAccessor.istance.ResetBoolValues();
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -84,13 +77,10 @@ public class GamePlayMenuManager : MonoBehaviour
     {
         print("Riprendi dall'ultimo Checkpoint");
         ResumeGame(); // Chiude il menu e riprende il gioco
+        // TODO: da implementare il caricamento dell'ultimo checkpoint
     }
 
-    private void ReturnToGame()
-    {
-        print("Riprendi la scena corrente");
-        ResumeGame(); // Chiude il menu e riprende il gioco
-    }
+    private void ReturnToGame() => ResumeGame(); // Chiude il menu e riprende il gioco
 
     private void LoadGame()
     {
@@ -102,5 +92,6 @@ public class GamePlayMenuManager : MonoBehaviour
     {
         print("Apri Opzioni");
         ResumeGame(); // Chiude il menu principale per aprire le opzioni
+        // TODO: da implementare l'apertura del menu delle opzioni
     }
 }

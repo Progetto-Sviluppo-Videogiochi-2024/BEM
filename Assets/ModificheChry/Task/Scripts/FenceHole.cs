@@ -48,6 +48,7 @@ public class FenceHole : MonoBehaviour
 
     private void OnYesButtonClicked()
     {
+        diario.CompletaMissione("Oltrepassa la recinzione");
         GestoreScena.ChangeCursorActiveStatus(false, "FenceHole.yesButton");
         gestoreScena.GoToTransitionScene();
     }

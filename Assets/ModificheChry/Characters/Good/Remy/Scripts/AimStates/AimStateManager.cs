@@ -57,6 +57,7 @@ public class AimStateManager : MonoBehaviour
     #region References
     [HideInInspector] public Animator animator;
     public GameObject crosshair;
+    private Player player;
     #endregion
 
     private void Awake()
@@ -68,6 +69,7 @@ public class AimStateManager : MonoBehaviour
 
     void Start()
     {
+        player = GetComponent<Player>();
         crosshair?.SetActive(false);
 
         camFollowPosition = transform.GetChild(0); // Prende il primo figlio del player, il transform di CameraFollowPosition
@@ -84,6 +86,7 @@ public class AimStateManager : MonoBehaviour
     void Update()
     {
         if (animator.GetBool("sit")) return;
+        if (player.isDead) return;
 
         xAxis += Input.GetAxisRaw("Mouse X") * mouseSense;
         yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
@@ -107,8 +110,12 @@ public class AimStateManager : MonoBehaviour
     {
         if (animator.GetBool("sit")) return;
 
-        camFollowPosition.localEulerAngles = new(yAxis, camFollowPosition.localEulerAngles.y, camFollowPosition.localEulerAngles.z);
-        transform.eulerAngles = new(transform.eulerAngles.x, xAxis, transform.eulerAngles.z);
+        if (!player.isDead)
+        {
+            camFollowPosition.localEulerAngles = new(yAxis, camFollowPosition.localEulerAngles.y, camFollowPosition.localEulerAngles.z);
+            transform.eulerAngles = new(transform.eulerAngles.x, xAxis, transform.eulerAngles.z);
+        }
+        else HandleCameraDeath();
     }
 
     public void SwitchState(AimBaseState newState)
@@ -120,17 +127,11 @@ public class AimStateManager : MonoBehaviour
     void MoveCamera()
     {
         // Gestione del cambio di spalla con LeftAlt
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
-        {
-            print("Alt pressed");
-            xFollowPosition = -xFollowPosition;
-        }
+        if (Input.GetKeyDown(KeyCode.LeftAlt)) xFollowPosition = -xFollowPosition;
 
         // Modifica della posizione verticale della camera in base al crouch
-        if (movement.currentState == movement.crouchState)
-            yFollowPosition = crouchCamHeight;  // Altezza della camera durante il crouch
-        else
-            yFollowPosition = ogYposition;  // Ripristina l'altezza originale
+        if (movement.currentState == movement.crouchState) yFollowPosition = crouchCamHeight;  // Altezza della camera durante il crouch
+        else yFollowPosition = ogYposition;  // Ripristina l'altezza originale
 
         // Calcolo della nuova posizione della telecamera
         Vector3 newFollowPosition = new(xFollowPosition, yFollowPosition, camFollowPosition.localPosition.z);
@@ -139,4 +140,22 @@ public class AimStateManager : MonoBehaviour
         camFollowPosition.localPosition = Vector3.Lerp(camFollowPosition.localPosition, newFollowPosition, Time.deltaTime * shoulderSwapSpeed);
     }
 
+    private void HandleCameraDeath()
+    {
+        // 1. Parametri configurabili
+        float altezzaSopraStefano = 2f;  // Altezza della telecamera sopra Stefano
+        float distanzaDietroStefano = 0.5f; // Quanto la telecamera è dietro Stefano
+        float smoothSpeed = 5f; // Velocità di transizione della camera
+
+        // 2. Posizione della camera sopra Stefano
+        Vector3 nuovaPosizione = player.transform.position
+                               + Vector3.up * altezzaSopraStefano
+                               - player.transform.forward * distanzaDietroStefano;
+
+        // 3. Movimentazione fluida verso la nuova posizione
+        camFollowPosition.position = Vector3.Lerp(camFollowPosition.position, nuovaPosizione, Time.deltaTime * smoothSpeed);
+
+        // 4. La telecamera guarda sempre Stefano
+        camFollowPosition.LookAt(player.transform.position + Vector3.up * (altezzaSopraStefano / 2));
+    }
 }

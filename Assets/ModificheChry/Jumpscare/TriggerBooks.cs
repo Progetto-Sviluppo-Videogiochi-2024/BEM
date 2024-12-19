@@ -77,6 +77,11 @@ public class TriggerBooks : NPCDialogueBase
         }
     }
 
+    private void LateUpdate()
+    {
+        if (allowSecondaryCameraControl) HandleSecondaryCameraControl();
+    }
+
     protected override void StartDialogue()
     {
         print(PlayerPrefs.GetInt("nInteractionBookShelf"));
@@ -111,11 +116,6 @@ public class TriggerBooks : NPCDialogueBase
 
         isTransitioning = false;
         allowSecondaryCameraControl = toCam == behindHoleWallCam;
-    }
-
-    private void LateUpdate()
-    {
-        if (allowSecondaryCameraControl) HandleSecondaryCameraControl();
     }
 
     private void HandleSecondaryCameraControl()

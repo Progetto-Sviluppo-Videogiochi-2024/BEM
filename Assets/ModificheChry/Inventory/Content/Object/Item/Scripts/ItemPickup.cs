@@ -121,19 +121,11 @@ public class ItemPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Controlla se il giocatore entra nel raggio di raccolta
-        if (other.CompareTag("Player"))
-        {
-            isPlayerInRange = true;
-        }
+        if (other.CompareTag("Player")) isPlayerInRange = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        // Controlla se il giocatore esce dal raggio di raccolta
-        if (other.CompareTag("Player"))
-        {
-            isPlayerInRange = false;
-        }
+        if (other.CompareTag("Player")) isPlayerInRange = false;
     }
 }
