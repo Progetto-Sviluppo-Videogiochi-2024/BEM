@@ -7,10 +7,13 @@ public class FenceHole : MonoBehaviour
     [Header("Settings")]
     #region Settings
     private bool isPlayerInRange = false; // Indica se il player è vicino al buco della recinzione
+    private bool isConversationActive = false; // Indica se la conversazione è attiva
+    private bool clickEndHandled = false; // Flag per evitare che esegua più volte il codice nel metodo Update quando si clicca su "End"
     #endregion
 
     [Header("References")]
     #region References
+    public NPCConversation monologo; // Conversazione per il buco della recinzione quando non ha parlato con Jacob
     public GestoreScena gestoreScena; // Riferimento al gestore della scena
     private ManagerScena2 managerScena2; // Riferimento al manager della scena 2
     public GameObject confirmNextUI; // Riferimento al pannello di conferma per andare alla scena successiva
@@ -31,20 +34,39 @@ public class FenceHole : MonoBehaviour
 
     void Update()
     {
-        if (CanGoNextScene())
+        if (!clickEndHandled && ConversationManager.Instance.hasClickedEnd) // Se il dialogo è finito
         {
-            ToggleScripts(true);
-            GestoreScena.ChangeCursorActiveStatus(true, "FenceHole.Update");
-            confirmNextUI.SetActive(true);
-            yesButton.GetComponent<Button>().onClick.AddListener(OnYesButtonClicked);
-            noButton.GetComponent<Button>().onClick.AddListener(OnNoButtonClicked);
+            clickEndHandled = true;
+            isConversationActive = false;
+            player.GetComponent<MovementStateManager>().enabled = true;
+        }
+
+        if (isPlayerInRange && Input.GetKeyDown(KeyCode.Space))
+        {
+            if (managerScena2.CanGoNextScene())
+            {
+                ToggleScripts(true);
+                GestoreScena.ChangeCursorActiveStatus(true, "FenceHole.Update");
+                confirmNextUI.SetActive(true);
+                yesButton.GetComponent<Button>().onClick.AddListener(OnYesButtonClicked);
+                noButton.GetComponent<Button>().onClick.AddListener(OnNoButtonClicked);
+            }
+            else if (!BooleanAccessor.istance.GetBoolFromThis("cartello") && !isConversationActive) StartConversation(monologo);
         }
     }
 
-    private bool CanGoNextScene() =>
-        isPlayerInRange && // Se il player è vicino al buco della recinzione
-        managerScena2.CanGoNextScene() && // Se ha completato tutte le task obbligatorie per cambiare scena
-        Input.GetKeyDown(KeyCode.Space); // Se Space per interagire con il buco della recinzione
+    private void StartConversation(NPCConversation dialog)
+    {
+        var animator = player.GetComponent<Animator>();
+        animator.SetFloat("hInput", 0);
+        animator.SetFloat("vInput", 0);
+
+        player.GetComponent<MovementStateManager>().enabled = false;
+        clickEndHandled = false;
+        isConversationActive = true;
+        ConversationManager.Instance.hasClickedEnd = false;
+        ConversationManager.Instance.StartConversation(dialog);
+    }
 
     private void OnYesButtonClicked()
     {

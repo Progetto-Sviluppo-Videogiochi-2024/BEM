@@ -29,7 +29,6 @@ public class ManagerScena2 : MonoBehaviour
     public Diario diario; // Riferimento al diario
     public Animator lupo; // Riferimento all'animatore del lupo
     public BooleanAccessor booleanAccessor; // Riferimento al booleanAccessor
-    public FenceHole fenceHole; // Riferimento al buco della recinzione
     public RadioManager radioManager; // Riferimento al radio manager
     #endregion
 
@@ -39,8 +38,6 @@ public class ManagerScena2 : MonoBehaviour
     void Start()
     {
         booleanAccessor = BooleanAccessor.istance;
-
-        fenceHole.enabled = false; // TODO: capire se può dare problemi per il save/load quindi anche l'if in update
 
         //Setta la radio come spenta
 
@@ -78,7 +75,6 @@ public class ManagerScena2 : MonoBehaviour
         if (!flagNextScene && CanGoNextScene())
         {
             flagNextScene = true;
-            fenceHole.enabled = true;
             diario.AggiungiMissione("Oltrepassa la recinzione");
         }
 
