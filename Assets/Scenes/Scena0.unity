@@ -6723,8 +6723,11 @@ MonoBehaviour:
         Part3: 3272347069
         Part4: 2248665533
       playerPrefs: []
+      characters: []
       booleanAccessor: []
-      questData: []
+      questAttive: []
+      questCompletate: []
+    collectedItemIds: []
 --- !u!4 &478439213
 Transform:
   m_ObjectHideFlags: 0
@@ -18434,6 +18437,14 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0.0012642741
       objectReference: {fileID: 0}
+    - target: {fileID: 4730072665492797378, guid: 9567790cb2b69f64982bee98cf004b79, type: 3}
+      propertyPath: ScrollText
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4730072665492797378, guid: 9567790cb2b69f64982bee98cf004b79, type: 3}
+      propertyPath: ScrollSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6593187842531627380, guid: 9567790cb2b69f64982bee98cf004b79, type: 3}
       propertyPath: m_SizeDelta.y
       value: 75
@@ -22166,8 +22177,10 @@ MonoBehaviour:
       Part3: 446926465
       Part4: 2535611000
     playerPrefs: []
+    characters: []
     booleanAccessor: []
-    questData: []
+    questAttive: []
+    questCompletate: []
 --- !u!1001 &1590436339
 PrefabInstance:
   m_ObjectHideFlags: 0
