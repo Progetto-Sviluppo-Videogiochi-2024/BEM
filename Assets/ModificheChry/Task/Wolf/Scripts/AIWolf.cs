@@ -98,6 +98,7 @@ public class AIWolf : MonoBehaviour
             {
                 animator.SetBool("nearPlayer", false);
                 Rigidbody rb = hit.transform.gameObject.GetComponent<Rigidbody>();
+                if (hit.transform.gameObject == player.gameObject) rb = player.GetComponentInChildren<Rigidbody>();
                 rb.AddForce(rayDirection * 5f, ForceMode.Impulse);
             }
         }
