@@ -54,9 +54,22 @@ public class TaskFucile : MonoBehaviour
 
     private void ResetPlayerProgress()
     {
-        PlayerPrefs.SetInt("hasBait", SaveLoadSystem.Instance.gameData.levelData.playerPrefs.Where(p => p.key == "nTargetHit").Select(p => p.value).FirstOrDefault());
+        // Azzeriamo esplicitamente il valore di "nTargetHit"
+        PlayerPrefs.SetInt("nTargetHit", 0);
+
+        // Ora possiamo recuperare il valore di nTargetHit (se necessario per altre logiche)
+        int nTargetHit = SaveLoadSystem.Instance.gameData.levelData.playerPrefs
+            .Where(p => p.key == "nTargetHit")
+            .Select(p => p.value)
+            .FirstOrDefault();
+
+        // Salviamo il valore di "nTargetHit" come "hasBait"
+        PlayerPrefs.SetInt("hasBait", nTargetHit);
+
+        // Salviamo le modifiche in PlayerPrefs
         PlayerPrefs.Save();
     }
+
 
     private void HandleWeaponTask()
     {
