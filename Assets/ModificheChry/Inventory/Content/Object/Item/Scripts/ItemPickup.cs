@@ -59,7 +59,7 @@ public class ItemPickup : MonoBehaviour
                 { tooltip?.ShowTooltip("Non ho più spazio nello zaino.", 5f); return; }
                 PickUp();
             }
-            else if (animator.GetBool("pickingUp") && (animator.GetFloat("vInput") > 0 || animator.GetFloat("hInput") > 0)) CancelPickup();
+            // else if (animator.GetBool("pickingUp") && (animator.GetFloat("vInput") > 0 || animator.GetFloat("hInput") > 0)) CancelPickup();
         }
     }
 
