@@ -28,7 +28,7 @@ public class ItemClassManager : MonoBehaviour
         {
             if (player.health >= player.maxHealth && player.sanitaMentale >= player.maxHealth)
             {
-                DebugLogger.Log($"Tab: {itemEquipable.item.nameItem} - {tooltip}");
+                // DebugLogger.Log($"Tab: {itemEquipable.item.nameItem} - {tooltip}");
                 tooltip.ShowTooltip("Non ne ho bisogno!", 5f);
                 return;
             }

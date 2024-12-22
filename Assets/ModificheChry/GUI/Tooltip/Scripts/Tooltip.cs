@@ -15,6 +15,7 @@ public class Tooltip : MonoBehaviour
     #region References
     private Camera mainCamera; // Riferimento alla camera principale
     public Transform head; // Riferimento alla testa del personaggio
+    private Coroutine disableCoroutine; // Coroutine per nascondere il Tooltip
     #endregion
 
     private void Start()
@@ -29,24 +30,28 @@ public class Tooltip : MonoBehaviour
         {
             Vector3 worldPosition = head.position + head.TransformDirection(offset);
             transform.position = mainCamera.WorldToScreenPoint(worldPosition);
-            DebugLogger.Log($"Tooltip.update: {transform.position} - {worldPosition} - {head.position}");
+            // DebugLogger.Log($"Tooltip.update: {transform.position} - {worldPosition} - {head.position}");
         }
     }
 
     public void ShowTooltip(string message, float tooltipDuration)
     {
-        DebugLogger.Log($"Tooltip.show pre if: {isTooltipActive} == {gameObject.activeSelf}");
+        // DebugLogger.Log($"Tooltip.show pre if: {isTooltipActive} == {gameObject.activeSelf}");
         if (!isTooltipActive)
         {
             gameObject.SetActive(true);
             SetTooltipMessage(message);
             isTooltipActive = true;
-            DebugLogger.Log($"Tooltip.show: '{message}' - Duration: {tooltipDuration} seconds. Active: {isTooltipActive} == {gameObject.activeSelf}");
+            // DebugLogger.Log($"Tooltip.show: '{message}' - Duration: {tooltipDuration} seconds. Active: {isTooltipActive} == {gameObject.activeSelf}");
         }
+        if (disableCoroutine != null)
+        {
+            StopCoroutine(disableCoroutine);
+        }
+
         if (tooltipDuration > 0)
         {
-            StopAllCoroutines(); // Ferma eventuali coroutine precedenti per evitare conflitti
-            StartCoroutine(DisableTooltipAfterTime(tooltipDuration));
+            disableCoroutine = StartCoroutine(DisableTooltipAfterTime(tooltipDuration));
         }
     }
 
@@ -63,24 +68,8 @@ public class Tooltip : MonoBehaviour
 
     private IEnumerator DisableTooltipAfterTime(float delay)
     {
-        DebugLogger.Log($"Tooltip.disable coroutine started: Waiting {delay} seconds.");
-
-        float elapsedTime = 0f;
-
-        while (elapsedTime < delay)
-        {
-            if (!gameObject.activeSelf) // Se viene disattivato manualmente, interrompi
-            {
-                DebugLogger.Log("Tooltip.disable coroutine: GameObject was deactivated externally.");
-                yield break;
-            }
-
-            elapsedTime += Time.deltaTime;
-            DebugLogger.Log($"Tooltip.disable coroutine: {elapsedTime} / {delay} seconds.");
-            yield return null;
-        }
-
+        yield return new WaitForSeconds(delay);
         HideTooltip();
-        DebugLogger.Log($"Tooltip.disable: Tooltip hidden after {delay} seconds.");
+        disableCoroutine = null; // Resetta la coroutine corrente
     }
 }

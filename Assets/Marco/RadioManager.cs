@@ -126,12 +126,10 @@ public class RadioManager : MonoBehaviour
     private void OnOff()
     { // TODO: vedere a fine gioco se deve essere riprodotta una canzone random, la prossima oppure "mutarla" quando spammo il pulsante
         var boolAccessor = BooleanAccessor.istance;
-        var convManager = ConversationManager.Instance;
         if (isRadioOpen && isOn) // Se accesa, spegni
         {
             isOn = false;
             boolAccessor.SetBoolOnDialogueE("radio");
-            convManager.SetBool("radio", boolAccessor.GetBoolFromThis("radio"));
             audioSource.clip = null;
             audioSource.Stop();
             OnOffButton.GetComponent<Image>().color = offColor;
@@ -140,7 +138,6 @@ public class RadioManager : MonoBehaviour
         else if (isRadioOpen && !isOn) // Se spenta, accendi
         {
             boolAccessor.ResetBoolValue("radio");
-            convManager.SetBool("radio", boolAccessor.GetBoolFromThis("radio"));
             PlayAudio();
         }
 
