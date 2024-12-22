@@ -72,9 +72,9 @@ public class GameLevelData : MonoBehaviour, IBind<LevelData>
         foreach (var character in characters)
         {
             data.characters.Add(
-                new CharacterData(
+                new(
                     $"{character.name}_{SceneManager.GetActiveScene().name}",
-                    "Movement", // Richiede che speed = 0, per la sit del lupo // TODO: farlo generico
+                    booleanAccessor.GetBoolFromThis("wolfDone") ? "Movement" : "Breath", // Richiede che speed = 0, per la sit del lupo // TODO: farlo generico
                     character.transform.position,
                     character.transform.rotation)
             );
