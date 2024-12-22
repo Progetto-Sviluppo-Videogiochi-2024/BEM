@@ -56,7 +56,11 @@ public class ItemPickup : MonoBehaviour
             if (!animator.GetBool("pickingUp") && Input.GetKeyDown(KeyCode.Space))
             {
                 if (item.inventorySectionType.Equals(Item.ItemType.ConsumableEquipable) && InventoryManager.instance.IsInventoryFull())
-                { tooltip?.ShowTooltip("Non ho più spazio nello zaino.", 5f); return; }
+                {
+                    DebugLogger.Log($"Space: {item.nameItem} - {tooltip}");
+                    tooltip?.ShowTooltip("Non ho più spazio nello zaino.", 5f);
+                    return;
+                }
                 PickUp();
             }
             // else if (animator.GetBool("pickingUp") && (animator.GetFloat("vInput") > 0 || animator.GetFloat("hInput") > 0)) CancelPickup();
