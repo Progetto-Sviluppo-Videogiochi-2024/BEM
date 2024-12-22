@@ -6,11 +6,6 @@ using static Weapon;
 
 public class WeaponClassManager : MonoBehaviour
 {
-    // [Header("Animation Rigging")]
-    // #region Animation Rigging
-    // [SerializeField] TwoBoneIKConstraint leftHandIK;
-    // #endregion
-
     [Header("Equip Weapons")]
     #region Switching-Equip Weapons
     public RigSwitcher CambiaRig;
@@ -165,15 +160,12 @@ public class WeaponClassManager : MonoBehaviour
         currentWeapon.transform.SetParent(null);
         currentWeapon = null;
         currentWeaponIndex = -1;
-        // CambiaRig.RemoveCurrentRig();
         aim.currentState = null;
     }
 
     public void SetCurrentWeapon(WeaponManager weapon)
     {
         if (actions == null) actions = GetComponent<ActionStateManager>();
-        // leftHandIK.data.target = weapon.leftHandTarget;
-        // leftHandIK.data.hint = weapon.leftHandHint;
         actions.SetWeapon(weapon);
     }
 

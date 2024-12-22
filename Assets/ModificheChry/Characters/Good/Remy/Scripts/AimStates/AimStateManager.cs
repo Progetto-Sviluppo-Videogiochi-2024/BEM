@@ -1,6 +1,5 @@
 using UnityEngine;
 using Cinemachine;
-using UnityEngine.Animations.Rigging;
 
 public class AimStateManager : MonoBehaviour
 {
@@ -9,21 +8,30 @@ public class AimStateManager : MonoBehaviour
     [SerializeField] float mouseSense = 1;
     float xAxis;
     float yAxis;
-    private Transform camFollowPosition;
+    [HideInInspector] public Transform camFollowPosition;
     #endregion
 
-    [Header("Camera Aim Settings")]
-    #region Camera Aim Settings
+    [Header("Camera General Settings")]
+    #region Camera General Settings
     [HideInInspector] public CinemachineVirtualCamera aimCam;
+    public float fovSmoothSpeed = 10;
+    #endregion
+
+    [Header("Camera Fov Settings")]
+    #region Camera Fov Settings
     public float aimFov = 40;
     [HideInInspector] public float idleFov;
     [HideInInspector] public float currentFov;
-    public float fovSmoothSpeed = 10;
+    #endregion
 
-    float xFollowPosition;
-    float yFollowPosition;
-    float ogYposition;
-    [SerializeField] float crouchCamHeight = 0.6f;
+    [Header("Camera Position Settings")]
+    #region Camera Position Settings
+    [SerializeField] float crouchXposition = 1f;  // Offset orizzontale (asse X) per il crouch
+    [SerializeField] public float crouchYPosition = 0.6f; // Offset verticale (asse Y) per il crouch
+    [SerializeField] float crouchZPosition = -6f;  // Posizione lungo l'asse Z per il crouch
+    private float walkXPosition; // Offset orizzontale (asse X) per il walk
+    private float walkYPosition; // Offset verticale (asse Y) per il walk
+    private float walkZPosition; // Posizione lungo l'asse Z per il walk
     [SerializeField] float shoulderSwapSpeed = 10;
     #endregion
 
@@ -41,22 +49,16 @@ public class AimStateManager : MonoBehaviour
     public RifleIdleAimState rifleIdleAimState = new();
     #endregion
 
-    // [Header("Animation rigging settings")]
-    // #region Animation rigging settings
-    // MultiAimConstraint[] multiAimConstraints;
-    // WeightedTransform aimPositionWeightedTransform;
-    // #endregion
-
     [Header("References Scripts")]
     #region References Scripts
-    MovementStateManager movement;
     public RigSwitcher cambiaRig;
+    MovementStateManager movement;
     #endregion
 
     [Header("References")]
     #region References
-    [HideInInspector] public Animator animator;
     public GameObject crosshair;
+    [HideInInspector] public Animator animator;
     private Player player;
     #endregion
 
@@ -72,11 +74,11 @@ public class AimStateManager : MonoBehaviour
         player = GetComponent<Player>();
         crosshair?.SetActive(false);
 
-        camFollowPosition = transform.GetChild(0); // Prende il primo figlio del player, il transform di CameraFollowPosition
-        xFollowPosition = camFollowPosition.localPosition.x;
-        ogYposition = camFollowPosition.localPosition.y;
-        yFollowPosition = ogYposition;
+        camFollowPosition = transform.GetChild(0); // Transform di CameraFollowPosition
         idleFov = aimCam.m_Lens.FieldOfView;
+        walkXPosition = camFollowPosition.localPosition.x;
+        walkYPosition = camFollowPosition.localPosition.y;
+        walkZPosition = camFollowPosition.localPosition.z;
 
         //SwitchState(rifleIdleState);
         currentFov = idleFov;
@@ -126,17 +128,21 @@ public class AimStateManager : MonoBehaviour
 
     void MoveCamera()
     {
-        // Gestione del cambio di spalla con LeftAlt
-        if (Input.GetKeyDown(KeyCode.LeftAlt)) xFollowPosition = -xFollowPosition;
-
-        // Modifica della posizione verticale della camera in base al crouch
-        if (movement.currentState == movement.crouchState) yFollowPosition = crouchCamHeight;  // Altezza della camera durante il crouch
-        else yFollowPosition = ogYposition;  // Ripristina l'altezza originale
+        if (movement.currentState == movement.crouchState)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftAlt)) crouchXposition = -crouchXposition;
+            camFollowPosition.localPosition = new(crouchXposition, crouchYPosition, crouchZPosition);
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.LeftAlt)) walkXPosition = -walkXPosition;
+            camFollowPosition.localPosition = new(walkXPosition, walkYPosition, walkZPosition);
+        }
 
         // Calcolo della nuova posizione della telecamera
-        Vector3 newFollowPosition = new(xFollowPosition, yFollowPosition, camFollowPosition.localPosition.z);
+        Vector3 newFollowPosition = new(camFollowPosition.localPosition.x, camFollowPosition.localPosition.y, camFollowPosition.localPosition.z);
 
-        // Movimentazione della telecamera verso la nuova posizione in modo fluido
+        // Movimentazione fluida verso la nuova posizione
         camFollowPosition.localPosition = Vector3.Lerp(camFollowPosition.localPosition, newFollowPosition, Time.deltaTime * shoulderSwapSpeed);
     }
 
