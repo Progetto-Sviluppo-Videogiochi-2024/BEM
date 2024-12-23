@@ -21,6 +21,8 @@ public class GamePlayMenuManager : MonoBehaviour
     #region References
     private Transform player;
     private Diario diario;
+    [SerializeField] private SaveSlot saveSlot;
+    [SerializeField] private LoadSlot loadSlot;
     #endregion
 
     void Start()
@@ -37,7 +39,7 @@ public class GamePlayMenuManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P)) ToggleMenu(!isMenuOpen);
+        if (!saveSlot.loadSavePanel.activeSelf && !loadSlot.loadSavePanel.activeSelf && Input.GetKeyDown(KeyCode.P)) ToggleMenu(!isMenuOpen);
     }
 
     private void ToggleMenu(bool isOpen)

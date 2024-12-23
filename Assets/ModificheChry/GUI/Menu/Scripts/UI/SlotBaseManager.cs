@@ -10,7 +10,7 @@ public abstract class SlotBaseManager : MonoBehaviour
 {
     [Header("UI Slot")]
     #region UI Slot
-    [SerializeField] private GameObject loadSavePanel; // Pannello di caricamento/salvataggio
+    [SerializeField] public GameObject loadSavePanel; // Pannello di caricamento/salvataggio
     [SerializeField] protected Transform content; // Content che contiene gli slot
     [SerializeField] protected Transform confirmSlot; // Pannello di conferma del caricamento/salvataggio
     [SerializeField] protected Button yesButton; // Bottone di conferma del confirmSlot
@@ -122,7 +122,6 @@ public abstract class SlotBaseManager : MonoBehaviour
 
     public void OnSlotEnter(Transform infoSceneSlot, string nomeCapitolo)
     {
-        Debug.Log("OnSlotEnter: " + nomeCapitolo);
         infoSceneSlot.gameObject.SetActive(true);
         var (img, description) = gestoreScena.GetSpriteAndDescriptionChapter(nomeCapitolo);
         infoSceneSlot.GetChild(0).GetComponent<Image>().sprite = img;

@@ -46,12 +46,28 @@ public class GestoreScena : MonoBehaviour
 
     public string GetChapterDescription(string sceneName) => sceneName switch
     {
-        "Scena0" => "Una settimana dopo aver traslocato a Caccamone, Stefano si prepara per il lunedi di Pasquetta con i suoi amici",
+        "Scena0" => "Una settimana dopo aver traslocato a Caccamone, Stefano si prepara per il lunedi di Pasquetta con i suoi amici.",
         "Scena1" => "In Viaggio Verso la Foresta",
         "Scena2" => "Il gruppo è arrivato nella Foresta di Mercadante dove iniziano ad ambientarsi e cercare un luogo adatto per allestire le tende e preparare il necessario per poter festeggiare.",
-        "Scena3" => "Superata la barricata e trovato il punto perfetto, i ragazzi allestiscono il campeggio. Sistemano le tende, accendono un fuoco e si mettono comodi, raccontandosi storie, condividendo carne grigliata e bevendo. L’atmosfera è rilassata, e i ragazzi si godono la serata in un clima di spensieratezza. Finché...",
-        _ => "Capitolo: Sconosciuto" // Non dovrebbe mai accadere se le scene sono correttamente definite
+        "Scena3" => "Superata la barricata e trovato il punto perfetto, i ragazzi allestiscono il campeggio. Sistemano le tende, accendono un fuoco e si mettono comodi, raccontandosi storie, condividendo carne grigliata e bevendo. L'atmosfera è rilassata, e i ragazzi si godono la serata in un clima di spensieratezza, finché...",
+        _ => "Descrizione: Sconosciuta" // Non dovrebbe mai accadere se le scene sono correttamente definite
     };
+
+    public Sprite GetChapterSprite(string sceneName)
+    {
+        foreach (var sprite in spritesScenes)
+        {
+            if (sprite.name == sceneName) return sprite;
+        }
+        return null;
+    }
+
+    public (Sprite, string) GetSpriteAndDescriptionChapter(string sceneName)
+    {
+        var sprite = GetChapterSprite(sceneName);
+        var description = GetChapterDescription(sceneName);
+        return (sprite, description);
+    }
 
     public void GoToTransitionScene()
     {
@@ -92,22 +108,4 @@ public class GestoreScena : MonoBehaviour
         Cursor.visible = visible;
         Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
     }
-
-    public Sprite SearchSpriteImageScene (string sceneName)
-    {
-        foreach (var sprite in spritesScenes)
-        {
-            if (sprite.name == sceneName) return sprite;
-        }
-        return null;
-    }
-
-    public (Sprite, string) GetSpriteAndDescriptionChapter (string sceneName)
-    {
-        var sprite = SearchSpriteImageScene(sceneName);
-        var description = GetChapterDescription(sceneName);
-        return (sprite, description);
-    }
-
-
 }
