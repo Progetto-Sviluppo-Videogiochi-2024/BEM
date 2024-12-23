@@ -21,15 +21,8 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
             foreach (var itemData in data.items)
             {
                 Item itemInstance = inventory.CreateItemInstance(itemData);
-                // itemInstance.name = itemData.nameItem;
                 inventory.Add(itemInstance);
             }
-
-            // Se c'è un oggetto equipaggiato, lo equipaggiamo
-            // if (data.itemEquipable != null) inventory.EquipItemPlayer(data.itemEquipable);
-
-            // // Equipaggia le armi se ci sono
-            // foreach (var weapon in data.weaponsEquipable) inventory.EquipItemPlayer(weapon);
         }
     }
 
@@ -45,27 +38,19 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
                 if (item is Weapon weapon)
                 {
                     var weaponData = new WeaponData(weapon);
-                    // weapon.name = $"{weapon.nameItem}";
                     data.items.Add(weaponData);
                 }
                 else if (item is Ammo ammo)
                 {
                     var ammoData = new AmmoData(ammo);
-                    // ammo.name = $"{ammo.nameItem}";
                     data.items.Add(ammoData);
                 }
                 else
                 {
                     var itemData = new ItemData(item);
-                    // item.name = $"{item.nameItem}";
                     data.items.Add(itemData);
                 }
             }
-
-            // Salva l'oggetto e le armi equipaggiate
-            // data.itemEquipable = inventory.itemEquipable;
-            // data.weaponsEquipable.Clear();
-            // data.weaponsEquipable.AddRange(inventory.weaponsEquipable);
         }
     }
 }
@@ -75,8 +60,6 @@ public class InventoryData : ISaveable
 {
     [field: SerializeField] public SerializableGuid Id { get; set; } // ID univoco dell'inventario
     public List<ItemData> items = new(); // Lista degli oggetti nell'inventario
-    // public Item itemEquipable; // Oggetto equipaggiabile
-    // public List<Item> weaponsEquipable; // Lista delle armi equipaggiabili
 }
 
 [Serializable]
@@ -127,8 +110,8 @@ public class ItemData
         inventorySectionType = item.inventorySectionType;
         own = item.own;
         qta = item.qta;
-        icon = item.icon;
-        image = item.image;
+        // icon = item.icon;
+        // image = item.image;
     }
 }
 

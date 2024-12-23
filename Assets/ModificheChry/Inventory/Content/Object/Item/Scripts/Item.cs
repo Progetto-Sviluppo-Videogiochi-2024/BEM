@@ -58,7 +58,7 @@ public class Item : ScriptableObject
     public enum ItemEffectType // Enumerazione dei tipi di effetti degli oggetti sul personaggio del giocatore
     {
         None,        // Nessun effetto
-        Health,       // Effetto sulla vita
+        Health       // Effetto sulla vita
     }
 
     public enum ItemTagType // Tipo di tag dell'oggetto
@@ -71,7 +71,6 @@ public class Item : ScriptableObject
         Document, // Documenti
         Recipe, // Ricette
         Scene // Oggetti di scena ma non presenti nell'inventario
-        // trofei? altro ?
     }
 
     public virtual void Initialize(ItemData itemData)
@@ -94,9 +93,9 @@ public class Item : ScriptableObject
         inventorySectionType = itemData.inventorySectionType;
         own = itemData.own;
         qta = itemData.qta;
-        icon = itemData.icon;
-        image = itemData.image;
-        // icon = Resources.Load<Sprite>("Icons/" + nameItem);
+        var sprites = SpriteManager.Instance.GetSpritesByObjectName(nameItem);
+        icon = sprites.icon;
+        image = sprites.image;
     }
 
     public override string ToString() => nameItem;

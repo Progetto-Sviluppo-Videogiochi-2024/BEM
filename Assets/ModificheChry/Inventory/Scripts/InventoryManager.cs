@@ -50,7 +50,7 @@ public class InventoryManager : MonoBehaviour
         };
 
         // Inizializza l'oggetto Item con i dati
-        itemInstance.Initialize(itemData); // Supponendo che tu abbia un metodo Initialize che setta le proprietà dell'item
+        itemInstance.Initialize(itemData);
         return itemInstance;
     }
 
