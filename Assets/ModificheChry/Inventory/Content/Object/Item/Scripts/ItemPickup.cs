@@ -12,11 +12,11 @@ public class ItemPickup : MonoBehaviour
     private string itemId; // ID dell'oggetto
     #endregion
 
-    // [Header("Camera Pickup Settings")]
-    // #region Camera Pickup Settings
-    // private Transform playerCamera; // Riferimento alla camera del giocatore
-    // private Vector3 originalCameraPosition; // Posizione originale della camera
-    // #endregion
+    [Header("Camera Pickup Settings")]
+    #region Camera Pickup Settings
+    private Transform camFollowPosition;
+    private Vector3 currentCamPosition;
+    #endregion
 
     [Header("References")]
     #region References
@@ -37,10 +37,9 @@ public class ItemPickup : MonoBehaviour
         item = GetComponent<ItemController>().item;
 
         player = FindObjectOfType<Player>().transform;
+        camFollowPosition = player.GetChild(0);
         openMenuScript = player.GetComponent<OpenInventory>();
         animator = player.GetComponent<Animator>();
-        // playerCamera = player.GetChild(0);
-        // originalCameraPosition = playerCamera.position;
 
         // Verifica se l'oggetto è stato raccolto
         itemId = GenerateItemId();
@@ -79,27 +78,34 @@ public class ItemPickup : MonoBehaviour
     {
         animator.SetBool("pickingUp", true);
         if (openMenuScript.isInventoryOpen || openMenuScript.itemInspectOpen != null) openMenuScript.ToggleInventory(false);
-        // Vector3 targetCameraPosition = playerCamera.position - player.forward * 0.75f; // Nuova posizione lontano dal giocatore
-        // StartCoroutine(MoveCameraSmoothly(targetCameraPosition));
+        currentCamPosition = camFollowPosition.localPosition;
+        MoveCamerPickup(camFollowPosition);
         StartCoroutine(WaitForEquipAnimation());
     }
 
-    // private IEnumerator MoveCameraSmoothly(Vector3 targetPosition)
-    // {
-    //     float timeElapsed = 0f;
-    //     float duration = 0.5f; // Durata dell'animazione di allontanamento
+    private IEnumerator MoveCameraCoroutine(Transform cameraPosition, float duration)
+    {
+        float elapsedTime = 0f;
+        Vector3 startPosition = cameraPosition.localPosition;
+        float distanceToPlayer = Vector3.Distance(cameraPosition.position, player.position) * 1.5f;
+        Vector3 targetPosition = new(startPosition.x, startPosition.y, -distanceToPlayer);
 
-    //     while (timeElapsed < duration)
-    //     {
-    //         playerCamera.position = Vector3.Lerp(playerCamera.position, targetPosition, timeElapsed / duration);
-    //         timeElapsed += Time.deltaTime;
-    //         yield return null;
-    //     }
+        while (elapsedTime < duration)
+        {
+            cameraPosition.localPosition = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
 
-    //     playerCamera.position = targetPosition; // Assicurati che la camera arrivi esattamente alla posizione target
-    // }
+        cameraPosition.localPosition = targetPosition; // Assicurati che la posizione finale sia precisa
+    }
 
-    private void CancelPickup() => animator.SetBool("pickingUp", false);
+    private void MoveCamerPickup(Transform cameraPosition)
+    {
+        StartCoroutine(MoveCameraCoroutine(cameraPosition, 2f));
+    }
+
+    // private void CancelPickup() => animator.SetBool("pickingUp", false);
 
     private IEnumerator WaitForEquipAnimation()
     {
@@ -128,7 +134,7 @@ public class ItemPickup : MonoBehaviour
         }
 
         animator.SetBool("pickingUp", false);
-        // StartCoroutine(MoveCameraSmoothly(originalCameraPosition));
+        MoveCamerPickup(camFollowPosition);
     }
 
     private bool IsAnimationFinished(string layer, string animation, float normalizedTime)

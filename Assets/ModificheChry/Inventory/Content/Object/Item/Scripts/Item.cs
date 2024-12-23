@@ -96,6 +96,7 @@ public class Item : ScriptableObject
         qta = itemData.qta;
         icon = itemData.icon;
         image = itemData.image;
+        // icon = Resources.Load<Sprite>("Icons/" + nameItem);
     }
 
     public override string ToString() => nameItem;
