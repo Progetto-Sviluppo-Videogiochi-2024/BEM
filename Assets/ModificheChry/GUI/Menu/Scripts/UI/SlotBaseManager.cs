@@ -72,7 +72,7 @@ public abstract class SlotBaseManager : MonoBehaviour
         SetMouseHoverSlot(deleteButton.transform, () => { isClickedOnDelete = true; }, () => { isClickedOnDelete = false; }); // Per "Delete" all'hover
 
         ConfigureSlotButton(slot.GetComponent<Button>(), () => OpenConfirmPanel(savedSlotName)); // Per "Load/Save" al click
-        SetMouseHoverSlot(slot, () => { OnSlotEnter(infoSceneSlot.transform); }, () => { OnSlotExit(infoSceneSlot.transform); }); // Per mostrare le info della scena all'hover
+        SetMouseHoverSlot(slot, () => { OnSlotEnter(infoSceneSlot.transform, gameData.currentSceneName); }, () => { OnSlotExit(infoSceneSlot.transform); }); // Per mostrare le info della scena all'hover
     }
 
     public abstract void ListSlotUI();
@@ -120,10 +120,13 @@ public abstract class SlotBaseManager : MonoBehaviour
         eventTrigger.triggers.Add(pointerExitEntry);
     }
 
-    public void OnSlotEnter(Transform infoSceneSlot)
+    public void OnSlotEnter(Transform infoSceneSlot, string nomeCapitolo)
     {
+        Debug.Log("OnSlotEnter: " + nomeCapitolo);
         infoSceneSlot.gameObject.SetActive(true);
-        // Aggiungere IMG (img, una per ogni scena) e Descrizione (testo, uno per ogni scena) per infoSceneSlot
+        var (img, description) = gestoreScena.GetSpriteAndDescriptionChapter(nomeCapitolo);
+        infoSceneSlot.GetChild(0).GetComponent<Image>().sprite = img;
+        infoSceneSlot.GetChild(1).GetComponent<TextMeshProUGUI>().text = description;        
     }
 
     public void OnSlotExit(Transform infoSceneSlot) => infoSceneSlot.gameObject.SetActive(false);

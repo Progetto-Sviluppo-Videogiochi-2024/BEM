@@ -22,6 +22,8 @@ public class GestoreScena : MonoBehaviour
     [Tooltip("Riferimento alla testa del giocatore (per la visuale del nemico)")] public Transform playerHead; // Riferimento alla testa del giocatore (per la visuale del nemico)
     #endregion
 
+    public List<Sprite> spritesScenes = new(); // Lista delle immagini delle scene
+
     void Awake()
     {
         nUIOpen = 0; // Resettata a ogni nuova scena per evitare problemi (la precedente viene distrutta, quindi, anche se alcune saranno aperte prima del cambio, io la azzero all'inizio della nuova scena)
@@ -39,6 +41,15 @@ public class GestoreScena : MonoBehaviour
         "Scena1" => "Capitolo 2: In Viaggio Verso la Foresta",
         "Scena2" => "Capitolo 3: Arrivo e Scoperte nella Foresta",
         "Scena3" => "Capitolo 4: Un'Inquietante Sorpresa",
+        _ => "Capitolo: Sconosciuto" // Non dovrebbe mai accadere se le scene sono correttamente definite
+    };
+
+    public string GetChapterDescription(string sceneName) => sceneName switch
+    {
+        "Scena0" => "Una settimana dopo aver traslocato a Caccamone, Stefano si prepara per il lunedi di Pasquetta con i suoi amici",
+        "Scena1" => "In Viaggio Verso la Foresta",
+        "Scena2" => "Il gruppo è arrivato nella Foresta di Mercadante dove iniziano ad ambientarsi e cercare un luogo adatto per allestire le tende e preparare il necessario per poter festeggiare.",
+        "Scena3" => "Superata la barricata e trovato il punto perfetto, i ragazzi allestiscono il campeggio. Sistemano le tende, accendono un fuoco e si mettono comodi, raccontandosi storie, condividendo carne grigliata e bevendo. L’atmosfera è rilassata, e i ragazzi si godono la serata in un clima di spensieratezza. Finché...",
         _ => "Capitolo: Sconosciuto" // Non dovrebbe mai accadere se le scene sono correttamente definite
     };
 
@@ -81,4 +92,22 @@ public class GestoreScena : MonoBehaviour
         Cursor.visible = visible;
         Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
     }
+
+    public Sprite SearchSpriteImageScene (string sceneName)
+    {
+        foreach (var sprite in spritesScenes)
+        {
+            if (sprite.name == sceneName) return sprite;
+        }
+        return null;
+    }
+
+    public (Sprite, string) GetSpriteAndDescriptionChapter (string sceneName)
+    {
+        var sprite = SearchSpriteImageScene(sceneName);
+        var description = GetChapterDescription(sceneName);
+        return (sprite, description);
+    }
+
+
 }
