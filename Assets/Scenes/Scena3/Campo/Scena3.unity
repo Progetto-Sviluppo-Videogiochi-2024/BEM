@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.009012707, g: 0.013102867, b: 0.020503506, a: 1}
+  m_IndirectSpecularColor: {r: 0.009011039, g: 0.0131015815, b: 0.020505467, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -21816,6 +21816,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 897627635}
     - target: {fileID: 4858064698062334397, guid: 7279b985a3df77441b4a80a69204360b, type: 3}
+      propertyPath: torch
+      value: 
+      objectReference: {fileID: 1539670829}
+    - target: {fileID: 4858064698062334397, guid: 7279b985a3df77441b4a80a69204360b, type: 3}
       propertyPath: aimPos
       value: 
       objectReference: {fileID: 28644865}
@@ -24915,6 +24919,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.48198694, y: 0.28297955, z: 0.52529526}
   m_Center: {x: -0.003875345, y: -0.001062572, z: 0.0036155581}
+--- !u!4 &1539670829 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3001713506112187443, guid: f63e65675a6e1494f940b88d554ba138, type: 3}
+  m_PrefabInstance: {fileID: 1150102676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1544389422 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a39401c3eeb3f0243b386b9ee258c587, type: 3}
@@ -32756,6 +32765,7 @@ MonoBehaviour:
   nextScene: ScenaFinale
   tooltip: {fileID: 256013410}
   playerHead: {fileID: 0}
+  spritesScenes: []
 --- !u!114 &2058260428
 MonoBehaviour:
   m_ObjectHideFlags: 0

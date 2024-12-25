@@ -60,6 +60,7 @@ public class AimStateManager : MonoBehaviour
     public GameObject crosshair;
     [HideInInspector] public Animator animator;
     private Player player;
+    public Transform torch;
     #endregion
 
     private void Awake()
@@ -116,6 +117,8 @@ public class AimStateManager : MonoBehaviour
         {
             camFollowPosition.localEulerAngles = new(yAxis, camFollowPosition.localEulerAngles.y, camFollowPosition.localEulerAngles.z);
             transform.eulerAngles = new(transform.eulerAngles.x, xAxis, transform.eulerAngles.z);
+
+            if (torch != null) MoveTorch();
         }
         else HandleCameraDeath();
     }
@@ -163,5 +166,16 @@ public class AimStateManager : MonoBehaviour
 
         // 4. La telecamera guarda sempre Stefano
         camFollowPosition.LookAt(player.transform.position + Vector3.up * (altezzaSopraStefano / 2));
+    }
+
+    void MoveTorch()
+    {
+        // Aggiungi un offset alla posizione della torcia per mantenerla a una distanza desiderata dalla telecamera
+        Vector3 torchOffset = new(0f, 0f, 0.5f);  // Modifica a piacere
+
+        // Muovi la torcia per seguire la rotazione della telecamera
+        torch.SetPositionAndRotation(
+            camFollowPosition.position + (camFollowPosition.forward * torchOffset.z),
+            Quaternion.Euler(camFollowPosition.eulerAngles.x, camFollowPosition.eulerAngles.y, 0));
     }
 }
