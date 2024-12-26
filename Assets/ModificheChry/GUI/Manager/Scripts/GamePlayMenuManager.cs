@@ -39,7 +39,7 @@ public class GamePlayMenuManager : MonoBehaviour
 
     void Update()
     {
-        if (!saveSlot.loadSavePanel.activeSelf && !loadSlot.loadSavePanel.activeSelf && Input.GetKeyDown(KeyCode.P)) ToggleMenu(!isMenuOpen);
+        if (!saveSlot.loadSavePanel.activeSelf && !loadSlot.loadSavePanel.activeSelf && Input.GetKeyDown(KeyCode.Escape)) ToggleMenu(!isMenuOpen);
     }
 
     private void ToggleMenu(bool isOpen)

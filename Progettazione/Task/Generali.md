@@ -6,14 +6,11 @@
 
 - **Lupo:**
   - Non collide con gli alberi (solo lago fixato)
-- **Salute Mentale**
-  - Implementare respiro affannoso per Stefano quando si attiva la sanità mentale
 
 - **Tests**:
   - **Lupo**:
     - ~~Potrebbe arrivare a destinazione ma continua a _camminare_ e non va in idle (penso di averlo fixato @ccorvino3)~~ 
     - ~~Potrebbe decidere di _non attaccare_ a volte (penso di averlo fixato @ccorvino3)~~
-      - 03.12.24: @marco Effettuato Test dopo la Build, si posiziona correttamente
     - _Non collide_ con alberi, ~~lago~~, ecc...
 
 **Implementazioni facoltative**

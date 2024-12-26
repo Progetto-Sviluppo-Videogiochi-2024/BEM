@@ -1,18 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ManagerScena3 : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [HideInInspector] public BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
 
-    // Update is called once per frame
-    void Update()
+    public void SetDEBool(string nomeBool) // Da invocare nel DialogueEditor per settare i valori booleani del BooleanAccessor
     {
-        
+        booleanAccessor.SetBoolOnDialogueE(nomeBool);
     }
 }

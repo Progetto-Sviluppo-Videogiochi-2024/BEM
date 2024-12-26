@@ -34,7 +34,7 @@
 - **ALT**: visuale laterale (destra o sinistra)
 
 ## Combattimento Arma Melee
-**CLICK_SINISTRO**: attacca
+**CLICK_SINISTRO**: attacca (NON lo mettiamo più)
 
 ## Oggetti
 *(Se equipaggiato)*
@@ -42,6 +42,7 @@
 
 ## Torcia
 **F**: accendi/spegni la torcia
+**H**: cambiare tipo di luce della torcia
 
 ## Missioni
 - **Q**: Visualizza l'elenco delle missioni
@@ -52,5 +53,5 @@
     - **CLICK_MOUSE_SINISTRO**: conferma una delle scelte del menu contestuale
 
 # Impostazioni del Gioco
-- **P**: Pause Menu 
+- **ESC**: Pause Menu 
 - **M**: muta l'audio

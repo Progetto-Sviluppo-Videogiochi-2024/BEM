@@ -29,7 +29,11 @@ public class BooleanAccessor : MonoBehaviour
         { "cocaColaDone", false }, // Se il giocatore ha sparato le lattine di cocacola in scena2
         { "fioriRaccolti", false }, // Se il giocatore ha raccolto 3 fiori in scena2
         { "fiori", false }, // Se il giocatore ha parlato con Gaia in scena2 (task)
-        { "soluzione", false } // Se il giocatore è giunto nel dialogo di Gaia a craftare la soluzione in scena2
+        { "soluzione", false }, // Se il giocatore è giunto nel dialogo di Gaia a craftare la soluzione in scena2
+        { "preHitBallJA", false }, // Se il giocatore ha finito il dialogo Pre-HitBall di Angelica e Jacob in scena3
+        { "postHitBallJA", false }, // Se il giocatore ha finito il dialogo Post-HitBall di Angelica e Jacob in scena3
+        { "postHitBallSG", false }, // Se il giocatore ha finito il dialogo Post-HitBall di Stefano e Gaia in scena3
+        { "videoMutant", false }, // Se il giocatore ha finito il dialogo del video del mutante in scena3
     };
     #endregion
 
