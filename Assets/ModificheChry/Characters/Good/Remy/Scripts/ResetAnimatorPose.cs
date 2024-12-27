@@ -9,7 +9,7 @@ public class ResetAnimatorPose : MonoBehaviour
         if (animator)
         {
             animator.Rebind(); // Resetta lo stato del rig
-            // animator.Update(0); // Aggiorna l'animatore alla sua posa iniziale
+            // animator.Update(0); // Aggiorna l'animatore alla sua posa iniziale // Farlo solo alla prima
         }
     }
 }
