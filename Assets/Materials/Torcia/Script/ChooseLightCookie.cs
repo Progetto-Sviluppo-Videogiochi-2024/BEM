@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class ChooseLightCookie : MonoBehaviour
 {
-    public string chooseKeyForCookie = "E";
+    public string chooseKeyForCookie = "H";
     private KeyCode _keyCode;
     [Space]
     public List<Texture> lightCookie = new List<Texture>();

@@ -65,6 +65,9 @@ public class AimStateManager : MonoBehaviour
 
     public float offsetXTorch = 0.05f;
     public float offsetZTorch = -0.05f;
+    public Vector3 torchRotationOffset = Vector3.zero;
+
+
 
     private void Awake()
     {
@@ -173,14 +176,18 @@ public class AimStateManager : MonoBehaviour
 
     void MoveTorch()
     {
-        // Aggiungi un offset alla posizione della torcia per mantenerla a una distanza desiderata dalla telecamera
-        Vector3 torchOffset = new(offsetXTorch, 0f, offsetZTorch);  // Usa offsetXTorch per lo spostamento laterale
+        // Aggiungi un offset alla posizione della torcia
+        Vector3 torchOffset = new(offsetXTorch, 0f, offsetZTorch);
 
         // Muovi la torcia per seguire la rotazione della telecamera
         torch.SetPositionAndRotation(
             camFollowPosition.position
-                + (camFollowPosition.right * torchOffset.x) // Sposta lateralmente (destra con positivo, sinistra con negativo)
+                + (camFollowPosition.right * torchOffset.x) // Sposta lateralmente
                 + (camFollowPosition.forward * torchOffset.z), // Sposta in avanti
-            Quaternion.Euler(camFollowPosition.eulerAngles.x, camFollowPosition.eulerAngles.y, 0));
+            Quaternion.Euler(
+                camFollowPosition.eulerAngles.x + torchRotationOffset.x,
+                camFollowPosition.eulerAngles.y + torchRotationOffset.y,
+                torchRotationOffset.z));
     }
+
 }
