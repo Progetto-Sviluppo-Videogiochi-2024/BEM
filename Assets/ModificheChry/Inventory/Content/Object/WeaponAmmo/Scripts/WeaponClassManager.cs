@@ -50,7 +50,7 @@ public class WeaponClassManager : MonoBehaviour
         }
     }
 
-    private void TakeParametersAnimation(int index)
+    public void TakeParametersAnimation(int index)
     {
         string trigger;
         string boolWeapon;
@@ -99,7 +99,7 @@ public class WeaponClassManager : MonoBehaviour
         return animStateInfo.IsName(animation) && animStateInfo.normalizedTime >= normalizedTime;
     }
 
-    void EquipWeapon(int index)
+    public void EquipWeapon(int index)
     {
         if (AlreadyEquippedRemoveHand(index)) return; // Se l'arma è già equipaggiata, la toglie dalla mano
         else if (index >= 0 && index < weaponsEquipable.Count)
