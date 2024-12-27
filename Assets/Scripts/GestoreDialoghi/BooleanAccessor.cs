@@ -83,8 +83,16 @@ public class BooleanAccessor : MonoBehaviour
         string managerObjectName = "ManagerScena" + sceneNumber;
         GameObject manager = GameObject.Find(managerObjectName);
 
-        if (manager == null && sceneName != "MainMenu" && sceneName != "Transizione") { Debug.LogWarning("Manager don't found in scene " + sceneName + ". It's not normal. Fix it."); return; }
-        if (sceneName == "MainMenu" || sceneName == "Transizione") { print("Manager don't found in scene " + sceneName + ". It's normal."); return; }
+        if (manager == null && sceneName != "MainMenu" && sceneName != "Transizione" && sceneName != "Scena3Video")
+        {
+            Debug.LogWarning("Manager don't found in scene " + sceneName + ". It's not normal. Fix it.");
+            return;
+        }
+        if (sceneName == "MainMenu" || sceneName == "Transizione" || sceneName == "Scena3Video")
+        {
+            print("Manager don't found in scene " + sceneName + ". It's normal.");
+            return;
+        }
 
         var components = manager.GetComponents<Component>();
         foreach (var component in components)

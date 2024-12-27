@@ -12,6 +12,7 @@ public class ZonaCamping : MonoBehaviour
 
     [Header("References")]
     #region References
+    public VideoTransitionManager videoTransitionManager; // Riferimento al VideoTransitionManager per il video del mutante che attacca i militari
     public NPCConversation[] conversations; // Array di dialoghi per la zona camping
     private ConversationManager conversationManager; // Riferimento al ConversationManager
     private BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
@@ -25,15 +26,37 @@ public class ZonaCamping : MonoBehaviour
 
     void Start()
     {
+        booleanAccessor = BooleanAccessor.istance;
+        conversationManager = ConversationManager.Instance;
+
         var characters = transform.GetChild(0);
         gaiaSitting = characters.GetChild(0);
         stefanoSitting = characters.GetChild(1);
         // jacob = characters.GetChild(2);
         // angelica = characters.GetChild(3);
 
-        booleanAccessor = BooleanAccessor.istance;
-        conversationManager = ConversationManager.Instance;
-        conversationManager.StartConversation(conversations[0]); // Pre-HitBall di Angelica e Jacob
+        // if (!booleanAccessor.GetBoolFromThis("videoMutant"))
+        // {
+        //     player.gameObject.SetActive(false);
+        //     gaia.gameObject.SetActive(false);
+        //     gaiaSitting.gameObject.SetActive(true);
+        //     stefanoSitting.gameObject.SetActive(true);
+        // }
+        // else
+        // {
+        //     player.gameObject.SetActive(true);
+        //     gaia.gameObject.SetActive(true);
+        //     gaiaSitting.gameObject.SetActive(false);
+        //     stefanoSitting.gameObject.SetActive(false);
+        // }
+        // if (angelica.isArrived && jacob.isArrived) // Usare i PP
+        // {
+        //     angelica.gameObject.SetActive(false);
+        //     jacob.gameObject.SetActive(false);
+        // }
+
+        if (!booleanAccessor.GetBoolFromThis("preHitBallJA"))
+            conversationManager.StartConversation(conversations[0]); // Pre-HitBall di Angelica e Jacob
     }
 
     void Update() // Invocarle come event del DialogueEditor nei relativi nodi e dialoghi -> fare delle sotto-funzioni per evitare l'uso di Update => efficienza++
@@ -51,7 +74,7 @@ public class ZonaCamping : MonoBehaviour
         if (!isPostHitBallJA && booleanAccessor.GetBoolFromThis("postHitBallJA"))
         {
             // Fare una classe astratta per le due AI così seguono una logica comune per poi allontanarsi e scomparire (usare un flag dello script)
-            if (Input.GetKeyDown(KeyCode.Z)/*angelica.isArrived && jacob.isArrived*/) // per testing
+            if (Input.GetKeyDown(KeyCode.Z)/*angelica.isArrived && jacob.isArrived*/) // per testing // Usare i PP
             {
                 // jacob.gameObject.SetActive(false);
                 // angelica.gameObject.SetActive(false);
@@ -63,6 +86,7 @@ public class ZonaCamping : MonoBehaviour
         if (booleanAccessor.GetBoolFromThis("postHitBallSG"))
         {
             // Dopo che termina il dialogo di Stefano e Gaia allora parte il video del mutante che attacca i militari @marcoWarrior @ccorvino3
+            videoTransitionManager.StartVideo();
             booleanAccessor.SetBoolOnDialogueE("videoMutant");
         }
 
@@ -79,7 +103,7 @@ public class ZonaCamping : MonoBehaviour
 
     private bool HasBallBeenKicked()
     {
-        // Per testing, Nico, questa parte è da cancellare
+        // Per testing. Nico, questa parte è da cancellare
         if (Input.GetKeyDown(KeyCode.A)) return true;
         else return false;
         throw new NotImplementedException("Nicola implementa qui la funzione per verificare se la palla è stata colpita da Angelica.");
