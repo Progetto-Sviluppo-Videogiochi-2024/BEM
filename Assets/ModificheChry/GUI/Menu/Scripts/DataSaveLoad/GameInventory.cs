@@ -22,6 +22,7 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
             {
                 Item itemInstance = inventory.CreateItemInstance(itemData);
                 inventory.Add(itemInstance);
+                itemInstance.qta = itemData.qta;
             }
         }
     }
@@ -110,8 +111,8 @@ public class ItemData
         inventorySectionType = item.inventorySectionType;
         own = item.own;
         qta = item.qta;
-        // icon = item.icon;
-        // image = item.image;
+        // icon = item.icon; // La prendo già da SpriteManager
+        // image = item.image; // La prendo già da SpriteManager
     }
 }
 
