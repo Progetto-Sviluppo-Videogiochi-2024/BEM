@@ -88,9 +88,6 @@ public class WeaponManager : MonoBehaviour
         ammo.data = weapon.ammo;
 
         audioSource = GetComponent<AudioSource>();
-
-        // leftHandTarget = this.gameObject.transform.Find("LeftHandIK_target");
-        // leftHandHint = this.gameObject.transform.Find("LeftHandIK_hint");
     }
 
     void Update()
@@ -106,6 +103,21 @@ public class WeaponManager : MonoBehaviour
         // Script valido sse è attaccato ad un oggetto con ItemController e il root è un Player
         if (GetComponent<ItemController>() == null || !transform.root.GetChild(0).CompareTag("Player")) return false;
         return true;
+    }
+
+    public void SwitchWeapon() => SetIdle();
+
+    public void SetIdle()
+    {
+        transform.localPosition = weapon.IdlePosition;
+        transform.localRotation = weapon.IdleRotation;
+    }
+
+    public void SetAim()
+    {
+        transform.localPosition = weapon.AimPosition;
+        transform.localRotation = weapon.AimRotation;
+        transform.localScale = weapon.Scale;
     }
 
     bool ShouldFire()

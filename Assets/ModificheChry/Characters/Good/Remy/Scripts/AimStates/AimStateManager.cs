@@ -51,8 +51,8 @@ public class AimStateManager : MonoBehaviour
 
     [Header("References Scripts")]
     #region References Scripts
-    public RigSwitcher cambiaRig;
     MovementStateManager movement;
+    [HideInInspector] public WeaponClassManager weaponClassManager;
     #endregion
 
     [Header("References")]
@@ -67,13 +67,12 @@ public class AimStateManager : MonoBehaviour
     public float offsetZTorch = -0.05f;
     public Vector3 torchRotationOffset = Vector3.zero;
 
-
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
         aimCam = GetComponentInChildren<CinemachineVirtualCamera>();
         movement = GetComponent<MovementStateManager>();
+        weaponClassManager = GetComponent<WeaponClassManager>();
     }
 
     void Start()
@@ -89,7 +88,6 @@ public class AimStateManager : MonoBehaviour
 
         //SwitchState(rifleIdleState);
         currentFov = idleFov;
-        cambiaRig = GetComponentInChildren<RigSwitcher>();
     }
 
     void Update()

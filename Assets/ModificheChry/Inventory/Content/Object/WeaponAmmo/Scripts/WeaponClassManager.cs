@@ -8,8 +8,7 @@ public class WeaponClassManager : MonoBehaviour
 {
     [Header("Equip Weapons")]
     #region Switching-Equip Weapons
-    public RigSwitcher CambiaRig;
-    int currentWeaponIndex = -1;
+    [HideInInspector] public int currentWeaponIndex = -1;
     [HideInInspector] public GameObject currentWeapon;
     public Transform weaponHolder;
     private bool isWeaponEquipFinished = true;
@@ -32,7 +31,6 @@ public class WeaponClassManager : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         actions = GetComponent<ActionStateManager>();
-        CambiaRig = GetComponentInChildren<RigSwitcher>();
         aim = GetComponent<AimStateManager>();
     }
 
@@ -117,7 +115,8 @@ public class WeaponClassManager : MonoBehaviour
             // Attiva e posiziona la nuova arma
             currentWeapon.SetActive(true);
             currentWeapon.transform.SetParent(weaponHolder);
-            CambiaRig.SwitchWeapon(currentWeapon);
+            weaponsEquipable[index].SwitchWeapon();
+
             aim.SwitchState(aim.rifleIdleState);
             currentWeaponIndex = index; // Aggiorna l'indice dell'arma corrente
 

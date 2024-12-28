@@ -6,7 +6,7 @@ public class RifleIdleState : AimBaseState
     {
         aim.animator.SetBool("aiming", false);
         aim.currentFov = aim.idleFov;
-        if (aim.cambiaRig != null) { aim.cambiaRig.SetIdle(); }
+        if (aim.weaponClassManager.currentWeaponIndex != -1) aim.weaponClassManager.weaponsEquipable[aim.weaponClassManager.currentWeaponIndex].SetIdle();
         aim.crosshair.SetActive(false);
     }
 
