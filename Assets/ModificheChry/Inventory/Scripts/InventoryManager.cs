@@ -71,7 +71,6 @@ public class InventoryManager : MonoBehaviour
         return itemInstance;
     }
 
-
     public void ClearInventory()
     {
         // Pulisce la lista degli oggetti nell'inventario
@@ -262,8 +261,6 @@ public class InventoryManager : MonoBehaviour
         }
         return 0;
     }
-
-    public void AddItem(Item item) => items.Add(item);
 
     public float ComputeInventoryWeight() =>
         items

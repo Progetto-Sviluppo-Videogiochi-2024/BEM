@@ -27,11 +27,11 @@ public class MainMenu : MonoBehaviour
     {
         transition = FindObjectOfType<GestoreScena>();
 
-        // Avvia la musica di sottofondo
-        PlayAudio();
+        PlayAudio(); // Avvia la musica di sottofondo
 
-        // Crea l'effetto glitch sul testo
-        CreateGlitchText();
+        CreateGlitchText(); // Crea l'effetto glitch sul testo
+
+        InventoryManager.instance.transform.parent?.gameObject.SetActive(false); // Nasconde l'inventario all'avvio
     }
 
     private void ActivateMenuFromKeyboard() // Invocarlo, se lo implementiamo, in Update
@@ -75,12 +75,9 @@ public class MainMenu : MonoBehaviour
         {
             if (nameGameObject.TryGetComponent(out TextMeshProUGUI nameGameText))
             {
-                Color originalColor; // Colore originale del testo
-                Vector3 originalPosition; // Posizione originale del testo
-                Quaternion originalRotation; // Rotazione originale del testo
-                originalColor = nameGameText.color;
-                originalPosition = nameGameText.transform.position;
-                originalRotation = nameGameText.transform.rotation;
+                Color originalColor = nameGameText.color;
+                Vector3 originalPosition = nameGameText.transform.position;
+                Quaternion originalRotation = nameGameText.transform.rotation;
                 StartCoroutine(GlitchEffectCoroutine(nameGameText, originalColor, originalPosition, originalRotation));
             }
             else Debug.LogError("Componente TextMeshProUGUI non trovato su NameGame.");
@@ -95,26 +92,17 @@ public class MainMenu : MonoBehaviour
             var ButtonUIText = buttonUI.GetComponentInChildren<TextMeshProUGUI>();
             if (ButtonUIText != null)
             {
-                Color originalColor; // Colore originale del testo
-                Vector3 originalPosition; // Posizione originale del testo
-                Quaternion originalRotation; // Rotazione originale del testo
                 bool oneTime = true; // Se true, l'effetto glitch si verifica una sola volta
-                originalColor = ButtonUIText.color;
-                originalPosition = ButtonUIText.transform.position;
-                originalRotation = ButtonUIText.transform.rotation;
+                Color originalColor = ButtonUIText.color;
+                Vector3 originalPosition = ButtonUIText.transform.position;
+                Quaternion originalRotation = ButtonUIText.transform.rotation;
 
                 // Avvia la Coroutine e salvala
                 glitchCoroutineButton = StartCoroutine(GlitchEffectCoroutine(ButtonUIText, originalColor, originalPosition, originalRotation, oneTime));
             }
-            else
-            {
-                Debug.LogError("Componente TextMeshProUGUI non trovato su " + buttonUI.name);
-            }
+            else Debug.LogError("Componente TextMeshProUGUI non trovato su " + buttonUI.name);
         }
-        else
-        {
-            Debug.LogError("Oggetto buttonUI non trovato nella gerarchia.");
-        }
+        else Debug.LogError("Oggetto buttonUI non trovato nella gerarchia.");
     }
 
     private IEnumerator GlitchEffectCoroutine(TextMeshProUGUI textUI, Color originalColor, Vector3 originalPosition, Quaternion originalRotation)
@@ -148,10 +136,7 @@ public class MainMenu : MonoBehaviour
                 textUI.color = originalColor;
                 yield return new WaitForSeconds(glitchInterval);
             }
-            else
-            {
-                yield break; // Interrompe il ciclo se l'elemento TextMeshProUGUI non è stato assegnato
-            }
+            else yield break; // Interrompe il ciclo se l'elemento TextMeshProUGUI non è stato assegnato
         }
     }
 
@@ -191,9 +176,6 @@ public class MainMenu : MonoBehaviour
                 StartCoroutine(GlitchEffectCoroutine(textUI, originalColor, originalPosition, originalRotation, oneTime));
             }
         }
-        else
-        {
-            yield break; // Se textUI è null, esci dalla coroutine
-        }
+        else yield break; // Se textUI è null, esci dalla coroutine
     }
 }

@@ -30,6 +30,7 @@ public class ManagerScena2 : MonoBehaviour
     public Animator lupo; // Riferimento all'animatore del lupo
     public BooleanAccessor booleanAccessor; // Riferimento al booleanAccessor
     public RadioManager radioManager; // Riferimento al radio manager
+    public InventoryManager inventory; // Riferimento all'inventario // Lo uso per (ad es): Dialogo Gaia per la ricetta
     #endregion
 
     // Dati Inventario scena2
@@ -37,9 +38,8 @@ public class ManagerScena2 : MonoBehaviour
 
     void Start()
     {
+        inventory = InventoryManager.instance;
         booleanAccessor = BooleanAccessor.istance;
-
-        //Setta la radio come spenta
 
         // Inizializza l'audio source
         audioSource = GetComponent<AudioSource>();
@@ -108,4 +108,6 @@ public class ManagerScena2 : MonoBehaviour
     {
         booleanAccessor.SetBoolOnDialogueE(nomeBool);
     }
+
+    public void AddItemInInventory(Item item) => inventory.GetComponentInChildren<InventoryManager>().Add(item); // Invocata nel DE di Gaia per aggiungere la ricetta all'inventario
 }
