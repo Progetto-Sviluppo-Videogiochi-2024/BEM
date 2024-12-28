@@ -20,11 +20,8 @@ public class ItemDetector : MonoBehaviour
 
     private void DetectItemsAround()
     {
-        // Aggiorna la lista degli oggetti rilevati
-        UpdateListItemsDetection();
-
-        // Rimuovi il componente dagli oggetti non più nella sfera
-        RemoveItemsDetection();
+        UpdateListItemsDetection(); // Aggiorna la lista degli oggetti rilevati
+        RemoveItemsDetection(); // Rimuovi il componente dagli oggetti non più nella sfera
     }
 
     private void UpdateListItemsDetection()
@@ -52,6 +49,7 @@ public class ItemDetector : MonoBehaviour
         List<GameObject> itemsToRemove = new();
         foreach (var entry in trackedItems)
         {
+            if (entry.Key == null) continue;
             if (entry.Value && Vector3.Distance(transform.position, entry.Key.transform.position) > detectionRadius)
             {
                 if (entry.Key.TryGetComponent<Bordo>(out var bordo))
@@ -66,6 +64,7 @@ public class ItemDetector : MonoBehaviour
         foreach (GameObject item in itemsToRemove)
         {
             trackedItems[item] = false;
+            trackedItems.Remove(item);
         }
     }
 
@@ -79,6 +78,7 @@ public class ItemDetector : MonoBehaviour
             {
                 Destroy(bordo);
                 trackedItems[item] = false;
+                trackedItems.Remove(item);
                 break;
             }
         }
@@ -86,7 +86,6 @@ public class ItemDetector : MonoBehaviour
 
     private void OnDrawGizmos() // TODO: Solo per debug
     {
-        // Visualizza la sfera di rilevamento nell'editor per il debug
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }

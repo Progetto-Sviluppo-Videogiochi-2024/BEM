@@ -15,7 +15,6 @@ public class ItemPickup : MonoBehaviour
     [Header("Camera Pickup Settings")]
     #region Camera Pickup Settings
     private Transform camFollowPosition;
-    private Vector3 currentCamPosition;
     #endregion
 
     [Header("References")]
@@ -43,7 +42,7 @@ public class ItemPickup : MonoBehaviour
 
         // Verifica se l'oggetto è stato raccolto
         itemId = GenerateItemId();
-        if (GestoreScena.collectedItemIds.Contains(itemId)) Destroy(gameObject); // Distruggi l'oggetto se è già stato raccolto}
+        if (GestoreScena.collectedItemIds.Contains(itemId)) Destroy(gameObject); // Distruggi l'oggetto se già raccolto
     }
 
     void Update()
@@ -56,13 +55,11 @@ public class ItemPickup : MonoBehaviour
             {
                 if (item.inventorySectionType.Equals(Item.ItemType.ConsumableEquipable) && InventoryManager.instance.IsInventoryFull())
                 {
-                    DebugLogger.Log($"Space: {item.nameItem} - {tooltip}");
                     tooltip?.ShowTooltip("Non ho più spazio nello zaino.", 5f);
                     return;
                 }
                 PickUp();
             }
-            // else if (animator.GetBool("pickingUp") && (animator.GetFloat("vInput") > 0 || animator.GetFloat("hInput") > 0)) CancelPickup();
         }
     }
 
@@ -78,7 +75,6 @@ public class ItemPickup : MonoBehaviour
     {
         animator.SetBool("pickingUp", true);
         if (openMenuScript.isInventoryOpen || openMenuScript.itemInspectOpen != null) openMenuScript.ToggleInventory(false);
-        currentCamPosition = camFollowPosition.localPosition;
         MoveCamerPickup(camFollowPosition);
         StartCoroutine(WaitForEquipAnimation());
     }
@@ -100,10 +96,7 @@ public class ItemPickup : MonoBehaviour
         cameraPosition.localPosition = targetPosition; // Assicurati che la posizione finale sia precisa
     }
 
-    private void MoveCamerPickup(Transform cameraPosition)
-    {
-        StartCoroutine(MoveCameraCoroutine(cameraPosition, 2f));
-    }
+    private void MoveCamerPickup(Transform cameraPosition) => StartCoroutine(MoveCameraCoroutine(cameraPosition, 2f));
 
     // private void CancelPickup() => animator.SetBool("pickingUp", false);
 
@@ -128,7 +121,7 @@ public class ItemPickup : MonoBehaviour
             FindObjectOfType<GestoreScena>().SetItemScene(item);
             isItemAdded = true;
 
-            FindObjectOfType<Player>().GetComponent<ItemDetector>().RemoveItemDetection(gameObject);
+            player.GetComponent<ItemDetector>().RemoveItemDetection(gameObject);
             if (!GestoreScena.collectedItemIds.Contains(itemId)) GestoreScena.collectedItemIds.Add(itemId);
             if (item.canDestroy) Destroy(gameObject);
         }

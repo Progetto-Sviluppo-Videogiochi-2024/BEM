@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Item;
 
@@ -24,16 +25,32 @@ public class InventoryManager : MonoBehaviour
     [HideInInspector] public WeaponClassManager weaponClassManager; // Script che gestisce le armi equipaggiabili
     private ItemClassManager itemClassManager; // Script che gestisce gli oggetti consumabili
 
-    private void Awake()
+    void Awake()
     {
-        if (instance != null)
+        var inventory = transform.parent.gameObject;
+
+        if (instance != null && instance != this)
         {
-            Debug.LogWarning("There is more than one instance of InventoryManager");
+            print("There is more than one instance of InventoryManager. Destroying duplicate.");
+            Destroy(inventory); // Distrugge eventuali duplicati
             return;
         }
+
         instance = this;
-        weaponClassManager = FindObjectOfType<WeaponClassManager>();
-        itemClassManager = weaponClassManager.GetComponent<ItemClassManager>();
+        DontDestroyOnLoad(inventory);
+    }
+
+    void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded; // Iscrizione all'evento
+
+    void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded; // Disiscrizione all'evento
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MainMenu" || scene.name == "Transizione" || scene.name == "Scena3Video" || scene.name == "Scena1") return;
+
+        var player = GameObject.FindGameObjectWithTag("Player");
+        itemClassManager = player.GetComponent<ItemClassManager>();
+        player.GetComponent<OpenInventory>().inventoryCanvas = transform.parent.GetChild(0).gameObject;
         inventoryItemsToRemove = new();
     }
 

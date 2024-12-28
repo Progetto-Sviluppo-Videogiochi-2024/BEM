@@ -36,7 +36,7 @@ public class InventoryUIController : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogWarning("There is more than one instance of InventoryUIController in the scene.");
+            print("There is more than one instance of InventoryUIController in the scene. Destroying duplicate.");
             return;
         }
         instance = this;

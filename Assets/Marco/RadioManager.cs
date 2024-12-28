@@ -69,8 +69,6 @@ public class RadioManager : MonoBehaviour
         {
             ToggleRadio(false);
         }
-
-        // TODO: manca la funzione per fargli impostare la canzone scorrendo la rotella della radio
     }
 
     private void RemoveButtonFocus() => EventSystem.current.SetSelectedGameObject(null);
@@ -124,7 +122,7 @@ public class RadioManager : MonoBehaviour
     // private void Save() {} // Invocata già nell'inspector di "Salva" (bottone della radio canvas) 
 
     private void OnOff()
-    { // TODO: vedere a fine gioco se deve essere riprodotta una canzone random, la prossima oppure "mutarla" quando spammo il pulsante
+    {
         var boolAccessor = BooleanAccessor.istance;
         if (isRadioOpen && isOn) // Se accesa, spegni
         {

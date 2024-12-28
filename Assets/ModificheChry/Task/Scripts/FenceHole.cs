@@ -51,7 +51,7 @@ public class FenceHole : MonoBehaviour
                 yesButton.GetComponent<Button>().onClick.AddListener(OnYesButtonClicked);
                 noButton.GetComponent<Button>().onClick.AddListener(OnNoButtonClicked);
             }
-            else if (!BooleanAccessor.istance.GetBoolFromThis("cartello") && !isConversationActive) StartConversation(monologo);
+            else if (!isConversationActive) StartConversation(monologo);
         }
     }
 
