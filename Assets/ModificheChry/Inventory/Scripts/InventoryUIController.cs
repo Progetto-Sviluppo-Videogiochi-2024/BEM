@@ -98,6 +98,7 @@ public class InventoryUIController : MonoBehaviour
             invItemCon.tooltip = tooltip;
             invItemCon.inspectMenu = item.tagType == ItemTagType.Recipe ? inspectMenuRecipe : inspectMenuItem;
             invItemCon.zoomMenu = ZoomMenu;
+
             // Per gestire il toggle dell'item in base alla sezione attiva
             if (isActiveList) // Se "Collectibles", impedisco la rimozione degli oggetti "Collectibles"
             {

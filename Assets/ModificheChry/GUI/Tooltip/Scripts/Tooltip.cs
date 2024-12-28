@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -15,43 +14,35 @@ public class Tooltip : MonoBehaviour
     #region References
     private Camera mainCamera; // Riferimento alla camera principale
     public Transform head; // Riferimento alla testa del personaggio
-    private Coroutine disableCoroutine; // Coroutine per nascondere il Tooltip
     #endregion
 
-    private void Start()
+    void Awake()
     {
         gameObject.SetActive(false);
         mainCamera = Camera.main;
     }
 
-    private void Update()
+    void Update()
     {
         if (gameObject.activeSelf && head != null)
         {
             Vector3 worldPosition = head.position + head.TransformDirection(offset);
             transform.position = mainCamera.WorldToScreenPoint(worldPosition);
-            // DebugLogger.Log($"Tooltip.update: {transform.position} - {worldPosition} - {head.position}");
         }
     }
 
     public void ShowTooltip(string message, float tooltipDuration)
     {
-        // DebugLogger.Log($"Tooltip.show pre if: {isTooltipActive} == {gameObject.activeSelf}");
         if (!isTooltipActive)
         {
             gameObject.SetActive(true);
             SetTooltipMessage(message);
             isTooltipActive = true;
-            // DebugLogger.Log($"Tooltip.show: '{message}' - Duration: {tooltipDuration} seconds. Active: {isTooltipActive} == {gameObject.activeSelf}");
-        }
-        if (disableCoroutine != null)
-        {
-            StopCoroutine(disableCoroutine);
         }
 
         if (tooltipDuration > 0)
         {
-            disableCoroutine = StartCoroutine(DisableTooltipAfterTime(tooltipDuration));
+            Invoke(nameof(HideTooltip), tooltipDuration);
         }
     }
 
@@ -65,11 +56,4 @@ public class Tooltip : MonoBehaviour
     }
 
     public void SetTooltipMessage(string message) => gameObject.GetComponentInChildren<TextMeshProUGUI>().text = message;
-
-    private IEnumerator DisableTooltipAfterTime(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        HideTooltip();
-        disableCoroutine = null; // Resetta la coroutine corrente
-    }
 }
