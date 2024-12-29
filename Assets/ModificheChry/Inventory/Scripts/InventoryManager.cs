@@ -58,7 +58,6 @@ public class InventoryManager : MonoBehaviour
     {
         // Crea una nuova istanza di Item o delle sue sottoclassi
         Item itemInstance = null;
-
         itemInstance = itemData.type switch
         {
             "Weapon" => ScriptableObject.CreateInstance<Weapon>(),// Crea una nuova istanza di Weapon

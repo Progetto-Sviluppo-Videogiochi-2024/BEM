@@ -30,7 +30,7 @@ public class MainMenu : MonoBehaviour
         PlayAudio(); // Avvia la musica di sottofondo
         CreateGlitchText(); // Crea l'effetto glitch sul testo
         // InventoryManager.instance.transform.parent?.gameObject.SetActive(false); // Nasconde l'inventario all'avvio
-        Destroy(InventoryManager.instance.transform.parent?.gameObject); // Distrugge l'inventario all'avvio (se presente)
+        Destroy(InventoryManager.instance?.transform.parent?.gameObject); // Distrugge l'inventario all'avvio (se presente)
     }
 
     private void ActivateMenuFromKeyboard() // Invocarlo, se lo implementiamo, in Update

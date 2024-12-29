@@ -251,8 +251,8 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         // Nascondi il menu ispeziona all'inizio
         OpenCloseInspectUI(false);
         OpenCloseZoom(false);
-        // Mostra il menu appropriato dell'item cliccato
-        ShowItemMenu();
+
+        ShowItemMenu(); // Mostra il menu appropriato dell'item cliccato
 
         openMenuScript.itemInspectOpen = this;
         // Debug.Log("inspectitem = " + openMenuScript.itemInspectOpen.item.nameItem);
@@ -375,8 +375,11 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             new List<string> { input.Trim() };
 
     public void OpenCloseInspectUI(bool openMenu) => inspectMenu.gameObject.SetActive(openMenu);
+
     public void OpenCloseZoom(bool openMenu) => zoomMenu.gameObject.SetActive(openMenu);
+
     private bool IsInspectItemUIActive() => inspectMenu.gameObject.activeSelf;
+
     private bool IsZoomActive() => zoomMenu.gameObject.activeSelf;
 
     /* Usa */

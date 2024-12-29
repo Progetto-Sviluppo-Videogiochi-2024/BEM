@@ -84,6 +84,7 @@ public class Item : ScriptableObject
         weight = itemData.weight;
         ingredientsRecipe = itemData.ingredientsRecipe;
         qtaIngredientsRecipe = itemData.qtaIngredientsRecipe;
+        craftItem = !string.IsNullOrEmpty(itemData.craftItem) ? ItemManager.Instance.GetItemByName(itemData.craftItem) : null;
         isUsable = itemData.isUsable;
         isShooting = itemData.isShooting;
         isPickUp = itemData.isPickUp;

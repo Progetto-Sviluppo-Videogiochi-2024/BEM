@@ -76,6 +76,7 @@ public class ItemData
     public float weight;
     public string ingredientsRecipe;
     public string qtaIngredientsRecipe;
+    public string craftItem;
     public bool isUsable;
     public bool isShooting;
     public bool isPickUp;
@@ -102,6 +103,7 @@ public class ItemData
         weight = item.weight;
         ingredientsRecipe = item.ingredientsRecipe;
         qtaIngredientsRecipe = item.qtaIngredientsRecipe;
+        craftItem = item.craftItem?.nameItem;
         isUsable = item.isUsable;
         isShooting = item.isShooting;
         isPickUp = item.isPickUp;
