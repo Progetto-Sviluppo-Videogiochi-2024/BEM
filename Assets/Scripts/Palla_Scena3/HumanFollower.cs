@@ -1,4 +1,5 @@
 using System.Collections;
+using DialogueEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,7 +12,7 @@ public class HumanFollower : MonoBehaviour
     public Transform target; // Il target da inseguire (es. giocatore)
     private NavMeshAgent agent; // Agente NavMesh per il movimento
     private Animator animator; // Riferimento all'animator per gestire le animazioni
-
+    public bool HitBall = false;
     void Start()
     {
         // Recupera i componenti necessari
@@ -27,21 +28,22 @@ public class HumanFollower : MonoBehaviour
     void Update()
     {
         if (target == null || agent == null || !agent.isOnNavMesh) return;
-
+        if (!BooleanAccessor.istance.GetBoolFromThis(("preHitBallJA")) || !ConversationManager.Instance.hasClickedEnd) return;
         // Calcola la distanza dal target
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
-        if (distanceToTarget > stopDistance)
-        {
+        if (!HitBall && distanceToTarget > stopDistance)
+        {   
             // Segui il target
             agent.SetDestination(target.position);
             agent.isStopped = false;
             //animator?.SetFloat("speed", agent.speed); // Aggiorna l'animazione di movimento
         }
-        else
-        {
+        else if(HitBall)
+        {   
             // Fermati se sei vicino al target
             agent.isStopped = true;
+            agent.ResetPath();
            // animator?.SetFloat("speed", 0f); // Anima il fermo
         }
     }

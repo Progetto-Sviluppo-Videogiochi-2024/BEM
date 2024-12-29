@@ -7,14 +7,12 @@ public class BallLauncher : MonoBehaviour
     public GameObject ball; // Riferimento alla palla
     public float launchForce = 10f; // Forza del lancio
     public Vector3 additionalDirection = Vector3.up; // Direzione aggiuntiva per il lancio
-
+    public HumanFollower human;
     private void OnTriggerEnter(Collider other)
-    {   print(other.gameObject.name);
+    {   
         // Controlla se il personaggio entra nel trigger
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Il personaggio è entrato nel trigger!");
-
             // Recupera il Rigidbody della palla
             if (ball != null)
             {
@@ -26,7 +24,8 @@ public class BallLauncher : MonoBehaviour
 
                     // Applica una forza per lanciare la palla
                     rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);
-                    Debug.Log("Palla lanciata!");
+                    
+                    human.HitBall = true;
                 }
                 else
                 {

@@ -32,7 +32,7 @@ public class ZonaCamping : MonoBehaviour
         var characters = transform.GetChild(0);
         gaiaSitting = characters.GetChild(0);
         stefanoSitting = characters.GetChild(1);
-        // jacob = characters.GetChild(2);
+        jacob = characters.GetChild(2);
         // angelica = characters.GetChild(3);
 
         // if (!booleanAccessor.GetBoolFromThis("videoMutant"))
@@ -103,9 +103,7 @@ public class ZonaCamping : MonoBehaviour
 
     private bool HasBallBeenKicked()
     {
-        // Per testing. Nico, questa parte è da cancellare
-        if (Input.GetKeyDown(KeyCode.A)) return true;
+        if(jacob.GetComponent<HumanFollower>().HitBall) return true;
         else return false;
-        throw new NotImplementedException("Nicola implementa qui la funzione per verificare se la palla è stata colpita da Angelica.");
     }
 }
