@@ -7,10 +7,10 @@ public class GamePlayMenuManager : MonoBehaviour
 {
     [Header("UI Elements")]
     public GameObject gamePlayMenuCanvas;
-    public Button buttonCheckpoint;
-    public Button buttonLoadGame;
-    public Button buttonOptions;
-    public Button buttonResumeGame;
+    private Button buttonCheckpoint;
+    private Button buttonLoadGame;
+    private Button buttonOptions;
+    private Button buttonResumeGame;
 
     [Header("Settings")]
     #region Settings
@@ -23,6 +23,8 @@ public class GamePlayMenuManager : MonoBehaviour
     private Diario diario;
     [SerializeField] private SaveSlot saveSlot;
     [SerializeField] private LoadSlot loadSlot;
+    [SerializeField] private GameObject options;
+    [SerializeField] private GameObject confirmPanel;
     #endregion
 
     void Start()
@@ -30,19 +32,35 @@ public class GamePlayMenuManager : MonoBehaviour
         diario = FindObjectOfType<Diario>();
         player = FindAnyObjectByType<Player>()?.transform;
 
+        var panel = gamePlayMenuCanvas.transform.GetChild(0);
+        var backGPM = options.transform.GetChild(1).GetComponent<Button>();
+
+        buttonCheckpoint = panel.GetChild(2).GetComponent<Button>();
+        buttonLoadGame = panel.GetChild(3).GetComponent<Button>();
+        buttonOptions = panel.GetChild(4).GetComponent<Button>();
+        buttonResumeGame = panel.GetChild(5).GetComponent<Button>();
+
         gamePlayMenuCanvas.SetActive(false);
         buttonCheckpoint.onClick.AddListener(ReloadLastCheckpoint);
         buttonLoadGame.onClick.AddListener(LoadGame);
         buttonOptions.onClick.AddListener(OpenOptions);
         buttonResumeGame.onClick.AddListener(ReturnToGame);
+        backGPM.onClick.AddListener(() => ToggleMenu(true));
     }
 
     void Update()
     {
-        if (!saveSlot.loadSavePanel.activeSelf && !loadSlot.loadSavePanel.activeSelf && Input.GetKeyDown(KeyCode.Escape)) ToggleMenu(!isMenuOpen);
+        if (CanOpenMenu() && Input.GetKeyDown(KeyCode.Escape)) ToggleMenu(!isMenuOpen);
     }
 
-    private void ToggleMenu(bool isOpen)
+    private bool CanOpenMenu() =>
+        !(player?.GetComponent<Animator>()?.GetBool("sit") ?? false) && // Player non è seduto o è null
+        !confirmPanel.activeSelf && // Se il pannello di conferma è attivo
+        !saveSlot.loadSavePanel.activeSelf && // Se il pannello di salvataggio è attivo
+        !loadSlot.loadSavePanel.activeSelf && // Se il pannello di caricamento è attivo
+        !options.activeSelf; // Se options è attivo, allora non consenti di toggle il GPM
+
+    public void ToggleMenu(bool isOpen)
     {
         isMenuOpen = isOpen;
         gamePlayMenuCanvas.SetActive(isMenuOpen);
@@ -56,6 +74,7 @@ public class GamePlayMenuManager : MonoBehaviour
         // Pickup degli item già negato in ItemPickup
         if (player != null)
         {
+            player.GetComponent<MovementStateManager>().enabled = !visible; // Per il movimento
             player.GetComponent<ActionStateManager>().enabled = !visible; // Per le azioni (ricarica e switch dell'arma, ecc.)
             player.GetComponent<WeaponClassManager>().enabled = !visible; // Per le armi
             player.GetComponent<OpenInventory>().enabled = !visible; // Per l'inventario
@@ -65,8 +84,7 @@ public class GamePlayMenuManager : MonoBehaviour
         ConversationManager.Instance.enabled = !visible; // Per le conversazioni
     }
 
-    // Metodo per ripristinare Time.timeScale e chiudere il menu
-    private void ResumeGame() => ToggleMenu(false);
+    private void ResumeGame() => ToggleMenu(false); // Metodo per ripristinare Time.timeScale e chiudere il menu
 
     public void ReturnToMainMenu() // Passato dall'inspector al "sì" del pannello di conferma
     {
@@ -86,14 +104,15 @@ public class GamePlayMenuManager : MonoBehaviour
 
     private void LoadGame()
     {
-        ResumeGame(); // Chiude il menu e riprende il gioco
-        // Passata una funzione come listener al pulsante di carica game per aprire quel canvas quindi non serve farlo da codice
+        // ResumeGame(); // Chiude il menu e riprende il gioco
+        // LG si apre già in quanto tale funzione è già passata al button dall'inspector
     }
 
     private void OpenOptions()
     {
-        print("Apri Opzioni");
-        ResumeGame(); // Chiude il menu principale per aprire le opzioni
-        // TODO: da implementare l'apertura del menu delle opzioni
+        // ResumeGame(); // Chiude il menu principale per aprire le opzioni
+        options.SetActive(true);
+        ToggleScripts(true);
+        gamePlayMenuCanvas.SetActive(false); // Non invoco ToggleMenu perché si toglie il cursore poi
     }
 }

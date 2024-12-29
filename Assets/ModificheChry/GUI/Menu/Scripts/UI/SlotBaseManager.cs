@@ -23,6 +23,7 @@ public abstract class SlotBaseManager : MonoBehaviour
     private GameObject player; // Riferimento al giocatore
     protected SaveLoadSystem saveLoadSystem; // Riferimento al SaveLoadSystem
     [SerializeField] protected GestoreScena gestoreScena; // Riferimento al GestoreScena
+    [SerializeField] protected GamePlayMenuManager gamePlayMenuManager; // Riferimento al GamePlayMenuManager
     #endregion
 
     [Header("Slot Settings")]
@@ -41,7 +42,7 @@ public abstract class SlotBaseManager : MonoBehaviour
 
     protected void OnEnable() => ListSlotUI();
 
-    public void ToggleLoadSaveUI(bool active)
+    public void ToggleLoadSaveUI(bool active) // Invocato dall'evento OnClick nell'inspector
     {
         loadSavePanel.SetActive(active);
         var currentScene = SceneManager.GetActiveScene().name;
@@ -53,9 +54,13 @@ public abstract class SlotBaseManager : MonoBehaviour
             player.GetComponent<Animator>().SetFloat("vInput", 0);
             player.GetComponent<MovementStateManager>().enabled = !active;
             player.GetComponent<AimStateManager>().enabled = !active;
+            player.GetComponent<ActionStateManager>().enabled = !active; // Per le azioni (ricarica e switch dell'arma, ecc.)
+            player.GetComponent<WeaponClassManager>().enabled = !active; // Per le armi
+            player.GetComponent<OpenInventory>().enabled = !active; // Per l'inventario
         }
         Time.timeScale = active ? 0 : 1; // 0 = pausa, 1 = gioco normale
         if (confirmSlot.gameObject.activeSelf) confirmSlot.gameObject.SetActive(false);
+        if (!active && gamePlayMenuManager.isMenuOpen) gamePlayMenuManager.ToggleMenu(true);
     }
 
     protected void LoadSlotUI(Transform slot, string savedSlotName)
