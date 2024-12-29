@@ -12,7 +12,7 @@ public class HumanFollower : MonoBehaviour
     public Transform target; // Il target da inseguire (es. giocatore)
     private NavMeshAgent agent; // Agente NavMesh per il movimento
     private Animator animator; // Riferimento all'animator per gestire le animazioni
-    public bool HitBall = false;
+    [HideInInspector] public bool HitBall = false;
     void Start()
     {
         // Recupera i componenti necessari

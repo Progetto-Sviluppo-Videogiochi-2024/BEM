@@ -33,7 +33,8 @@ public class ZonaCamping : MonoBehaviour
         gaiaSitting = characters.GetChild(0);
         stefanoSitting = characters.GetChild(1);
         jacob = characters.GetChild(2);
-        // angelica = characters.GetChild(3);
+        angelica = characters.GetChild(3);
+        jacob.GetComponent<Animator>().SetBool("Portiere", true);
 
         // if (!booleanAccessor.GetBoolFromThis("videoMutant"))
         // {
@@ -68,6 +69,8 @@ public class ZonaCamping : MonoBehaviour
         {
             isPreHitBallFinished = true; // Si ripete una sola volta almeno
             conversationManager.StartConversation(conversations[1]); // Post-HitBall di Angelica e Jacob
+            jacob.GetComponent<Animator>().SetBool("Portiere", true);
+
         }
 
         // Se Post-HitBall è TRUE allora Angelica e Jacob si allontanano e scompaiono
@@ -103,7 +106,7 @@ public class ZonaCamping : MonoBehaviour
 
     private bool HasBallBeenKicked()
     {
-        if(jacob.GetComponent<HumanFollower>().HitBall) return true;
+        if (angelica.GetComponent<HumanFollower>().HitBall) return true;
         else return false;
     }
 }
