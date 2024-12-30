@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Runtime.CompilerServices;
 using DialogueEditor;
 using UnityEngine;
 
@@ -26,6 +28,8 @@ public class ZonaCamping : MonoBehaviour
     public Transform gaia; // Riferimento a Gaia (AI)
     public GameObject cameraIntro; // Riferimento alla camera dell'intro della scena 3
     public AudioListener audioCameraStefano; // Riferimento all'AudioListener della camera di Stefano
+    public GameObject ballLauncher; // Riferimento alla palla lanciata da Angelica
+    public GameObject ball; // Riferimento alla palla non ancora calciata da Angelica
     #endregion
 
     void Start()
@@ -41,18 +45,21 @@ public class ZonaCamping : MonoBehaviour
         jacob.GetComponent<Animator>().SetBool("Portiere", true);
         jacobAnimator = jacob.GetComponent<Animator>();
         angelicaFollower = angelica.GetComponent<HumanFollower>();
+        ballLauncher.SetActive(false);
 
         if (!booleanAccessor.GetBoolFromThis("videoMutant")) InitCharacters(false);
         else // Se è già stato visto il video del mutante (controllo per il LG e il bug pre-video)
         {
             // Dopo il video del mutante allora Stefano e Gaia si alzano e camminano
             // AI di Gaia che cammina seguendo Stefano (Player)
+            ball.SetActive(false);
+            ballLauncher.SetActive(true);
             hasSeenVideoMutant = true;
             cameraIntro.SetActive(false);
+            audioCameraStefano.enabled = true;
             InitCharacters(true);
             angelica.gameObject.SetActive(false);
             jacob.gameObject.SetActive(false);
-            // TODO: manca settare la posizione della palla nel punto in cui finisce quando viene calciata
             enabled = false;
             return;
         }
@@ -85,6 +92,7 @@ public class ZonaCamping : MonoBehaviour
                 jacob.gameObject.SetActive(false);
                 angelica.gameObject.SetActive(false);
                 isPostHitBallJA = true; // Si ripete una sola volta almeno
+                conversationManager.hasClickedEnd = false;
                 conversationManager.StartConversation(conversations[2]); // Post-HitBall di Stefano e Gaia
             }
         }
@@ -102,4 +110,15 @@ public class ZonaCamping : MonoBehaviour
     }
 
     private bool HasBallBeenKicked() => angelicaFollower.HitBall;
+
+    public void StartCoroutinePreVideo() => StartCoroutine(TimerPreVideo()); // Invocata nell'ultimo nodo dell'ultimo dialogo di Stefano e Gaia
+
+    private IEnumerator TimerPreVideo()
+    {
+        Debug.Log("Inizio Coroutine");
+        print($"hasclickend è ancora false! {conversationManager.hasClickedEnd}");
+        while (!conversationManager.hasClickedEnd) yield return null; // Aspetta il frame successivo e poi ricontrolla
+        Debug.Log("hasclickend è diventato true!");
+        booleanAccessor.SetBoolOnDialogueE("postHitBallSG");
+    }
 }
