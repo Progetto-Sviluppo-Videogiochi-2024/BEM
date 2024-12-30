@@ -30,7 +30,7 @@ public class BallLauncher : MonoBehaviour
             // Avvia l'animazione del calcio
             animator.SetTrigger("KickBall");
             goalkeeperAnimator.SetTrigger("KickBall");
-            StartCoroutine(LaunchBallWithDelay(0.5f));
+            StartCoroutine(LaunchBallWithDelay(0.4f));
             StartCoroutine(DisableAnimatorWithDelay(1.5f));
         }
     }

@@ -71,7 +71,7 @@ public abstract class NPCDialogueBase : MonoBehaviour
         ConversationManager.OnConversationEnded -= HandleConversationEnded; // Scollega l'evento
     }
 
-    protected void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) isInRange = true; // Quando il giocatore entra nell'area
     }

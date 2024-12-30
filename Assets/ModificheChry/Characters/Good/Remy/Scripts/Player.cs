@@ -113,10 +113,6 @@ public class Player : MonoBehaviour
         {
             ConversationManager.Instance.StartConversation(conversations[1]);
         }
-        if (hit.gameObject.CompareTag("WallOrg"))
-        {
-            ConversationManager.Instance.StartConversation(conversations[0]);
-        }
         
     }
 

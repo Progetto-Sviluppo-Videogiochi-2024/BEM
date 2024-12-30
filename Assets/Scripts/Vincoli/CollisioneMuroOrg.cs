@@ -3,34 +3,36 @@ using DialogueEditor;
 
 public class CollisioneMuroOrg : NPCDialogueBase
 {
+    private bool hasDialogueBeenShown = false;
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other); // Mantieni la logica della classe base (opzionale)
+        if (!hasDialogueBeenShown && other.CompareTag("Player"))
+        {
+            hasDialogueBeenShown = true;
+            isConversationActive = true;
+            player.GetComponent<MovementStateManager>().enabled = false;
+            StartDialogue();
+        }
+    }
+
+
     protected override void StartDialogue()
     {
-        // Logica per Angelica, semplicemente avvia il dialogo
         StartConversation(conversations[0]);
+
+        // Assicurati che il sistema registri correttamente la fine del dialogo
+        ConversationManager.OnConversationEnded += OnDialogueEnded;
     }
 
-    protected override void Update()
+    private void OnDialogueEnded()
     {
-        if (!clickEndHandled && ConversationManager.Instance.hasClickedEnd)
-        {
-            isConversationActive = false;
-            clickEndHandled = true;
+        // Rimuovi il listener per evitare chiamate multiple
+        ConversationManager.OnConversationEnded -= OnDialogueEnded;
 
-            // print("NPCDialogueBase.Update 1.if: " + gameObject.name);
-            GestoreScena.ChangeCursorActiveStatus(false, "NPCDialogueBase.update: " + gameObject.transform.parent.name);
-            player.GetComponent<MovementStateManager>().enabled = true;
-        }
-
-        if (isInRange && !isConversationActive)
-        {
-            ConversationManager.Instance.hasClickedEnd = false;
-            clickEndHandled = false;
-            // print("NPCDialogueBase.Update 2.if: " + gameObject.name);
-
-            StartDialogue(); // Avvia il dialogo (metodo astratto che deve invocare StartConversation)
-            player.GetComponent<MovementStateManager>().enabled = false;
-        }
+        // Reimposta lo stato della conversazione e riabilita i movimenti
+        isConversationActive = false;
+        player.GetComponent<MovementStateManager>().enabled = true;
     }
-
-
 }
