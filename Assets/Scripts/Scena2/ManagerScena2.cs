@@ -7,7 +7,7 @@ public class ManagerScena2 : MonoBehaviour
     #region Dati Scena2
     private const int dialoghiTotali = 6; // Numero di dialoghi totali
     private int dialoghiEseguiti; // Numero di dialoghi eseguiti 
-    // private const int documentiTotali = 7; // Numero di documenti totali
+    // private const int documentiTotali = 4; // Numero di documenti totali (inclusi quelli di clara)
     // private int documentiRaccolti = 0; // Numero di documenti raccolti
     // private const int violeTotali = 15; // Numero di viole totali
     // private int violeRaccolte = 0; // Numero di viole raccolte
