@@ -1,15 +1,26 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BallLauncher : MonoBehaviour
 {
-    public GameObject ball; // Riferimento alla palla
-    public float launchForce = 10f; // Forza del lancio
-    public Vector3 additionalDirection = Vector3.up; // Direzione aggiuntiva per il lancio
-    public HumanFollower human;
-    public Animator animator; // Riferimento all'Animator
+    [Header("Settings")]
+    #region Settings
+    private float launchForce = 10f; // Forza del lancio
+    [SerializeField] Vector3 additionalDirection = Vector3.up; // Direzione aggiuntiva per il lancio
+    #endregion
+
+    [Header("References")]
+    #region References
+    public HumanFollower human; // Riferimento al personaggio umano
+    private Animator animator; // Riferimento all'Animator
     public Animator goalkeeperAnimator; // Riferimento all'Animator del portiere
+    #endregion
+
+    void Start()
+    {
+        if (BooleanAccessor.istance.GetBoolFromThis("videoMutant")) { enabled = false; return; }
+        animator = human.GetComponent<Animator>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,34 +28,10 @@ public class BallLauncher : MonoBehaviour
         if (other.CompareTag("Angelica"))
         {
             // Avvia l'animazione del calcio
-            if (animator != null)
-            {
-                animator.SetTrigger("KickTrigger"); // Imposta il trigger per l'animazione
-            }
-            else
-            {
-                Debug.LogWarning("Animator non assegnato.");
-            }
-
-            // Avvia l'animazione del portiere
-            if (goalkeeperAnimator != null)
-            {
-                goalkeeperAnimator.SetTrigger("KickTrigger"); // Imposta lo stesso trigger anche per il portiere
-            }
-            else
-            {
-                Debug.LogWarning("Animator del portiere non assegnato.");
-            }
-
-            // Avvia il ritardo per lanciare la palla
-            if (ball != null)
-            {
-                StartCoroutine(LaunchBallWithDelay(0.5f)); // Ritarda di 1 secondo
-            }
-            else
-            {
-                Debug.LogWarning("Oggetto palla non assegnato.");
-            }
+            animator.SetTrigger("KickBall");
+            goalkeeperAnimator.SetTrigger("KickBall");
+            StartCoroutine(LaunchBallWithDelay(0.5f));
+            StartCoroutine(DisableAnimatorWithDelay(1.5f));
         }
     }
 
@@ -52,21 +39,21 @@ public class BallLauncher : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        // Recupera il Rigidbody della palla
-        Rigidbody rb = ball.GetComponent<Rigidbody>();
-        if (rb != null)
+        if (!TryGetComponent(out Rigidbody rb))
         {
-            // Calcola la direzione del lancio (dalla posizione del trigger verso la palla)
-            Vector3 launchDirection = (ball.transform.position - transform.position).normalized + additionalDirection;
-
-            // Applica una forza per lanciare la palla
-            rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);
-
-            human.HitBall = true;
+            Debug.LogWarning("Rigidbody not found on the Ball GameObject.");
+            yield break;
         }
-        else
-        {
-            Debug.LogWarning("Rigidbody non trovato sulla palla.");
-        }
+
+        Vector3 launchDirection = (transform.position - transform.position).normalized + additionalDirection; // Calcola la direzione del lancio
+        rb.AddForce(launchDirection * launchForce, ForceMode.Impulse); // Applica una forza per lanciare la palla
+        human.HitBall = true;
+    }
+
+    private IEnumerator DisableAnimatorWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        goalkeeperAnimator.SetBool("Portiere", false);
+        enabled = false;
     }
 }

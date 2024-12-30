@@ -16,5 +16,12 @@ public class VideoStart : MonoBehaviour
         }
     }
 
-    private void VideoFinished(VideoPlayer vp) =>SceneManager.LoadScene("Scena3");
+    private void VideoFinished(VideoPlayer vp)
+    {
+        PlayerPrefs.SetInt("videoMutant", 1);
+        PlayerPrefs.Save();
+        BooleanAccessor.istance.SetBoolOnDialogueE("videoMutant");
+
+        SceneManager.LoadScene("Scena3");
+    }
 }
