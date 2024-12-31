@@ -92,6 +92,8 @@ public class GestoreScena : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    public void SaveCheckpoint() => SaveLoadSystem.Instance.SaveCheckpoint();
+
     public static void ChangeCursorActiveStatus(bool isOpen, string debug)
     {
         // Gestione dell'apertura/chiusura delle UI

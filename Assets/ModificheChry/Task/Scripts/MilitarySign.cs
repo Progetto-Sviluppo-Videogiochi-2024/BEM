@@ -102,6 +102,7 @@ public class MilitarySign : MonoBehaviour
                     SetRigidbody(false);
                     boolAccessor.SetBoolOnDialogueE("cartelloDone");
                     diario.CompletaMissione("Togli il cartello");
+                    SaveLoadSystem.Instance.SaveCheckpoint();
                     Destroy(GetComponent<ItemController>());
                     player.GetComponent<ItemDetector>().RemoveItemDetection(gameObject);
                 }

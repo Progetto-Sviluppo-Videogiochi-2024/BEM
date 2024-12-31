@@ -98,6 +98,7 @@ public class TaskFucile : MonoBehaviour
             StartCoroutine(HandleTaskWithSFX((ammo.extraAmmo + ammo.currentAmmo == weapon.ammo.maxAmmo - maxTargetHit) ? 1 : 2)); // Se 1 è UomoBaitaWin, se 2 UomoBaitaLost
         }
         // else Non ne ho colpite 3 e ho ancora munizioni => task in corso
+        SaveLoadSystem.Instance.SaveCheckpoint();
     }
 
     private IEnumerator HandleTaskWithSFX(int indexConversation)

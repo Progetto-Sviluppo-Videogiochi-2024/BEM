@@ -100,7 +100,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
 
     public void SaveGame(int nSlotSave)
     {
-        gameData.fileName = $"Slot {nSlotSave}";
+        gameData.fileName = nSlotSave == 4 ? "Checkpoint" : $"Slot {nSlotSave}";
         gameData.saveTime = DateTime.Now;
         gameData.currentSceneName = SceneManager.GetActiveScene().name;
         gameData.nSlotSave = nSlotSave;
@@ -134,7 +134,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
     {
         gameData = dataService.Load(fileName);
 
-        if (string.IsNullOrWhiteSpace(gameData.currentSceneName)) gameData.currentSceneName = "Scena0";
+        if (string.IsNullOrWhiteSpace(gameData.currentSceneName)) gameData.currentSceneName = "Scena0"; // Non dovrebbe mai accadere
         isLoading = true;
         GestoreScena.collectedItemIds = new(gameData.collectedItemIds ?? new List<string>());
 
@@ -142,6 +142,8 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
     }
 
     public void ReloadGame() => LoadGame(gameData.fileName); // TODO: non so dove usarlo
+
+    public void SaveCheckpoint() => LoadGame("Checkpoint");
 
     public void DeleteGame(string fileName) => dataService.Delete(fileName);
 }

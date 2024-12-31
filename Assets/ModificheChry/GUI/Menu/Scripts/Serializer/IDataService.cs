@@ -7,6 +7,6 @@ public interface IDataService
     void Delete(string name);
     void DeleteAll();
     List<string> ListSaves();
-    bool SearchSlotFileByUI(string str1, string str2);
+    bool SearchSlotSaved(string savedSlot, string UIslot);
     bool DoesSaveExist(string slotFileName);
 }

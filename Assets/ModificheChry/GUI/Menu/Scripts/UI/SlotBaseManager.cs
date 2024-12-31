@@ -67,16 +67,21 @@ public abstract class SlotBaseManager : MonoBehaviour
     {
         var gameData = saveLoadSystem.dataService.Load(savedSlotName);
         var slotSavedList = slot.Find("Saved");
+        string nameSlot = "";
 
-        slotSavedList.GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = $"Slot {gameData.nSlotSave}"; // "Slot nSlotSave"
+        if (savedSlotName[^1] == 'C') nameSlot = "Checkpoint";
+        else nameSlot = $"Slot {gameData.nSlotSave}";
+        slotSavedList.GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = nameSlot; // "Slot nSlotSave|Checkpoint"
         slotSavedList.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = gestoreScena.GetChapterBySceneName(gameData.currentSceneName); // "Capitolo: Nome Capitolo"
         slotSavedList.GetChild(2).GetComponentInChildren<TextMeshProUGUI>().text = gameData.saveTime.ToString(); // "Data e Ora"
 
-        var deleteButton = slotSavedList.GetComponentInChildren<Button>();
-        ConfigureSlotButton(deleteButton, () => { OpenConfirmDeletePanel(slot); }); // Per "Delete" al click
-        SetMouseHoverSlot(deleteButton.transform, () => { isClickedOnDelete = true; }, () => { isClickedOnDelete = false; }); // Per "Delete" all'hover
-
-        ConfigureSlotButton(slot.GetComponent<Button>(), () => OpenConfirmPanel(savedSlotName)); // Per "Load/Save" al click
+        if (savedSlotName[^1] != 'C')
+        {
+            var deleteButton = slotSavedList.GetComponentInChildren<Button>();
+            ConfigureSlotButton(deleteButton, () => { OpenConfirmDeletePanel(slot); }); // Per "Delete" al click
+            SetMouseHoverSlot(deleteButton.transform, () => { isClickedOnDelete = true; }, () => { isClickedOnDelete = false; }); // Per "Delete" all'hover
+            ConfigureSlotButton(slot.GetComponent<Button>(), () => OpenConfirmPanel(savedSlotName)); // Per "Load/Save" al click
+        }
         SetMouseHoverSlot(slot, () => { OnSlotEnter(infoSceneSlot.transform, gameData.currentSceneName); }, () => { OnSlotExit(infoSceneSlot.transform); }); // Per mostrare le info della scena all'hover
     }
 
@@ -130,7 +135,7 @@ public abstract class SlotBaseManager : MonoBehaviour
         infoSceneSlot.gameObject.SetActive(true);
         var (img, description) = gestoreScena.GetSpriteAndDescriptionChapter(nomeCapitolo);
         infoSceneSlot.GetChild(0).GetComponent<Image>().sprite = img;
-        infoSceneSlot.GetChild(1).GetComponent<TextMeshProUGUI>().text = description;        
+        infoSceneSlot.GetChild(1).GetComponent<TextMeshProUGUI>().text = description;
     }
 
     public void OnSlotExit(Transform infoSceneSlot) => infoSceneSlot.gameObject.SetActive(false);

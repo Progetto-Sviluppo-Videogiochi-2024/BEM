@@ -19,7 +19,6 @@ public class FileDataService : IDataService
         if (!Directory.Exists(dataPath))
         {
             Directory.CreateDirectory(dataPath);
-            Debug.Log($"Directory di salvataggio creata: {dataPath}");
         }
     }
 
@@ -27,7 +26,7 @@ public class FileDataService : IDataService
 
     string GetFilePath(string fileName) => Path.Combine(dataPath, string.Concat(fileName, ".", fileExtension));
 
-    public bool SearchSlotFileByUI(string savedSlot, string UISlot) => savedSlot[^1] == UISlot[^1];
+    public bool SearchSlotSaved(string savedSlot, string UISlot) => savedSlot[^1] == UISlot[^1];
 
     public void Delete(string fileName)
     {

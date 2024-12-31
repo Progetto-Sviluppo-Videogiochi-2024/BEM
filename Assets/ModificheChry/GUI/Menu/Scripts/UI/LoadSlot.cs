@@ -19,9 +19,9 @@ public class LoadSlot : SlotBaseManager
             if (savedSlotQueue.Count > 0)
             {
                 var savedSlotName = savedSlotQueue.Peek();
-
-                if (saveLoadSystem.dataService.SearchSlotFileByUI(savedSlotName, currentUISlot.name))
+                if (saveLoadSystem.dataService.SearchSlotSaved(savedSlotName, currentUISlot.name))
                 {
+                    if (savedSlotName[^1] == 'C') currentUISlot.GetComponent<Button>().interactable = false;
                     ToggleSlotUI(currentUISlot, false);
                     LoadSlotUI(currentUISlot, savedSlotName);
                     savedSlotQueue.Dequeue();
