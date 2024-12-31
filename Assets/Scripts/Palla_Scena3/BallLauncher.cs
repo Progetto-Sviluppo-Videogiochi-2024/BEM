@@ -55,5 +55,6 @@ public class BallLauncher : MonoBehaviour
         yield return new WaitForSeconds(delay);
         goalkeeperAnimator.SetBool("Portiere", false);
         enabled = false;
+        Destroy(gameObject);
     }
 }

@@ -30,15 +30,18 @@ public class ItemPickup : MonoBehaviour
     private OpenInventory openMenuScript; // Riferimento allo script OpenMenu
     #endregion
 
-    void Start()
+    void Awake()
     {
-        gamePlayMenuManager = FindObjectOfType<GamePlayMenuManager>();
-        item = GetComponent<ItemController>().item;
-
         player = FindObjectOfType<Player>().transform;
         camFollowPosition = player.GetChild(0);
         openMenuScript = player.GetComponent<OpenInventory>();
         animator = player.GetComponent<Animator>();
+    }
+
+    void Start()
+    {
+        gamePlayMenuManager = FindObjectOfType<GamePlayMenuManager>();
+        item = GetComponent<ItemController>().item;
 
         // Verifica se l'oggetto è stato raccolto
         itemId = GenerateItemId();
