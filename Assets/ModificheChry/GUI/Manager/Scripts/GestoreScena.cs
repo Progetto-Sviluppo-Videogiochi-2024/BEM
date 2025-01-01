@@ -92,7 +92,7 @@ public class GestoreScena : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void SaveCheckpoint() => SaveLoadSystem.Instance.SaveCheckpoint();
+    public void SaveCheckpoint() => SaveLoadSystem.Instance.SaveCheckpoint(); // Invocata nel DE | cliccando su uno slot
 
     public static void ChangeCursorActiveStatus(bool isOpen, string debug)
     {

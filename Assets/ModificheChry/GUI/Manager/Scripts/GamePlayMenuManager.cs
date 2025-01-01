@@ -6,25 +6,25 @@ using UnityEngine.UI;
 public class GamePlayMenuManager : MonoBehaviour
 {
     [Header("UI Elements")]
-    public GameObject gamePlayMenuCanvas;
-    private Button buttonCheckpoint;
-    private Button buttonLoadGame;
-    private Button buttonOptions;
-    private Button buttonResumeGame;
+    public GameObject gamePlayMenuCanvas; // Canvas del menu di gioco
+    private Button buttonCheckpoint; // Button per caricare l'ultimo checkpoint
+    private Button buttonOptions; // Button per aprire le opzioni
+    private Button buttonResumeGame; // Button per riprendere il gioco
+    [SerializeField] private GameObject confirmCheckpoint; // Pannello di conferma del caricamento del checkpoint
 
     [Header("Settings")]
     #region Settings
-    [HideInInspector] public bool isMenuOpen = false;
+    [HideInInspector] public bool isMenuOpen = false; // Flag per il menu di gioco aperto
     #endregion
 
     [Header("References")]
     #region References
-    private Transform player;
-    private Diario diario;
-    [SerializeField] private SaveSlot saveSlot;
-    [SerializeField] private LoadSlot loadSlot;
-    [SerializeField] private GameObject options;
-    [SerializeField] private GameObject confirmPanel;
+    private Transform player; // Riferimento al giocatore
+    private Diario diario; // Riferimento al diario
+    [SerializeField] private SaveSlot saveSlot; // Riferimento al SaveSlot
+    [SerializeField] private LoadSlot loadSlot; // Riferimento al LoadSlot
+    [SerializeField] private GameObject options; // Pannello delle opzioni
+    [SerializeField] private GameObject confirmPanel; // Pannello di conferma
     #endregion
 
     void Start()
@@ -36,13 +36,13 @@ public class GamePlayMenuManager : MonoBehaviour
         var backGPM = options.transform.GetChild(1).GetComponent<Button>();
 
         buttonCheckpoint = panel.GetChild(2).GetComponent<Button>();
-        buttonLoadGame = panel.GetChild(3).GetComponent<Button>();
+        // buttonLoadGame = panel.GetChild(3).GetComponent<Button>();
         buttonOptions = panel.GetChild(4).GetComponent<Button>();
         buttonResumeGame = panel.GetChild(5).GetComponent<Button>();
 
         gamePlayMenuCanvas.SetActive(false);
         buttonCheckpoint.onClick.AddListener(ReloadLastCheckpoint);
-        buttonLoadGame.onClick.AddListener(LoadGame);
+        // buttonLoadGame.onClick.AddListener(LoadGame); // Non necessaria
         buttonOptions.onClick.AddListener(OpenOptions);
         buttonResumeGame.onClick.AddListener(ReturnToGame);
         backGPM.onClick.AddListener(() => ToggleMenu(true));
@@ -95,18 +95,28 @@ public class GamePlayMenuManager : MonoBehaviour
 
     private void ReloadLastCheckpoint()
     {
-        print("Riprendi dall'ultimo Checkpoint");
-        ResumeGame(); // Chiude il menu e riprende il gioco
-        // TODO: da implementare il caricamento dell'ultimo checkpoint
+        // ResumeGame(); // Chiude il menu per caricare la UI del Checkpoint
+        confirmCheckpoint.SetActive(true);
+        ToggleScripts(true);
+        gamePlayMenuCanvas.SetActive(false); // Non invoco ToggleMenu perché si toglie il cursore poi
+    }
+
+    public void OnYesConfirmCheckpoint() // Invocata dal button "sì" del pannello di conferma del checkpoint
+    {
+        confirmCheckpoint.SetActive(false);
+        SaveLoadSystem.Instance.ReloadGame();
+    }
+
+    public void OnNoConfirmCheckpoint() // Invocata dal button "no" del pannello di conferma del checkpoint
+    {
+        confirmCheckpoint.SetActive(false);
+        gamePlayMenuCanvas.SetActive(true);
+        ToggleScripts(false);
     }
 
     private void ReturnToGame() => ResumeGame(); // Chiude il menu e riprende il gioco
 
-    private void LoadGame()
-    {
-        // ResumeGame(); // Chiude il menu e riprende il gioco
-        // LG si apre già in quanto tale funzione è già passata al button dall'inspector
-    }
+    // private void LoadGame() // LG si apre già in quanto tale funzione è già passata al button dall'inspector
 
     private void OpenOptions()
     {

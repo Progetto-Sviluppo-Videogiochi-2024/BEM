@@ -60,7 +60,7 @@ public abstract class SlotBaseManager : MonoBehaviour
         }
         Time.timeScale = active ? 0 : 1; // 0 = pausa, 1 = gioco normale
         if (confirmSlot.gameObject.activeSelf) confirmSlot.gameObject.SetActive(false);
-        if (!active && gamePlayMenuManager.isMenuOpen) gamePlayMenuManager.ToggleMenu(true);
+        if (!active && gamePlayMenuManager != null && gamePlayMenuManager.isMenuOpen) gamePlayMenuManager.ToggleMenu(true);
     }
 
     protected void LoadSlotUI(Transform slot, string savedSlotName)
@@ -69,13 +69,13 @@ public abstract class SlotBaseManager : MonoBehaviour
         var slotSavedList = slot.Find("Saved");
         string nameSlot = "";
 
-        if (savedSlotName[^1] == 'C') nameSlot = "Checkpoint";
+        if (savedSlotName[0] == 'C') nameSlot = "Checkpoint";
         else nameSlot = $"Slot {gameData.nSlotSave}";
-        slotSavedList.GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = nameSlot; // "Slot nSlotSave|Checkpoint"
+        slotSavedList.GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = nameSlot; // "Slot nSlotSave | Checkpoint"
         slotSavedList.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = gestoreScena.GetChapterBySceneName(gameData.currentSceneName); // "Capitolo: Nome Capitolo"
         slotSavedList.GetChild(2).GetComponentInChildren<TextMeshProUGUI>().text = gameData.saveTime.ToString(); // "Data e Ora"
 
-        if (savedSlotName[^1] != 'C')
+        if (savedSlotName[0] != 'C')
         {
             var deleteButton = slotSavedList.GetComponentInChildren<Button>();
             ConfigureSlotButton(deleteButton, () => { OpenConfirmDeletePanel(slot); }); // Per "Delete" al click
@@ -130,10 +130,10 @@ public abstract class SlotBaseManager : MonoBehaviour
         eventTrigger.triggers.Add(pointerExitEntry);
     }
 
-    public void OnSlotEnter(Transform infoSceneSlot, string nomeCapitolo)
+    public void OnSlotEnter(Transform infoSceneSlot, string chapterName)
     {
         infoSceneSlot.gameObject.SetActive(true);
-        var (img, description) = gestoreScena.GetSpriteAndDescriptionChapter(nomeCapitolo);
+        var (img, description) = gestoreScena.GetSpriteAndDescriptionChapter(chapterName);
         infoSceneSlot.GetChild(0).GetComponent<Image>().sprite = img;
         infoSceneSlot.GetChild(1).GetComponent<TextMeshProUGUI>().text = description;
     }

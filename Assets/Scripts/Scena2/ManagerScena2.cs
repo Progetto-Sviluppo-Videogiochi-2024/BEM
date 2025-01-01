@@ -109,5 +109,7 @@ public class ManagerScena2 : MonoBehaviour
         booleanAccessor.SetBoolOnDialogueE(nomeBool);
     }
 
+    public void SaveCheckpoint() => SaveLoadSystem.Instance.SaveCheckpoint(); // Da invocare nel DialogueEditor per salvare il checkpoint
+
     public void AddItemInInventory(Item item) => inventory.GetComponentInChildren<InventoryManager>().Add(item); // Invocata nel DE di Gaia per aggiungere la ricetta all'inventario
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class FileDataService : IDataService
@@ -26,7 +27,7 @@ public class FileDataService : IDataService
 
     string GetFilePath(string fileName) => Path.Combine(dataPath, string.Concat(fileName, ".", fileExtension));
 
-    public bool SearchSlotSaved(string savedSlot, string UISlot) => savedSlot[^1] == UISlot[^1];
+    public bool SearchSlotSaved(string savedSlot, string UISlot) => savedSlot[^1] == UISlot[^1] || savedSlot[0] == UISlot[^1]; 
 
     public void Delete(string fileName)
     {
@@ -41,8 +42,9 @@ public class FileDataService : IDataService
     }
 
     public List<string> ListSaves() => Directory.Exists(dataPath)
-        ? new(Array.ConvertAll(Directory.GetFiles(dataPath, "Slot *.json"), Path.GetFileNameWithoutExtension))
-        : throw new DirectoryNotFoundException($"La directory specificata non esiste: {dataPath}");
+        ? new(Array.ConvertAll(Directory.GetFiles(dataPath).
+            Where(f => Path.GetFileName(f).StartsWith("Slot ") || Path.GetFileName(f) == "Checkpoint.json").ToArray(), Path.GetFileNameWithoutExtension))
+        : throw new DirectoryNotFoundException($"The directory {dataPath} does not exist.");
 
     public GameData Load(string fileName)
     {

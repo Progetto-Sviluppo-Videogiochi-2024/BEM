@@ -92,13 +92,14 @@ public class TaskFucile : MonoBehaviour
         if (PlayerPrefs.GetInt("nTargetHit") <= maxTargetHit && ammo.extraAmmo + ammo.currentAmmo == 0) // Non ne ho colpite 3 e ho finito le munizioni
         {
             StartCoroutine(HandleTaskWithSFX(2)); // UomoBaitaLost
+            SaveLoadSystem.Instance.SaveCheckpoint();
         }
         else if (PlayerPrefs.GetInt("nTargetHit") == maxTargetHit) // Ne ho colpite 3
         {
             StartCoroutine(HandleTaskWithSFX((ammo.extraAmmo + ammo.currentAmmo == weapon.ammo.maxAmmo - maxTargetHit) ? 1 : 2)); // Se 1 è UomoBaitaWin, se 2 UomoBaitaLost
+            SaveLoadSystem.Instance.SaveCheckpoint();
         }
         // else Non ne ho colpite 3 e ho ancora munizioni => task in corso
-        SaveLoadSystem.Instance.SaveCheckpoint();
     }
 
     private IEnumerator HandleTaskWithSFX(int indexConversation)

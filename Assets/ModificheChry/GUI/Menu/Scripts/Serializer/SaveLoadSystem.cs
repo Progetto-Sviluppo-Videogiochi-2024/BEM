@@ -54,7 +54,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MainMenu" || scene.name == "Transizione") return;
+        if (scene.name == "MainMenu" || scene.name == "Transizione" || scene.name == "Scena3Video") return;
         if (!isLoading) return;
         Time.timeScale = 1;
         Bind<GameCharacter, PlayerData>(gameData.playerData);
@@ -87,23 +87,25 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         }
     }
 
-    public void NewGame()
-    {
-        gameData = new GameData
-        {
-            fileName = $"Slot {dataService.ListSaves().Count() + 1}", // TODO: forse da cambiare in "Slot 1" o togliere proprio ?
-            currentSceneName = "Scena0"
-        };
-        isLoading = false;
-        SceneManager.LoadScene(gameData.currentSceneName);
-    }
+    // public void NewGame() // TODO: non so dove usarlo
+    // {
+    //     gameData = new GameData
+    //     {
+    //         fileName = $"Slot {dataService.ListSaves().Count() + 1}", // TODO: forse da cambiare in "Slot 1" o togliere proprio ?
+    //         currentSceneName = "Scena0"
+    //     };
+    //     isLoading = false;
+    //     SceneManager.LoadScene(gameData.currentSceneName);
+    // }
 
-    public void SaveGame(int nSlotSave)
+    public void SaveGame(object slotSaveKey) // slotSaveKey = {1, 2, 3, 4, "C"} where "C" = Checkpoint
     {
-        gameData.fileName = nSlotSave == 4 ? "Checkpoint" : $"Slot {nSlotSave}";
-        gameData.saveTime = DateTime.Now;
+        if (slotSaveKey is string v && v == "C") gameData.fileName = "Checkpoint";
+        else if (slotSaveKey is int slotNumber) gameData.fileName = $"Slot {slotNumber}";
+        else { Debug.LogError("Invalid slot number. Check and fix it."); return; }
         gameData.currentSceneName = SceneManager.GetActiveScene().name;
-        gameData.nSlotSave = nSlotSave;
+        gameData.nSlotSave = slotSaveKey is int slot ? slot : -1; // slot = {1, 2, 3, 4} // -1 = Checkpoint
+        gameData.saveTime = DateTime.Now;
 
         var player = FindObjectsByType<GameCharacter>(FindObjectsSortMode.None).FirstOrDefault();
         if (player != null)
@@ -141,9 +143,9 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         SceneManager.LoadScene(gameData.currentSceneName);
     }
 
-    public void ReloadGame() => LoadGame(gameData.fileName); // TODO: non so dove usarlo
+    public void ReloadGame() => LoadGame("Checkpoint");
 
-    public void SaveCheckpoint() => LoadGame("Checkpoint");
+    public void SaveCheckpoint() => SaveGame("C");
 
     public void DeleteGame(string fileName) => dataService.Delete(fileName);
 }
