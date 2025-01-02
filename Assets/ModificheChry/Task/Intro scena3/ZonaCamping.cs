@@ -1,6 +1,7 @@
 using System.Collections;
 using DialogueEditor;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ZonaCamping : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class ZonaCamping : MonoBehaviour
     private Transform stefanoSitting; // Riferimento al transform di Stefano seduto
     private Transform jacob; // Riferimento a Jacob (AI)
     private Animator jacobAnimator; // Riferimento all'animator di Jacob
+    private NavMeshAgent agentJacob; // Riferimento al NavMeshAgent di Jacob
     private Transform angelica; // Riferimento ad Angelica (AI)
     private HumanFollower angelicaFollower; // Riferimento al componente HumanFollower di Angelica
     public Transform player; // Riferimento al giocatore (Player)
@@ -45,6 +47,8 @@ public class ZonaCamping : MonoBehaviour
         jacobAnimator = jacob.GetComponent<Animator>();
         angelicaFollower = angelica.GetComponent<HumanFollower>();
         ballLauncher.SetActive(false);
+        agentJacob = jacob.GetComponent<NavMeshAgent>();
+        agentJacob.enabled = false;
 
         if (!booleanAccessor.GetBoolFromThis("videoMutant")) InitCharacters(false);
         else // Se è già stato visto il video del mutante (controllo per il LG e il bug pre-video)
@@ -126,5 +130,10 @@ public class ZonaCamping : MonoBehaviour
     {
         while (!conversationManager.hasClickedEnd) yield return null; // Aspetta il frame successivo e poi ricontrolla
         booleanAccessor.SetBoolOnDialogueE("postHitBallSG");
+    }
+
+    public void CharacterMovement()
+    {
+        agentJacob.enabled = true;
     }
 }
