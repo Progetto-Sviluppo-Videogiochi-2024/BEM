@@ -33,7 +33,7 @@ public class GamePlayMenuManager : MonoBehaviour
         player = FindAnyObjectByType<Player>()?.transform;
 
         var panel = gamePlayMenuCanvas.transform.GetChild(0);
-        var backGPM = options.transform.GetChild(1).GetComponent<Button>();
+        var backGPM = options.transform.GetChild(0).GetChild(1).GetComponent<Button>();
 
         buttonCheckpoint = panel.GetChild(2).GetComponent<Button>();
         // buttonLoadGame = panel.GetChild(3).GetComponent<Button>();
