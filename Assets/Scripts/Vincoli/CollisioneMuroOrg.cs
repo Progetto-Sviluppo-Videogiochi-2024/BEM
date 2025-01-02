@@ -5,19 +5,6 @@ public class CollisioneMuroOrg : NPCDialogueBase
 {
     private bool hasDialogueBeenShown = false;
 
-    protected override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other); // Mantieni la logica della classe base (opzionale)
-        if (!hasDialogueBeenShown && other.CompareTag("Player"))
-        {
-            hasDialogueBeenShown = true;
-            isConversationActive = true;
-            player.GetComponent<MovementStateManager>().enabled = false;
-            StartDialogue();
-        }
-    }
-
-
     protected override void StartDialogue()
     {
         StartConversation(conversations[0]);
@@ -34,5 +21,17 @@ public class CollisioneMuroOrg : NPCDialogueBase
         // Reimposta lo stato della conversazione e riabilita i movimenti
         isConversationActive = false;
         player.GetComponent<MovementStateManager>().enabled = true;
+    }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other); // Mantieni la logica della classe base (opzionale)
+        if (!hasDialogueBeenShown && isInRange)
+        {
+            hasDialogueBeenShown = true;
+            isConversationActive = true;
+            player.GetComponent<MovementStateManager>().enabled = false;
+            StartDialogue();
+        }
     }
 }

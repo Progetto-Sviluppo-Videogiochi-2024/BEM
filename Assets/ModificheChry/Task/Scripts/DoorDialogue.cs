@@ -2,7 +2,7 @@ using DialogueEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Door : NPCDialogueBase
+public class DoorDialogue : NPCDialogueBase
 {
     [Header("Settings")]
     #region Settings

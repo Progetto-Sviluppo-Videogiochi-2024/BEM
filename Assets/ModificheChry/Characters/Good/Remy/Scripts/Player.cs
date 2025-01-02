@@ -20,9 +20,9 @@ public class Player : MonoBehaviour
     [HideInInspector] public WeaponClassManager weaponClassManager; // Riferimento al componente WeaponClassManager
     public PlayerUIController playerUIController; // Riferimento al componente PlayerUIController
     private RagdollManager ragdollManager; // Riferimento al componente RagdollManager
-    private AudioSource audiosource;
-    public AudioClip clip;
-    public GameOverMenuManager gameOverMenuManager;
+    private AudioSource audiosource; // Riferimento all'AudioSource
+    public AudioClip clip; // Clip audio per il respiro
+    public GameOverMenuManager gameOverMenuManager; // Riferimento al componente GameOverMenuManager
     #endregion
 
     void Start()
@@ -33,7 +33,6 @@ public class Player : MonoBehaviour
 
         weaponClassManager = GetComponent<WeaponClassManager>();
         ragdollManager = GetComponent<RagdollManager>();
-
     }
 
     private void Update()
@@ -57,15 +56,16 @@ public class Player : MonoBehaviour
 
         if (sanitaMentale <= 40) menteSana = false;
 
-        if (menteSana == false) PlayBreathing();
+        if (!menteSana) PlayBreathing();
 
-        if (sanitaMentale > 50 && menteSana == false)
+        if (sanitaMentale > maxHealth / 2 && !menteSana)
         {
             menteSana = true;
             PlayBreathing();
         }
         if (health >= maxHealth) health = maxHealth;
         if (sanitaMentale < 0) sanitaMentale = 0;
+
         playerUIController.UpdateBloodSplatter(health, maxHealth);
         playerUIController.UpdateSanityIcon(sanitaMentale, maxHealth);
 
@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator TimeoutToGameOver()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(4f);
         gameOverMenuManager.ToggleMenu(true);
     }
 
@@ -105,15 +105,11 @@ public class Player : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.CompareTag("Wall") && CanReadDE())
-        {
-            ConversationManager.Instance.StartConversation(conversations[0]);
-        }
-        if (hit.gameObject.CompareTag("WallConfine"))
-        {
-            ConversationManager.Instance.StartConversation(conversations[1]);
-        }
-        
+        NPCConversation conversation = null;
+        if (hit.gameObject.CompareTag("Wall") && CanReadDE()) conversation = conversations[0];
+        if (hit.gameObject.CompareTag("WallConfine")) conversation = conversations[1];
+
+        if (conversation != null) ConversationManager.Instance.StartConversation(conversation);
     }
 
     private void PlayBreathing()
@@ -128,11 +124,7 @@ public class Player : MonoBehaviour
         {
             audiosource.Play();
             if (audiosource.isPlaying == false) audiosource.Play();
-            else if (menteSana == true)
-            {
-                print("loop annullato");
-                audiosource.loop = false;
-            }
+            else if (menteSana == true) audiosource.loop = false;
         }
         else { print("Non va l'audio"); }
     }

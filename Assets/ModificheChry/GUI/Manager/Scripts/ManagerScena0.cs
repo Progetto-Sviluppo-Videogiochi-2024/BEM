@@ -32,7 +32,7 @@ public class ManagerScena0 : MonoBehaviour
     private Animator animator; // Riferimento all'Animator del giocatore
     public TutorialScript tutorialScript; // Riferimento diretto allo script del tutorial
     public Diario diario; // Riferimento diretto allo script del diario
-    public Door door; // Riferimento alla porta
+    public DoorDialogue door; // Riferimento alla porta
     List<PlayerPrefsData> playerPrefsData; // Dati del PlayerPrefs
     #endregion
 
