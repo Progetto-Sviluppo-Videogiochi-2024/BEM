@@ -28,21 +28,20 @@ public class NPCAIBase : MonoBehaviour
 
     private void FollowTarget()
     {
-        // Ottieni la distanza tra l'agente e il player
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        if (distanceToPlayer > 1.5f) // Se il player è abbastanza lontano, l'agente si muove verso di lui
+        if (distanceToPlayer > 1.75f) // Se il player è abbastanza lontano, l'agente si muove verso di lui
         {
-            agent.speed = movementStateManager.currentMoveSpeed <= 2f ? 2f : 5f;
+            float targetSpeed = movementStateManager.currentMoveSpeed <= 2f ? 2f : 5f;
+            agent.speed = Mathf.Lerp(agent.speed, targetSpeed, Time.deltaTime * 5f); // Interpolazione graduale
             animator.SetFloat("speed", agent.speed);
             agent.SetDestination(target.position);
             agent.isStopped = false;
         }
         else // Se è abbastanza vicino, l'agente si ferma
         {
-            agent.velocity = Vector3.zero;
-            agent.speed = 0f;
-            animator.SetFloat("speed", 0f);
+            agent.speed = Mathf.Lerp(agent.speed, 0f, Time.deltaTime * 5f); // Interpolazione graduale verso zero
+            animator.SetFloat("speed", agent.speed);
             agent.isStopped = true;
         }
     }
