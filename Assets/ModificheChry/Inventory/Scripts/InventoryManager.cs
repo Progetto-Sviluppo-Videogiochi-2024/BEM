@@ -50,6 +50,7 @@ public class InventoryManager : MonoBehaviour
 
         var player = GameObject.FindGameObjectWithTag("Player");
         itemClassManager = player.GetComponent<ItemClassManager>();
+        weaponClassManager = player.GetComponent<WeaponClassManager>();
         player.GetComponent<OpenInventory>().inventoryCanvas = transform.parent.GetChild(0).gameObject;
         inventoryItemsToRemove = new();
     }
