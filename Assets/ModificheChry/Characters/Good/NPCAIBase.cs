@@ -33,7 +33,7 @@ public class NPCAIBase : MonoBehaviour
 
     protected virtual void MoveTowardsTarget(Vector3 destination)
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, target.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, destination);
 
         if (distanceToPlayer > stopDistance) // Se il target è abbastanza lontano, l'agente si muove verso di lui
         {
@@ -55,6 +55,6 @@ public class NPCAIBase : MonoBehaviour
     {
         agent.isStopped = true;
         agent.ResetPath();
-        animator?.SetFloat("speed", Mathf.Lerp(agent.speed, 0f, Time.deltaTime * 5f));
+        animator?.SetFloat("speed", Mathf.Lerp(animator.GetFloat("speed"), 0f, Time.deltaTime * 5f));
     }
 }
