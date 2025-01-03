@@ -13,7 +13,9 @@ public class FenceHole : MonoBehaviour
 
     [Header("References")]
     #region References
-    public NPCConversation monologo; // Conversazione per il buco della recinzione quando non ha parlato con Jacob
+    // public NPCConversation monologo; // Conversazione per il buco della recinzione quando non ha parlato con Jacob
+    // public NPCConversation monologo2; // Conversazione di feedback al giocatore
+    public NPCConversation[] conversations; // Array di dialoghi
     public GestoreScena gestoreScena; // Riferimento al gestore della scena
     private ManagerScena2 managerScena2; // Riferimento al manager della scena 2
     public GameObject confirmNextUI; // Riferimento al pannello di conferma per andare alla scena successiva
@@ -51,7 +53,19 @@ public class FenceHole : MonoBehaviour
                 yesButton.GetComponent<Button>().onClick.AddListener(OnYesButtonClicked);
                 noButton.GetComponent<Button>().onClick.AddListener(OnNoButtonClicked);
             }
-            else if (!isConversationActive) StartConversation(monologo);
+            else if (!isConversationActive)
+            {
+                if (BooleanAccessor.istance.boolValues["cartello"])
+                {
+                    StartConversation(conversations[0]);
+                }
+                else
+                {
+                    StartConversation(conversations[1]);
+
+                }
+                player.GetComponent<MovementStateManager>().enabled = false;
+            }
         }
     }
 

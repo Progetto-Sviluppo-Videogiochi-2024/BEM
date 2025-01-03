@@ -7,8 +7,6 @@ public class MilitarySign : MonoBehaviour
 {
     [Header("Settings")]
     #region Settings
-    private bool clickEndHandled = false; // Flag per evitare che esegua più volte il codice nel metodo Update quando si clicca su "End"
-    private bool isConversationActive = false; // Stato della conversazione
     private bool isInRange = false; // Se il player è vicino al cartello per poterci interagire
     private bool isInHand = false; // Se il cartello è in mano al player
     [HideInInspector] public bool canLeft = false; // Se il cartello può essere lasciato (appena si allontana dal trigger)
@@ -21,12 +19,10 @@ public class MilitarySign : MonoBehaviour
     public GameObject tooltip; // Tooltip per indicare che può lasciare il cartello
     private Rigidbody rb; // Rigidbody del cartello
     public Diario diario; // Riferimento al diario
-    private NPCConversation monologo; // Dialogo da far partire quando cerca di prendere il cartello
     #endregion
 
     void Start()
     {
-        monologo = GetComponent<NPCConversation>();
         player = FindAnyObjectByType<Player>().transform;
         GetComponent<ItemPickup>().enabled = false;
         tooltip.SetActive(false);
@@ -36,30 +32,12 @@ public class MilitarySign : MonoBehaviour
 
     void Update()
     {
-        if (!clickEndHandled && ConversationManager.Instance.hasClickedEnd) // Se il dialogo è finito
-        {
-            clickEndHandled = true;
-            isConversationActive = false;
-            player.GetComponent<MovementStateManager>().enabled = true;
-        }
-
         if (BooleanAccessor.istance.GetBoolFromThis("cartelloDone")) { this.enabled = false; return; } // Se la quest è completata disabilita lo script
         if (!isInRange) return; // Se non ha parlato con Jacob o non è vicino al cartello
 
         // Gestione del dialogo e del prendere/lasciare il cartello
         HandlePickUpSign();
         HandleDropSign();
-    }
-
-    void StartConversation(NPCConversation dialog)
-    {
-        var animator = player.GetComponent<Animator>();
-        animator.SetFloat("hInput", 0);
-        animator.SetFloat("vInput", 0);
-
-        clickEndHandled = false;
-        isConversationActive = true;
-        ConversationManager.Instance.StartConversation(dialog);
     }
 
     private void HandlePickUpSign()
@@ -77,12 +55,7 @@ public class MilitarySign : MonoBehaviour
                 isInHand = true;
                 SetRigidbody(true);
             }
-            if (!boolAccessor.GetBoolFromThis("cartello") && !isConversationActive) // Se non ha parlato con Jacob e il dialogo non è aperto
-            {
-                ConversationManager.Instance.hasClickedEnd = false;
-                StartConversation(monologo);
-                player.GetComponent<MovementStateManager>().enabled = false;
-            }
+
         }
     }
 
