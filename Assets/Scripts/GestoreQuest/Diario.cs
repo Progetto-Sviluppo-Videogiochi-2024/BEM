@@ -48,14 +48,26 @@ public class Diario : MonoBehaviour
         diarioVisibile = isOpen;
         scrollView.SetActive(diarioVisibile);
         GestoreScena.ChangeCursorActiveStatus(diarioVisibile, "Diario");
-        FindAnyObjectByType<Player>().GetComponent<AimStateManager>().enabled = true;
+
+        // Controllo se il Player esiste prima di accedere a AimStateManager
+        var player = FindAnyObjectByType<Player>();
+        if (player != null)
+        {
+            player.GetComponent<AimStateManager>().enabled = true;
+        }
     }
 
     private void ToggleCinematic()
     {
         // Se il mouse è sopra un UI, disabilita la visuale
         bool isCursorOverUI = EventSystem.current.IsPointerOverGameObject();
-        FindAnyObjectByType<Player>().GetComponent<AimStateManager>().enabled = !isCursorOverUI;
+
+        // Controlla se il Player esiste prima di accedere ad AimStateManager
+        var player = FindAnyObjectByType<Player>();
+        if (player != null)
+        {
+            player.GetComponent<AimStateManager>().enabled = !isCursorOverUI;
+        }
     }
 
     // Metodo modificato per gestire missioni duplicate

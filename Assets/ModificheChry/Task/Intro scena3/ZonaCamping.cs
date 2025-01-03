@@ -31,6 +31,7 @@ public class ZonaCamping : MonoBehaviour
     public AudioListener audioCameraStefano; // Riferimento all'AudioListener della camera di Stefano
     public GameObject ballLauncher; // Riferimento alla palla lanciata da Angelica
     public GameObject ball; // Riferimento alla palla non ancora calciata da Angelica
+    public Diario diario; // Riferimento diretto allo script del diario
     #endregion
 
     void Start()
@@ -65,6 +66,7 @@ public class ZonaCamping : MonoBehaviour
             angelica.gameObject.SetActive(false);
             jacob.gameObject.SetActive(false);
             enabled = false;
+            diario.AggiungiMissione("Trova i tuoi amici");
             return;
         }
 
