@@ -55,15 +55,7 @@ public class FenceHole : MonoBehaviour
             }
             else if (!isConversationActive)
             {
-                if (BooleanAccessor.istance.boolValues["cartello"])
-                {
-                    StartConversation(conversations[0]);
-                }
-                else
-                {
-                    StartConversation(conversations[1]);
-
-                }
+                StartConversation(conversations[BooleanAccessor.istance.boolValues["cartello"] ? 0 : 1]);
                 player.GetComponent<MovementStateManager>().enabled = false;
             }
         }
