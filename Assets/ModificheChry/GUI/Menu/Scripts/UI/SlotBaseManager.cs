@@ -108,7 +108,9 @@ public abstract class SlotBaseManager : MonoBehaviour
 
     protected void ToggleSlotUI(Transform slot, bool active)
     {
-        slot.GetChild(0).gameObject.SetActive(active); // Per "Empty"
+        var slotEmpty = slot.GetChild(0);
+        slotEmpty.gameObject.SetActive(active); // Per "Empty"
+        if (active) slotEmpty.GetComponentInChildren<TextMeshProUGUI>().text = slot.name[^1] == 'C' ? "Checkpoint vuoto" : "Slot vuoto";
         slot.GetChild(1).gameObject.SetActive(!active); // Per "Saved"
     }
 
@@ -116,8 +118,7 @@ public abstract class SlotBaseManager : MonoBehaviour
     {
         // Per evitare trigger multipli
         var eventTrigger = slot.GetComponent<EventTrigger>();
-        if (eventTrigger == null) eventTrigger = slot.gameObject.AddComponent<EventTrigger>();
-        else eventTrigger.triggers.Clear();
+        (eventTrigger ??= slot.gameObject.AddComponent<EventTrigger>()).triggers.Clear();
 
         // Configura l'evento OnPointerEnter
         var pointerEnterEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };

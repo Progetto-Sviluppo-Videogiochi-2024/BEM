@@ -19,10 +19,15 @@ public class SaveSlot : SlotBaseManager
                 var savedSlotName = savedSlotQueue.Peek(); // Prende il primo slot dalla coda (es. "Slot 1", "Slot 2", ecc, e "Checkpoint")
                 if (saveLoadSystem.dataService.SearchSlotSaved(savedSlotName, currentUISlot.name))
                 {
-                    if (currentUISlot.name[0] == 'C') currentUISlot.GetComponent<Button>().interactable = false;
+                    if (currentUISlot.name[^1] == 'C') currentUISlot.GetComponent<Button>().interactable = false;
                     ToggleSlotUI(currentUISlot, false);
                     LoadSlotUI(currentUISlot, savedSlotName);
                     savedSlotQueue.Dequeue();
+                }
+                else if (currentUISlot.name[^1] == 'C')
+                {
+                    currentUISlot.GetComponent<Button>().interactable = false;
+                    ToggleSlotUI(currentUISlot, true); // Slot non corrispondente
                 }
                 else // Slot non corrispondente
                 {
@@ -33,7 +38,7 @@ public class SaveSlot : SlotBaseManager
             else // Non ci sono più salvataggi, configura lo slot come vuoto
             {
                 ToggleSlotUI(currentUISlot, true);
-                ConfigureEmptySlot(currentUISlot);
+                if (currentUISlot.name[^1] != 'C') ConfigureEmptySlot(currentUISlot);
             }
         }
     }
