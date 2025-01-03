@@ -16,7 +16,7 @@ public class WeaponEditor : Editor
         weapon.tagType = (Item.ItemTagType)EditorGUILayout.EnumPopup(new GUIContent("Tag Type", "Tipo di tag dell'arma"), weapon.tagType);
         weapon.weight = EditorGUILayout.FloatField(new GUIContent("Weight", "Peso dell'arma"), weapon.weight);
         // weapon.prefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Prefab", "Prefab dell'arma, da assegnare solo per gli oggetti istanziabili nel corpo del pg (es. armi)"), weapon.prefab, typeof(GameObject), false);
-
+        weapon.canDestroy = EditorGUILayout.Toggle(new GUIContent("Can Destroy", "Possibilità di distruggere l'arma (true se distruttibile, false se non distruttibile)"), weapon.canDestroy);
         // Mostra i campi specifici in base al tagType
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         EditorGUILayout.LabelField("Usability Info", EditorStyles.boldLabel);
