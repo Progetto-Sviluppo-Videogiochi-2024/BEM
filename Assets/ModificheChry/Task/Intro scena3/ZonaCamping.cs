@@ -24,7 +24,7 @@ public class ZonaCamping : MonoBehaviour
     private Animator jacobAnimator; // Riferimento all'animator di Jacob
     private NavMeshAgent agentJacob; // Riferimento al NavMeshAgent di Jacob
     private Transform angelica; // Riferimento ad Angelica (AI)
-    private HumanFollower angelicaFollower; // Riferimento al componente HumanFollower di Angelica
+    private AngelicaHitBall agentAngelica; // Riferimento al componente AngelicaHitBall di Angelica
     public Transform player; // Riferimento al giocatore (Player)
     public Transform gaia; // Riferimento a Gaia (AI)
     public GameObject cameraIntro; // Riferimento alla camera dell'intro della scena 3
@@ -43,23 +43,25 @@ public class ZonaCamping : MonoBehaviour
         stefanoSitting = characters.GetChild(1);
         jacob = characters.GetChild(2);
         angelica = characters.GetChild(3);
-        jacob.GetComponent<Animator>().SetBool("Portiere", true);
-        jacobAnimator = jacob.GetComponent<Animator>();
-        angelicaFollower = angelica.GetComponent<HumanFollower>();
-        ballLauncher.SetActive(false);
-        agentJacob = jacob.GetComponent<NavMeshAgent>();
-        agentJacob.enabled = false;
 
-        if (!booleanAccessor.GetBoolFromThis("videoMutant")) InitCharacters(false);
+        if (!booleanAccessor.GetBoolFromThis("videoMutant"))
+        {
+            jacob.GetComponent<Animator>().SetBool("Portiere", true);
+            jacobAnimator = jacob.GetComponent<Animator>();
+            agentJacob = jacob.GetComponent<NavMeshAgent>();
+            agentJacob.enabled = false;
+            agentAngelica = angelica.GetComponent<AngelicaHitBall>();
+            ballLauncher.SetActive(false);
+            InitCharacters(false);
+        }
         else // Se è già stato visto il video del mutante (controllo per il LG e il bug pre-video)
         {
             // Dopo il video del mutante allora Stefano e Gaia si alzano e camminano
-            // AI di Gaia che cammina seguendo Stefano (Player)
             ball.SetActive(false);
             ballLauncher.SetActive(true);
             cameraIntro.SetActive(false);
             audioCameraStefano.enabled = true;
-            InitCharacters(true);
+            InitCharacters(true); // AI di Gaia che cammina seguendo Stefano (Player)
             angelica.gameObject.SetActive(false);
             jacob.gameObject.SetActive(false);
             enabled = false;
@@ -98,7 +100,7 @@ public class ZonaCamping : MonoBehaviour
         if (!isPostHitBallJA && booleanAccessor.GetBoolFromThis("postHitBallJA"))
         {
             // Fare una classe astratta per le due AI così seguono una logica comune per poi allontanarsi e scomparire (usare un flag dello script)
-            if (Input.GetKeyDown(KeyCode.Z)/*angelica.isArrived && jacob.isArrived*/) // per testing // Usare i PP
+            if (agentAngelica.isArrived) // Angelica sta dietro jacob => mi basta controllare solo lei
             {
                 jacob.gameObject.SetActive(false);
                 angelica.gameObject.SetActive(false);
@@ -122,7 +124,7 @@ public class ZonaCamping : MonoBehaviour
         stefanoSitting.gameObject.SetActive(!enable);
     }
 
-    private bool HasBallBeenKicked() => angelicaFollower.HitBall;
+    private bool HasBallBeenKicked() => agentAngelica.hitBall;
 
     public void StartCoroutinePreVideo() => StartCoroutine(TimerPreVideo()); // Invocata nell'ultimo nodo dell'ultimo dialogo di Stefano e Gaia
 
@@ -135,5 +137,6 @@ public class ZonaCamping : MonoBehaviour
     public void CharacterMovement()
     {
         agentJacob.enabled = true;
+        agentAngelica.MoveTowardsStopTarget(agentAngelica.stopTarget);
     }
 }

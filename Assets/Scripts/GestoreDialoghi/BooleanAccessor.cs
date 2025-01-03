@@ -47,7 +47,7 @@ public class BooleanAccessor : MonoBehaviour
         }
         else if (istance != this)
         {
-            print("BooleanAccessor: Instance already exists, destroying object!");
+            print("There is more than one instance of BooleanAccessor in the scene. Destroying duplicate.");
             Destroy(gameObject);
         }
     }
