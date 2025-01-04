@@ -17,7 +17,8 @@ public class GameCharacter : MonoBehaviour, IBind<PlayerData>
             player.sanitaMentale = data.sanitaMentale;
             player.isDead = data.isDead;
             player.menteSana = data.menteSana;
-            player.transform.GetChild(0).SetPositionAndRotation(data.positionVcam, data.rotationVcam); // Setto "CameraFollowPosition"
+            player.transform.GetChild(0).SetPositionAndRotation(data.positionVcam, data.rotationVcam); // Set "CameraFollowPosition"
+            DebugLogger.Log($"Load Player: {player.health} {player.sanitaMentale} {player.isDead} {player.menteSana}");
         }
     }
 
@@ -32,9 +33,10 @@ public class GameCharacter : MonoBehaviour, IBind<PlayerData>
             data.sanitaMentale = player.sanitaMentale;
             data.isDead = player.isDead;
             data.menteSana = player.menteSana;
-            var vcam = player.transform.GetChild(0); // Prendo "CameraFollowPosition"
+            var vcam = player.transform.GetChild(0); // Get "CameraFollowPosition"
             data.positionVcam = vcam.position;
             data.rotationVcam = vcam.rotation;
+            DebugLogger.Log($"Save Player: {player.health} {player.sanitaMentale} {player.isDead} {player.menteSana}");
         }
     }
 }

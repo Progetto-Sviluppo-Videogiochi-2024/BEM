@@ -41,6 +41,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
     [SerializeField] public GameData gameData;
     [HideInInspector] public IDataService dataService;
     private bool isLoading = false;
+    public static bool IsLoading { get; private set; } = false;
 
     protected override void Awake()
     {

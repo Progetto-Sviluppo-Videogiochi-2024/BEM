@@ -27,15 +27,19 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        sanitaMentale = maxHealth;
-        menteSana = true;
-        health = maxHealth;
+        if (!SaveLoadSystem.IsLoading)
+        {
+            sanitaMentale = maxHealth;
+            menteSana = true;
+            health = maxHealth;
+            UpdateStatusPlayer(0, 0); // Aggiorna la UI con i valori iniziali
+        }
 
         weaponClassManager = GetComponent<WeaponClassManager>();
         ragdollManager = GetComponent<RagdollManager>();
     }
 
-    private void Update()
+    void Update()
     {
         playerUIController.UpdateItemUI();
         var ammo = weaponClassManager.actions.weaponAmmo;
@@ -94,7 +98,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator TimeoutToGameOver()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3.5f);
         gameOverMenuManager.ToggleMenu(true);
     }
 
