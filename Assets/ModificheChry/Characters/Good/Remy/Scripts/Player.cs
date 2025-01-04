@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool IsLoading = false; // Flag per il caricamento dei dati, lo si usa nel caricamento dati e cambio scena
     [HideInInspector] public int maxHealth = 100; // Salute massima
     public int health; // Salute attuale
-    public int sanitaMentale; // Salute mentale
+    public int sanitaMentale = 100; // Salute mentale
     [HideInInspector] public bool isDead = false; // Stato del giocatore (vivo/morto)
     [HideInInspector] public bool menteSana = true; // Stato della salute mentale ("sano"/"malato")
     #endregion
@@ -22,23 +22,19 @@ public class Player : MonoBehaviour
     public PlayerUIController playerUIController; // Riferimento al componente PlayerUIController
     private RagdollManager ragdollManager; // Riferimento al componente RagdollManager
     private AudioSource audiosource; // Riferimento all'AudioSource
-    public AudioClip clip; // Clip audio per il respiro
+    [SerializeField] private AudioClip clip; // Clip audio per il respiro
     public GameOverMenuManager gameOverMenuManager; // Riferimento al componente GameOverMenuManager
     #endregion
 
     void Start()
     {
-        if (IsLoading)
-        {
-            isDead = false;
-            sanitaMentale = maxHealth;
-            menteSana = true;
-            health = maxHealth;
-            DebugLogger.Log($"Start Player: {health} {sanitaMentale} {isDead} {menteSana}");
-        }
-
+        // Init delle variabili
+        audiosource = gameObject.AddComponent<AudioSource>();
         weaponClassManager = GetComponent<WeaponClassManager>();
         ragdollManager = GetComponent<RagdollManager>();
+
+        // Aggiorna l'UI del giocatore (anche se non ha subito danni -> per il caricamento dei dati)
+        UpdateStatusPlayer(0, 0);
     }
 
     void Update()
@@ -60,15 +56,10 @@ public class Player : MonoBehaviour
         if (amountHealth < 0) sanitaMentale -= 10;
         if (health <= 20) sanitaMentale -= 15;
 
-        if (sanitaMentale <= 40) menteSana = false;
-
+        menteSana = sanitaMentale > 40;
         if (!menteSana) PlayBreathing();
+        else audiosource.Stop();
 
-        if (sanitaMentale > maxHealth / 2 && !menteSana)
-        {
-            menteSana = true;
-            PlayBreathing();
-        }
         if (health >= maxHealth) health = maxHealth;
         if (sanitaMentale < 0) sanitaMentale = 0;
 
@@ -121,18 +112,9 @@ public class Player : MonoBehaviour
 
     private void PlayBreathing()
     {
-        if (audiosource == null)
-        {
-            audiosource = gameObject.AddComponent<AudioSource>();
-            audiosource.loop = true;
-            audiosource.clip = clip;
-        }
-        if (audiosource.clip != null)
-        {
-            audiosource.Play();
-            if (audiosource.isPlaying == false) audiosource.Play();
-            else if (menteSana == true) audiosource.loop = false;
-        }
-        else { print("Non va l'audio"); }
+        if (clip == null || audiosource.isPlaying) return;
+        audiosource.loop = true;
+        audiosource.clip = clip;
+        if (!audiosource.isPlaying) audiosource.Play();
     }
 }

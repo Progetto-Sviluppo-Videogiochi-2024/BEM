@@ -6,11 +6,11 @@ public class PlayerUIController : MonoBehaviour
 {
     [Header("Player UI")]
     #region Player UI
-    private Image weaponImage; // Immagine dell'arma equipaggiata
-    private TextMeshProUGUI ammoText; // Testo per le munizioni rimanenti dell'arma equipaggiata
-    private Image bloodSplatterImage; // Immagine del sangue sullo schermo
-    private Image sanityIcon; // Icona della sanità mentale del giocatore
-    private Image itemIcon; // Icona dell'oggetto equipaggiato
+    [SerializeField] private Image weaponImage; // Immagine dell'arma equipaggiata
+    [SerializeField] private TextMeshProUGUI ammoText; // Testo per le munizioni rimanenti dell'arma equipaggiata
+    [SerializeField] private Image bloodSplatterImage; // Immagine del sangue sullo schermo
+    [SerializeField] private Image sanityIcon; // Icona della sanità mentale del giocatore
+    [SerializeField] private Image itemIcon; // Icona dell'oggetto equipaggiato
     #endregion
 
     [Header("References")]
@@ -18,15 +18,6 @@ public class PlayerUIController : MonoBehaviour
     public Player player; // Riferimento al componente Player
     [HideInInspector] public int extraAmmo; // Munizioni extra per l'arma equipaggiata
     #endregion
-
-    void Start()
-    {
-        weaponImage = transform.GetChild(0).GetComponent<Image>();
-        ammoText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-        bloodSplatterImage = transform.GetChild(2).GetComponent<Image>();
-        sanityIcon = transform.GetChild(3).GetComponent<Image>();
-        itemIcon = transform.GetChild(4).GetComponent<Image>();
-    }
 
     public void UpdateItemUI() // TODO: da testare
     {
@@ -73,5 +64,4 @@ public class PlayerUIController : MonoBehaviour
         color.a = alpha; // Maggiore è il danno, più alta è l'opacità
         sanityIcon.color = color;
     }
-
 }
