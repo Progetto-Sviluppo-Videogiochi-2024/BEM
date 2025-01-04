@@ -13,18 +13,16 @@ public class GameOverMenuManager : MonoBehaviour
 
     [Header("References")]
     #region References
-    private Transform player; // Riferimento al giocatore
-    private Diario diario; // Riferimento al diario
+    [SerializeField] private Transform player; // Riferimento al giocatore
+    [SerializeField] private Diario diario; // Riferimento al diario
     #endregion
 
     void Start()
     {
-        player = FindObjectOfType<Player>()?.transform;
-        diario = FindObjectOfType<Diario>();
-
         gameOverMenuCanvas.gameObject.SetActive(false);
         var panel = gameOverMenuCanvas.GetChild(0);
-        panel.GetChild(2).GetComponent<Button>().onClick.AddListener(() => ReloadLastCheckpoint());
+        var buttonReload = panel.GetChild(2).GetComponent<Button>();
+        buttonReload.onClick.AddListener(() => ReloadLastCheckpoint(buttonReload));
     }
 
     public void ToggleMenu(bool isOpen)
@@ -57,9 +55,14 @@ public class GameOverMenuManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    private void ReloadLastCheckpoint()
+    private void ReloadLastCheckpoint(Button button)
     {
-        // ResumeGame(); // Chiude il menu per caricare la UI del Checkpoint
+        if (!SaveLoadSystem.Instance.dataService.DoesSaveExist("Checkpoint"))
+        {
+            button.interactable = false;
+            return;
+        }
+
         confirmCheckpoint.SetActive(true);
         ToggleScripts(true);
         gameOverMenuCanvas.gameObject.SetActive(false); // Non invoco ToggleMenu perché si toglie il cursore poi
