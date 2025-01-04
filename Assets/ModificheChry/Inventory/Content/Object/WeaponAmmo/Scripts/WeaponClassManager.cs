@@ -42,48 +42,30 @@ public class WeaponClassManager : MonoBehaviour
             if (isWeaponEquipFinished && Input.GetKeyDown(KeyCode.Alpha1 + i) && KeyCode.Alpha1 + i <= KeyCode.Alpha3 && weaponsEquipable[i] != null)
             {
                 isWeaponEquipFinished = false;
-                TakeParametersAnimation(i);
+                ActiveAnimationWeapon(i);
                 return;
             }
         }
     }
 
-    public void TakeParametersAnimation(int index)
+    public void ActiveAnimationWeapon(int index)
     {
-        string trigger;
-        string boolWeapon;
-
         var weapon = InventoryManager.instance.weaponsEquipable[index] as Weapon;
+        string triggerAnim = "equipRanged";
+        string boolAnim = "hasFireWeapon";
 
-        if (weapon.weaponType == WeaponType.Melee) // Se è un'arma da mischia o bianca
-        {
-            trigger = "equipMelee";
-            boolWeapon = "hasCutWeapon";
-        }
-        else // Se è un'arma da fuoco
-        {
-            trigger = "equipRanged";
-            boolWeapon = "hasFireWeapon";
-        }
-        ActiveAnimationWeapon(weapon, boolWeapon, trigger, index);
-    }
-
-    private void ActiveAnimationWeapon(Weapon weapon, string boolAnim, string triggerAnim, int index)
-    {
         animator.SetTrigger(triggerAnim);
-
         if (animator.GetBool(boolAnim) && weapon.weaponType == WeaponType.Ranged && animator.GetBool("aiming")) // Se sto mirando con l'arma da fuoco
         {
             animator.SetBool("aiming", false); // Disattiva la mira
         }
-
-        StartCoroutine(WaitForEquipAnimation(boolAnim, animator.GetBool(boolAnim) ? "Rifle Put Away" : "Rifle Pull Out", index));
+        StartCoroutine(WaitForEquipAnimation(boolAnim, index));
     }
 
-    private IEnumerator WaitForEquipAnimation(string boolWeapon, string animation, int index)
+    private IEnumerator WaitForEquipAnimation(string boolWeapon, int index)
     {
         // Aspetta che l'animazione di equipaggiamento sia finita
-        yield return new WaitUntil(() => IsAnimationFinished("Action", animation, 0.10f));
+        yield return new WaitUntil(() => IsAnimationFinished("Action", animator.GetBool(boolWeapon) ? "Rifle Put Away" : "Rifle Pull Out", 0.10f));
 
         isWeaponEquipFinished = true;
         animator.SetBool(boolWeapon, !animator.GetBool(boolWeapon));
@@ -128,13 +110,13 @@ public class WeaponClassManager : MonoBehaviour
     {
         if (item.tagType == ItemTagType.Weapon)
         {
-            GameObject itemPrefab = (item as Weapon).prefab; // TODO: riscriverla
-            if (weaponsEquipable.Contains(itemPrefab.GetComponent<WeaponManager>()))
+            WeaponManager weaponManager = (item as Weapon).prefab.GetComponent<WeaponManager>();
+            if (weaponsEquipable.Contains(weaponManager))
             {
                 RemoveWeaponHand();
                 animator.SetBool("hasFireWeapon", false);
                 animator.SetBool("hasCutWeapon", false);
-                weaponsEquipable.Remove(itemPrefab.GetComponent<WeaponManager>());
+                weaponsEquipable.Remove(weaponManager);
             }
         }
     }
