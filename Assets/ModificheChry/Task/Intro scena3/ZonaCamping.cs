@@ -65,8 +65,9 @@ public class ZonaCamping : MonoBehaviour
             InitCharacters(true); // AI di Gaia che cammina seguendo Stefano (Player)
             angelica.gameObject.SetActive(false);
             jacob.gameObject.SetActive(false);
-            enabled = false;
+            conversationManager.StartConversation(conversations[3]);
             diario.AggiungiMissione("Trova i tuoi amici");
+            enabled = false;
             return;
         }
 
