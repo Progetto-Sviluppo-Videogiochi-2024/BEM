@@ -21,15 +21,23 @@ public class Player : MonoBehaviour
     [HideInInspector] public WeaponClassManager weaponClassManager; // Riferimento al componente WeaponClassManager
     public PlayerUIController playerUIController; // Riferimento al componente PlayerUIController
     private RagdollManager ragdollManager; // Riferimento al componente RagdollManager
-    private AudioSource audiosource; // Riferimento all'AudioSource
-    [SerializeField] private AudioClip clip; // Clip audio per il respiro
     public GameOverMenuManager gameOverMenuManager; // Riferimento al componente GameOverMenuManager
     #endregion
+
+    [Header("Audio Settings")]
+    #region Audio Settings
+    [SerializeField] private AudioSource breathingSource; // Riferimento all'AudioSource
+    [SerializeField] private AudioSource hitSource; // Riferimento all'AudioSource
+    [SerializeField] private AudioClip clipRespiro; // Clip audio per il respiro
+    [SerializeField] private AudioClip audioClipColpito; // Audio che viene riprodotto quando il personaggio viene colpito    
+    #endregion
+
 
     void Start()
     {
         // Init delle variabili
-        audiosource = gameObject.AddComponent<AudioSource>();
+        breathingSource = gameObject.AddComponent<AudioSource>();
+        hitSource = gameObject.AddComponent<AudioSource>();
         weaponClassManager = GetComponent<WeaponClassManager>();
         ragdollManager = GetComponent<RagdollManager>();
 
@@ -53,12 +61,16 @@ public class Player : MonoBehaviour
 
         health += amountHealth;
         sanitaMentale += amountSanita;
-        if (amountHealth < 0) sanitaMentale -= 10;
+        if (amountHealth < 0)
+        {
+            sanitaMentale -= 10;
+            PlayHitSound(); // Riproduci il suono quando subisce danni
+        }
         if (health <= 20) sanitaMentale -= 15;
 
         menteSana = sanitaMentale > 40;
         if (!menteSana) PlayBreathing();
-        else audiosource.Stop();
+        else breathingSource.Stop();
 
         if (health >= maxHealth) health = maxHealth;
         if (sanitaMentale < 0) sanitaMentale = 0;
@@ -73,7 +85,10 @@ public class Player : MonoBehaviour
     {
         if (health <= 0) // Se è appena morto
         {
-            audiosource.Stop();
+            if (breathingSource != null && breathingSource.isPlaying)
+            {
+                breathingSource.Stop(); // Ferma l'audio solo se è in riproduzione
+            }
             Ragdoll();
             StartCoroutine(TimeoutToGameOver());
             health = 0;
@@ -112,9 +127,19 @@ public class Player : MonoBehaviour
 
     private void PlayBreathing()
     {
-        if (clip == null || audiosource.isPlaying) return;
-        audiosource.loop = true;
-        audiosource.clip = clip;
-        if (!audiosource.isPlaying) audiosource.Play();
+        if (clipRespiro == null || breathingSource.isPlaying) return;  // Evita di riprodurre lo stesso audio se già in corso
+        breathingSource.loop = true;
+        breathingSource.clip = clipRespiro; // Usa la clip corretta
+        breathingSource.Play(); // Riproduci il suono del respiro
     }
+
+    private void PlayHitSound()
+    {
+        if (audioClipColpito != null)
+        {
+            hitSource.PlayOneShot(audioClipColpito); // Riproduci il suono di impatto
+        }
+    }
+
+
 }
