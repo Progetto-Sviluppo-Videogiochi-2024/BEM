@@ -103,10 +103,7 @@ public class WeaponClassManager : MonoBehaviour
         else if (index >= 0 && index < weaponsEquipable.Count)
         {
             // Controlla se un'arma è già equipaggiata
-            if (currentWeapon != null)
-            {
-                Destroy(currentWeapon);  // Rimuove l'arma attualmente equipaggiata
-            }
+            if (currentWeapon != null) Destroy(currentWeapon);  // Rimuove l'arma attualmente equipaggiata
 
             // Imposta l'arma corrente
             currentWeapon = weaponsEquipable[index].gameObject;
@@ -121,10 +118,7 @@ public class WeaponClassManager : MonoBehaviour
             currentWeaponIndex = index; // Aggiorna l'indice dell'arma corrente
 
             // Rimuovi eventuali componenti non necessari dall'arma
-            if (currentWeapon.TryGetComponent<ItemPickup>(out var itemPickup))
-            {
-                Destroy(itemPickup);  // Rimuove il componente ItemPickup se presente
-            }
+            if (currentWeapon.TryGetComponent<ItemPickup>(out var itemPickup)) Destroy(itemPickup);  // Rimuove il componente ItemPickup se presente
 
             SetCurrentWeapon(weaponsEquipable[index]);
         }
@@ -134,7 +128,7 @@ public class WeaponClassManager : MonoBehaviour
     {
         if (item.tagType == ItemTagType.Weapon)
         {
-            GameObject itemPrefab = (item as Weapon).prefab;
+            GameObject itemPrefab = (item as Weapon).prefab; // TODO: riscriverla
             if (weaponsEquipable.Contains(itemPrefab.GetComponent<WeaponManager>()))
             {
                 RemoveWeaponHand();
@@ -147,7 +141,7 @@ public class WeaponClassManager : MonoBehaviour
 
     private bool AlreadyEquippedRemoveHand(int index)
     {
-        if (index == currentWeaponIndex && currentWeapon != null) { RemoveWeaponHand(); return true; }
+        if (index == currentWeaponIndex && currentWeapon != null) { RemoveWeaponHand(); return true; } // Se era già equipaggiato, lo toglie dalla mano
         return false; // Se non era equipaggiato, ritorna false
     }
 
@@ -164,7 +158,7 @@ public class WeaponClassManager : MonoBehaviour
 
     public void SetCurrentWeapon(WeaponManager weapon)
     {
-        if (actions == null) actions = GetComponent<ActionStateManager>();
+        actions ??= GetComponent<ActionStateManager>();
         actions.SetWeapon(weapon);
     }
 
@@ -173,16 +167,8 @@ public class WeaponClassManager : MonoBehaviour
         if (weaponsEquipable.Count <= 1) return;
 
         weaponsEquipable[currentWeaponIndex].gameObject.SetActive(false);
-        if (direction < 0)
-        {
-            if (currentWeaponIndex == 0) currentWeaponIndex = weaponsEquipable.Count - 1;
-            else currentWeaponIndex--;
-        }
-        else
-        {
-            if (currentWeaponIndex == weaponsEquipable.Count - 1) currentWeaponIndex = 0;
-            else currentWeaponIndex++;
-        }
+        if (direction < 0) currentWeaponIndex = currentWeaponIndex == 0 ? weaponsEquipable.Count - 1 : currentWeaponIndex - 1;
+        else currentWeaponIndex = currentWeaponIndex == weaponsEquipable.Count - 1 ? 0 : currentWeaponIndex + 1;
         weaponsEquipable[currentWeaponIndex].gameObject.SetActive(true);
     }
 

@@ -212,10 +212,9 @@ public class InventoryManager : MonoBehaviour
     {
         if (item.tagType == ItemTagType.Weapon)
         {
-            var weaponEquipable = weaponClassManager.weaponsEquipable;
             var weaponManager = (item as Weapon).prefab.GetComponent<WeaponManager>();
             weaponsEquipable.Add(item);
-            if (!weaponEquipable.Contains(weaponManager)) weaponEquipable.Add(weaponManager);
+            if (!weaponClassManager.weaponsEquipable.Contains(weaponManager)) weaponClassManager.weaponsEquipable.Add(weaponManager);
             if (weaponsEquipable.Count == 1) weaponClassManager.TakeParametersAnimation(0);
             else if (weaponClassManager.currentWeapon == null) weaponClassManager.TakeParametersAnimation(weaponsEquipable.Count - 1);
             // Else if ho un'arma in mano => non fare nulla
