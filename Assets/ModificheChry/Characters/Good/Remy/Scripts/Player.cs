@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     [Header("Player Status")]
     #region Player Status
+    [HideInInspector] public bool IsLoading = false; // Flag per il caricamento dei dati, lo si usa nel caricamento dati e cambio scena
     [HideInInspector] public int maxHealth = 100; // Salute massima
     public int health; // Salute attuale
     public int sanitaMentale; // Salute mentale
@@ -27,12 +28,13 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        if (!SaveLoadSystem.IsLoading)
+        if (IsLoading)
         {
+            isDead = false;
             sanitaMentale = maxHealth;
             menteSana = true;
             health = maxHealth;
-            UpdateStatusPlayer(0, 0); // Aggiorna la UI con i valori iniziali
+            DebugLogger.Log($"Start Player: {health} {sanitaMentale} {isDead} {menteSana}");
         }
 
         weaponClassManager = GetComponent<WeaponClassManager>();
@@ -80,6 +82,7 @@ public class Player : MonoBehaviour
     {
         if (health <= 0) // Se è appena morto
         {
+            audiosource.Stop();
             Ragdoll();
             StartCoroutine(TimeoutToGameOver());
             health = 0;

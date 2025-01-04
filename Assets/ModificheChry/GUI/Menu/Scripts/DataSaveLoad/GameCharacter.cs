@@ -13,12 +13,14 @@ public class GameCharacter : MonoBehaviour, IBind<PlayerData>
         transform.SetPositionAndRotation(data.position, data.rotation);
         if (TryGetComponent(out Player player))
         {
+            player.IsLoading = data.IsLoading;
             player.health = data.health;
             player.sanitaMentale = data.sanitaMentale;
             player.isDead = data.isDead;
             player.menteSana = data.menteSana;
             player.transform.GetChild(0).SetPositionAndRotation(data.positionVcam, data.rotationVcam); // Set "CameraFollowPosition"
-            DebugLogger.Log($"Load Player: {player.health} {player.sanitaMentale} {player.isDead} {player.menteSana}");
+            player.UpdateStatusPlayer(0, 0); // Aggiorna la UI con i valori iniziali
+            DebugLogger.Log($"Bind Player: {player.health} {player.sanitaMentale} {player.isDead} {player.menteSana}");
         }
     }
 
@@ -29,6 +31,7 @@ public class GameCharacter : MonoBehaviour, IBind<PlayerData>
 
         if (TryGetComponent(out Player player))
         {
+            data.IsLoading = player.IsLoading;
             data.health = player.health;
             data.sanitaMentale = player.sanitaMentale;
             data.isDead = player.isDead;
@@ -45,6 +48,7 @@ public class GameCharacter : MonoBehaviour, IBind<PlayerData>
 public class PlayerData : ISaveable
 {
     [field: SerializeField] public SerializableGuid Id { get; set; } // ID univoco del giocatore
+    public bool IsLoading = false; // Flag per il caricamento dei dati, lo si usa nel caricamento dati e cambio scena
     public Vector3 position; // Posizione del giocatore
     public Quaternion rotation; // Rotazione del giocatore
     public int health; // Salute attuale

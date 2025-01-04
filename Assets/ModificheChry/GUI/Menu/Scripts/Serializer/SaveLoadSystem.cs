@@ -38,10 +38,9 @@ public interface IBind<TData> where TData : ISaveable
 
 public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
 {
-    [SerializeField] public GameData gameData;
-    [HideInInspector] public IDataService dataService;
-    private bool isLoading = false;
-    public static bool IsLoading { get; private set; } = false;
+    [SerializeField] public GameData gameData; // Dati di gioco
+    [HideInInspector] public IDataService dataService; // Servizio di salvataggio/caricamento dati
+    private bool isLoading = false; // Flag per il caricamento dei dati, lo si usa nel load dei dati
 
     protected override void Awake()
     {
