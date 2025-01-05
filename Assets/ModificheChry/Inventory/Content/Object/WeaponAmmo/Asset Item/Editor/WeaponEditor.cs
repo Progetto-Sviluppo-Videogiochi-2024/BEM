@@ -42,7 +42,7 @@ public class WeaponEditor : Editor
         weapon.prefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Weapon Prefab", "Prefab dell'arma, istanziato a run-time nel Pickup"), weapon.prefab, typeof(GameObject), true);
         EditorGUI.EndDisabledGroup();
 
-        weapon.weaponType = (Weapon.WeaponType)EditorGUILayout.EnumPopup(new GUIContent("Weapon Type", "Tipo di arma (Melee o Ranged)"), weapon.weaponType);
+        weapon.weaponType = (Weapon.WeaponType)EditorGUILayout.EnumPopup(new GUIContent("Weapon Type", "Tipo di arma (Pistola, Shotgun, Fucile, Sniper, ecc.)"), weapon.weaponType);
         weapon.rangeType = (Weapon.RangeType)EditorGUILayout.EnumPopup(new GUIContent("Range Type", "Tipo di raggio (Corto o Medio)"), weapon.rangeType);
         weapon.ammo = (Ammo)EditorGUILayout.ObjectField(new GUIContent("Ammo", "Munizioni dell'arma (se applicabile)"), weapon.ammo, typeof(Ammo), true);
         weapon.distance = EditorGUILayout.FloatField(new GUIContent("Distance", "Distanza massima di tiro dell'arma"), weapon.distance);

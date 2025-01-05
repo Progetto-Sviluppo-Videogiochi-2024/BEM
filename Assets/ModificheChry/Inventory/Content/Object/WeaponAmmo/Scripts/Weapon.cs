@@ -27,14 +27,18 @@ public class Weapon : Item // Weapon estende Item
 
     public enum WeaponType
     {
-        Melee, // Armi da mischia (coltelli, asce, mazze)
-        Ranged // Armi da fuoco (pistole, fucili)
+        None, // Nessun tipo di arma
+        Pistol, // Pistola
+        Shotgun, // Fucile a pompa
+        Rifle, // Fucile
+        Sniper // Cecchino (fucile di precisione)
     }
 
     public enum RangeType
     {
         ShortRange, // Corto raggio (pistole, fucili a pompa)
-        MediumRange // Medio raggio (fucili d'assalto)
+        MediumRange, // Medio raggio (fucili d'assalto)
+        LargeRange // Lungo raggio (fucili di precisione)
     }
 
     public void Initialize(WeaponData itemData)
