@@ -4,6 +4,7 @@ public class ActionStateManager : MonoBehaviour
 {
     [Header("States")]
     #region States
+    [HideInInspector] public bool isSwapping = false;
     public DefaultState defaultState = new();
     public ReloadState reloadState = new();
     public SwapState swapState = new();
@@ -20,12 +21,14 @@ public class ActionStateManager : MonoBehaviour
     [HideInInspector] public ActionBaseState currentState;
     [HideInInspector] public WeaponManager currentWeapon;
     [HideInInspector] public WeaponAmmo weaponAmmo;
+    [HideInInspector] public WeaponClassManager weaponClassManager;
     #endregion
 
     void Start()
     {
-        SwitchState(defaultState);
         animator = GetComponent<Animator>();
+        weaponClassManager = GetComponent<WeaponClassManager>();
+        SwitchState(defaultState);
     }
 
     void Update() => currentState.UpdateState(this);

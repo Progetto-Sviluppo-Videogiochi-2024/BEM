@@ -15,9 +15,10 @@ public class DefaultState : ActionBaseState
         }
         else if (CanSwap())
         {
-            scrollDirection = Input.mouseScrollDelta.y;
+            actions.isSwapping = true;
+            scrollDirection = -Input.mouseScrollDelta.y > 0 ? 1 : -1;
             actions.SwitchState(actions.swapState);
-            
+            actions.weaponClassManager.SwitchWeapon(scrollDirection);
         }
     }
 

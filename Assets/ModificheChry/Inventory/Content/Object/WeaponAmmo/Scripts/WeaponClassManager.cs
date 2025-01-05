@@ -2,29 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Item;
-using static Weapon;
 
 public class WeaponClassManager : MonoBehaviour
 {
     [Header("Equip Weapons")]
     #region Switching-Equip Weapons
-    [HideInInspector] public int currentWeaponIndex = -1;
-    [HideInInspector] public GameObject currentWeapon;
-    public Transform weaponHolder;
-    private bool isWeaponEquipFinished = true;
+    [HideInInspector] public int equipWeaponIndex; // Indice temporaneo dell'arma da equipaggiare // Per evitare che lo scroll non mi tolga l'arma dalla mano in AlreadyEquippedRemoveHand()
+    [HideInInspector] public int currentWeaponIndex = -1; // Indice dell'arma corrente
+    [HideInInspector] public GameObject currentWeapon; // Arma corrente
+    public Transform weaponHolder; // Posizione dell'arma equipaggiata
+    [HideInInspector] public bool isWeaponEquipFinished = true; // Verifica se l'animazione di equipaggiamento è finita
     #endregion
 
     [Header("References")]
     #region References
-    public Transform recoilFollowPosition;
-    [HideInInspector] public Animator animator;
+    public Transform recoilFollowPosition; // Posizione di rinculo dell'arma
+    [HideInInspector] public Animator animator; // Animator del personaggio
     #endregion
 
     [Header("References Scripts")]
     #region References Scripts
-    [HideInInspector] public ActionStateManager actions;
-    public List<WeaponManager> weaponsEquipable;
-    AimStateManager aim;
+    [HideInInspector] public ActionStateManager actions; // Riferimento allo script ActionStateManager
+    public List<WeaponManager> weaponsEquipable; // Lista delle armi equipaggiabili
+    AimStateManager aim; // Riferimento allo script AimStateManager
     #endregion
 
     private void Start()
@@ -39,9 +39,10 @@ public class WeaponClassManager : MonoBehaviour
         for (int i = 0; i < weaponsEquipable.Count; i++)
         {
             // Se il tasto premuto è tra 1 e 3 e l'arma associata a quello slot è impostata
-            if (isWeaponEquipFinished && Input.GetKeyDown(KeyCode.Alpha1 + i) && KeyCode.Alpha1 + i <= KeyCode.Alpha3 && weaponsEquipable[i] != null)
+            if (isWeaponEquipFinished && Input.GetKeyDown(KeyCode.Alpha1 + i) && KeyCode.Alpha1 + i <= KeyCode.Alpha4 && weaponsEquipable[i] != null)
             {
                 isWeaponEquipFinished = false;
+                equipWeaponIndex = i;
                 ActiveAnimationWeapon(i);
                 return;
             }
@@ -50,7 +51,7 @@ public class WeaponClassManager : MonoBehaviour
 
     public void ActiveAnimationWeapon(int index)
     {
-        var weapon = InventoryManager.instance.weaponsEquipable[index] as Weapon;
+        // var weapon = InventoryManager.instance.weaponsEquipable[index] as Weapon;
         string triggerAnim = "equipRanged";
         string boolAnim = "hasFireWeapon";
 
@@ -85,7 +86,7 @@ public class WeaponClassManager : MonoBehaviour
         else if (index >= 0 && index < weaponsEquipable.Count)
         {
             // Controlla se un'arma è già equipaggiata
-            if (currentWeapon != null) Destroy(currentWeapon);  // Rimuove l'arma attualmente equipaggiata
+            if (currentWeapon != null) { currentWeapon.SetActive(false); currentWeapon.transform.SetParent(null); }
 
             // Imposta l'arma corrente
             currentWeapon = weaponsEquipable[index].gameObject;
@@ -94,7 +95,7 @@ public class WeaponClassManager : MonoBehaviour
             // Attiva e posiziona la nuova arma
             currentWeapon.SetActive(true);
             currentWeapon.transform.SetParent(weaponHolder);
-            weaponsEquipable[index].SwitchWeapon();
+            weaponsEquipable[index].SetIdle();
 
             aim.SwitchState(aim.rifleIdleState);
             currentWeaponIndex = index; // Aggiorna l'indice dell'arma corrente
@@ -115,7 +116,6 @@ public class WeaponClassManager : MonoBehaviour
             {
                 RemoveWeaponHand();
                 animator.SetBool("hasFireWeapon", false);
-                animator.SetBool("hasCutWeapon", false);
                 weaponsEquipable.Remove(weaponManager);
             }
         }
@@ -147,14 +147,22 @@ public class WeaponClassManager : MonoBehaviour
     public void SwitchWeapon(float direction)
     {
         if (weaponsEquipable.Count <= 1) return;
-
         weaponsEquipable[currentWeaponIndex].gameObject.SetActive(false);
-        if (direction < 0) currentWeaponIndex = currentWeaponIndex == 0 ? weaponsEquipable.Count - 1 : currentWeaponIndex - 1;
-        else currentWeaponIndex = currentWeaponIndex == weaponsEquipable.Count - 1 ? 0 : currentWeaponIndex + 1;
-        weaponsEquipable[currentWeaponIndex].gameObject.SetActive(true);
+
+        equipWeaponIndex = currentWeaponIndex;
+        if (direction > 0) equipWeaponIndex = (equipWeaponIndex + 1) % weaponsEquipable.Count;
+        else equipWeaponIndex = (equipWeaponIndex - 1 + weaponsEquipable.Count) % weaponsEquipable.Count;
+        equipWeaponIndex = Mathf.Clamp(equipWeaponIndex, 0, weaponsEquipable.Count - 1);
+        // EquipWeapon(equipWeaponIndex);
     }
 
-    public void WeaponPutAway() => actions.SwitchState(actions.defaultState); // Invocata dall'animazione Rifle Put Away
+    public void SwapWeaponPutAway() { } // Invocata dall'animazione Rifle Put Away
 
-    public void WeaponPulledOut() => actions.SwitchState(actions.defaultState); // Invocata dall'animazione Rifle Pull Out
+    public void SwapWeaponPulledOut() // Invocata dall'animazione Rifle Pull Out
+    {
+        if (!actions.isSwapping) return;
+        EquipWeapon(equipWeaponIndex);
+        actions.SwitchState(actions.defaultState);
+        actions.isSwapping = false;
+    }
 }

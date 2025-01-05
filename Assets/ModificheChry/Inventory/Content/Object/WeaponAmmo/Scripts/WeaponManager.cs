@@ -5,6 +5,7 @@ public class WeaponManager : MonoBehaviour
 {
     [Header("Fire Rate")]
     #region Fire Rate
+    private bool isValidate = false;
     [SerializeField] float fireRate;
     float fireRateTimer;
     public LayerMask layerMask;
@@ -65,6 +66,7 @@ public class WeaponManager : MonoBehaviour
     void Start()
     {
         if (!Validate()) return;
+        isValidate = true;
 
         aim = GetComponentInParent<AimStateManager>();
         actions = GetComponentInParent<ActionStateManager>();
@@ -92,7 +94,7 @@ public class WeaponManager : MonoBehaviour
 
     void Update()
     {
-        if (!Validate()) return;
+        if (!isValidate) return;
 
         if (ShouldFire()) Fire();
         muzzleFlashLight.intensity = Mathf.Lerp(muzzleFlashLight.intensity, 0, lightReturnSpeed * Time.deltaTime);
@@ -105,18 +107,11 @@ public class WeaponManager : MonoBehaviour
         return true;
     }
 
-    public void SwitchWeapon() => SetIdle();
-
-    public void SetIdle()
-    {
-        transform.localPosition = weapon.IdlePosition;
-        transform.localRotation = weapon.IdleRotation;
-    }
+    public void SetIdle() => transform.SetLocalPositionAndRotation(weapon.IdlePosition, weapon.IdleRotation);
 
     public void SetAim()
     {
-        transform.localPosition = weapon.AimPosition;
-        transform.localRotation = weapon.AimRotation;
+        transform.SetLocalPositionAndRotation(weapon.AimPosition, weapon.AimRotation);
         transform.localScale = weapon.Scale;
     }
 
