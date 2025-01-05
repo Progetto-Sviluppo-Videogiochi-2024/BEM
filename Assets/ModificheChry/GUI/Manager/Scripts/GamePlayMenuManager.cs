@@ -41,7 +41,7 @@ public class GamePlayMenuManager : MonoBehaviour
         buttonResumeGame = panel.GetChild(5).GetComponent<Button>();
 
         gamePlayMenuCanvas.SetActive(false);
-        buttonCheckpoint.onClick.AddListener(ReloadLastCheckpoint);
+        buttonCheckpoint.onClick.AddListener(() => ReloadLastCheckpoint(buttonCheckpoint));
         // buttonLoadGame.onClick.AddListener(LoadGame); // Non necessaria
         buttonOptions.onClick.AddListener(OpenOptions);
         buttonResumeGame.onClick.AddListener(ReturnToGame);
@@ -93,9 +93,10 @@ public class GamePlayMenuManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    private void ReloadLastCheckpoint()
+    private void ReloadLastCheckpoint(Button buttonCheckpoint)
     {
-        // ResumeGame(); // Chiude il menu per caricare la UI del Checkpoint
+        buttonCheckpoint.interactable = SaveLoadSystem.Instance.dataService.DoesSaveExist("Checkpoint");
+        if (!buttonCheckpoint.interactable) return;
         confirmCheckpoint.SetActive(true);
         ToggleScripts(true);
         gamePlayMenuCanvas.SetActive(false); // Non invoco ToggleMenu perché si toglie il cursore poi
