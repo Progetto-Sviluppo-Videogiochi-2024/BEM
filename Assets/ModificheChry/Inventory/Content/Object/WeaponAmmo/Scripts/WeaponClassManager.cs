@@ -27,29 +27,33 @@ public class WeaponClassManager : MonoBehaviour
     AimStateManager aim; // Riferimento allo script AimStateManager
     #endregion
 
-    private void Start()
+    void Start()
     {
         animator = GetComponent<Animator>();
         actions = GetComponent<ActionStateManager>();
         aim = GetComponent<AimStateManager>();
     }
 
-    private void Update()
+    void Update()
     {
+        if (!isWeaponEquipFinished) return; // Se l'animazione di equipaggiamento non è finita, non fare nulla
+
         for (int i = 0; i < weaponsEquipable.Count; i++)
         {
             // Se il tasto premuto è tra 1 e 3 e l'arma associata a quello slot è impostata
-            if (isWeaponEquipFinished && Input.GetKeyDown(KeyCode.Alpha1 + i) && KeyCode.Alpha1 + i <= KeyCode.Alpha4 && weaponsEquipable[i] != null)
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i) && KeyCode.Alpha1 + i <= KeyCode.Alpha4 && weaponsEquipable[i] != null)
             {
+                if (!AlreadyEquippedOrNull(i)) { actions.SwitchState(actions.swapState); SwitchWeapon(i); return; } // Se l'arma non è già equipaggiata, la equipaggia
+                // Else if arma corrente == (null | arma da equipaggiare) do:
                 isWeaponEquipFinished = false;
                 equipWeaponIndex = i;
-                ActiveAnimationWeapon(i);
+                ToggleAnimationWeapon(i);
                 return;
             }
         }
     }
 
-    public void ActiveAnimationWeapon(int index)
+    public void ToggleAnimationWeapon(int index)
     {
         // var weapon = InventoryManager.instance.weaponsEquipable[index] as Weapon;
         string triggerAnim = "equipRanged";
@@ -82,8 +86,8 @@ public class WeaponClassManager : MonoBehaviour
 
     public void EquipWeapon(int index)
     {
-        if (AlreadyEquippedRemoveHand(index)) return; // Se l'arma è già equipaggiata, la toglie dalla mano
-        else if (index >= 0 && index < weaponsEquipable.Count)
+        if (AlreadyEquippedOrNull(index) && currentWeapon != null) RemoveWeaponHand(); // Se l'arma è già equipaggiata, la toglie dalla mano
+        else if (index >= 0 && index < weaponsEquipable.Count) // Se non è equipaggiata e l'indice è valido, la equipaggia
         {
             // Controlla se un'arma è già equipaggiata
             if (currentWeapon != null) { currentWeapon.SetActive(false); currentWeapon.transform.SetParent(null); }
@@ -121,11 +125,7 @@ public class WeaponClassManager : MonoBehaviour
         }
     }
 
-    private bool AlreadyEquippedRemoveHand(int index)
-    {
-        if (index == currentWeaponIndex && currentWeapon != null) { RemoveWeaponHand(); return true; } // Se era già equipaggiato, lo toglie dalla mano
-        return false; // Se non era equipaggiato, ritorna false
-    }
+    private bool AlreadyEquippedOrNull(int index) => currentWeaponIndex == -1 || index == currentWeaponIndex;
 
     private void RemoveWeaponHand()
     {
@@ -147,6 +147,7 @@ public class WeaponClassManager : MonoBehaviour
     public void SwitchWeapon(float direction)
     {
         if (weaponsEquipable.Count <= 1) return;
+        actions.isSwapping = true;
         weaponsEquipable[currentWeaponIndex].gameObject.SetActive(false);
 
         equipWeaponIndex = currentWeaponIndex;
