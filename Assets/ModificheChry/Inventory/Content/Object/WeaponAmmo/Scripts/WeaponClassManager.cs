@@ -53,13 +53,8 @@ public class WeaponClassManager : MonoBehaviour
         var weapon = InventoryManager.instance.weaponsEquipable[index] as Weapon;
         string triggerAnim = "equipRanged";
         string boolAnim = "hasFireWeapon";
-        int weaponType = 
-            weapon.weaponType == WeaponType.Pistol ? 1 : 
-            weapon.weaponType == WeaponType.Shotgun ? 2 : 
-            weapon.weaponType == WeaponType.Rifle ? 3 : 4;
 
         animator.SetTrigger(triggerAnim);
-        animator.SetInteger("weaponType", weaponType);
         if (animator.GetBool(boolAnim) && animator.GetBool("aiming")) // Se sto mirando con l'arma da fuoco
         {
             animator.SetBool("aiming", false); // Disattiva la mira

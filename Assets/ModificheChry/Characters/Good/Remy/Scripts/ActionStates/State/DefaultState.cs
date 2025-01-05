@@ -17,6 +17,7 @@ public class DefaultState : ActionBaseState
         {
             scrollDirection = Input.mouseScrollDelta.y;
             actions.SwitchState(actions.swapState);
+            
         }
     }
 
