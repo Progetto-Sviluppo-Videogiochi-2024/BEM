@@ -1,7 +1,7 @@
 using UnityEngine;
 using DialogueEditor;
 
-public class CollisioneMuroOrg : NPCDialogueBase
+public class TriggerDialogue : NPCDialogueBase
 {
     private bool hasDialogueBeenShown = false;
 
