@@ -97,6 +97,7 @@ public class ItemPickup : MonoBehaviour
         }
 
         cameraPosition.localPosition = targetPosition; // Assicurati che la posizione finale sia precisa
+        gameObject.SetActive(false);
     }
 
     private void MoveCamerPickup(Transform cameraPosition) => StartCoroutine(MoveCameraCoroutine(cameraPosition, 2f));
