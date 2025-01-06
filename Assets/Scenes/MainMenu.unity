@@ -227,7 +227,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -875, y: -449}
+  m_AnchoredPosition: {x: -884, y: -449}
   m_SizeDelta: {x: 300, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &25700436
@@ -614,7 +614,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -875, y: 482}
+  m_AnchoredPosition: {x: -896, y: 482}
   m_SizeDelta: {x: 300, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &211440181
@@ -794,6 +794,7 @@ MonoBehaviour:
         Part2: 0
         Part3: 0
         Part4: 0
+      IsLoading: 0
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 0}
       health: 0
@@ -3111,7 +3112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 844, y: -447}
+  m_AnchoredPosition: {x: 865, y: -447}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1768318714
@@ -3968,6 +3969,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 360354097}
     m_Modifications:
+    - target: {fileID: 1083812900069633976, guid: 544bb2e11cde7a640a2d84b179eb6a09, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3961632885637313676, guid: 544bb2e11cde7a640a2d84b179eb6a09, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685849793372914610, guid: 544bb2e11cde7a640a2d84b179eb6a09, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8128598993346528388, guid: 544bb2e11cde7a640a2d84b179eb6a09, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3975,6 +3988,10 @@ PrefabInstance:
     - target: {fileID: 8168057982956538946, guid: 544bb2e11cde7a640a2d84b179eb6a09, type: 3}
       propertyPath: m_Name
       value: OptionUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8168057982956538946, guid: 544bb2e11cde7a640a2d84b179eb6a09, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8668600649603567493, guid: 544bb2e11cde7a640a2d84b179eb6a09, type: 3}
       propertyPath: m_Pivot.x

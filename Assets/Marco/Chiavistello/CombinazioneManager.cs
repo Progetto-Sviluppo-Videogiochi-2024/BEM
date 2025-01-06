@@ -1,5 +1,5 @@
 using UnityEngine;
-using TMPro;  // Importa TextMeshPro
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
@@ -12,8 +12,8 @@ public class CombinazioneManager : MonoBehaviour
     public GameObject CombinazioneCanvas; // Il canvas che contiene la UI della Combinazione
     public Button CloseCombinazioneUI; // Il pulsante per chiudere la UI della Combinazione
     private Transform player; // Il giocatore
-    [SerializeField] private AudioSource combinazioneSource; // Riferimento all'AudioSource
-    [SerializeField] private AudioClip combinazioneClip; // Audio che viene riprodotto quando la combinazione è corretta
+    // [SerializeField] private AudioSource combinazioneSource; // Riferimento all'AudioSource
+    // [SerializeField] private AudioClip combinazioneClip; // Audio che viene riprodotto quando la combinazione è corretta
     public GameObject oggettoDaDisattivare; // Oggetto da disattivare quando la combinazione è corretta
     #endregion
 
@@ -28,7 +28,7 @@ public class CombinazioneManager : MonoBehaviour
 
     void Start()
     {
-        combinazioneSource = gameObject.AddComponent<AudioSource>();
+        // combinazioneSource = gameObject.AddComponent<AudioSource>();
         player = FindAnyObjectByType<Player>().transform;
         CombinazioneCanvas.SetActive(false);
         CloseCombinazioneUI.onClick.AddListener(() => { ToggleCombinazione(false); RemoveButtonFocus(); });
@@ -60,38 +60,16 @@ public class CombinazioneManager : MonoBehaviour
         if (dropdown0.value == 7 && dropdown1.value == 0 && dropdown2.value == 7 && dropdown3.value == 0)
         {
             sbloccato = true;
-            Debug.Log("Combinazione corretta! Sbloccato: " + sbloccato);
-
-            // Riproduci il suono
-            PlaySound();
-
-            // Chiudi il canvas della combinazione per far si che il timescale e altro si riattivino correttamente
+            // PlaySound();
             ToggleCombinazione(false);
 
-            // Disattiva la porta o l'oggetto passato come riferimento
             if (oggettoDaDisattivare != null)
             {
                 oggettoDaDisattivare.SetActive(false);
             }
         }
-        else
-        {
-            sbloccato = false;
-            Debug.Log("Combinazione errata. Sbloccato: " + sbloccato);
-        }
+        else sbloccato = false;
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player")) isInRange = true;
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player")) isInRange = false;
-    }
-
-    
 
     private void ToggleCombinazione(bool isOpen)
     {
@@ -122,12 +100,21 @@ public class CombinazioneManager : MonoBehaviour
         return false; // Non stai cliccando su un elemento del Canvas
     }
 
-    private void PlaySound()
+    // private void PlaySound()
+    // {
+    //     if (combinazioneClip != null)
+    //     {
+    //         combinazioneSource.PlayOneShot(combinazioneClip);
+    //     }
+    // }
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (combinazioneClip != null)
-        {
-            combinazioneSource.PlayOneShot(combinazioneClip);
-        }
+        if (other.CompareTag("Player")) isInRange = true;
     }
 
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player")) isInRange = false;
+    }
 }
