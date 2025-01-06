@@ -6,4 +6,6 @@ public class EscursionistiScript : NPCDialogueBase
     {
         StartConversation(conversations[0]);
     }
+
+    protected override void EndDialogue() { }
 }

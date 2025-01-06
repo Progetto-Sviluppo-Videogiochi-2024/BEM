@@ -116,15 +116,6 @@ public class Player : MonoBehaviour
         !BooleanAccessor.istance.GetBoolFromThis("cocaColaDone") && // Se non ho ancora completato la task fucile
         ConversationManager.Instance.hasClickedEnd; // Se ho finito la conversazione con UB (per evitare che si ripeta a ogni collisione col muro)
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        NPCConversation conversation = null;
-        if (hit.gameObject.CompareTag("Wall") && CanReadDE()) conversation = conversations[0];
-        if (hit.gameObject.CompareTag("WallConfine")) conversation = conversations[1];
-
-        if (conversation != null) ConversationManager.Instance.StartConversation(conversation);
-    }
-
     private void PlayBreathing()
     {
         if (clipRespiro == null || breathingSource.isPlaying) return;  // Evita di riprodurre lo stesso audio se già in corso
@@ -141,5 +132,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        NPCConversation conversation = null;
+        if (hit.gameObject.CompareTag("Wall") && CanReadDE()) conversation = conversations[0];
+        if (hit.gameObject.CompareTag("WallConfine")) conversation = conversations[1];
 
+        if (conversation != null) ConversationManager.Instance.StartConversation(conversation);
+    }
 }

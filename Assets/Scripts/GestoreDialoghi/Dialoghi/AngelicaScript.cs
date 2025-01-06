@@ -8,4 +8,6 @@ public class AngelicaScript : NPCDialogueBase
         // Logica per Angelica, semplicemente avvia il dialogo
         StartConversation(conversations[0]);
     }
+
+    protected override void EndDialogue() { }
 }

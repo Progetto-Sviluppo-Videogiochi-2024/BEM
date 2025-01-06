@@ -21,6 +21,7 @@ public abstract class NPCDialogueBase : MonoBehaviour
     #endregion
 
     protected abstract void StartDialogue(); // Metodo astratto per la logica personalizzata (override nelle classi derivate)
+    protected abstract void EndDialogue(); // Metodo astratto per la logica personalizzata (override nelle classi derivate)
 
     protected virtual void Update()
     {
@@ -32,6 +33,7 @@ public abstract class NPCDialogueBase : MonoBehaviour
             // print("NPCDialogueBase.Update 1.if: " + gameObject.name);
             GestoreScena.ChangeCursorActiveStatus(false, "NPCDialogueBase.update: " + gameObject.transform.parent.name);
             player.GetComponent<MovementStateManager>().enabled = true;
+            EndDialogue();
         }
 
         if (isInRange && !isConversationActive && Input.GetKeyDown(KeyCode.Space))

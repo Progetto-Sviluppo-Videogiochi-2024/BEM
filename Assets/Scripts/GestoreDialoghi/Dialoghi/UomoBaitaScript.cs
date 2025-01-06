@@ -32,4 +32,6 @@ public class UomoBaitaScript : NPCDialogueBase
             Debug.LogError("BoolAccessor non è stato inizializzato.");
         }
     }
+
+    protected override void EndDialogue() { }
 }

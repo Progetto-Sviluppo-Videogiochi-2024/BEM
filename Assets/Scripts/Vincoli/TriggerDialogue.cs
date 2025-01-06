@@ -34,4 +34,6 @@ public class TriggerDialogue : NPCDialogueBase
             StartDialogue();
         }
     }
+
+    protected override void EndDialogue() { }
 }

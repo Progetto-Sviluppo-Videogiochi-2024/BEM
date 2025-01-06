@@ -32,5 +32,7 @@ public class JackobScript : NPCDialogueBase
         }
     }
 
+    protected override void EndDialogue() { }
+
     public void ResetFirstTime() => isFirstTime = false;
 }

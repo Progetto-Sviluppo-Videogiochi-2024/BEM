@@ -34,6 +34,8 @@ public class BooleanAccessor : MonoBehaviour
         { "postHitBallJA", false }, // Se il giocatore ha finito il dialogo Post-HitBall di Angelica e Jacob in scena3
         { "postHitBallSG", false }, // Se il giocatore ha finito il dialogo Post-HitBall di Stefano e Gaia in scena3
         { "videoMutant", false }, // Se il giocatore ha finito il dialogo del video del mutante in scena3
+        { "entryGhostCity", false }, // Se il giocatore ha finito il dialogo di entrata in GhostCity in scena3
+        { "firstMeetClara", false} // Se il giocatore ha finito il primo dialogo di Clara in scena3
     };
     #endregion
 

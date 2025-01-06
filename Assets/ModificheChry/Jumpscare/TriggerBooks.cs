@@ -106,6 +106,8 @@ public class TriggerBooks : NPCDialogueBase
         PlayerPrefs.SetInt("nInteractionBookShelf", PlayerPrefs.GetInt("nInteractionBookShelf") + 1);
     }
 
+    protected override void EndDialogue() { }
+
     private IEnumerator SwitchCameraWithDelay(CinemachineVirtualCamera fromCam, CinemachineVirtualCamera toCam)
     {
         isTransitioning = true;

@@ -29,4 +29,6 @@ public class GaiaScript : NPCDialogueBase
             Debug.LogError("BooleanAccessor.istance non è stato inizializzato.");
         }
     }
+
+    protected override void EndDialogue() { }
 }

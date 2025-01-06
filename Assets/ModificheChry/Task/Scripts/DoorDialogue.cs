@@ -41,6 +41,8 @@ public class DoorDialogue : NPCDialogueBase
         }
     }
 
+    protected override void EndDialogue() { }
+
     private void OnYesButtonClicked()
     {
         GestoreScena.ChangeCursorActiveStatus(false, "door.yesButton");
