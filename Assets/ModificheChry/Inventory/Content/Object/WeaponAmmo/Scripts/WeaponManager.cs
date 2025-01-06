@@ -27,9 +27,9 @@ public class WeaponManager : MonoBehaviour
 
     [Header("Muzzle Flash Properties")]
     #region Muzzle Flash Properties
-    Light muzzleFlashLight;
+    //Light muzzleFlashLight;
     ParticleSystem muzzleFlashParticles;
-    float lightIntensity;
+    //float lightIntensity;
     const float lightReturnSpeed = 20;
     #endregion
 
@@ -79,9 +79,9 @@ public class WeaponManager : MonoBehaviour
     {
         bulletSpawnPoint = gameObject.transform.Find("BulletSpawnPoint");
         muzzleFlashParticles = bulletSpawnPoint.GetComponentInChildren<ParticleSystem>();
-        muzzleFlashLight = bulletSpawnPoint.GetComponentInChildren<Light>();
-        lightIntensity = 2;
-        muzzleFlashLight.intensity = 0;
+        //muzzleFlashLight = bulletSpawnPoint.GetComponentInChildren<Light>();
+        //lightIntensity = 2;
+        //muzzleFlashLight.intensity = 0;
 
         damage = weapon.ammo.damageAmmo;
         bulletPrefab = weapon.ammo.prefab;
@@ -97,7 +97,7 @@ public class WeaponManager : MonoBehaviour
         if (!isValidate) return;
 
         if (ShouldFire()) Fire();
-        muzzleFlashLight.intensity = Mathf.Lerp(muzzleFlashLight.intensity, 0, lightReturnSpeed * Time.deltaTime);
+        //muzzleFlashLight.intensity = Mathf.Lerp(muzzleFlashLight.intensity, 0, lightReturnSpeed * Time.deltaTime);
     }
 
     private bool Validate()
@@ -160,7 +160,7 @@ public class WeaponManager : MonoBehaviour
     void TriggerMuzzleFlash()
     {
         muzzleFlashParticles.Play();
-        muzzleFlashLight.intensity = lightIntensity;
+        //muzzleFlashLight.intensity = lightIntensity;
     }
 
     private bool IsClickingOnInteractiveObject()
