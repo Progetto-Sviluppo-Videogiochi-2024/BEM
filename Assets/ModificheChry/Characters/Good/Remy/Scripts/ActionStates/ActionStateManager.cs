@@ -14,6 +14,7 @@ public class ActionStateManager : MonoBehaviour
     #region References
     [HideInInspector] public Animator animator;
     [HideInInspector] AudioSource audioSource;
+    public AudioClip emptyAmmoSound; // Suono quando spara senza munizioni
     #endregion
 
     [Header("References Scripts")]
@@ -56,5 +57,21 @@ public class ActionStateManager : MonoBehaviour
         currentWeapon = weapon;
         audioSource = weapon.audioSource;
         weaponAmmo = weapon.ammo;
+    }
+
+    public void SetAmmo(Ammo ammo)
+    {
+        // Assicurati che maxAmmo non sia zero per evitare errori di calcolo => non ho raccolto munizioni per quell'arma
+        if (ammo.maxAmmo <= 0)
+        {
+            weaponAmmo.extraAmmo = 0;
+            weaponAmmo.currentAmmo = 0;
+            print($"{currentWeapon.weapon.name} non ha munizioni: extraAmmo = {weaponAmmo.extraAmmo}, currentAmmo = {weaponAmmo.currentAmmo}");
+            return;
+        }
+
+        weaponAmmo.currentAmmo = Mathf.Clamp(ammo.nAmmo, 0, ammo.maxAmmo); // currentAmmo \in [0, maxAmmo]
+        weaponAmmo.extraAmmo = Mathf.Max(ammo.maxAmmo - weaponAmmo.currentAmmo, 0); // extraAmmo \in [0, maxAmmo - currentAmmo]
+        print($"{currentWeapon.weapon.name} ha {weaponAmmo.currentAmmo} munizioni e {weaponAmmo.extraAmmo} munizioni extra");
     }
 }

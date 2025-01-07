@@ -43,7 +43,7 @@ public class PlayerUIController : MonoBehaviour
         ammoText.enabled = true;
     }
 
-    public void UpdateAmmoCount(int currentAmmo) => ammoText.text = $"{currentAmmo} / {extraAmmo}"; // Formato "left / extra"
+    public void UpdateAmmoCount(int currentAmmo) => ammoText.text = $"{currentAmmo} / {extraAmmo}"; // Formato "left (nel caricatore) / extra"
 
     public void UpdateBloodSplatter(int health, int maxHealth)
     {

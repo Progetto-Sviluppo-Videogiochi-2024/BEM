@@ -18,8 +18,14 @@ public class WeaponAmmo : MonoBehaviour
     {
         if (data == null) return;
         clipSize = data.nAmmo;
-        currentAmmo = clipSize;
-        extraAmmo = data.maxAmmo - data.nAmmo;
+    }
+
+    public void UpdateAmmo(Ammo ammo)
+    {
+        data = ammo;
+        clipSize = ammo.nAmmo;
+        currentAmmo = ammo.nAmmo;
+        extraAmmo = ammo.maxAmmo - ammo.nAmmo;
     }
 
     public void Reload()

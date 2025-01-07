@@ -252,6 +252,21 @@ public class InventoryManager : MonoBehaviour
         return null; // Non dovrebbe mai accadere credo
     }
 
+    public WeaponAmmo SearchWeapon(Ammo ammoPickup)
+    {
+        foreach (var weapon in weaponClassManager.weaponsEquipable)
+        {
+            if (weapon.weapon.ammo.name == ammoPickup.name) return weapon.gameObject.GetComponent<WeaponAmmo>();
+        }
+        return null; // Accade sse non ho l'arma equipaggiata oppure non ho raccolto munizioni per quell'arma
+    }
+
+    public void SetWeaponAmmo(Weapon weapon)
+    {
+        var weaponAmmo = weapon.prefab.GetComponent<WeaponAmmo>();
+        
+    }
+
     public int GetQtaItem(string ItemName)
     {
         foreach (var item in items)

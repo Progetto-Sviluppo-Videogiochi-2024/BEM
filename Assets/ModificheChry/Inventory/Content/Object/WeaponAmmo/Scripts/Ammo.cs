@@ -1,3 +1,5 @@
+using System;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Inventory/Create New Ammo")]
@@ -28,5 +30,15 @@ public class Ammo : Item
         nAmmo = ammoData.nAmmo;
         maxAmmo = ammoData.maxAmmo;
         damageAmmo = ammoData.damageAmmo;
+    }
+
+    private int GetAmmoAmountFromDescription()
+    {
+        // Usa una regex per catturare il primo numero nella stringa
+        Match match = Regex.Match(description, @"(\d+)\s+munizioni");
+        if (match.Success) return int.Parse(match.Groups[1].Value);
+
+        // Se nessun numero viene trovato, ritorna 0
+        throw new ArgumentException("Description not formatted correctly for ammo pickup: " + description);
     }
 }

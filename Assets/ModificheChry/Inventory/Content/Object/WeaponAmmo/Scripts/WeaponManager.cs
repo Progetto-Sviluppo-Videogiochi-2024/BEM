@@ -30,7 +30,7 @@ public class WeaponManager : MonoBehaviour
     //Light muzzleFlashLight;
     ParticleSystem muzzleFlashParticles;
     //float lightIntensity;
-    const float lightReturnSpeed = 20;
+    // const float lightReturnSpeed = 20;
     #endregion
 
     [Header("Enemy Properties")]
@@ -87,7 +87,7 @@ public class WeaponManager : MonoBehaviour
         bulletPrefab = weapon.ammo.prefab;
 
         ammo = GetComponent<WeaponAmmo>();
-        ammo.data = weapon.ammo;
+        ammo.data ??= weapon.ammo;
 
         audioSource = GetComponent<AudioSource>();
     }
@@ -120,7 +120,7 @@ public class WeaponManager : MonoBehaviour
         fireRateTimer += Time.deltaTime;
         if (aim.currentState == aim.rifleIdleState) return false; // Se sta in idle con l'arma, non sparare
         if (fireRateTimer < fireRate) return false; // Se il timer non è ancora scaduto, non sparare
-        if (ammo.currentAmmo == 0) return false; // Se le munizioni sono finite, non sparare
+        if (ammo.currentAmmo == 0) { audioSource.PlayOneShot(actions.emptyAmmoSound); return false; } // Se le munizioni sono finite, non sparare e riproduci la SFX di munizioni finite
         if (actions.currentState == actions.reloadState) return false; // Se si sta ricaricando, non sparare
         if (actions.currentState == actions.swapState) return false; // Se si sta cambiando arma, non sparare
         if (EventSystem.current.IsPointerOverGameObject()) return false; // Se il mouse è sopra un UI, non sparare
