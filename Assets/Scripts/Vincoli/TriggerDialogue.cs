@@ -21,6 +21,7 @@ public class TriggerDialogue : NPCDialogueBase
         // Reimposta lo stato della conversazione e riabilita i movimenti
         isConversationActive = false;
         player.GetComponent<MovementStateManager>().enabled = true;
+        GestoreScena.ChangeCursorActiveStatus(false, "TriggerDialogue");
     }
 
     protected override void OnTriggerEnter(Collider other)

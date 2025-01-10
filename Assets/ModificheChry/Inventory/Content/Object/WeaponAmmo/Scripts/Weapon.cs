@@ -7,16 +7,12 @@ public class Weapon : Item // Weapon estende Item
     public GameObject prefab; // Prefab dell'arma
     public WeaponType weaponType; // Tipo di arma (da mischia, da fuoco)
     public RangeType rangeType; // Tipo di raggio (corto, medio)
-    public Ammo ammo; // Munizioni dell'arma (se applicabile)
+    public Ammo ammo; // Munizioni dell'arma
+    public int bulletConsumed; // Munizioni consumate
     public float distance; // Distanza massima di tiro dell'arma
     public bool semiAuto; // Se l'arma è semiautomatica (cioè spara un colpo per volta)
     public bool isThrowable; // Se l'arma è da lancio (coltelli, bottiglie)
-
-    [Header("Audio Properties")]
-    public AudioClip fireSound; // Suono di sparo
-    public AudioClip magInSound; // Suono di inserimento del caricatore
-    public AudioClip magOutSound; // Suono di estrazione del caricatore
-    public AudioClip releaseSlideSound; // Suono di rilascio del caricatore
+    public bool isLoadingSlot; // Flag per il caricamento dello slot
 
     [Header("Positioning Weapon in Hands")]
     public Vector3 IdlePosition; // Posizione dell'arma equipaggiata
@@ -41,25 +37,45 @@ public class Weapon : Item // Weapon estende Item
         LargeRange // Lungo raggio (fucili di precisione)
     }
 
-    public void Initialize(WeaponData itemData)
+    public void Initialize(WeaponData weaponData)
     {
-        base.Initialize(itemData);
-        if (itemData is not WeaponData weaponData) return;
-        prefab = Resources.Load<GameObject>(weaponData.prefabName);
+        nameItem = weaponData.nameItem;
+        description = weaponData.description;
+        tagType = weaponData.tagType;
+        value = weaponData.value;
+        valueSanita = weaponData.valueSanita;
+        effectType = weaponData.effectType;
+        weight = weaponData.weight;
+        ingredientsRecipe = weaponData.ingredientsRecipe;
+        qtaIngredientsRecipe = weaponData.qtaIngredientsRecipe;
+        craftItem = !string.IsNullOrEmpty(weaponData.craftItem) ? ItemManager.Instance.GetItemByName(weaponData.craftItem) : null;
+        isUsable = weaponData.isUsable;
+        isShooting = weaponData.isShooting;
+        isPickUp = weaponData.isPickUp;
+        canDestroy = weaponData.canDestroy;
+        isInCraft = weaponData.isInCraft;
+        isStackable = weaponData.isStackable;
+        inventorySectionType = weaponData.inventorySectionType;
+        own = weaponData.own;
+        qta = weaponData.qta;
+        var sprites = SpriteManager.Instance.GetSpritesByObjectName(nameItem);
+        icon = sprites.icon;
+        image = sprites.image;
+        // Prefab glielo passo a WeaponManager di ogni arma perché Json non li salva e penso sia il metodo più veloce
         weaponType = weaponData.weaponType;
         rangeType = weaponData.rangeType;
-        ammo = Resources.Load<Ammo>(weaponData.ammoName);
+        ammo = !string.IsNullOrEmpty(weaponData.ammoName) ? ItemManager.Instance.GetItemByName(weaponData.ammoName) as Ammo : null;
         distance = weaponData.distance;
         semiAuto = weaponData.semiAuto;
         isThrowable = weaponData.isThrowable;
-        fireSound = Resources.Load<AudioClip>(weaponData.fireSoundPath);
-        magInSound = Resources.Load<AudioClip>(weaponData.magInSoundPath);
-        magOutSound = Resources.Load<AudioClip>(weaponData.magOutSoundPath);
-        releaseSlideSound = Resources.Load<AudioClip>(weaponData.releaseSlideSoundPath);
         IdlePosition = weaponData.IdlePosition;
         IdleRotation = weaponData.IdleRotation;
         AimPosition = weaponData.AimPosition;
         AimRotation = weaponData.AimRotation;
         Scale = weaponData.Scale;
+        isLoadingSlot = true;
+        bulletConsumed = weaponData.bulletConsumed;
     }
+
+    public void GetUpdateWAmmo(Item item) => prefab.GetComponent<WeaponAmmo>().UpdateAmmo(item as Ammo, true);
 }

@@ -108,7 +108,6 @@ public class WeaponClassManager : MonoBehaviour
             if (currentWeapon.TryGetComponent<ItemPickup>(out var itemPickup)) Destroy(itemPickup);  // Rimuove il componente ItemPickup se presente
 
             SetCurrentWeapon(weaponsEquipable[index]);
-            SetCurrentAmmo(weaponsEquipable[index]);
         }
     }
 
@@ -143,12 +142,6 @@ public class WeaponClassManager : MonoBehaviour
     {
         actions ??= GetComponent<ActionStateManager>();
         actions.SetWeapon(weapon);
-    }
-
-    public void SetCurrentAmmo(WeaponManager weapon)
-    {
-        actions ??= GetComponent<ActionStateManager>();
-        actions.SetAmmo(weapon.weapon.ammo);
     }
 
     public void SwitchWeapon(float direction)

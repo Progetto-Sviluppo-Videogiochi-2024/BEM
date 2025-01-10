@@ -5,30 +5,36 @@ public class WeaponManager : MonoBehaviour
 {
     [Header("Fire Rate")]
     #region Fire Rate
-    private bool isValidate = false;
-    [SerializeField] float fireRate;
-    float fireRateTimer;
-    public LayerMask layerMask;
+    public LayerMask layerMask; // LayerMask per il raggio di sparo
+    private bool isEmptyAmmoSoundPlayed = false; // Flag per evitare spam della SFX
+    private int bulletConsumed = 0; // Munizioni consumate
+    private bool isValidate = false; // Flag per validare lo script
+    [SerializeField] float fireRate; // Tempo tra uno sparo e l'altro
+    float fireRateTimer; // Timer per il tempo tra uno sparo e l'altro
     #endregion
 
     [Header("Bullet Properties")]
     #region Bullet Properties
-    [HideInInspector] private GameObject bulletPrefab;
-    [HideInInspector] private Transform bulletSpawnPoint;
-    [SerializeField] float bulletVelocity;
-    [SerializeField] int bulletsPerShot;
-    [HideInInspector] public float damage;
+    [SerializeField] private GameObject bulletPrefab; // Prefab del proiettile
+    [HideInInspector] private Transform bulletSpawnPoint; // Punto di spawn del proiettile
+    [SerializeField] float bulletVelocity; // Velocità del proiettile
+    [SerializeField] int bulletsPerShot; // Numero di proiettili sparati per colpo
+    [HideInInspector] public float damage; // Danno del proiettile
     #endregion
 
     [Header("Audio Properties")]
     #region Audio Properties
-    [HideInInspector] public AudioSource audioSource;
+    public AudioClip fireSound; // Suono di sparo
+    public AudioClip magInSound; // Suono di inserimento del caricatore
+    public AudioClip magOutSound; // Suono di estrazione del caricatore
+    public AudioClip releaseSlideSound; // Suono di rilascio del caricatore
+    [HideInInspector] public AudioSource audioSource; // Sorgente audio
     #endregion
 
     [Header("Muzzle Flash Properties")]
     #region Muzzle Flash Properties
     //Light muzzleFlashLight;
-    ParticleSystem muzzleFlashParticles;
+    ParticleSystem muzzleFlashParticles; // Particelle del flash del proiettile
     //float lightIntensity;
     // const float lightReturnSpeed = 20;
     #endregion
@@ -38,26 +44,21 @@ public class WeaponManager : MonoBehaviour
     public float enemykickBackForce = 100;
     #endregion
 
-    // [Header("Animation Rigging Properties")]
-    // #region Animation Rigging Properties
-    // [HideInInspector] public Transform leftHandTarget;
-    // [HideInInspector] public Transform leftHandHint;
-    // #endregion
-
     [Header("References Scripts")]
     #region References
-    [HideInInspector] public WeaponAmmo ammo;
-    WeaponBloom bloom;
-    AimStateManager aim;
-    ActionStateManager actions;
-    WeaponRecoil recoil;
-    WeaponClassManager weaponClassManager;
-    [HideInInspector] public Weapon weapon;
+    [HideInInspector] public WeaponAmmo ammo; // Riferimento allo script WeaponAmmo
+    WeaponBloom bloom; // Riferimento allo script WeaponBloom
+    AimStateManager aim; // Riferimento allo script AimStateManager
+    ActionStateManager actions; // Riferimento allo script ActionStateManager
+    WeaponRecoil recoil; // Riferimento allo script WeaponRecoil
+    [HideInInspector] public WeaponClassManager weaponClassManager; // Riferimento allo script WeaponClassManager
+    [HideInInspector] public Weapon weapon; // Riferimento allo script Weapon
     #endregion
 
     private void Awake()
     {
         weapon = GetComponent<ItemController>().item as Weapon;
+        bulletConsumed = weapon.bulletConsumed;
         weaponClassManager = FindAnyObjectByType<WeaponClassManager>();
         recoil = GetComponent<WeaponRecoil>();
         recoil.recoilFollowPosition = weaponClassManager.recoilFollowPosition;
@@ -75,6 +76,11 @@ public class WeaponManager : MonoBehaviour
         fireRateTimer = fireRate;
     }
 
+    void OnBecameVisible()
+    {
+        if (!isValidate && Validate()) { Start(); OnEnable(); }
+    }
+
     private void OnEnable()
     {
         bulletSpawnPoint = gameObject.transform.Find("BulletSpawnPoint");
@@ -84,9 +90,8 @@ public class WeaponManager : MonoBehaviour
         //muzzleFlashLight.intensity = 0;
 
         damage = weapon.ammo.damageAmmo;
-        bulletPrefab = weapon.ammo.prefab;
-
         ammo = GetComponent<WeaponAmmo>();
+        ammo.isLoadingSlot = weapon.isLoadingSlot;
         ammo.data ??= weapon.ammo;
 
         audioSource = GetComponent<AudioSource>();
@@ -97,15 +102,11 @@ public class WeaponManager : MonoBehaviour
         if (!isValidate) return;
 
         if (ShouldFire()) Fire();
+        if (!Input.GetKey(KeyCode.Space)) isEmptyAmmoSoundPlayed = false; // Resetta il flag quando si smette di premere il tasto di sparo
         //muzzleFlashLight.intensity = Mathf.Lerp(muzzleFlashLight.intensity, 0, lightReturnSpeed * Time.deltaTime);
     }
 
-    private bool Validate()
-    {
-        // Script valido sse è attaccato ad un oggetto con ItemController e il root è un Player
-        if (GetComponent<ItemController>() == null || !transform.root.GetChild(0).CompareTag("Player")) return false;
-        return true;
-    }
+    private bool Validate() => GetComponent<ItemController>() != null && transform.root.GetChild(0).CompareTag("Player"); // Se l'oggetto ha un ItemController e il padre ha il tag "Player"
 
     public void SetIdle() => transform.SetLocalPositionAndRotation(weapon.IdlePosition, weapon.IdleRotation);
 
@@ -120,13 +121,21 @@ public class WeaponManager : MonoBehaviour
         fireRateTimer += Time.deltaTime;
         if (aim.currentState == aim.rifleIdleState) return false; // Se sta in idle con l'arma, non sparare
         if (fireRateTimer < fireRate) return false; // Se il timer non è ancora scaduto, non sparare
-        if (ammo.currentAmmo == 0) { audioSource.PlayOneShot(actions.emptyAmmoSound); return false; } // Se le munizioni sono finite, non sparare e riproduci la SFX di munizioni finite
+        if (ammo.currentAmmo == 0 || (ammo.currentAmmo == 0 && ammo.extraAmmo == 0))
+        {
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.Space)) && !isEmptyAmmoSoundPlayed)
+            {
+                isEmptyAmmoSoundPlayed = true;
+                audioSource.PlayOneShot(actions.emptyAmmoSound);
+            }
+            return false;
+        }
         if (actions.currentState == actions.reloadState) return false; // Se si sta ricaricando, non sparare
         if (actions.currentState == actions.swapState) return false; // Se si sta cambiando arma, non sparare
         if (EventSystem.current.IsPointerOverGameObject()) return false; // Se il mouse è sopra un UI, non sparare
         if (IsClickingOnInteractiveObject()) return false; // Se si sta cliccando su un oggetto interattivo (raccoglibile, ecc.), non sparare
-        if (weapon.semiAuto && Input.GetKeyDown(KeyCode.Mouse0)) return true; // Se l'arma è semi automatica e si preme il tasto sinistro del mouse, sparare
-        if (!weapon.semiAuto && Input.GetKey(KeyCode.Mouse0)) return true; // Se l'arma è automatica e si tiene premuto il tasto sinistro del mouse, sparare
+        if (weapon.semiAuto && Input.GetKeyDown(KeyCode.Space)) return true; // Se l'arma è semi automatica e si preme il tasto sinistro del mouse, sparare
+        if (!weapon.semiAuto && Input.GetKey(KeyCode.Space)) return true; // Se l'arma è automatica e si tiene premuto il tasto sinistro del mouse, sparare
         return false;
     }
 
@@ -135,7 +144,7 @@ public class WeaponManager : MonoBehaviour
         fireRateTimer = 0;
         bulletSpawnPoint.LookAt(aim.aimPos);
         bulletSpawnPoint.localEulerAngles = bloom.BloomAngle(bulletSpawnPoint);
-        audioSource.PlayOneShot(weapon.fireSound);
+        audioSource.PlayOneShot(fireSound);
         recoil.TriggerRecoil();
         TriggerMuzzleFlash();
         ammo.currentAmmo--;
@@ -154,6 +163,14 @@ public class WeaponManager : MonoBehaviour
                 rb.AddForce(direction * bulletVelocity, ForceMode.Impulse);
                 bulletScript.Hit(hit);
             }
+        }
+
+        bulletConsumed++;
+        if (bulletConsumed >= ammo.clipSize && ammo.extraAmmo >= 0 && ammo.currentAmmo >= 0)
+        {
+            InventoryManager.instance.Remove(weapon.ammo, true);
+            bulletConsumed = 0; // Reset del contatore dopo aver rimosso il caricatore
+            print($"Caricatore rimosso: {ammo.extraAmmo} + {ammo.currentAmmo} munizioni rimanenti.\nCaricatori restanti: {ammo.extraAmmo / ammo.clipSize}");
         }
     }
 

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class GameInventory : MonoBehaviour, IBind<InventoryData>
@@ -17,13 +16,21 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
         {
             inventory.ClearInventory(); // Pulisce l'inventario prima di caricare i dati
 
-            // Ricrea gli oggetti dell'inventario in base ai dati salvati
-            foreach (var itemData in data.items)
-            {
-                Item itemInstance = inventory.CreateItemInstance(itemData);
-                inventory.Add(itemInstance);
-                itemInstance.qta = itemData.qta;
-            }
+            IterateOnList<Item, ItemData>(data.items, inventory);
+            IterateOnList<Weapon, WeaponData>(data.weaponItems, inventory);
+            IterateOnList<Ammo, AmmoData>(data.ammoItems, inventory);
+        }
+    }
+
+    private void IterateOnList<T, TData>(List<TData> datas, InventoryManager inventory) where T : Item, new()
+    {
+        foreach (TData data in datas)
+        {
+            T itemInstance = inventory.CreateInstance<T, TData>(data);
+            inventory.Add(itemInstance);
+            if (data is ItemData itemData) itemInstance.qta = itemData.qta;
+            else if (data is WeaponData weaponData) itemInstance.qta = weaponData.qta;
+            else if (data is AmmoData ammoData) itemInstance.qta = ammoData.qta;
         }
     }
 
@@ -32,6 +39,8 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
         if (TryGetComponent(out InventoryManager inventory))
         {
             data.items.Clear(); // Pulisce la lista degli oggetti salvati
+            data.weaponItems.Clear(); // Pulisce la lista delle armi salvate
+            data.ammoItems.Clear(); // Pulisce la lista delle munizioni salvate
 
             // Salva ogni oggetto dell'inventario
             foreach (var item in inventory.items)
@@ -39,12 +48,12 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
                 if (item is Weapon weapon)
                 {
                     var weaponData = new WeaponData(weapon);
-                    data.items.Add(weaponData);
+                    data.weaponItems.Add(weaponData);
                 }
                 else if (item is Ammo ammo)
                 {
                     var ammoData = new AmmoData(ammo);
-                    data.items.Add(ammoData);
+                    data.ammoItems.Add(ammoData);
                 }
                 else
                 {
@@ -59,8 +68,10 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
 [Serializable]
 public class InventoryData : ISaveable
 {
-    [field: SerializeField] public SerializableGuid Id { get; set; } // ID univoco dell'inventario
+    [field: SerializeField] public SerializableGuid Id { get; set; } = SerializableGuid.NewGuid(); // ID univoco dell'inventario
     public List<ItemData> items = new(); // Lista degli oggetti nell'inventario
+    public List<WeaponData> weaponItems = new(); // Lista delle armi nell'inventario
+    public List<AmmoData> ammoItems = new(); // Lista delle munizioni nell'inventario
 }
 
 [Serializable]
@@ -86,8 +97,8 @@ public class ItemData
     public Item.ItemType inventorySectionType;
     public bool own;
     public int qta;
-    public Sprite icon;
-    public Sprite image;
+    // public Sprite icon; // La prendo già da SpriteManager
+    // public Sprite image; // La prendo già da SpriteManager
 
     public ItemData() { }
 
@@ -113,72 +124,150 @@ public class ItemData
         inventorySectionType = item.inventorySectionType;
         own = item.own;
         qta = item.qta;
-        // icon = item.icon; // La prendo già da SpriteManager
-        // image = item.image; // La prendo già da SpriteManager
     }
 }
 
 [Serializable]
-public class WeaponData : ItemData
+public class WeaponData
 {
-    public string prefabName; // Salviamo il nome del prefab (non il GameObject)
+    public string type;
+    public string nameItem;
+    public string description;
+    public Item.ItemTagType tagType;
+    public int value;
+    public int valueSanita;
+    public Item.ItemEffectType effectType;
+    public float weight;
+    public string ingredientsRecipe;
+    public string qtaIngredientsRecipe;
+    public string craftItem;
+    public bool isUsable;
+    public bool isShooting;
+    public bool isPickUp;
+    public bool canDestroy;
+    public bool isInCraft;
+    public bool isStackable;
+    public Item.ItemType inventorySectionType;
+    public bool own;
+    public int qta;
+    // public Sprite icon; // La prendo già da SpriteManager
+    // public Sprite image; // La prendo già da SpriteManager
+    public string prefabName;
     public Weapon.WeaponType weaponType;
     public Weapon.RangeType rangeType;
-    public string ammoName; // Salviamo il nome dell'ammo associato (non il riferimento)
+    public string ammoName;
     public float distance;
     public bool semiAuto;
     public bool isThrowable;
-    public string fireSoundPath;
-    public string magInSoundPath;
-    public string magOutSoundPath;
-    public string releaseSlideSoundPath;
     public Vector3 IdlePosition;
     public Quaternion IdleRotation;
     public Vector3 AimPosition;
     public Quaternion AimRotation;
     public Vector3 Scale;
+    public bool isLoadingSlot;
+    public int bulletConsumed;
 
-    public WeaponData(Weapon weapon) : base(weapon)
+    public WeaponData() { }
+
+    public WeaponData(Weapon weapon)
     {
         type = "Weapon";
+        nameItem = weapon.nameItem;
+        description = weapon.description;
+        tagType = weapon.tagType;
+        value = weapon.value;
+        valueSanita = weapon.valueSanita;
+        effectType = weapon.effectType;
+        weight = weapon.weight;
+        ingredientsRecipe = weapon.ingredientsRecipe;
+        qtaIngredientsRecipe = weapon.qtaIngredientsRecipe;
+        craftItem = weapon.craftItem?.nameItem;
+        isUsable = weapon.isUsable;
+        isShooting = weapon.isShooting;
+        isPickUp = weapon.isPickUp;
+        canDestroy = weapon.canDestroy;
+        isInCraft = weapon.isInCraft;
+        isStackable = weapon.isStackable;
+        inventorySectionType = weapon.inventorySectionType;
+        own = weapon.own;
+        qta = weapon.qta;
         prefabName = weapon.prefab.name;
         weaponType = weapon.weaponType;
         rangeType = weapon.rangeType;
-        ammoName = weapon.ammo ? weapon.ammo.nameItem : null;
+        ammoName = weapon.ammo.nameItem;
         distance = weapon.distance;
         semiAuto = weapon.semiAuto;
         isThrowable = weapon.isThrowable;
-#if UNITY_EDITOR
-        fireSoundPath = AssetDatabase.GetAssetPath(weapon.fireSound);
-        magInSoundPath = AssetDatabase.GetAssetPath(weapon.magInSound);
-        magOutSoundPath = AssetDatabase.GetAssetPath(weapon.magOutSound);
-        releaseSlideSoundPath = AssetDatabase.GetAssetPath(weapon.releaseSlideSound);
-#endif
-
         IdlePosition = weapon.IdlePosition;
         IdleRotation = weapon.IdleRotation;
         AimPosition = weapon.AimPosition;
         AimRotation = weapon.AimRotation;
         Scale = weapon.Scale;
+        isLoadingSlot = false;
+        bulletConsumed = weapon.bulletConsumed;
     }
 }
 
 [Serializable]
-public class AmmoData : ItemData
+public class AmmoData
 {
-    public GameObject prefab;
+    public string type;
+    public string nameItem;
+    public string description;
+    public Item.ItemTagType tagType;
+    public int value;
+    public int valueSanita;
+    public Item.ItemEffectType effectType;
+    public float weight;
+    public string ingredientsRecipe;
+    public string qtaIngredientsRecipe;
+    public string craftItem;
+    public bool isUsable;
+    public bool isShooting;
+    public bool isPickUp;
+    public bool canDestroy;
+    public bool isInCraft;
+    public bool isStackable;
+    public Item.ItemType inventorySectionType;
+    public bool own;
+    public int qta;
+    // public Sprite icon; // La prendo già da SpriteManager
+    // public Sprite image; // La prendo già da SpriteManager
     public Ammo.AmmoType ammoType;
     public int nAmmo;
     public int maxAmmo;
     public float damageAmmo;
+    public int ammoToAdd;
+    // public GameObject prefab; // Lo passo già a WeaponManager
 
-    public AmmoData(Ammo ammo) : base(ammo)
+    public AmmoData() { }
+
+    public AmmoData(Ammo ammo)
     {
         type = "Ammo";
-        prefab = ammo.prefab;
+        nameItem = ammo.nameItem;
+        description = ammo.description;
+        tagType = ammo.tagType;
+        value = ammo.value;
+        valueSanita = ammo.valueSanita;
+        effectType = ammo.effectType;
+        weight = ammo.weight;
+        ingredientsRecipe = ammo.ingredientsRecipe;
+        qtaIngredientsRecipe = ammo.qtaIngredientsRecipe;
+        craftItem = ammo.craftItem?.nameItem;
+        isUsable = ammo.isUsable;
+        isShooting = ammo.isShooting;
+        isPickUp = ammo.isPickUp;
+        canDestroy = ammo.canDestroy;
+        isInCraft = ammo.isInCraft;
+        isStackable = ammo.isStackable;
+        inventorySectionType = ammo.inventorySectionType;
+        own = ammo.own;
+        qta = ammo.qta;
         ammoType = ammo.ammoType;
         nAmmo = ammo.nAmmo;
         maxAmmo = ammo.maxAmmo;
         damageAmmo = ammo.damageAmmo;
+        ammoToAdd = ammo.ammoToAdd;
     }
 }

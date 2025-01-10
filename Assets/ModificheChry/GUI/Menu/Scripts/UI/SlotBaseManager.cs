@@ -80,8 +80,8 @@ public abstract class SlotBaseManager : MonoBehaviour
             var deleteButton = slotSavedList.GetComponentInChildren<Button>();
             ConfigureSlotButton(deleteButton, () => { OpenConfirmDeletePanel(slot); }); // Per "Delete" al click
             SetMouseHoverSlot(deleteButton.transform, () => { isClickedOnDelete = true; }, () => { isClickedOnDelete = false; }); // Per "Delete" all'hover
-            ConfigureSlotButton(slot.GetComponent<Button>(), () => OpenConfirmPanel(savedSlotName)); // Per "Load/Save" al click
         }
+        ConfigureSlotButton(slot.GetComponent<Button>(), () => OpenConfirmPanel(savedSlotName)); // Per "Load/Save" al click
         SetMouseHoverSlot(slot, () => { OnSlotEnter(infoSceneSlot.transform, gameData.currentSceneName); }, () => { OnSlotExit(infoSceneSlot.transform); }); // Per mostrare le info della scena all'hover
     }
 

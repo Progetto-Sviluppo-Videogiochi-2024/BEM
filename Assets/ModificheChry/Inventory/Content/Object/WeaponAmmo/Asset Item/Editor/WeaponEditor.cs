@@ -43,19 +43,12 @@ public class WeaponEditor : Editor
         EditorGUI.EndDisabledGroup();
 
         weapon.weaponType = (Weapon.WeaponType)EditorGUILayout.EnumPopup(new GUIContent("Weapon Type", "Tipo di arma (Pistola, Shotgun, Fucile, Sniper, ecc.)"), weapon.weaponType);
-        weapon.rangeType = (Weapon.RangeType)EditorGUILayout.EnumPopup(new GUIContent("Range Type", "Tipo di raggio (Corto o Medio)"), weapon.rangeType);
+        weapon.rangeType = (Weapon.RangeType)EditorGUILayout.EnumPopup(new GUIContent("Range Type", "Tipo di raggio (Corto, Medio o Lungo)"), weapon.rangeType);
         weapon.ammo = (Ammo)EditorGUILayout.ObjectField(new GUIContent("Ammo", "Munizioni dell'arma (se applicabile)"), weapon.ammo, typeof(Ammo), true);
         weapon.distance = EditorGUILayout.FloatField(new GUIContent("Distance", "Distanza massima di tiro dell'arma"), weapon.distance);
         weapon.semiAuto = EditorGUILayout.Toggle(new GUIContent("Semi Auto", "Se l'arma è semiautomatica (cioè spara un colpo per volta)"), weapon.semiAuto);
         weapon.isThrowable = EditorGUILayout.Toggle(new GUIContent("Throwable", "Se l'arma è da lancio (coltelli, bottiglie)"), weapon.isThrowable);
-
-        // Mostra i campi audio dell'arma
-        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-        EditorGUILayout.LabelField("Audio Properties", EditorStyles.boldLabel);
-        weapon.fireSound = (AudioClip)EditorGUILayout.ObjectField(new GUIContent("Fire Sound", "Suono di sparo"), weapon.fireSound, typeof(AudioClip), false);
-        weapon.magInSound = (AudioClip)EditorGUILayout.ObjectField(new GUIContent("Mag In Sound", "Suono di inserimento del caricatore"), weapon.magInSound, typeof(AudioClip), false);
-        weapon.magOutSound = (AudioClip)EditorGUILayout.ObjectField(new GUIContent("Mag Out Sound", "Suono di estrazione del caricatore"), weapon.magOutSound, typeof(AudioClip), false);
-        weapon.releaseSlideSound = (AudioClip)EditorGUILayout.ObjectField(new GUIContent("Release Slide Sound", "Suono di rilascio del caricatore"), weapon.releaseSlideSound, typeof(AudioClip), false);
+        weapon.isLoadingSlot = EditorGUILayout.Toggle(new GUIContent("Loading Slot", "Flag per il caricamento del load slot (SOLO a runtime)"), weapon.isLoadingSlot);
 
         // Mostra i campi di posizionamento dell'arma nelle mani
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);

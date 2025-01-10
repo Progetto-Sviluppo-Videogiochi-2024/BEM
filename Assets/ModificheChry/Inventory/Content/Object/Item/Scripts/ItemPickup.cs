@@ -45,7 +45,11 @@ public class ItemPickup : MonoBehaviour
 
         // Verifica se l'oggetto è stato raccolto
         itemId = GenerateItemId();
-        if (GestoreScena.collectedItemIds.Contains(itemId)) Destroy(gameObject); // Distruggi l'oggetto se già raccolto
+        if (GestoreScena.collectedItemIds.Contains(itemId))
+        {
+            if (item.tagType == Item.ItemTagType.Weapon) SetWeaponPostLoad();
+            else Destroy(gameObject);
+        }
     }
 
     void Update()
@@ -118,6 +122,11 @@ public class ItemPickup : MonoBehaviour
                 {
                     (item as Weapon).prefab = Instantiate(gameObject);
                     (item as Weapon).prefab.SetActive(false);
+                    SetWAmmo(item as Weapon);
+                }
+                else if (item.tagType == Item.ItemTagType.Ammo)
+                {
+                    InventoryManager.instance.SearchWeapon(item as Ammo)?.GetUpdateWAmmo(item);
                 }
                 InventoryManager.instance.Add(item);
                 InventoryUIController.instance.ListItems(InventoryManager.instance.items);
@@ -138,6 +147,21 @@ public class ItemPickup : MonoBehaviour
     {
         AnimatorStateInfo animStateInfo = animator.GetCurrentAnimatorStateInfo(animator.GetLayerIndex(layer));
         return animStateInfo.IsName(animation) && animStateInfo.normalizedTime >= normalizedTime;
+    }
+
+    public void SetWAmmo(Weapon weapon)
+    {
+        var weaponAmmo = weapon.prefab.GetComponent<WeaponAmmo>();
+        if (!InventoryManager.instance.SearchAmmo(weapon)) return;
+        weaponAmmo.UpdateAmmo(weapon.ammo, false);
+    }
+
+    private void SetWeaponPostLoad()
+    {
+        Weapon weapon = InventoryManager.instance.SearchWeapon(item.nameItem);
+        if (weapon == null) { Debug.LogError("Weapon not found in inventory"); return; }
+        weapon.prefab ??= Instantiate(gameObject);
+        gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)

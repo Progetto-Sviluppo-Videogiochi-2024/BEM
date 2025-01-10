@@ -133,7 +133,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         dataService.Save(gameData);
     }
 
-    public void LoadGame(string fileName)
+    public void LoadGame(string fileName) // fileName = {Slot 1, Slot 2, Slot 3, Slot 4, Checkpoint}
     {
         gameData = dataService.Load(fileName);
 
@@ -148,5 +148,5 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
 
     public void SaveCheckpoint() => SaveGame("C");
 
-    public void DeleteGame(string fileName) => dataService.Delete(fileName);
+    public void DeleteGame(string fileName) => dataService.Delete(fileName); // fileName = {Slot 1, Slot 2, Slot 3, Slot 4, Checkpoint}
 }

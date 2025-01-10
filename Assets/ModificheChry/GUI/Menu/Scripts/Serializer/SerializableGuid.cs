@@ -41,7 +41,7 @@ public class SerializableGuid : IEquatable<SerializableGuid>
 
         return new SerializableGuid
         (
-            Convert.ToUInt32(hexString.Substring(0, 8), 16),
+            Convert.ToUInt32(hexString[..8], 16), // Equivalente a Convert.ToUInt32(hexString.Substring(0, 8), 16)
             Convert.ToUInt32(hexString.Substring(8, 8), 16),
             Convert.ToUInt32(hexString.Substring(16, 8), 16),
             Convert.ToUInt32(hexString.Substring(24, 8), 16)
@@ -86,5 +86,5 @@ public class SerializableGuid : IEquatable<SerializableGuid>
 public static class GuidExtensions
 {
     // Metodo di estensione per convertire Guid in SerializableGuid
-    public static SerializableGuid ToSerializableGuid(this Guid guid) => new SerializableGuid(guid);
+    public static SerializableGuid ToSerializableGuid(this Guid guid) => new(guid);
 }

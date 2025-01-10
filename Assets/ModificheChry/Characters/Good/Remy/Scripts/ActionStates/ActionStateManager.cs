@@ -46,32 +46,16 @@ public class ActionStateManager : MonoBehaviour
         SwitchState(defaultState);
     }
 
-    public void MagOut() => audioSource.PlayOneShot(currentWeapon.weapon.magOutSound); // 1 funzione invocata dall'animazione reloading
+    public void MagOut() => audioSource.PlayOneShot(currentWeapon.magOutSound); // 1 funzione invocata dall'animazione reloading
 
-    public void MagIn() => audioSource.PlayOneShot(currentWeapon.weapon.magInSound); // 2 funzione invocata dall'animazione reloading
+    public void MagIn() => audioSource.PlayOneShot(currentWeapon.magInSound); // 2 funzione invocata dall'animazione reloading
 
-    public void ReleaseSlide() => audioSource.PlayOneShot(currentWeapon.weapon.releaseSlideSound); // 3 funzione invocata dall'animazione reloading
+    public void ReleaseSlide() => audioSource.PlayOneShot(currentWeapon.releaseSlideSound); // 3 funzione invocata dall'animazione reloading
 
     public void SetWeapon(WeaponManager weapon)
     {
         currentWeapon = weapon;
         audioSource = weapon.audioSource;
         weaponAmmo = weapon.ammo;
-    }
-
-    public void SetAmmo(Ammo ammo)
-    {
-        // Assicurati che maxAmmo non sia zero per evitare errori di calcolo => non ho raccolto munizioni per quell'arma
-        if (ammo.maxAmmo <= 0)
-        {
-            weaponAmmo.extraAmmo = 0;
-            weaponAmmo.currentAmmo = 0;
-            print($"{currentWeapon.weapon.name} non ha munizioni: extraAmmo = {weaponAmmo.extraAmmo}, currentAmmo = {weaponAmmo.currentAmmo}");
-            return;
-        }
-
-        weaponAmmo.currentAmmo = Mathf.Clamp(ammo.nAmmo, 0, ammo.maxAmmo); // currentAmmo \in [0, maxAmmo]
-        weaponAmmo.extraAmmo = Mathf.Max(ammo.maxAmmo - weaponAmmo.currentAmmo, 0); // extraAmmo \in [0, maxAmmo - currentAmmo]
-        print($"{currentWeapon.weapon.name} ha {weaponAmmo.currentAmmo} munizioni e {weaponAmmo.extraAmmo} munizioni extra");
     }
 }

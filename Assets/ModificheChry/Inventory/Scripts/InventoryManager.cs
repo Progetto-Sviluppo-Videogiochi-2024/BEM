@@ -55,20 +55,17 @@ public class InventoryManager : MonoBehaviour
         inventoryItemsToRemove = new();
     }
 
-    public Item CreateItemInstance(ItemData itemData)
+    public T CreateInstance<T, TData>(TData data) where T : Item, new()
     {
-        // Crea una nuova istanza di Item o delle sue sottoclassi
-        Item itemInstance = null;
-        itemInstance = itemData.type switch
-        {
-            "Weapon" => ScriptableObject.CreateInstance<Weapon>(),// Crea una nuova istanza di Weapon
-            "Ammo" => ScriptableObject.CreateInstance<Ammo>(),// Crea una nuova istanza di Ammo
-            _ => ScriptableObject.CreateInstance<Item>(),// Crea una nuova istanza di Item
-        };
+        // Crea una nuova istanza del tipo T
+        T instance = ScriptableObject.CreateInstance<T>();
 
-        // Inizializza l'oggetto Item con i dati
-        itemInstance.Initialize(itemData);
-        return itemInstance;
+        // Inizializza l'oggetto con i dati forniti
+        if (data is AmmoData ammoData && instance is Ammo ammo) ammo.Initialize(ammoData);
+        else if (data is WeaponData weaponData && instance is Weapon weapon) weapon.Initialize(weaponData);
+        else if (data is ItemData itemData && instance is Item item) item.Initialize(itemData);
+
+        return instance;
     }
 
     public void ClearInventory()
@@ -105,9 +102,7 @@ public class InventoryManager : MonoBehaviour
         if (item == null) return;
 
         if (item.qta > 0 && canDecreaseQta)
-        {
             item.qta--;
-        }
 
         if (item.qta == 0)
         {
@@ -117,7 +112,7 @@ public class InventoryManager : MonoBehaviour
 
             foreach (Transform child in itemContent)
             {
-                if (child.GetComponent<InventoryItemController>().item == item)
+                if (child.GetComponent<InventoryItemController>().item.nameItem == item.nameItem)
                 {
                     Destroy(child.gameObject);
                     break;
@@ -221,7 +216,7 @@ public class InventoryManager : MonoBehaviour
         }
         else if (item.tagType == ItemTagType.Item)
         {
-            var invItemContr = SearchItem(item);
+            var invItemContr = SearchItemController(item);
             if (itemClassManager.itemEquipable != null && invItemContr != itemClassManager.itemEquipable) itemClassManager.itemEquipable.EquipItem(); // Disequipaggia l'item prima equipaggiato
             itemEquipable = item;
             itemClassManager.itemEquipable = invItemContr; // Equipaggia il nuovo item
@@ -242,29 +237,46 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private InventoryItemController SearchItem(Item item)
+    public InventoryItemController SearchItemController(Item item)
     {
+        InventoryUIController.instance.ListItems(items);
         foreach (var inventoryItem in inventoryItems)
         {
             if (inventoryItem == null) continue;
-            if (inventoryItem.item == item) return inventoryItem;
+            if (inventoryItem.item.nameItem == item.nameItem) return inventoryItem;
         }
-        return null; // Non dovrebbe mai accadere credo
+        return null; // Non dovrebbe mai accadere
     }
 
-    public WeaponAmmo SearchWeapon(Ammo ammoPickup)
+    public Weapon SearchWeapon(Ammo ammoPickup)
     {
-        foreach (var weapon in weaponClassManager.weaponsEquipable)
+        foreach (var item in items)
         {
-            if (weapon.weapon.ammo.name == ammoPickup.name) return weapon.gameObject.GetComponent<WeaponAmmo>();
+            if (item is not Weapon weapon) continue;
+            if (weapon.ammo?.nameItem != ammoPickup.nameItem) continue;
+            return weapon;
         }
-        return null; // Accade sse non ho l'arma equipaggiata oppure non ho raccolto munizioni per quell'arma
+        return null; // Sse non ho l'arma | non ho raccolto munizioni per quell'arma
     }
 
-    public void SetWeaponAmmo(Weapon weapon)
+    public Weapon SearchWeapon(string nameItemToSearch)
     {
-        var weaponAmmo = weapon.prefab.GetComponent<WeaponAmmo>();
-        
+        foreach (var item in items)
+        {
+            if (item is not Weapon weapon) continue;
+            if (weapon.nameItem != nameItemToSearch) continue;
+            return weapon;
+        }
+        return null; // Sse non ho l'arma
+    }
+
+    public bool SearchAmmo(Weapon weaponPickup)
+    {
+        foreach (var item in items)
+        {
+            if (item.tagType == ItemTagType.Ammo && item.nameItem == weaponPickup.ammo.nameItem) return true;
+        }
+        return false; // Se non ho le munizioni per quell'arma
     }
 
     public int GetQtaItem(string ItemName)

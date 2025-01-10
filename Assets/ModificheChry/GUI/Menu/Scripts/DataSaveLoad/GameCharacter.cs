@@ -44,7 +44,7 @@ public class GameCharacter : MonoBehaviour, IBind<PlayerData>
 [Serializable]
 public class PlayerData : ISaveable
 {
-    [field: SerializeField] public SerializableGuid Id { get; set; } // ID univoco del giocatore
+    [field: SerializeField] public SerializableGuid Id { get; set; } = SerializableGuid.NewGuid(); // ID univoco del giocatore
     public bool IsLoading = false; // Flag per il caricamento dei dati, lo si usa nel caricamento dati e cambio scena
     public Vector3 position; // Posizione del giocatore
     public Quaternion rotation; // Rotazione del giocatore

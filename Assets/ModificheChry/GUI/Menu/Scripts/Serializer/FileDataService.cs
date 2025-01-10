@@ -27,7 +27,7 @@ public class FileDataService : IDataService
 
     string GetFilePath(string fileName) => Path.Combine(dataPath, string.Concat(fileName, ".", fileExtension));
 
-    public bool SearchSlotSaved(string savedSlot, string UISlot) => savedSlot[^1] == UISlot[^1] || savedSlot[0] == UISlot[^1]; 
+    public bool SearchSlotSaved(string savedSlot, string UISlot) => savedSlot[^1] == UISlot[^1] || savedSlot[0] == UISlot[^1];
 
     public void Delete(string fileName)
     {

@@ -7,7 +7,7 @@ public class ItemManager : MonoBehaviour
     [Serializable]
     public struct ItemEntry
     {
-        public string objectName; // Nome univoco dell'oggetto
+        public string objectName; // Nome univoco dell'oggetto (get di item.nameItem)
         public Item item; // Riferimento all'oggetto Item
     }
 

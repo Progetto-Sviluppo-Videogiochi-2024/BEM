@@ -9,6 +9,11 @@ public class WeaponAmmo : MonoBehaviour
     [HideInInspector] public int currentAmmo; // Munizioni attuali nel caricatore corrente
     #endregion
 
+    [Header("Settings")]
+    #region Settings
+    [HideInInspector] public bool isLoadingSlot; // Flag indicante se il load slot è da caricare
+    #endregion
+
     [Header("References")]
     #region References
     [HideInInspector] public Ammo data; // Dati delle munizioni
@@ -18,14 +23,14 @@ public class WeaponAmmo : MonoBehaviour
     {
         if (data == null) return;
         clipSize = data.nAmmo;
+        if (!isLoadingSlot) currentAmmo = data.maxAmmo;
     }
 
-    public void UpdateAmmo(Ammo ammo)
+    public void UpdateAmmo(Ammo ammo, bool isAmmo)
     {
+        var ammoToAdd = isAmmo ? ammo.ammoToAdd : ammo.qta * ammo.ammoToAdd;
         data = ammo;
-        clipSize = ammo.nAmmo;
-        currentAmmo = ammo.nAmmo;
-        extraAmmo = ammo.maxAmmo - ammo.nAmmo;
+        extraAmmo += ammoToAdd;
     }
 
     public void Reload()

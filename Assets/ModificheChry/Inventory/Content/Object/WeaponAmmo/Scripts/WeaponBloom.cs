@@ -24,8 +24,9 @@ public class WeaponBloom : MonoBehaviour
 
     void Start()
     {
-        movement = GetComponentInParent<MovementStateManager>();
-        aim = GetComponentInParent<AimStateManager>();
+        var weaponClassManager = GetComponent<WeaponManager>().weaponClassManager;
+        movement = weaponClassManager.GetComponent<MovementStateManager>();
+        aim = weaponClassManager.GetComponent<AimStateManager>();
     }
 
     public Vector3 BloomAngle(Transform bulletSpawnPoint)

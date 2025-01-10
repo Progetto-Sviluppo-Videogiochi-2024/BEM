@@ -1,16 +1,15 @@
-using System;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Inventory/Create New Ammo")]
 public class Ammo : Item
 {
     [Header("Info Ammo")]
-    public GameObject prefab; // Prefab delle munizioni
+    // Prefab lo passo già a WeaponManager
     public AmmoType ammoType; // Tipo di munizioni
     public int nAmmo = 0; // Numero di munizioni per caricatore
     public int maxAmmo = 0; // Numero massimo di munizioni
     public float damageAmmo = 0; // Danno delle munizioni
+    public int ammoToAdd = 0; // Munizioni da aggiungere
 
     public enum AmmoType
     {
@@ -21,24 +20,34 @@ public class Ammo : Item
         SniperAmmo // Munizioni per fucili da cecchino
     }
 
-    public void Initialize(AmmoData itemData)
+    public void Initialize(AmmoData ammoData)
     {
-        base.Initialize(itemData);
-        if (itemData is not AmmoData ammoData) return;
-        prefab = ammoData.prefab;
+        nameItem = ammoData.nameItem;
+        description = ammoData.description;
+        tagType = ammoData.tagType;
+        value = ammoData.value;
+        valueSanita = ammoData.valueSanita;
+        effectType = ammoData.effectType;
+        weight = ammoData.weight;
+        ingredientsRecipe = ammoData.ingredientsRecipe;
+        qtaIngredientsRecipe = ammoData.qtaIngredientsRecipe;
+        craftItem = !string.IsNullOrEmpty(ammoData.craftItem) ? ItemManager.Instance.GetItemByName(ammoData.craftItem) : null;
+        isUsable = ammoData.isUsable;
+        isShooting = ammoData.isShooting;
+        isPickUp = ammoData.isPickUp;
+        canDestroy = ammoData.canDestroy;
+        isInCraft = ammoData.isInCraft;
+        isStackable = ammoData.isStackable;
+        inventorySectionType = ammoData.inventorySectionType;
+        own = ammoData.own;
+        qta = ammoData.qta;
+        var sprites = SpriteManager.Instance.GetSpritesByObjectName(nameItem);
+        icon = sprites.icon;
+        image = sprites.image;
         ammoType = ammoData.ammoType;
         nAmmo = ammoData.nAmmo;
         maxAmmo = ammoData.maxAmmo;
         damageAmmo = ammoData.damageAmmo;
-    }
-
-    private int GetAmmoAmountFromDescription()
-    {
-        // Usa una regex per catturare il primo numero nella stringa
-        Match match = Regex.Match(description, @"(\d+)\s+munizioni");
-        if (match.Success) return int.Parse(match.Groups[1].Value);
-
-        // Se nessun numero viene trovato, ritorna 0
-        throw new ArgumentException("Description not formatted correctly for ammo pickup: " + description);
+        ammoToAdd = ammoData.ammoToAdd;
     }
 }
