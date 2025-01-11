@@ -28715,6 +28715,7 @@ MonoBehaviour:
   clipSize: 0
   extraAmmo: 0
   currentAmmo: 0
+  isLoadingSlot: 0
   data: {fileID: 0}
 --- !u!114 &1255720288
 MonoBehaviour:
@@ -28728,10 +28729,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c249be1356b39746a98c87a6d2e0121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 0.12
   layerMask:
     serializedVersion: 2
     m_Bits: 384
+  bulletConsumed: 0
+  fireRate: 0.12
   bulletPrefab: {fileID: 1122964723992546, guid: 674adf642abf5614aae2995443c8250f, type: 3}
   bulletVelocity: 500
   bulletsPerShot: 1
@@ -28743,6 +28745,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   enemykickBackForce: 150
   ammo: {fileID: 0}
+  weaponClassManager: {fileID: 0}
   weapon: {fileID: 0}
 --- !u!82 &1255720289
 AudioSource:
@@ -40892,6 +40895,7 @@ MonoBehaviour:
   spritesScenes:
   - {fileID: 21300000, guid: 717960b7b1326c64f91299e62cc8d6ca, type: 3}
   - {fileID: 21300000, guid: 14b1535b0aed99c498ca2d436212bd37, type: 3}
+  - {fileID: 21300000, guid: 14ac53e859c5e5744a95751182fc1f51, type: 3}
 --- !u!82 &1810443627
 AudioSource:
   m_ObjectHideFlags: 0
@@ -43407,6 +43411,9 @@ MonoBehaviour:
         Part3: 0
         Part4: 0
       items: []
+      weaponItems: []
+      ammoItems: []
+      ammoIdCollected: []
     levelData:
       <Id>k__BackingField:
         Part1: 2996329582
