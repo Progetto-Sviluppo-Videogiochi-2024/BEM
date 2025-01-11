@@ -62,6 +62,11 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         Bind<GameInventory, InventoryData>(gameData.inventoryData);
         Bind<GameLevelData, LevelData>(gameData.levelData);
         print("SLS: OnSceneLoaded: Dati caricati");
+
+        // Pulizia dati dell'inventario in quanto è una singleton e non si resettano i dati degli equipaggiati o rimossi
+        InventoryManager.instance.inventoryItemsToRemove = new();
+        InventoryManager.instance.itemEquipable = null;
+        InventoryManager.instance.weaponsEquipable = new();
     }
 
     void Bind<T, TData>(TData data) where T : MonoBehaviour, IBind<TData> where TData : ISaveable, new()

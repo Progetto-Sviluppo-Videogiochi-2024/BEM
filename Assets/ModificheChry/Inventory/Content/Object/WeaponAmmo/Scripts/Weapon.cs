@@ -63,7 +63,6 @@ public class Weapon : Item // Weapon estende Item
         var sprites = SpriteManager.Instance.GetSprites(nameItem);
         icon = sprites.icon;
         image = sprites.image;
-        // Prefab glielo passo a WeaponManager di ogni arma perché Json non li salva e penso sia il metodo più veloce
         weaponType = weaponData.weaponType;
         rangeType = weaponData.rangeType;
         ammo = !string.IsNullOrEmpty(weaponData.ammoName) ? ItemManager.Instance.GetItemByName(weaponData.ammoName) as Ammo : null;

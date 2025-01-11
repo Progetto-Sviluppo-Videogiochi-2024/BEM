@@ -161,7 +161,7 @@ public class WeaponData
     public int qta;
     // public Sprite icon; // La prendo già da SpriteManager
     // public Sprite image; // La prendo già da SpriteManager
-    public string prefabName;
+    public string prefabName; // Non la uso perché lo istanzio in IM nel bind dei dati
     public Weapon.WeaponType weaponType;
     public Weapon.RangeType rangeType;
     public string ammoName;
