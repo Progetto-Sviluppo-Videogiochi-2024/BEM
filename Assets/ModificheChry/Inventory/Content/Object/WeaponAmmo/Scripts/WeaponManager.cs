@@ -102,7 +102,7 @@ public class WeaponManager : MonoBehaviour
         if (!isValidate) return;
 
         if (ShouldFire()) Fire();
-        if (!Input.GetKey(KeyCode.Space)) isEmptyAmmoSoundPlayed = false; // Resetta il flag quando si smette di premere il tasto di sparo
+        if (!Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.Mouse0)) isEmptyAmmoSoundPlayed = false;
     }
 
     private bool Validate() => GetComponent<ItemController>() != null && transform.root.GetChild(0).CompareTag("Player"); // Se l'oggetto ha un ItemController e il padre ha il tag "Player"
@@ -122,7 +122,7 @@ public class WeaponManager : MonoBehaviour
         if (fireRateTimer < fireRate) return false; // Se il timer non è ancora scaduto, non sparare
         if (ammo.currentAmmo == 0 || (ammo.currentAmmo == 0 && ammo.extraAmmo == 0))
         {
-            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.Space)) && !isEmptyAmmoSoundPlayed)
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)) && !isEmptyAmmoSoundPlayed)
             {
                 isEmptyAmmoSoundPlayed = true;
                 audioSource.PlayOneShot(actions.emptyAmmoSound);
@@ -133,8 +133,8 @@ public class WeaponManager : MonoBehaviour
         if (actions.currentState == actions.swapState) return false; // Se si sta cambiando arma, non sparare
         if (EventSystem.current.IsPointerOverGameObject()) return false; // Se il mouse è sopra un UI, non sparare
         if (IsClickingOnInteractiveObject()) return false; // Se si sta cliccando su un oggetto interattivo (raccoglibile, ecc.), non sparare
-        if (weapon.semiAuto && Input.GetKeyDown(KeyCode.Space)) return true; // Se l'arma è semi automatica e si preme il tasto sinistro del mouse, sparare
-        if (!weapon.semiAuto && Input.GetKey(KeyCode.Space)) return true; // Se l'arma è automatica e si tiene premuto il tasto sinistro del mouse, sparare
+        if (weapon.semiAuto && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))) return true; // Se l'arma è semi automatica e si preme il tasto sinistro del mouse, sparare
+        if (!weapon.semiAuto && (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0))) return true; // Se l'arma è automatica e si tiene premuto il tasto sinistro del mouse, sparare
         return false;
     }
 
