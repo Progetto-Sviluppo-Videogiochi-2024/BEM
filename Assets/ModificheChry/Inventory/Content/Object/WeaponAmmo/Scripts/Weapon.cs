@@ -9,6 +9,8 @@ public class Weapon : Item // Weapon estende Item
     public RangeType rangeType; // Tipo di raggio (corto, medio)
     public Ammo ammo; // Munizioni dell'arma
     public int bulletConsumed; // Munizioni consumate
+    public int currentAmmo; // Munizioni attuali nel caricatore
+    public int extraAmmo; // Munizioni extra (escluse quelle nel caricatore) (per il caricamento)
     public float distance; // Distanza massima di tiro dell'arma
     public bool semiAuto; // Se l'arma è semiautomatica (cioè spara un colpo per volta)
     public bool isThrowable; // Se l'arma è da lancio (coltelli, bottiglie)
@@ -58,7 +60,7 @@ public class Weapon : Item // Weapon estende Item
         inventorySectionType = weaponData.inventorySectionType;
         own = weaponData.own;
         qta = weaponData.qta;
-        var sprites = SpriteManager.Instance.GetSpritesByObjectName(nameItem);
+        var sprites = SpriteManager.Instance.GetSprites(nameItem);
         icon = sprites.icon;
         image = sprites.image;
         // Prefab glielo passo a WeaponManager di ogni arma perché Json non li salva e penso sia il metodo più veloce
@@ -75,6 +77,8 @@ public class Weapon : Item // Weapon estende Item
         Scale = weaponData.Scale;
         isLoadingSlot = true;
         bulletConsumed = weaponData.bulletConsumed;
+        currentAmmo = weaponData.currentAmmo;
+        extraAmmo = weaponData.extraAmmo;
     }
 
     public void GetUpdateWAmmo(Item item) => prefab.GetComponent<WeaponAmmo>().UpdateAmmo(item as Ammo, true);

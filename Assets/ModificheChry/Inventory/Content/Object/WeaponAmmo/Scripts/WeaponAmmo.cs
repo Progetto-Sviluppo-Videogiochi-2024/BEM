@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponAmmo : MonoBehaviour
@@ -11,6 +12,7 @@ public class WeaponAmmo : MonoBehaviour
 
     [Header("Settings")]
     #region Settings
+    public static HashSet<string> collectedAmmoTypes = new(); // Tipi di munizioni raccolte (es: 9mm, 12mm, ecc), non lo salvo nel file perché ho già isLoadingSlot 
     [HideInInspector] public bool isLoadingSlot; // Flag indicante se il load slot è da caricare
     #endregion
 
@@ -19,11 +21,27 @@ public class WeaponAmmo : MonoBehaviour
     [HideInInspector] public Ammo data; // Dati delle munizioni
     #endregion
 
-    void Start()
+    public void Init()
     {
         if (data == null) return;
+
         clipSize = data.nAmmo;
-        if (!isLoadingSlot) currentAmmo = data.maxAmmo;
+        string ammoId = data.name;
+
+        if (!collectedAmmoTypes.Contains(ammoId))
+        {
+            collectedAmmoTypes.Add(ammoId);
+            currentAmmo = data.maxAmmo; // Prima raccolta
+            extraAmmo = 0;
+
+            if (isLoadingSlot) return;
+        }
+        if (isLoadingSlot)
+        {
+            var weapon = GetComponent<ItemController>().item as Weapon;
+            currentAmmo = weapon.currentAmmo;
+            extraAmmo = weapon.extraAmmo;
+        }
     }
 
     public void UpdateAmmo(Ammo ammo, bool isAmmo)

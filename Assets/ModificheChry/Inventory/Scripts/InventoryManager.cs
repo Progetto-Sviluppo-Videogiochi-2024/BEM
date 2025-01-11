@@ -62,10 +62,18 @@ public class InventoryManager : MonoBehaviour
 
         // Inizializza l'oggetto con i dati forniti
         if (data is AmmoData ammoData && instance is Ammo ammo) ammo.Initialize(ammoData);
-        else if (data is WeaponData weaponData && instance is Weapon weapon) weapon.Initialize(weaponData);
+        else if (data is WeaponData weaponData && instance is Weapon weapon) { weapon.Initialize(weaponData); SetWeaponPrefab(weapon); }
         else if (data is ItemData itemData && instance is Item item) item.Initialize(itemData);
 
         return instance;
+    }
+
+    private void SetWeaponPrefab(Weapon weapon)
+    {
+        var prefab = PrefabManager.Instance.GetGO(weapon.nameItem);
+        prefab.GetComponent<ItemController>().item = weapon;
+        weapon.prefab = Instantiate(prefab);
+        prefab.SetActive(false);
     }
 
     public void ClearInventory()

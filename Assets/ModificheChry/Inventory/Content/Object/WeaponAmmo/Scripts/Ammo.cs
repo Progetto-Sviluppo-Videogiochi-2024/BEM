@@ -41,7 +41,7 @@ public class Ammo : Item
         inventorySectionType = ammoData.inventorySectionType;
         own = ammoData.own;
         qta = ammoData.qta;
-        var sprites = SpriteManager.Instance.GetSpritesByObjectName(nameItem);
+        var sprites = SpriteManager.Instance.GetSprites(nameItem);
         icon = sprites.icon;
         image = sprites.image;
         ammoType = ammoData.ammoType;

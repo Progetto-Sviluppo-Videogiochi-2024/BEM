@@ -47,8 +47,8 @@ public class ItemPickup : MonoBehaviour
         itemId = GenerateItemId();
         if (GestoreScena.collectedItemIds.Contains(itemId))
         {
-            if (item.tagType == Item.ItemTagType.Weapon) SetWeaponPostLoad();
-            else Destroy(gameObject);
+            if (item.tagType != Item.ItemTagType.Weapon) Destroy(gameObject);
+            else gameObject.SetActive(false);
         }
     }
 
@@ -126,7 +126,8 @@ public class ItemPickup : MonoBehaviour
                 }
                 else if (item.tagType == Item.ItemTagType.Ammo)
                 {
-                    InventoryManager.instance.SearchWeapon(item as Ammo)?.GetUpdateWAmmo(item);
+                    var weapon = InventoryManager.instance.SearchWeapon(item as Ammo);
+                    weapon?.GetUpdateWAmmo(item);
                 }
                 InventoryManager.instance.Add(item);
                 InventoryUIController.instance.ListItems(InventoryManager.instance.items);
@@ -154,14 +155,6 @@ public class ItemPickup : MonoBehaviour
         var weaponAmmo = weapon.prefab.GetComponent<WeaponAmmo>();
         if (!InventoryManager.instance.SearchAmmo(weapon)) return;
         weaponAmmo.UpdateAmmo(weapon.ammo, false);
-    }
-
-    private void SetWeaponPostLoad()
-    {
-        Weapon weapon = InventoryManager.instance.SearchWeapon(item.nameItem);
-        if (weapon == null) { Debug.LogError("Weapon not found in inventory"); return; }
-        weapon.prefab ??= Instantiate(gameObject);
-        gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)

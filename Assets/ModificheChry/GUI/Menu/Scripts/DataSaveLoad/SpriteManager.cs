@@ -7,7 +7,7 @@ public class SpriteManager : MonoBehaviour
     [Serializable]
     public struct SpritePairEntry
     {
-        public string objectName; // Nome univoco dello ScriptableObject
+        public string objectName; // Nameitem dell'item
         public Sprite icon; // Sprite per l'icona
         public Sprite image; // Sprite per l'immagine
     }
@@ -30,7 +30,7 @@ public class SpriteManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject); // Rendi l'oggetto persistente
-            InitializeSpriteDictionary();
+            InitSpriteDictionary();
         }
         else
         {
@@ -38,7 +38,7 @@ public class SpriteManager : MonoBehaviour
         }
     }
 
-    private void InitializeSpriteDictionary()
+    private void InitSpriteDictionary()
     {
         spriteDictionary = new();
         foreach (var entry in spritePairEntries)
@@ -50,7 +50,7 @@ public class SpriteManager : MonoBehaviour
         }
     }
 
-    public (Sprite icon, Sprite image) GetSpritesByObjectName(string objectName)
+    public (Sprite icon, Sprite image) GetSprites(string objectName)
     {
         if (spriteDictionary.TryGetValue(objectName, out var sprites)) return sprites;
         Debug.LogError($"SpritePair '{objectName}' does not exist in the collection.");

@@ -7,8 +7,9 @@ public class WeaponManager : MonoBehaviour
     #region Fire Rate
     public LayerMask layerMask; // LayerMask per il raggio di sparo
     private bool isEmptyAmmoSoundPlayed = false; // Flag per evitare spam della SFX
-    private int bulletConsumed = 0; // Munizioni consumate
+    [HideInInspector] public int bulletConsumed = 0; // Munizioni consumate
     private bool isValidate = false; // Flag per validare lo script
+    private bool isInitialized = false; // Flag per inizializzare lo script una sola volta
     [SerializeField] float fireRate; // Tempo tra uno sparo e l'altro
     float fireRateTimer; // Timer per il tempo tra uno sparo e l'altro
     #endregion
@@ -58,43 +59,42 @@ public class WeaponManager : MonoBehaviour
     private void Awake()
     {
         weapon = GetComponent<ItemController>().item as Weapon;
-        bulletConsumed = weapon.bulletConsumed;
         weaponClassManager = FindAnyObjectByType<WeaponClassManager>();
         recoil = GetComponent<WeaponRecoil>();
         recoil.recoilFollowPosition = weaponClassManager.recoilFollowPosition;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
     {
         if (!Validate()) return;
         isValidate = true;
+        bulletConsumed = (GetComponent<ItemController>().item as Weapon).bulletConsumed;
 
-        aim = GetComponentInParent<AimStateManager>();
-        actions = GetComponentInParent<ActionStateManager>();
-        bloom = GetComponent<WeaponBloom>();
+        aim ??= weaponClassManager.GetComponent<AimStateManager>();
+        actions ??= weaponClassManager.GetComponent<ActionStateManager>();
+        bloom ??= GetComponent<WeaponBloom>();
 
         fireRateTimer = fireRate;
+    }
+
+    private void OnEnable()
+    {
+        if (isInitialized) return;
+        bulletSpawnPoint = gameObject.transform.Find("BulletSpawnPoint");
+        muzzleFlashParticles = bulletSpawnPoint.GetComponentInChildren<ParticleSystem>();
+
+        damage = weapon.ammo.damageAmmo;
+        ammo = GetComponent<WeaponAmmo>();
+        ammo.data = weapon.ammo;
+        ammo.isLoadingSlot = (GetComponent<ItemController>().item as Weapon).isLoadingSlot;
+        ammo.Init();
+        isInitialized = true;
     }
 
     void OnBecameVisible()
     {
         if (!isValidate && Validate()) { Start(); OnEnable(); }
-    }
-
-    private void OnEnable()
-    {
-        bulletSpawnPoint = gameObject.transform.Find("BulletSpawnPoint");
-        muzzleFlashParticles = bulletSpawnPoint.GetComponentInChildren<ParticleSystem>();
-        //muzzleFlashLight = bulletSpawnPoint.GetComponentInChildren<Light>();
-        //lightIntensity = 2;
-        //muzzleFlashLight.intensity = 0;
-
-        damage = weapon.ammo.damageAmmo;
-        ammo = GetComponent<WeaponAmmo>();
-        ammo.isLoadingSlot = weapon.isLoadingSlot;
-        ammo.data ??= weapon.ammo;
-
-        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -103,7 +103,6 @@ public class WeaponManager : MonoBehaviour
 
         if (ShouldFire()) Fire();
         if (!Input.GetKey(KeyCode.Space)) isEmptyAmmoSoundPlayed = false; // Resetta il flag quando si smette di premere il tasto di sparo
-        //muzzleFlashLight.intensity = Mathf.Lerp(muzzleFlashLight.intensity, 0, lightReturnSpeed * Time.deltaTime);
     }
 
     private bool Validate() => GetComponent<ItemController>() != null && transform.root.GetChild(0).CompareTag("Player"); // Se l'oggetto ha un ItemController e il padre ha il tag "Player"
@@ -174,11 +173,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    void TriggerMuzzleFlash()
-    {
-        muzzleFlashParticles.Play();
-        //muzzleFlashLight.intensity = lightIntensity;
-    }
+    void TriggerMuzzleFlash() => muzzleFlashParticles.Play();
 
     private bool IsClickingOnInteractiveObject()
     {

@@ -61,6 +61,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         Bind<GameCharacter, PlayerData>(gameData.playerData);
         Bind<GameInventory, InventoryData>(gameData.inventoryData);
         Bind<GameLevelData, LevelData>(gameData.levelData);
+        print("SLS: OnSceneLoaded: Dati caricati");
     }
 
     void Bind<T, TData>(TData data) where T : MonoBehaviour, IBind<TData> where TData : ISaveable, new()

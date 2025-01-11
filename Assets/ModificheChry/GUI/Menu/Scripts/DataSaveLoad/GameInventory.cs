@@ -20,6 +20,8 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
             IterateOnList<Weapon, WeaponData>(data.weaponItems, inventory);
             IterateOnList<Ammo, AmmoData>(data.ammoItems, inventory);
         }
+
+        WeaponAmmo.collectedAmmoTypes = new(data.ammoIdCollected);
     }
 
     private void IterateOnList<T, TData>(List<TData> datas, InventoryManager inventory) where T : Item, new()
@@ -41,6 +43,7 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
             data.items.Clear(); // Pulisce la lista degli oggetti salvati
             data.weaponItems.Clear(); // Pulisce la lista delle armi salvate
             data.ammoItems.Clear(); // Pulisce la lista delle munizioni salvate
+            data.ammoIdCollected.Clear(); // Pulisce la lista delle munizioni raccolte
 
             // Salva ogni oggetto dell'inventario
             foreach (var item in inventory.items)
@@ -61,6 +64,11 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
                     data.items.Add(itemData);
                 }
             }
+
+            foreach (string ammo in WeaponAmmo.collectedAmmoTypes)
+            {
+                data.ammoIdCollected.Add(ammo);
+            }
         }
     }
 }
@@ -72,6 +80,7 @@ public class InventoryData : ISaveable
     public List<ItemData> items = new(); // Lista degli oggetti nell'inventario
     public List<WeaponData> weaponItems = new(); // Lista delle armi nell'inventario
     public List<AmmoData> ammoItems = new(); // Lista delle munizioni nell'inventario
+    public List<string> ammoIdCollected = new(); // Lista delle munizioni raccolte, per evitare di configurare più volte la stessa ammo raccolta
 }
 
 [Serializable]
@@ -166,6 +175,8 @@ public class WeaponData
     public Vector3 Scale;
     public bool isLoadingSlot;
     public int bulletConsumed;
+    public int currentAmmo;
+    public int extraAmmo;
 
     public WeaponData() { }
 
@@ -205,6 +216,9 @@ public class WeaponData
         Scale = weapon.Scale;
         isLoadingSlot = false;
         bulletConsumed = weapon.bulletConsumed;
+        var weaponAmmo = weapon.prefab.GetComponent<WeaponAmmo>();
+        currentAmmo = weaponAmmo.currentAmmo;
+        extraAmmo = weaponAmmo.extraAmmo;
     }
 }
 

@@ -32,6 +32,7 @@ public class TriggerDialogue : NPCDialogueBase
             hasDialogueBeenShown = true;
             isConversationActive = true;
             player.GetComponent<MovementStateManager>().enabled = false;
+            player.GetComponent<AudioSource>().Stop();
             StartDialogue();
         }
     }
