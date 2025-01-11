@@ -2695,7 +2695,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Event:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2058260428}
+        m_TargetAssemblyTypeName: ManagerScena3, Assembly-CSharp
+        m_MethodName: SetDEBool
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: stealth
+          m_BoolArgument: 0
+        m_CallState: 1
   NodeID: 0
   TMPFont: {fileID: 0}
   Icon: {fileID: 21300000, guid: 557764bd7d568ca43aafae4f810cbc36, type: 3}
@@ -52731,7 +52743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 1
-  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[],\"EditorInfo\":{\"isRoot\":true,\"xPos\":220,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Utilizzando
+  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[],\"EditorInfo\":{\"isRoot\":true,\"xPos\":268.1,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Utilizzando
     il tasto 'C' puoi accovacciarti per ridurre il suono emesso da Stefano e le tue
     probabilit\xE0 di essere scovato dai nemici.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Tutorial
     Stealth\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
@@ -52745,7 +52757,19 @@ MonoBehaviour:
   EndConversationFont: {fileID: 0}
   Event:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2058260428}
+        m_TargetAssemblyTypeName: ManagerScena3, Assembly-CSharp
+        m_MethodName: SetDEBool
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: stealth
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1001 &2012972451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53505,6 +53529,7 @@ GameObject:
   - component: {fileID: 2058260426}
   - component: {fileID: 2058260428}
   - component: {fileID: 2058260427}
+  - component: {fileID: 2058260430}
   - component: {fileID: 2058260429}
   m_Layer: 0
   m_Name: ManagerScena3
@@ -53657,6 +53682,34 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2058260430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058260425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57bdf448a2a8cd74e9e303b77b387deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField:
+    Part1: 3424036376
+    Part2: 1117562338
+    Part3: 3913393808
+    Part4: 3178421455
+  data:
+    <Id>k__BackingField:
+      Part1: 1908069730
+      Part2: 1276149893
+      Part3: 581222558
+      Part4: 1765024935
+    playerPrefs: []
+    characters: []
+    booleanAccessor: []
+    questAttive: []
+    questCompletate: []
 --- !u!1 &2058564830
 GameObject:
   m_ObjectHideFlags: 0
