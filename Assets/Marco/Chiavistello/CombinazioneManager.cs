@@ -12,23 +12,22 @@ public class CombinazioneManager : MonoBehaviour
     public GameObject CombinazioneCanvas; // Il canvas che contiene la UI della Combinazione
     public Button CloseCombinazioneUI; // Il pulsante per chiudere la UI della Combinazione
     private Transform player; // Il giocatore
-    // [SerializeField] private AudioSource combinazioneSource; // Riferimento all'AudioSource
-    // [SerializeField] private AudioClip combinazioneClip; // Audio che viene riprodotto quando la combinazione è corretta
+    [SerializeField] private AudioClip combinazione; // Audio che viene riprodotto quando la combinazione è corretta
     public GameObject oggettoDaDisattivare; // Oggetto da disattivare quando la combinazione è corretta
+    public ManagerScena3 managerScena3; // Riferimento al ManagerScena3
     #endregion
 
     private bool isInRange = false; // Indica se il giocatore è vicino alla Combinazione
     private bool isCombinazioneOpen = false; // Indica se il canvas della radio è aperto
+    public bool sbloccato = false; // Stato di sblocco (combinazione corretta o no)
 
     public TMP_Dropdown dropdown0; // Riferimento al primo dropdown (7)
     public TMP_Dropdown dropdown1; // Riferimento al secondo dropdown (0)
     public TMP_Dropdown dropdown2; // Riferimento al terzo dropdown (7)
     public TMP_Dropdown dropdown3; // Riferimento al quarto dropdown (0)
-    public bool sbloccato = false; // Stato di sblocco (combinazione corretta o no)
 
     void Start()
     {
-        // combinazioneSource = gameObject.AddComponent<AudioSource>();
         player = FindAnyObjectByType<Player>().transform;
         CombinazioneCanvas.SetActive(false);
         CloseCombinazioneUI.onClick.AddListener(() => { ToggleCombinazione(false); RemoveButtonFocus(); });
@@ -53,20 +52,14 @@ public class CombinazioneManager : MonoBehaviour
         }
     }
 
-    // Funzione per verificare la combinazione
     void VerificaCombinazione()
     {
-        // Confronta i valori dei dropdown con la combinazione corretta
         if (dropdown0.value == 7 && dropdown1.value == 0 && dropdown2.value == 7 && dropdown3.value == 0)
         {
             sbloccato = true;
-            // PlaySound();
+            StartCoroutine(managerScena3.PlayAudioAndWait(2f, combinazione));
+            oggettoDaDisattivare?.SetActive(false);
             ToggleCombinazione(false);
-
-            if (oggettoDaDisattivare != null)
-            {
-                oggettoDaDisattivare.SetActive(false);
-            }
         }
         else sbloccato = false;
     }
@@ -99,14 +92,6 @@ public class CombinazioneManager : MonoBehaviour
 
         return false; // Non stai cliccando su un elemento del Canvas
     }
-
-    // private void PlaySound()
-    // {
-    //     if (combinazioneClip != null)
-    //     {
-    //         combinazioneSource.PlayOneShot(combinazioneClip);
-    //     }
-    // }
 
     private void OnTriggerEnter(Collider other)
     {
