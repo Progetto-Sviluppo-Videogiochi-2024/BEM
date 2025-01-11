@@ -288,7 +288,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         var qta = inspectMenu.Find("QtaItem");
         var weight = inspectMenu.Find("WeightItem");
 
-        if (item.tagType == ItemTagType.Item || item.tagType == ItemTagType.Weapon)
+        if (item.tagType == ItemTagType.Item || item.tagType == ItemTagType.Weapon || item.tagType == ItemTagType.Ammo)
         {
             qta.gameObject.SetActive(true);
             qta.GetComponent<TextMeshProUGUI>().text = "Quantità: " + item.qta.ToString();
