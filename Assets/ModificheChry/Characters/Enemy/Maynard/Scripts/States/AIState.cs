@@ -1,7 +1,9 @@
 
 public enum AIStateId
 {
-    ChasePlayer, 
+    Patrol,
+    ChasePlayer,
+    Attack, 
     Death
 }
 

@@ -1,14 +1,15 @@
+using System;
 
 public class AIStateMachine
 {
-    public AIState[] states;
-    AIAgent agent;
-    public AIStateId currentState;
+    public AIState[] states; // Array di stati della macchina a stati
+    AIAgent agent; // Riferimento all'agente
+    public AIStateId currentState; // Stato corrente della macchina a stati
 
     public AIStateMachine(AIAgent agent)
     {
         this.agent = agent;
-        int nStates = System.Enum.GetNames(typeof(AIStateId)).Length;
+        int nStates = Enum.GetNames(typeof(AIStateId)).Length;
         states = new AIState[nStates];
     }
 

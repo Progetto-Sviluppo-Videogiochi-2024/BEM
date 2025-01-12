@@ -20,7 +20,7 @@ public class AngelicaHitBall : NPCAIBase
         stopDistance = 2f;
     }
 
-    protected override void MoveTowardsTarget(Vector3 destination)
+    public override void MoveTowardsTarget(Vector3 destination, float speed, float interpolationSpeed)
     {
         if (!BooleanAccessor.istance.GetBoolFromThis("preHitBallJA") || !ConversationManager.Instance.hasClickedEnd) return;
 

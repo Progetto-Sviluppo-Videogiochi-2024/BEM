@@ -28,19 +28,19 @@ public class NPCAIBase : MonoBehaviour
     {
         if (agent == null || !agent.isActiveAndEnabled || !agent.isOnNavMesh) return; // Se l'agente non è attivo o non è sulla navmesh
 
-        if (target != null) MoveTowardsTarget(target.position);
+        if (target != null) MoveTowardsTarget(target.position, movementStateManager.currentMoveSpeed <= 2f ? 2f : 5f, 5f);
     }
 
-    protected virtual void MoveTowardsTarget(Vector3 destination)
+    public virtual void MoveTowardsTarget(Vector3 destination, float speed, float interpolationSpeed)
     {
         float distanceToPlayer = Vector3.Distance(transform.position, destination);
 
-        if (distanceToPlayer > stopDistance) // Se il target è abbastanza lontano, l'agente si muove verso di lui
-        {
-            float targetSpeed = movementStateManager.currentMoveSpeed <= 2f ? 2f : 5f;
-            MoveAgent(target.position, Mathf.Lerp(agent.speed, targetSpeed, Time.deltaTime * 5f)); // Interpolazione graduale
-        }
-        else StopAgent(); // Se è abbastanza vicino, l'agente si ferma
+        // Se è vicino alla distanza di stop, ferma l'agente
+        if (distanceToPlayer <= stopDistance) { StopAgent(); return; }
+
+        // else se è abbastanza lontano, l'agente si muove verso il target
+        float targetSpeed = speed;
+        MoveAgent(destination, Mathf.Lerp(agent.speed, targetSpeed, Time.deltaTime * interpolationSpeed)); // Interpolazione graduale
     }
 
     protected void MoveAgent(Vector3 destination, float speed)

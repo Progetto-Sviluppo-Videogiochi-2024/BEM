@@ -3,20 +3,7 @@ using UnityEngine.AI;
 
 public class AIChasePlayerState : AIState
 {
-    [Header("Settings")]
-    #region Settings
-    float timer = 0.0f; // Timer per gestire l'aggiornamento del path
-    #endregion
-
-    [Header("References")]
-    #region References
-    public Transform player; // Riferimento al giocatore
-    #endregion
-
-    public void Enter(AIAgent agent)
-    {
-        if (player == null) player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
+    public void Enter(AIAgent agent) { }
 
     public void Exit(AIAgent agent) { }
 
@@ -26,19 +13,28 @@ public class AIChasePlayerState : AIState
     {
         if (!agent.enabled) return;
 
-        timer -= Time.deltaTime;
-        if (!agent.navMeshAgent.hasPath) agent.navMeshAgent.destination = player.transform.position;
+        // Calcola la distanza dal giocatore
+        // float distanceToPlayer = Vector3.Distance(agent.transform.position, player.position);
 
-        if (timer <= 0.0f)
+        // Se il nemico è abbastanza vicino al giocatore, attaccalo
+        // if (distanceToPlayer <= agent.config.attackRange)
+        // {
+        //     agent.stateMachine.ChangeState(AIStateId.Attack);
+        //     return;
+        // }
+
+        // Se il nemico ha perso il giocatore (opzione 1: distanza troppo lunga o visibilità persa), torna al pattugliamento
+        // if (distanceToPlayer > agent.config.detectionRange || !IsPlayerVisible(agent))
+        // {
+        //     agent.stateMachine.ChangeState(AIStateId.Patrol);
+        //     return;
+        // }
+
+        // Se l'agente non ha ancora un percorso o è necessario calcolarlo di nuovo, aggiorna la destinazione
+        if (!agent.navMeshAgent.hasPath || agent.navMeshAgent.destination != agent.player.position)
         {
-            Vector3 direction = player.position - agent.navMeshAgent.destination;
-            direction.y = 0;
-            if (direction.sqrMagnitude > agent.config.maxDistance * agent.config.maxDistance)
-            {
-                if (agent.navMeshAgent.pathStatus != NavMeshPathStatus.PathPartial)
-                    agent.navMeshAgent.destination = player.position;
-            }
-            timer = agent.config.maxTime;
+            agent.navMeshAgent.SetDestination(agent.player.position);  // Calcola automaticamente il percorso verso il giocatore
         }
+        // L'agente calcolerà il percorso ottimale per arrivare a Stefano, aumentando la difficoltà di gioco
     }
 }
