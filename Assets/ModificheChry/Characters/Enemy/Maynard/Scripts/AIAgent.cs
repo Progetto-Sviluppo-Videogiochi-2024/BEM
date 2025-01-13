@@ -3,15 +3,24 @@ using UnityEngine.AI;
 
 public class AIAgent : MonoBehaviour
 {
-    public AIStateMachine stateMachine;
-    public AIStateId initialState;
-    [HideInInspector] public NavMeshAgent navMeshAgent;
-    [HideInInspector] public AILocomotion locomotion;
-    [HideInInspector] public AIStatus status;
-    [HideInInspector] public AIDetection detection;
-    public AI config;
-    public Collider patrolArea;
-    public Transform player; // Riferimento al giocatore
+    [Header("State Machine")]
+    #region State Machine
+    public AIStateId initialState; // Stato iniziale
+    public AIStateMachine stateMachine; // Macchina a stati finitia
+    #endregion
+
+    [Header("References")]
+    #region References
+    public AI config; // Configurazione dell'IA
+    public Collider patrolArea; // Area di pattugliamento
+    public Player player; // Riferimento al giocatore
+    [HideInInspector] public Rigidbody rb; // Riferimento al corpo rigidbody
+    [HideInInspector] public NavMeshAgent navMeshAgent; // Riferimento all'agente di navigazione
+    [HideInInspector] public AILocomotion locomotion; // Riferimento al componente di locomozione
+    [HideInInspector] public AIStatus status; // Riferimento allo stato dell'IA
+    [HideInInspector] public AIDetection detection; // Riferimento al componente di rilevamento
+    [HideInInspector] public Animator animator; // Riferimento all'animatore
+    #endregion
 
     void Start()
     {
@@ -19,6 +28,7 @@ public class AIAgent : MonoBehaviour
         locomotion = GetComponent<AILocomotion>();
         status = GetComponent<AIStatus>();
         detection = GetComponent<AIDetection>();
+        animator = GetComponent<Animator>();
 
         stateMachine = new(this);
         stateMachine.RegisterState(new AIPatrolState());
@@ -28,8 +38,5 @@ public class AIAgent : MonoBehaviour
         stateMachine.ChangeState(initialState);
     }
 
-    void Update()
-    {
-        stateMachine.Update();
-    }
+    void Update() => stateMachine.Update();
 }

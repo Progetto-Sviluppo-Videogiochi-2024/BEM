@@ -7,7 +7,8 @@ public class AIDetection : MonoBehaviour
     [SerializeField] float lookDistance = 30f;
     [SerializeField] float fov = 120f;
     private bool isPlayerHeard = false; // Stato del rilevamento acustico
-    public bool isPlayerDetected = false; // Stato del rilevamento acustico o visivo
+    [HideInInspector] public bool isPlayerDetected = false; // Stato del rilevamento acustico o visivo
+    [SerializeField] LayerMask layerMask; // Maschera per il rilevamento
     #endregion
 
     [Header("References")]
@@ -25,7 +26,7 @@ public class AIDetection : MonoBehaviour
 
     void Start()
     {
-        player = GetComponent<AIAgent>().player;
+        player = GetComponent<AIAgent>().player.transform;
         aIStatus = GetComponent<AIStatus>();
         gestoreScena = FindObjectOfType<GestoreScena>();
         playerHead = gestoreScena?.playerHead;
@@ -47,7 +48,7 @@ public class AIDetection : MonoBehaviour
 
         enemyEyes.LookAt(playerHead.position);
 
-        if (Physics.Raycast(enemyEyes.position, enemyEyes.forward, out RaycastHit hit, lookDistance))
+        if (Physics.Raycast(enemyEyes.position, enemyEyes.forward, out RaycastHit hit, lookDistance, layerMask))
         {
             if (hit.transform.name == player.name)
             {

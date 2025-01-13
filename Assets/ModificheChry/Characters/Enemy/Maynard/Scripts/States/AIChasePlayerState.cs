@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 public class AIChasePlayerState : AIState
 {
     public void Enter(AIAgent agent) { }
@@ -12,11 +14,11 @@ public class AIChasePlayerState : AIState
         if (!agent.enabled) return;
 
         // Se il nemico è abbastanza vicino al giocatore, attaccalo
-        // if (Vector3.Distance(agent.transform.position, agent.player.position) <= agent.config.attackRange)
-        // {
-        //     agent.stateMachine.ChangeState(AIStateId.Attack);
-        //     return;
-        // }
+        if (Vector3.Distance(agent.transform.position, agent.player.transform.position) <= /*agent.attackRange*/ 2f)
+        {
+            agent.stateMachine.ChangeState(AIStateId.Attack);
+            return;
+        }
 
         // Se il nemico ha perso il giocatore (opzione 1: distanza troppo lunga o visibilità persa), torna al pattugliamento
         if (!agent.detection.isPlayerDetected)
@@ -26,9 +28,9 @@ public class AIChasePlayerState : AIState
         }
 
         // Se l'agente non ha ancora un percorso o è necessario calcolarlo di nuovo, aggiorna la destinazione
-        if (!agent.navMeshAgent.hasPath || agent.navMeshAgent.destination != agent.player.position)
+        if (!agent.navMeshAgent.hasPath || agent.navMeshAgent.destination != agent.player.transform.position)
         {
-            agent.navMeshAgent.SetDestination(agent.player.position);  // Calcola automaticamente il percorso verso il giocatore
+            agent.navMeshAgent.SetDestination(agent.player.transform.position);  // Calcola automaticamente il percorso verso il giocatore
         }
         // L'agente calcolerà il percorso ottimale per arrivare a Stefano, aumentando la difficoltà di gioco
     }
