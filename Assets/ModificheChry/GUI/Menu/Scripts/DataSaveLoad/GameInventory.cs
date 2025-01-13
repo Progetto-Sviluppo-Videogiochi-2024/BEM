@@ -215,7 +215,7 @@ public class WeaponData
         AimRotation = weapon.AimRotation;
         Scale = weapon.Scale;
         isLoadingSlot = false;
-        bulletConsumed = weapon.bulletConsumed;
+        bulletConsumed = weapon.prefab.GetComponent<WeaponManager>().bulletConsumed;
         var weaponAmmo = weapon.prefab.GetComponent<WeaponAmmo>();
         currentAmmo = weaponAmmo.currentAmmo;
         extraAmmo = weaponAmmo.extraAmmo;

@@ -4,7 +4,7 @@ public class RunningState : MovementBaseState
 {
     public override void EnterState(MovementStateManager movement)
     {
-        movement.noiseAura.radius = 8f;
+        if (movement.noiseAura != null) movement.noiseAura.radius = 8f;
         movement.animator.SetBool("running", true);
         movement.PlayRunning();
     }

@@ -6,7 +6,7 @@ public class WalkingState : MovementBaseState
 {
     public override void EnterState(MovementStateManager movement)
     {
-        movement.noiseAura.radius = 4f;
+        if (movement.noiseAura != null) movement.noiseAura.radius = 4f;
         movement.animator.SetBool("walking", true);
     }
     public override void UpdateState(MovementStateManager movement)

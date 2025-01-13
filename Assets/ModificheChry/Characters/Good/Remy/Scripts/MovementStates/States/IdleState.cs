@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class IdleState : MovementBaseState
 {
-    public override void EnterState(MovementStateManager movement) { movement.noiseAura.radius = 1f; }
+    public override void EnterState(MovementStateManager movement) { if (movement.noiseAura != null) movement.noiseAura.radius = 1f; }
 
     public override void UpdateState(MovementStateManager movement)
     {
