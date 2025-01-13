@@ -1,40 +1,40 @@
 using UnityEngine;
 
-public class DetectionStateManager : MonoBehaviour
+public class AIDetection : MonoBehaviour
 {
-    [Header("Detection Settings")]
+    [Header("Settings")]
     #region Detection Settings
     [SerializeField] float lookDistance = 30f;
     [SerializeField] float fov = 120f;
+    private bool isPlayerHeard = false; // Stato del rilevamento acustico
+    public bool isPlayerDetected = false; // Stato del rilevamento acustico o visivo
     #endregion
 
     [Header("References")]
     #region References
     [SerializeField] Transform enemyEyes;
     Transform playerHead;
+    private Transform player;
     #endregion
 
     [Header("References Scripts")]
     #region References Scripts
     GestoreScena gestoreScena;
+    [HideInInspector] AIStatus aIStatus;
     #endregion
 
     void Start()
     {
+        player = GetComponent<AIAgent>().player;
+        aIStatus = GetComponent<AIStatus>();
         gestoreScena = FindObjectOfType<GestoreScena>();
         playerHead = gestoreScena?.playerHead;
     }
 
     private void FixedUpdate()
     {
-        if (IsPlayerSeen() && IsEnemyAlive()) print("Player seen by " + transform.name);
-        // else Debug.Log("Player not seen");
-    }
-
-    private bool IsEnemyAlive()
-    {
-        var enemy = enemyEyes.transform.root.gameObject.GetComponent<EnemyHealth>();
-        return enemy.maxHealth > 0;
+        // Se il player è visto o sentito dal mutante (vivo)
+        isPlayerDetected = aIStatus.IsEnemyAlive() && (IsPlayerSeen() || isPlayerHeard);
     }
 
     public bool IsPlayerSeen()
@@ -49,13 +49,28 @@ public class DetectionStateManager : MonoBehaviour
 
         if (Physics.Raycast(enemyEyes.position, enemyEyes.forward, out RaycastHit hit, lookDistance))
         {
-            if (hit.transform == null) return false;
-            if (hit.transform.name == playerHead.root.name)
+            if (hit.transform.name == player.name)
             {
                 Debug.DrawLine(enemyEyes.position, hit.point, Color.green);
                 return true;
             }
         }
         return false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerHeard = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerHeard = false;
+        }
     }
 }

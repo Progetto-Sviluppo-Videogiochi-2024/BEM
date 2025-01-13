@@ -55,6 +55,8 @@ public class NPCAIBase : MonoBehaviour
     {
         agent.isStopped = true;
         agent.ResetPath();
+        agent.velocity = Vector3.zero;
+        agent.speed = 0f;
         animator?.SetFloat("speed", Mathf.Lerp(animator.GetFloat("speed"), 0f, Time.deltaTime * 5f));
     }
 }

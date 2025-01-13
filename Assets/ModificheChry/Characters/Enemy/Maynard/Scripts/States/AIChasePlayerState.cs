@@ -1,5 +1,3 @@
-using UnityEngine;
-using UnityEngine.AI;
 
 public class AIChasePlayerState : AIState
 {
@@ -13,22 +11,19 @@ public class AIChasePlayerState : AIState
     {
         if (!agent.enabled) return;
 
-        // Calcola la distanza dal giocatore
-        // float distanceToPlayer = Vector3.Distance(agent.transform.position, player.position);
-
         // Se il nemico è abbastanza vicino al giocatore, attaccalo
-        // if (distanceToPlayer <= agent.config.attackRange)
+        // if (Vector3.Distance(agent.transform.position, agent.player.position) <= agent.config.attackRange)
         // {
         //     agent.stateMachine.ChangeState(AIStateId.Attack);
         //     return;
         // }
 
         // Se il nemico ha perso il giocatore (opzione 1: distanza troppo lunga o visibilità persa), torna al pattugliamento
-        // if (distanceToPlayer > agent.config.detectionRange || !IsPlayerVisible(agent))
-        // {
-        //     agent.stateMachine.ChangeState(AIStateId.Patrol);
-        //     return;
-        // }
+        if (!agent.detection.isPlayerDetected)
+        {
+            agent.stateMachine.ChangeState(AIStateId.Patrol);
+            return;
+        }
 
         // Se l'agente non ha ancora un percorso o è necessario calcolarlo di nuovo, aggiorna la destinazione
         if (!agent.navMeshAgent.hasPath || agent.navMeshAgent.destination != agent.player.position)

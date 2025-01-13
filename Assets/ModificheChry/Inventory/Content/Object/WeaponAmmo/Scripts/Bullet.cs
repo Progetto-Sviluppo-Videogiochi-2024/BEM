@@ -33,12 +33,12 @@ public class Bullet : MonoBehaviour
                 PlayerPrefs.Save();
             }
         }
-        if (hitObject.transform.root.gameObject.GetComponent<EnemyHealth>())
+        if (hitObject.transform.root.gameObject.GetComponent<AIStatus>())
         {
-            EnemyHealth enemyHealth = hitObject.transform.root.gameObject.GetComponent<EnemyHealth>();
+            AIStatus enemyHealth = hitObject.transform.root.gameObject.GetComponent<AIStatus>();
             enemyHealth.TakeDamage(weapon.damage);
 
-            if (enemyHealth.maxHealth <= 0 && !enemyHealth.isDead)
+            if (enemyHealth.health <= 0 && !enemyHealth.isDead)
             {
                 Rigidbody rb = hitObject.GetComponent<Rigidbody>();
                 rb.AddForce(direction * weapon.enemykickBackForce, ForceMode.Impulse);

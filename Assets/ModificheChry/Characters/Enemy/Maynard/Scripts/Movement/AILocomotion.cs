@@ -3,10 +3,23 @@ using UnityEngine;
 public class AILocomotion : NPCAIBase
 {
     [Header("Settings")]
+    #region Settings
     public float minDistance = 5f; // Distanza minima per camminare
     public float walkSpeed = 2f; // Velocità di camminata
     public float runSpeed = 6f; // Velocità di corsa
     [Tooltip("Velocità di transizione tra diversi tipi di speed")] public float interpolationSpeed = 5f; // Velocità di interpolazione
+    #endregion
+
+    [Header("References")]
+    #region References
+    AIAgent aIAgent;
+    #endregion
+
+    protected override void Start()
+    {
+        base.Start();
+        aIAgent = GetComponent<AIAgent>();
+    }
 
     protected override void Update()
     {
@@ -16,7 +29,9 @@ public class AILocomotion : NPCAIBase
             return;
         }
 
-        if (GetComponent<AIAgent>().stateMachine.currentState != AIStateId.ChasePlayer) return;
+        if (aIAgent.stateMachine.currentState == AIStateId.Patrol) return;
+        if (aIAgent.stateMachine.currentState == AIStateId.Attack) return;
+        if (aIAgent.stateMachine.currentState == AIStateId.Death) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         if (target != null) MoveTowardsTarget(player.position, (distanceToPlayer > minDistance) ? runSpeed : walkSpeed, interpolationSpeed);

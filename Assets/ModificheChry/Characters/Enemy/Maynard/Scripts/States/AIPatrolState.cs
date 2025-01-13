@@ -22,12 +22,9 @@ public class AIPatrolState : AIState
     public void Update(AIAgent agent)
     {
         bool isInsidePatrolArea = patrolAreaCollider.bounds.Contains(new(agent.transform.position.x, patrolAreaCollider.bounds.center.y, agent.transform.position.z));
-        // Rilevamento del giocatore
-        // float distanceToPlayer = Vector3.Distance(agent.transform.position, agent.player.position);
 
-        // if (distanceToPlayer <= detectionRange) agent.stateMachine.ChangeState(AIStateId.ChasePlayer); // Se rileva o sente il giocatore, passa a ChasePlayerState
-        // else
-        if (!isInsidePatrolArea)
+        if (agent.detection.isPlayerDetected) agent.stateMachine.ChangeState(AIStateId.ChasePlayer); // Se rileva o sente il giocatore
+        else if (!isInsidePatrolArea) // Se esce dall'area di pattugliamento o è fuori dall'area di Patrol
         {
             patrolDestination = GetRandomPointInCollider(agent, patrolAreaCollider); // Calcola una nuova destinazione valida
             agent.navMeshAgent.SetDestination(patrolDestination); // Forza il rientro
@@ -35,7 +32,7 @@ public class AIPatrolState : AIState
             Debug.DrawLine(agent.transform.position, patrolDestination, Color.yellow, 1.5f);
             return; // Evita ulteriori aggiornamenti in questo frame
         }
-        else if (!agent.navMeshAgent.pathPending && agent.navMeshAgent.remainingDistance < 1f) SetRandomPatrolDestination(agent);
+        else if (!agent.navMeshAgent.pathPending && agent.navMeshAgent.remainingDistance < 1f) SetRandomPatrolDestination(agent); // Se raggiunge la destinazione, ne calcola una nuova
         else Patrol(agent); // Segue quello specifico pattern di movimento
     }
 

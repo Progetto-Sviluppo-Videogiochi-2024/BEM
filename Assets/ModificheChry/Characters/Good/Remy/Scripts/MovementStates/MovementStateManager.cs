@@ -4,33 +4,33 @@ public class MovementStateManager : MonoBehaviour
 {
     [Header("Movement Settings")]
     #region Movement Settings
-    public float currentMoveSpeed;
-    public float walkSpeed = 3f;
-    public float walkBackSpeed = 2f;
-    public float runSpeed = 7f;
-    public float runBackSpeed = 5f;
-    public float crouchSpeed = 2f;
-    public float crouchBackSpeed = 1.5f;
-    [HideInInspector] public Vector3 moveDirection;
+    public float currentMoveSpeed; // Velocità di movimento attuale
+    public float walkSpeed = 3f; // Velocità di camminata
+    public float walkBackSpeed = 2f; // Velocità di camminata all'indietro
+    public float runSpeed = 7f; // Velocità di corsa
+    public float runBackSpeed = 5f; // Velocità di corsa all'indietro
+    public float crouchSpeed = 2f; // Velocità di movimento in stealth
+    public float crouchBackSpeed = 1.5f; // Velocità di movimento in stealth all'indietro
+    [HideInInspector] public Vector3 moveDirection; // Direzione di movimento
     #endregion
 
     [Header("Input Settings")]
     #region Input Settings
-    [HideInInspector] public float h;
-    [HideInInspector] public float v;
+    [HideInInspector] public float h; // Input per l'asse orizzontale (AD)
+    [HideInInspector] public float v; // Input per l'asse verticale (WS)
     #endregion
 
     [Header("Gravity Settings")]
     #region Gravity Settings
-    [SerializeField] readonly float gravity = -9.81f;
-    Vector3 velocity;
+    [SerializeField] readonly float gravity = -9.81f; // Gravità
+    Vector3 velocity; // Velocità
     #endregion
 
     [Header("Ground Check Settings")]
     #region Ground Check Settings
-    [SerializeField] float groundYOffset;
-    [SerializeField] LayerMask groundMask;
-    Vector3 spherePosition;
+    [SerializeField] float groundYOffset; // Offset per il controllo del terreno
+    [SerializeField] LayerMask groundMask; // Maschera per il terreno
+    Vector3 spherePosition; // Posizione della sfera per il controllo del terreno
     #endregion
 
     [Header("Inactivity Settings")]
@@ -41,23 +41,24 @@ public class MovementStateManager : MonoBehaviour
 
     [Header("States")]
     #region States
-    public MovementBaseState currentState;
-    public IdleState idleState = new();
-    public WalkingState walkingState = new();
-    public RunningState runningState = new();
-    public CrouchState crouchState = new();
+    public MovementBaseState currentState; // Stato attuale
+    public IdleState idleState = new(); // Stato di movimento per l'inattività
+    public WalkingState walkingState = new(); // Stato di movimento per la camminata
+    public RunningState runningState = new(); // Stato di movimento per la corsa
+    public CrouchState crouchState = new(); // Stato di movimento per lo stealth
     #endregion
 
     [Header("Audio Settings")]
     #region Audio Settings
-    public AudioClip runClip;
+    public AudioClip runClip; // Clip per la corsa
     #endregion
 
     [Header("References")]
     #region References
-    private CharacterController controller;
-    [HideInInspector] public Animator animator;
-    private AudioSource audioSource;
+    private CharacterController controller; // Controller per il movimento
+    [HideInInspector] public Animator animator; // Animator per le animazioni
+    private AudioSource audioSource; // AudioSource per l'audio
+    [HideInInspector] public SphereCollider noiseAura; // Trigger per il rilevamento acustico del nemico
     #endregion
 
     void Start()
@@ -65,6 +66,7 @@ public class MovementStateManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
+        noiseAura = GetComponent<SphereCollider>();
 
         SwitchState(idleState);
     }
@@ -74,17 +76,12 @@ public class MovementStateManager : MonoBehaviour
         GetDirectionAndMove();
         Gravity();
 
-        if (!CanInactivity())
-        {
-            ToggleInactivity(animator, false);
-        }
-        else if (CheckInactivityTimer())
-        {
-            Inactive();
-        }
+        if (!CanInactivity()) ToggleInactivity(animator, false);
+        else if (CheckInactivityTimer()) Inactive();
 
         animator.SetFloat("hInput", h);
         animator.SetFloat("vInput", v);
+
         currentState.UpdateState(this);
     }
 
