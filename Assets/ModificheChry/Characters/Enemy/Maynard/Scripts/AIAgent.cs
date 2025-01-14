@@ -24,6 +24,9 @@ public class AIAgent : MonoBehaviour
 
     void Start()
     {
+        // Se il video del mutante non è stato visto, disabilita le AI => per migliorare le performance del gioco (viene riattivato quando il video termina e ricarica la scena)
+        // if (!BooleanAccessor.istance.GetBoolFromThis("videoMutant")) { gameObject.SetActive(false); return; } // TODO: scommentare a fine gioco
+
         navMeshAgent = GetComponent<NavMeshAgent>();
         locomotion = GetComponent<AILocomotion>();
         status = GetComponent<AIStatus>();
