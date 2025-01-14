@@ -8,14 +8,14 @@ public class AIStatus : MonoBehaviour
     [HideInInspector] public bool isDead;
     #endregion
 
-    [Header("References Scripts")]
-    #region References Scripts
-    RagdollManager ragdoll;
+    [Header("References")]
+    #region References
+    AIAgent aIAgent;
     #endregion
 
     private void Start()
     {
-        ragdoll = GetComponent<RagdollManager>();
+        aIAgent = GetComponent<AIAgent>();
     }
 
     public void TakeDamage(float damage)
@@ -24,14 +24,7 @@ public class AIStatus : MonoBehaviour
         if (!IsEnemyAlive()) return;
 
         health -= damage;
-        if (!IsEnemyAlive()) { health = 0; Death(); }
-        print("Enemy Health: " + health);
-    }
-
-    private void Death()
-    {
-        ragdoll.TriggerRagdoll(); // TODO: ragdoll o animazione ?
-        print("Enemy is dead");
+        if (!IsEnemyAlive()) { health = 0; aIAgent.stateMachine.ChangeState(AIStateId.Death); }
     }
 
     public bool IsEnemyAlive() => health > 0;

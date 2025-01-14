@@ -16,6 +16,15 @@ public class AIWolf : MonoBehaviour
     private bool firstTimeSeeingPlayer = false; // Flag per controllare se è la prima volta che il lupo vede il player
     #endregion
 
+    [Header("Config AI")]
+    #region Config AI
+    [Tooltip("Distanza massima di vista")] public float maxSightDistance = 2f; // Distanza massima di vista (anche di inseguimento)
+    [Tooltip("Distanza da cui l'IA si ferma")] public float stopDistance = 1.5f; // Distanza di stop (anche dal target)
+    [Tooltip("Velocità di rotazione dell'IA")] public float rotationSpeed = 10f; // Velocità di rotazione
+    [Tooltip("Distanza massima di attacco in mischia")] public float distanceAttackMelee = 1.5f; // Distanza massima di attacco in mischia
+    [Tooltip("Danno dell'attacco da mischia1")] public int melee1Damage = -25; // Danno dell'attacco da mischia1
+    #endregion
+
     [Header("References")]
     #region References
     public Diario diario; // Riferimento al diario
@@ -26,7 +35,6 @@ public class AIWolf : MonoBehaviour
     private NavMeshAgent agent; // Riferimento all'Agente di navigazione del lupo
     private Transform player; // Riferimento al player
     private Animator animator; // Riferimento all'animator del lupo
-    public AI wolf; // Riferimento allo scriptable object dell'AI del lupo
     private BooleanAccessor booleanAccessor; // Riferimento al BooleanAccessor
     private ConversationManager conversationManager; // Riferimento al ConversationManager
     #endregion
@@ -67,7 +75,7 @@ public class AIWolf : MonoBehaviour
         // Else se ha l'esca e ha parlato con UomoBaita
         if (hasEnteredTargetArea) // Se il lupo è entrato nell'area target
         {
-            if (!IsNear(targetPositionStop, wolf.stopDistance)) return; // Se non è vicino al target, avvicinati
+            if (!IsNear(targetPositionStop, stopDistance)) return; // Se non è vicino al target, avvicinati
             ResetAtTarget(); // Se è vicino al target, resetta
             return;
         }
@@ -76,7 +84,7 @@ public class AIWolf : MonoBehaviour
 
     private bool CanAttack() =>
         !player.GetComponent<Player>().isDead && // Se il player non è morto
-        IsNear(player, wolf.distanceAttackMelee) && // Se il player è abbastanza vicino
+        IsNear(player, distanceAttackMelee) && // Se il player è abbastanza vicino
         !isAttacking && // Se non sta già attaccando
         !isRotatingToAttack;// Se non sta già ruotando per attaccare // Se il player non è morto
 
@@ -89,10 +97,10 @@ public class AIWolf : MonoBehaviour
         if (!isAttacking) return; // Se non sta attaccando, non fare nulla
 
         Vector3 rayDirection = (player.position - transform.position).normalized;
-        if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, wolf.distanceAttackMelee)) // Se colpisce il player
+        if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, distanceAttackMelee)) // Se colpisce il player
         {
             var player = hit.collider.transform.root.GetChild(0).GetComponent<Player>();
-            player?.UpdateStatusPlayer(wolf.melee1Damage, 0);
+            player?.UpdateStatusPlayer(melee1Damage, 0);
 
             if (player?.health <= 0)
             {
@@ -117,7 +125,7 @@ public class AIWolf : MonoBehaviour
         // Ottieni la distanza tra il lupo e il player
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        if (distanceToPlayer > wolf.maxSightDistance) // Se il player è abbastanza lontano, il lupo lo segue
+        if (distanceToPlayer > maxSightDistance) // Se il player è abbastanza lontano, il lupo lo segue
         {
             agent.speed = player.GetComponent<MovementStateManager>().currentMoveSpeed;
             animator.SetFloat("speed", agent.speed);
@@ -151,7 +159,7 @@ public class AIWolf : MonoBehaviour
     private void ResetWolf()
     {
         animator.SetFloat("speed", 0f);
-        agent.stoppingDistance = wolf.stopDistance;
+        agent.stoppingDistance = stopDistance;
         agent.velocity = Vector3.zero;
         agent.isStopped = true;
         agent.ResetPath();
@@ -165,7 +173,7 @@ public class AIWolf : MonoBehaviour
         {
             Vector3 directionToPlayer = (player.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new(directionToPlayer.x, 0, directionToPlayer.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * wolf.rotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
 
             if (Quaternion.Angle(transform.rotation, lookRotation) < 5f) // Se è allineato con il player
             {

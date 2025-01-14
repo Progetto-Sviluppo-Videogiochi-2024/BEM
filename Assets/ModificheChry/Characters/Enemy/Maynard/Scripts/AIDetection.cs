@@ -4,8 +4,8 @@ public class AIDetection : MonoBehaviour
 {
     [Header("Settings")]
     #region Detection Settings
-    [SerializeField] float lookDistance = 30f;
-    [SerializeField] float fov = 120f;
+    [SerializeField] float lookDistance = 30f; // Distanza di vista
+    [SerializeField] float fov = 120f; // Campo visivo
     private bool isPlayerHeard = false; // Stato del rilevamento acustico
     [SerializeField] LayerMask layerMask; // Maschera per il rilevamento
     #endregion
@@ -16,10 +16,6 @@ public class AIDetection : MonoBehaviour
     Transform playerHead;
     private Transform playerTransform;
     private Player player;
-    #endregion
-
-    [Header("References Scripts")]
-    #region References Scripts
     GestoreScena gestoreScena;
     [HideInInspector] AIStatus aIStatus;
     #endregion
@@ -62,17 +58,11 @@ public class AIDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            isPlayerHeard = true;
-        }
+        if (other.CompareTag("Player")) isPlayerHeard = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            isPlayerHeard = false;
-        }
+        if (other.CompareTag("Player")) isPlayerHeard = false;
     }
 }

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class AIAttackState : AIState
 {
-    public const float attackCooldown = 2.5f; // Tempo di cooldown tra un attacco e l'altro
-    public bool isAttacking = false; // Indica se l'AI sta attaccando
+    [HideInInspector] public bool isAttacking = false; // Indica se l'AI sta attaccando
     private float timeSinceLastAttack = 0f; // Tempo trascorso dall'ultimo attacco
 
     public void Enter(AIAgent agent)
@@ -35,7 +34,7 @@ public class AIAttackState : AIState
 
         // Controllo distanza per tornare allo stato di inseguimento
         float distanceToPlayer = Vector3.Distance(agent.transform.position, agent.player.transform.position);
-        if (!isAttacking && distanceToPlayer > 2.5f/*agent.attackRange*/)
+        if (!isAttacking && distanceToPlayer > agent.minChaseDistance)
         {
             agent.stateMachine.ChangeState(AIStateId.ChasePlayer);
             return;
@@ -43,7 +42,7 @@ public class AIAttackState : AIState
 
         // Controlla se è possibile iniziare un nuovo attacco
         timeSinceLastAttack += Time.deltaTime;
-        if (!isAttacking && timeSinceLastAttack >= attackCooldown)
+        if (!isAttacking && timeSinceLastAttack >= agent.attackCooldown)
         {
             agent.mutantAttack.PerformRandomAttack(agent); // Seleziona un attacco casuale in base alle probabilità
             timeSinceLastAttack = 0f; // Reset del tempo dal ultimo attacco

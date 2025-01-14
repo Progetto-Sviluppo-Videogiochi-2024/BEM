@@ -14,7 +14,7 @@ public class AIChasePlayerState : AIState
         if (!agent.enabled) return;
 
         // Se il nemico è abbastanza vicino al giocatore, attaccalo
-        if (Vector3.Distance(agent.transform.position, agent.player.transform.position) <= /*agent.attackRange*/ 2f)
+        if (Vector3.Distance(agent.transform.position, agent.player.transform.position) <= agent.minDistanceAttack)
         {
             agent.stateMachine.ChangeState(AIStateId.Attack);
             return;
