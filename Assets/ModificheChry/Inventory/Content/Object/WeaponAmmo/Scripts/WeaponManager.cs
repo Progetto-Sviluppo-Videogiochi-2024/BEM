@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,6 +13,7 @@ public class WeaponManager : MonoBehaviour
     private bool isInitialized = false; // Flag per inizializzare lo script una sola volta
     [SerializeField] float fireRate; // Tempo tra uno sparo e l'altro
     float fireRateTimer; // Timer per il tempo tra uno sparo e l'altro
+    bool isSphereRadiusIncrease = false; // Flag per verificare se il raggio della sfera di rumore è stato già aumentato
     #endregion
 
     [Header("Bullet Properties")]
@@ -53,6 +55,7 @@ public class WeaponManager : MonoBehaviour
     ActionStateManager actions; // Riferimento allo script ActionStateManager
     WeaponRecoil recoil; // Riferimento allo script WeaponRecoil
     [HideInInspector] public WeaponClassManager weaponClassManager; // Riferimento allo script WeaponClassManager
+    SphereCollider noiseAura; // Riferimento allo script Player
     [HideInInspector] public Weapon weapon; // Riferimento allo script Weapon
     #endregion
 
@@ -60,6 +63,7 @@ public class WeaponManager : MonoBehaviour
     {
         weapon = GetComponent<ItemController>().item as Weapon;
         weaponClassManager = FindAnyObjectByType<WeaponClassManager>();
+        noiseAura = weaponClassManager.GetComponent<SphereCollider>();
         recoil = GetComponent<WeaponRecoil>();
         recoil.recoilFollowPosition = weaponClassManager.recoilFollowPosition;
         audioSource = GetComponent<AudioSource>();
@@ -147,6 +151,9 @@ public class WeaponManager : MonoBehaviour
         recoil.TriggerRecoil();
         TriggerMuzzleFlash();
         ammo.currentAmmo--;
+
+        if (!isSphereRadiusIncrease) StartCoroutine(ChangeNoiseAuraRadius(3f, 9f, noiseAura.radius));
+
         for (int i = 0; i < bulletsPerShot; i++)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -180,5 +187,14 @@ public class WeaponManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit)) return hit.transform.GetComponent<ItemPickup>() != null;
         return false; // Se non c'è nulla di interattivo, ritorna false
+    }
+
+    private IEnumerator ChangeNoiseAuraRadius(float time, float radius, float currentRadius = 0)
+    {
+        isSphereRadiusIncrease = true;
+        noiseAura.radius = radius;
+        yield return new WaitForSeconds(time);
+        noiseAura.radius = currentRadius;
+        isSphereRadiusIncrease = false;
     }
 }
