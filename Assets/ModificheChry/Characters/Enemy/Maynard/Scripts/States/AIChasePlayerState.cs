@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AIChasePlayerState : AIState
 {
-    public void Enter(AIAgent agent) { }
+    public void Enter(AIAgent agent) { Debug.Log("Enter Chase Player State"); }
 
     public void Exit(AIAgent agent) { }
 

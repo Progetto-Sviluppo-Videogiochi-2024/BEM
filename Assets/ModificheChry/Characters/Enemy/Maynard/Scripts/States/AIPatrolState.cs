@@ -11,6 +11,7 @@ public class AIPatrolState : AIState
 
     public void Enter(AIAgent agent)
     {
+        Debug.Log("Enter Patrol State");
         SetPatrolArea(agent.patrolArea);
         SetRandomPatrolDestination(agent);
     }

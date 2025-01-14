@@ -20,18 +20,23 @@ public class AIAgent : MonoBehaviour
     [HideInInspector] public AIStatus status; // Riferimento allo stato dell'IA
     [HideInInspector] public AIDetection detection; // Riferimento al componente di rilevamento
     [HideInInspector] public Animator animator; // Riferimento all'animatore
+    [SerializeField] public LayerMask layerMask; // LayerMask per il rilevamento e gli attacchi
+    [HideInInspector] public IAttackAI mutantAttack; // Riferimento al componente script dell'attacco di ogni mutante
+    [HideInInspector] public RagdollManager ragdollManager; // Riferimento al componente di gestione del ragdoll
     #endregion
 
     void Start()
     {
-        // Se il video del mutante non è stato visto, disabilita le AI => per migliorare le performance del gioco (viene riattivato quando il video termina e ricarica la scena)
-        // if (!BooleanAccessor.istance.GetBoolFromThis("videoMutant")) { gameObject.SetActive(false); return; } // TODO: scommentare a fine gioco
+        // nel carica scompare, nella stessa game rimane morto a terra
 
         navMeshAgent = GetComponent<NavMeshAgent>();
         locomotion = GetComponent<AILocomotion>();
         status = GetComponent<AIStatus>();
         detection = GetComponent<AIDetection>();
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
+        mutantAttack = GetComponent<IAttackAI>();
+        ragdollManager = GetComponent<RagdollManager>();
 
         stateMachine = new(this);
         stateMachine.RegisterState(new AIPatrolState());

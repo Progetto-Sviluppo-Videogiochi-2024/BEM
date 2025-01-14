@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public PlayerUIController playerUIController; // Riferimento al componente PlayerUIController
     private RagdollManager ragdollManager; // Riferimento al componente RagdollManager
     public GameOverMenuManager gameOverMenuManager; // Riferimento al componente GameOverMenuManager
+    private CharacterController controller; // Riferimento al CharacterController
     #endregion
 
     [Header("Audio Settings")]
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
         hitSource = gameObject.AddComponent<AudioSource>();
         weaponClassManager = GetComponent<WeaponClassManager>();
         ragdollManager = GetComponent<RagdollManager>();
+        controller = GetComponent<CharacterController>();
 
         // Aggiorna l'UI del giocatore (anche se non ha subito danni -> per il caricamento dei dati)
         UpdateStatusPlayer(0, 0);
@@ -135,6 +137,12 @@ public class Player : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        // if (hit.collider.CompareTag("Mutant")) // Se è un mutante e se il player sta salendo o spingendo verso l'alto, fermalo e correggi la sua posizione
+        // {
+        //     print($"Player colpito da {hit.collider.name}, velocità {controller.velocity.y}");
+        //     if (controller.velocity.y < 0f) transform.position = new(transform.position.x, hit.collider.bounds.max.y, transform.position.z);
+        // }
+
         NPCConversation conversation = null;
         if (hit.gameObject.CompareTag("Wall") && CanReadDE()) conversation = conversations[0];
         if (hit.gameObject.CompareTag("WallConfine")) conversation = conversations[1];

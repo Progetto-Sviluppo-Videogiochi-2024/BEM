@@ -167,8 +167,7 @@ public class MovementStateManager : MonoBehaviour
             || IsMoving() // Se il giocatore si sta muovendo
             || animator.GetBool("sit")); // Se il giocatore è seduto
 
-    private bool TakeBoolIdle(AnimatorStateInfo stateInfo, string boolAnimName) =>
-        stateInfo.IsName(boolAnimName) && stateInfo.normalizedTime >= 1f;
+    private bool TakeBoolIdle(AnimatorStateInfo stateInfo, string boolAnimName) => stateInfo.IsName(boolAnimName) && stateInfo.normalizedTime >= 1f;
 
     private bool IsIdleFinished()
     {
