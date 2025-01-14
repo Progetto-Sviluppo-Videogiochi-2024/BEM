@@ -19,7 +19,7 @@ public class PlayerUIController : MonoBehaviour
     [HideInInspector] public int extraAmmo; // Munizioni extra per l'arma equipaggiata
     #endregion
 
-    public void UpdateItemUI() // TODO: da testare
+    public void UpdateItemUI()
     {
         var currentItem = InventoryManager.instance.itemEquipable;
         if (currentItem == null) { itemIcon.enabled = false; return; }

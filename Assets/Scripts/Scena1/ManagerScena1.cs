@@ -100,10 +100,7 @@ public class ManagerScena1 : MonoBehaviour
             int lastDigit = int.Parse(nameScene.Last().ToString());
             return nameScene[..^1] + (lastDigit + 1);
         }
-        else // Se l'ultimo carattere non è un numero
-        {
-            return ""; // Nel nostro caso non succederà mai, essendo numerate, nel caso TODO: gestire questa situazione
-        }
+        return ""; // Se l'ultimo carattere non è un numero // Nel nostro caso non succederà mai, essendo numerate
     }
 
     public void SetDEBool(string nomeBool) // Da invocare nel DialogueEditor per settare i valori booleani del BooleanAccessor

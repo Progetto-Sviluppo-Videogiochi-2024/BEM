@@ -33,9 +33,6 @@ public class ManagerScena2 : MonoBehaviour
     public InventoryManager inventory; // Riferimento all'inventario // Lo uso per (ad es): Dialogo Gaia per la ricetta
     #endregion
 
-    // Dati Inventario scena2
-    // TODO: Inserire i dati dell'inventario @ccorvino3 @marcoWarrior
-
     void Start()
     {
         inventory = InventoryManager.instance;

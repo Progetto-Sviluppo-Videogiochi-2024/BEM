@@ -74,7 +74,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
                     break; // Perché non hanno un menu contestuale
 
                 default:
-                    Debug.LogError("TagType don't found: " + item.tagType); // TODO: non dovrebbe mai accadere
+                    Debug.LogError("TagType don't found: " + item.tagType); // non dovrebbe mai accadere
                     break;
             }
             if (!string.IsNullOrEmpty(nameMenu))
@@ -427,7 +427,7 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
             // if (!canCraft)
             // {
             //     ApplyEffectOnItemCreation(missingItem);
-            //     // TODO: aggiungere SFX
+            //     // aggiungere SFX
             //     LeanTween.moveLocalX(inspectMenu.gameObject, inspectMenu.transform.localPosition.x + 10f, 0.1f).setLoopPingPong(2);
             //     return;
             // }
@@ -445,7 +445,6 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
                 {
                     inventoryManager.Remove(itemInInventory, false);
                     if (inventoryManager.inventoryItemsToRemove.Contains(itemInInventory)) inventoryManager.inventoryItemsToRemove.Remove(itemInInventory);
-                    // if (inventoryManager.itemEquipable == itemInInventory) inventoryManager.itemEquipable = null; // TODO: Non ricordo se errore di copilot o è una mia idea sbagliata
                     else if (inventoryManager.weaponsEquipable.Contains(itemInInventory)) inventoryManager.weaponsEquipable.Remove(itemInInventory);
                 }
             }

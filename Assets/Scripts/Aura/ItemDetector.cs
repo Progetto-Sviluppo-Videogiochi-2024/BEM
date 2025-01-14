@@ -84,7 +84,7 @@ public class ItemDetector : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos() // TODO: Solo per debug
+    private void OnDrawGizmos() // Solo per debug
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);

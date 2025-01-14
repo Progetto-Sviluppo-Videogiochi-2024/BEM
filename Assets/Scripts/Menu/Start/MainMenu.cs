@@ -33,13 +33,6 @@ public class MainMenu : MonoBehaviour
         Destroy(InventoryManager.instance?.transform.parent?.gameObject); // Distrugge l'inventario all'avvio (se presente)
     }
 
-    private void ActivateMenuFromKeyboard() // Invocarlo, se lo implementiamo, in Update
-    {
-        // TODO: implementare le feature del menu con la tastiera
-        // problema: troppi riferimenti se come attributi del cs
-        // oppure usare metodi che prendono come stringa i path dei GameObject
-    }
-
     public void StartGame()
     {
         StopAudio(); // Ferma la musica quando si avvia il gioco

@@ -105,7 +105,7 @@ public class AimStateManager : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimMask))
         {
             aimPos.position = Vector3.Lerp(aimPos.position, hit.point, Time.deltaTime * aimSmoothSpeed);
-            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red); // TODO: da togliere poi
+            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red);
         }
 
         MoveCamera();

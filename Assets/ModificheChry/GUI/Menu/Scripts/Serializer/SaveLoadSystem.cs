@@ -79,26 +79,26 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         }
     }
 
-    void Bind<T, TData>(List<TData> datas) where T : MonoBehaviour, IBind<TData> where TData : ISaveable, new() // TODO: non so dove usarlo
-    {
-        var entities = FindObjectsByType<T>(FindObjectsSortMode.None);
-        foreach (var entity in entities)
-        {
-            var data = datas.FirstOrDefault(d => d.Id == entity.Id);
-            if (data == null)
-            {
-                data = new TData { Id = entity.Id };
-                datas.Add(data);
-            }
-            entity.Bind(data);
-        }
-    }
+    // void Bind<T, TData>(List<TData> datas) where T : MonoBehaviour, IBind<TData> where TData : ISaveable, new()
+    // {
+    //     var entities = FindObjectsByType<T>(FindObjectsSortMode.None);
+    //     foreach (var entity in entities)
+    //     {
+    //         var data = datas.FirstOrDefault(d => d.Id == entity.Id);
+    //         if (data == null)
+    //         {
+    //             data = new TData { Id = entity.Id };
+    //             datas.Add(data);
+    //         }
+    //         entity.Bind(data);
+    //     }
+    // }
 
-    // public void NewGame() // TODO: non so dove usarlo
+    // public void NewGame()
     // {
     //     gameData = new GameData
     //     {
-    //         fileName = $"Slot {dataService.ListSaves().Count() + 1}", // TODO: forse da cambiare in "Slot 1" o togliere proprio ?
+    //         fileName = $"Slot {dataService.ListSaves().Count() + 1}",
     //         currentSceneName = "Scena0"
     //     };
     //     isLoading = false;
