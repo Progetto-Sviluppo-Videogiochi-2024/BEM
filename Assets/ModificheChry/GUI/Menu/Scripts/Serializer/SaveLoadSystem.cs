@@ -16,6 +16,7 @@ public class GameData : ISerializationCallbackReceiver
     public InventoryData inventoryData; // Dati dell'inventario (oggetti raccolti) // Oggetti equipaggiati?
     public LevelData levelData; // Dati del livello (PlayerPrefs, BA) // Dati livello? // Dati importanti della scena attuale per le statistiche
     public List<string> collectedItemIds; // ID degli oggetti raccolti o interagiti
+    public List<string> killedEnemyIds; // ID dei nemici uccisi
 
     public void OnBeforeSerialize() => saveTimeString = saveTime.ToString("yyyy-MM-dd HH:mm:ss"); // Formato: "yyyy-MM-dd HH:mm:ss" // Imposta saveTime da saveTimeString durante la deserializzazione
 
@@ -135,6 +136,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
             gameData.levelData = level.data;
         }
         gameData.collectedItemIds = GestoreScena.collectedItemIds;
+        gameData.killedEnemyIds = GestoreScena.killedEnemyIds;
 
         dataService.Save(gameData);
     }
@@ -146,6 +148,7 @@ public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
         if (string.IsNullOrWhiteSpace(gameData.currentSceneName)) gameData.currentSceneName = "Scena0"; // Non dovrebbe mai accadere
         isLoading = true;
         GestoreScena.collectedItemIds = new(gameData.collectedItemIds ?? new List<string>());
+        GestoreScena.killedEnemyIds = new(gameData.killedEnemyIds ?? new List<string>());
 
         SceneManager.LoadScene(gameData.currentSceneName);
     }

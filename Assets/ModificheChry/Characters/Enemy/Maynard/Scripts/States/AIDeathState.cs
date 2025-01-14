@@ -1,10 +1,9 @@
-using UnityEngine;
 
 public class AIDeathState : AIState
 {
     public void Enter(AIAgent agent)
     {
-        Debug.Log("Enter Death State");
+        agent.id = GestoreScena.GenerateId(agent.gameObject, agent.transform);
         agent.player.hasEnemyDetectedPlayer = false;
         agent.ragdollManager.TriggerRagdoll();
         agent.navMeshAgent.enabled = false;

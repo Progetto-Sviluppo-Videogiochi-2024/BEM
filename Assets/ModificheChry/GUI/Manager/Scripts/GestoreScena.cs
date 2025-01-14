@@ -13,7 +13,8 @@ public class GestoreScena : MonoBehaviour
     [Header("Static References")]
     #region Static References
     private static int nUIOpen = 0; // Numero di UI aperte nella scena corrente
-    public static List<string> collectedItemIds = new(); // Lista degli ID degli oggetti raccolti o interagiti 
+    public static List<string> collectedItemIds = new(); // Lista degli ID degli oggetti raccolti o interagiti
+    public static List<string> killedEnemyIds = new(); // Lista degli ID dei nemici uccisi
     #endregion
 
     [Header("References")]
@@ -109,5 +110,13 @@ public class GestoreScena : MonoBehaviour
     {
         Cursor.visible = visible;
         Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
+    }
+
+    public static string GenerateId(GameObject gameObj, Transform transform)
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        string objectName = gameObj.name;
+        Vector3 position = transform.position;
+        return $"{sceneName}_{objectName}_{position.x}_{position.y}_{position.z}";
     }
 }

@@ -44,7 +44,7 @@ public class ItemPickup : MonoBehaviour
         item = GetComponent<ItemController>().item;
 
         // Verifica se l'oggetto è stato raccolto
-        itemId = GenerateItemId();
+        itemId = GestoreScena.GenerateId(gameObject, transform);
         if (GestoreScena.collectedItemIds.Contains(itemId))
         {
             if (item.tagType != Item.ItemTagType.Weapon) Destroy(gameObject);
@@ -68,14 +68,6 @@ public class ItemPickup : MonoBehaviour
                 PickUp();
             }
         }
-    }
-
-    private string GenerateItemId()
-    {
-        string sceneName = SceneManager.GetActiveScene().name;
-        string objectName = gameObject.name;
-        Vector3 position = transform.position;
-        return $"{sceneName}_{objectName}_{position.x}_{position.y}_{position.z}";
     }
 
     private void PickUp()

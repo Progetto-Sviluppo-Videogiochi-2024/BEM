@@ -3,6 +3,11 @@ using UnityEngine.AI;
 
 public class AIAgent : MonoBehaviour
 {
+    [Header("Settings")]
+    #region Settings
+    [HideInInspector] public string id = ""; // ID dell'IA: utile nel caricamento dei dati per capire se è stato ucciso 
+    #endregion
+
     [Header("State Machine")]
     #region State Machine
     public AIStateId initialState; // Stato iniziale
@@ -27,7 +32,8 @@ public class AIAgent : MonoBehaviour
 
     void Start()
     {
-        // nel carica scompare, nella stessa game rimane morto a terra
+        // Al caricamento della scena, se l'agente è stato ucciso precedentemente, disattivalo
+        if (GestoreScena.killedEnemyIds.Contains(id)) { gameObject.SetActive(false); return; }
 
         navMeshAgent = GetComponent<NavMeshAgent>();
         locomotion = GetComponent<AILocomotion>();
