@@ -18,10 +18,16 @@ public abstract class NPCDialogueBase : MonoBehaviour
     [Header("References")]
     #region References
     public GameObject player; // Riferimento al giocatore
+    protected Player playerScript; // Riferimento allo script del giocatore
     #endregion
 
     protected abstract void StartDialogue(); // Metodo astratto per la logica personalizzata (override nelle classi derivate)
     protected abstract void EndDialogue(); // Metodo astratto per la logica personalizzata (override nelle classi derivate)
+
+    protected virtual void Start()
+    {
+        playerScript = player.GetComponent<Player>();
+    }
 
     protected virtual void Update()
     {
@@ -36,7 +42,7 @@ public abstract class NPCDialogueBase : MonoBehaviour
             EndDialogue();
         }
 
-        if (isInRange && !isConversationActive && Input.GetKeyDown(KeyCode.Space))
+        if (isInRange && !playerScript.hasEnemyDetectedPlayer && !isConversationActive && Input.GetKeyDown(KeyCode.Space))
         {
             ConversationManager.Instance.hasClickedEnd = false;
             clickEndHandled = false;

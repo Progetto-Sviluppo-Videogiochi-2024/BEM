@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public int sanitaMentale = 100; // Salute mentale
     [HideInInspector] public bool isDead = false; // Stato del giocatore (vivo/morto)
     [HideInInspector] public bool menteSana = true; // Stato della salute mentale ("sano"/"malato")
+    [HideInInspector] public bool hasEnemyDetectedPlayer = false; // Flag per il rilevamento del giocatore da parte dei nemici
     #endregion
 
     [Header("References")]

@@ -3,6 +3,7 @@ public class AIDeathState : AIState
 {
     public void Enter(AIAgent agent)
     {
+        agent.player.hasEnemyDetectedPlayer = false;
         throw new System.NotImplementedException();
     }
 

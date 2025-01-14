@@ -23,7 +23,7 @@ public class AIPatrolState : AIState
     {
         bool isInsidePatrolArea = patrolAreaCollider.bounds.Contains(new(agent.transform.position.x, patrolAreaCollider.bounds.center.y, agent.transform.position.z));
 
-        if (agent.detection.isPlayerDetected) agent.stateMachine.ChangeState(AIStateId.ChasePlayer); // Se rileva o sente il giocatore
+        if (agent.player.hasEnemyDetectedPlayer) agent.stateMachine.ChangeState(AIStateId.ChasePlayer); // Se rileva o sente il giocatore
         else if (!isInsidePatrolArea) // Se esce dall'area di pattugliamento o è fuori dall'area di Patrol
         {
             patrolDestination = GetRandomPointInCollider(agent, patrolAreaCollider); // Calcola una nuova destinazione valida

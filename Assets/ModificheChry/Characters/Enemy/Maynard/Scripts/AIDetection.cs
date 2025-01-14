@@ -7,7 +7,6 @@ public class AIDetection : MonoBehaviour
     [SerializeField] float lookDistance = 30f;
     [SerializeField] float fov = 120f;
     private bool isPlayerHeard = false; // Stato del rilevamento acustico
-    [HideInInspector] public bool isPlayerDetected = false; // Stato del rilevamento acustico o visivo
     [SerializeField] LayerMask layerMask; // Maschera per il rilevamento
     #endregion
 
@@ -15,7 +14,8 @@ public class AIDetection : MonoBehaviour
     #region References
     [SerializeField] Transform enemyEyes;
     Transform playerHead;
-    private Transform player;
+    private Transform playerTransform;
+    private Player player;
     #endregion
 
     [Header("References Scripts")]
@@ -26,7 +26,8 @@ public class AIDetection : MonoBehaviour
 
     void Start()
     {
-        player = GetComponent<AIAgent>().player.transform;
+        playerTransform = GetComponent<AIAgent>().player.transform;
+        player = playerTransform.GetComponent<Player>();
         aIStatus = GetComponent<AIStatus>();
         gestoreScena = FindObjectOfType<GestoreScena>();
         playerHead = gestoreScena?.playerHead;
@@ -35,7 +36,7 @@ public class AIDetection : MonoBehaviour
     private void FixedUpdate()
     {
         // Se il player è visto o sentito dal mutante (vivo)
-        isPlayerDetected = aIStatus.IsEnemyAlive() && (IsPlayerSeen() || isPlayerHeard);
+        player.hasEnemyDetectedPlayer = aIStatus.IsEnemyAlive() && (IsPlayerSeen() || isPlayerHeard);
     }
 
     public bool IsPlayerSeen()
@@ -50,7 +51,7 @@ public class AIDetection : MonoBehaviour
 
         if (Physics.Raycast(enemyEyes.position, enemyEyes.forward, out RaycastHit hit, lookDistance, layerMask))
         {
-            if (hit.transform.name == player.name)
+            if (hit.transform.name == playerTransform.name)
             {
                 Debug.DrawLine(enemyEyes.position, hit.point, Color.green);
                 return true;

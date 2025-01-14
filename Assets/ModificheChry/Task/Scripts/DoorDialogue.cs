@@ -18,8 +18,9 @@ public class DoorDialogue : NPCDialogueBase
     private GameObject noButton; // Riferimento al pulsante "No" del pannello di conferma
     #endregion
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         var panel = confirmNextUI.transform.GetChild(0);
         yesButton = panel.Find("YesButton").gameObject;
         noButton = panel.Find("NoButton").gameObject;

@@ -21,7 +21,7 @@ public class AIChasePlayerState : AIState
         }
 
         // Se il nemico ha perso il giocatore (opzione 1: distanza troppo lunga o visibilità persa), torna al pattugliamento
-        if (!agent.detection.isPlayerDetected)
+        if (!agent.player.hasEnemyDetectedPlayer)
         {
             agent.stateMachine.ChangeState(AIStateId.Patrol);
             return;

@@ -35,8 +35,10 @@ public class TriggerBooks : NPCDialogueBase
     private Quaternion initialRotation; // Rotazione iniziale della telecamera secondaria
     #endregion
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         initialRotation = behindHoleWallCam.transform.localRotation;
 
         GameData gameData = SaveLoadSystem.Instance.gameData;

@@ -3,7 +3,7 @@ using DialogueEditor;
 
 public class TriggerDialogue : NPCDialogueBase
 {
-    private bool hasDialogueBeenShown = false;
+    protected bool hasDialogueBeenShown = false; // Flag per evitare che il dialogo venga mostrato più volte
 
     protected override void StartDialogue()
     {
@@ -13,7 +13,7 @@ public class TriggerDialogue : NPCDialogueBase
         ConversationManager.OnConversationEnded += OnDialogueEnded;
     }
 
-    private void OnDialogueEnded()
+    protected virtual void OnDialogueEnded()
     {
         // Rimuovi il listener per evitare chiamate multiple
         ConversationManager.OnConversationEnded -= OnDialogueEnded;
@@ -21,13 +21,13 @@ public class TriggerDialogue : NPCDialogueBase
         // Reimposta lo stato della conversazione e riabilita i movimenti
         isConversationActive = false;
         player.GetComponent<MovementStateManager>().enabled = true;
-        GestoreScena.ChangeCursorActiveStatus(false, "TriggerDialogue");
+        GestoreScena.ChangeCursorActiveStatus(false, "TriggerDialogue by " + gameObject.name);
     }
 
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other); // Mantieni la logica della classe base (opzionale)
-        if (!hasDialogueBeenShown && isInRange)
+        if (!playerScript.hasEnemyDetectedPlayer && !hasDialogueBeenShown && isInRange)
         {
             hasDialogueBeenShown = true;
             isConversationActive = true;
