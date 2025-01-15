@@ -60,7 +60,7 @@ public class AIAgent : MonoBehaviour
         stateMachine.ChangeState(initialState);
     }
 
-    void Update() => stateMachine.Update();
+    void Update() => stateMachine?.Update();
 
     public void PlayAudio(int index, bool loop)
     {
@@ -74,8 +74,12 @@ public class AIAgent : MonoBehaviour
 
     public IEnumerator PlayNextAudio(int index)
     {
+        if (status.IsEnemyAlive()) yield break; // Interrompe immediatamente la coroutine
         PlayAudio(index, false);
+
         yield return new WaitForSeconds(audioSource.clip.length);
+
+        if (status.IsEnemyAlive()) yield break; // Interrompe immediatamente la coroutine
         PlayAudio(index + 1, true);
     }
 }

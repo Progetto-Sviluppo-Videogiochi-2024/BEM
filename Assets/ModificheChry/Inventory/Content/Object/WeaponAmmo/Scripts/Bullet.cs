@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
     public void Hit(RaycastHit hit)
     {
         GameObject hitObject = hit.transform.gameObject;
-        print("Bullet hit: " + hitObject.name);
+        print("Bullet.Hit: " + hitObject.name);
 
         // Per le bottiglie da colpire di Scena2
         var booleanAccessor = BooleanAccessor.istance;
@@ -40,7 +40,6 @@ public class Bullet : MonoBehaviour
         if (mutant != null)
         {
             mutant.TakeDamage(weapon.damage);
-
             if (mutant.health <= 0 && !mutant.isDead)
             {
                 Rigidbody rb = hitObject.GetComponent<Rigidbody>();

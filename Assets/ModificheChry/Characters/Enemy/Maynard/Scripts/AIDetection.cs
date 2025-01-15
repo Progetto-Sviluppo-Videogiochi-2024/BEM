@@ -32,7 +32,11 @@ public class AIDetection : MonoBehaviour
     private void FixedUpdate()
     {
         // Se il player è visto o sentito dal mutante (vivo)
-        player.hasEnemyDetectedPlayer = aIStatus.IsEnemyAlive() && !player.IsDead() && (IsPlayerSeen() || isPlayerHeard);
+        player.hasEnemyDetectedPlayer = 
+            aIStatus.IsEnemyAlive() &&
+            !player.IsDead() &&
+            // TODO: aggiungere quando il pg è nascosto dietro oggetti o nei cespugli purché non sia già stato rilevato
+            (IsPlayerSeen() || isPlayerHeard);
     }
 
     public bool IsPlayerSeen()

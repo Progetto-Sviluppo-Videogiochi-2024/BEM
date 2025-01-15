@@ -25,7 +25,11 @@ public class AIPatrolState : AIState
         if (agent.player.IsDead()) { agent.StopAudio(); return; } // Se il player è morto, non fare nulla
 
         bool isInsidePatrolArea = patrolAreaCollider.bounds.Contains(new(agent.transform.position.x, patrolAreaCollider.bounds.center.y, agent.transform.position.z));
-        if (agent.player.hasEnemyDetectedPlayer) agent.stateMachine.ChangeState(AIStateId.ChasePlayer); // Se rileva o sente il giocatore
+        if (agent.player.hasEnemyDetectedPlayer) // Se rileva o sente il giocatore
+        {
+            agent.stateMachine.ChangeState(AIStateId.ChasePlayer);
+            return;
+        }
         else if (!isInsidePatrolArea) // Se esce dall'area di pattugliamento o è fuori dall'area di Patrol
         {
             patrolDestination = GetRandomPointInCollider(agent, patrolAreaCollider); // Calcola una nuova destinazione valida

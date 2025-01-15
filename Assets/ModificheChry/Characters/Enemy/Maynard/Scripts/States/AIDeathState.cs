@@ -1,21 +1,26 @@
+using System.Collections;
+using UnityEngine;
 
 public class AIDeathState : AIState
 {
     public void Enter(AIAgent agent)
     {
         // Status dell'agente
+        if (agent.status.isDead) return; // Se l'agente è già morto, non fare nulla
         agent.status.isDead = true;
         agent.id = GestoreScena.GenerateId(agent.gameObject, agent.transform);
         agent.player.hasEnemyDetectedPlayer = false;
         agent.ragdollManager.TriggerRagdoll();
-        agent.PlayAudio(3, false);
+        agent.StartCoroutine(PlayDeathAudio(agent));
 
         // Disattiva i componenti dell'agente
+        agent.enabled = false;
         agent.navMeshAgent.enabled = false;
         agent.detection.enabled = false;
         agent.status.enabled = false;
         agent.locomotion.enabled = false;
         agent.animator.enabled = false;
+        agent.stateMachine = null;
     }
 
     public void Exit(AIAgent agent) { }
@@ -23,4 +28,13 @@ public class AIDeathState : AIState
     public AIStateId GetId() => AIStateId.Death;
 
     public void Update(AIAgent agent) { }
+
+    private IEnumerator PlayDeathAudio(AIAgent agent)
+    {
+        agent.audioSource.volume += 0.25f;
+        agent.PlayAudio(3, false);
+        yield return new WaitForSeconds(agent.audioSource.clip.length);
+        agent.audioSource.clip = null;
+        yield break;
+    }
 }

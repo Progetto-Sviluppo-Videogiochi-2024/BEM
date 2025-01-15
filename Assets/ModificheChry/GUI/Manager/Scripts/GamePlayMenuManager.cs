@@ -83,6 +83,9 @@ public class GamePlayMenuManager : MonoBehaviour
         if (diario != null) diario.enabled = !visible; // Per il diario
         ConversationManager.Instance.enabled = !visible; // Per le conversazioni
 
+        var audiosources = player.GetComponents<AudioSource>();
+        foreach (var audio in audiosources) audio.Stop();
+
         ToggleNearbyMutantAudio(!visible); // Per l'audio dei mutanti
     }
 

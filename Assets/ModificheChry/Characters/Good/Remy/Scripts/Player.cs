@@ -28,8 +28,8 @@ public class Player : MonoBehaviour
 
     [Header("Audio Settings")]
     #region Audio Settings
-    [SerializeField] private AudioSource breathingSource; // Riferimento all'AudioSource
-    [SerializeField] private AudioSource hitSource; // Riferimento all'AudioSource
+    private AudioSource breathingSource; // Riferimento all'AudioSource
+    private AudioSource hitSource; // Riferimento all'AudioSource
     [SerializeField] private AudioClip clipRespiro; // Clip audio per il respiro
     [SerializeField] private AudioClip audioClipColpito; // Audio che viene riprodotto quando il personaggio viene colpito    
     #endregion

@@ -43,6 +43,8 @@ public class GameOverMenuManager : MonoBehaviour
             player.GetComponent<WeaponClassManager>().enabled = !visible; // Per le armi
             player.GetComponent<OpenInventory>().enabled = !visible; // Per l'inventario
             player.GetComponent<AimStateManager>().enabled = !visible; // Per la visuale
+            var audiosources = player.GetComponents<AudioSource>();
+            foreach (var audio in audiosources) audio.Stop();
         }
         if (diario != null) diario.enabled = !visible; // Per il diario
         ConversationManager.Instance.enabled = !visible; // Per le conversazioni
