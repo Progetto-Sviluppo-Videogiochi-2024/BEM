@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,6 +46,37 @@ public class GhoulantAttack : MonoBehaviour, IAttackAI
                 Debug.LogWarning($"Attack {selectedAttack} not exists!");
                 break;
         }
+    }
+
+    public void PerformBite() // Invocata dall'animazione del morso di Ghoulant
+    {
+        if (Vector3.Distance(Agent.transform.position, Agent.player.transform.position) < 1.5f)
+        {
+            var player = Agent.player;
+            player.GetComponent<MovementStateManager>().enabled = false;
+            player.GetComponent<Animator>().enabled = false;
+            StartCoroutine(MovePlayerToBiteTarget(player.transform));
+        }
+    }
+
+    private IEnumerator MovePlayerToBiteTarget(Transform player)
+    {
+        while (true)
+        {
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new(directionToPlayer.x, 0, directionToPlayer.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+            if (Quaternion.Angle(transform.rotation, lookRotation) < 5f) yield break;
+            yield return null;
+        }
+    }
+
+    public void ResetBite()
+    {
+        var player = Agent.player;
+        if (player.IsDead()) return;
+        player.GetComponent<MovementStateManager>().enabled = true;
+        player.GetComponent<Animator>().enabled = true;
     }
 
     public void HitPlayer() => AttackState.ApplyDamage(Agent, CurrentDamage); // Invocata dall'animazione dell'attacco di Ghoulant, non appena avviene la collisione
