@@ -14,6 +14,7 @@ public class AIPatrolState : AIState
         Debug.Log("Enter Patrol State");
         SetPatrolArea(agent.patrolArea);
         SetRandomPatrolDestination(agent);
+        agent.PlayAudio(0, true);
     }
 
     public void Exit(AIAgent agent) { }

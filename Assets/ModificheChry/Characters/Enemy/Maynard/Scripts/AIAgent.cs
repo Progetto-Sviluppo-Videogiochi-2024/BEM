@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -34,6 +35,8 @@ public class AIAgent : MonoBehaviour
     [SerializeField] public LayerMask layerMask; // LayerMask per il rilevamento e gli attacchi
     [HideInInspector] public IAttackAI mutantAttack; // Riferimento al componente script dell'attacco di ogni mutante
     [HideInInspector] public RagdollManager ragdollManager; // Riferimento al componente di gestione del ragdoll
+    [HideInInspector] public AudioSource audioSource; // Riferimento all'audio source
+    [SerializeField] private AudioClip[] soundsAI; // Suoni dell'IA: 0 = non triggerato, 1 = triggerato, 2 = insegue, 3 = morte
     #endregion
 
     void Start()
@@ -49,6 +52,8 @@ public class AIAgent : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         mutantAttack = GetComponent<IAttackAI>();
         ragdollManager = GetComponent<RagdollManager>();
+        audioSource = GetComponent<AudioSource>();
+        PlayAudio(0, true);
 
         stateMachine = new(this);
         stateMachine.RegisterState(new AIPatrolState());
@@ -59,4 +64,19 @@ public class AIAgent : MonoBehaviour
     }
 
     void Update() => stateMachine.Update();
+
+    public void PlayAudio(int index, bool loop)
+    {
+        if (audioSource.isPlaying) audioSource.Stop();
+        audioSource.loop = loop;
+        audioSource.clip = soundsAI[index];
+        audioSource.Play();
+    }
+
+    public IEnumerator PlayNextAudio(int index)
+    {
+        PlayAudio(index, false);
+        yield return new WaitForSeconds(audioSource.clip.length);
+        PlayAudio(index + 1, true);
+    }
 }

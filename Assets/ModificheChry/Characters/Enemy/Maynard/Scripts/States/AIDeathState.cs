@@ -8,6 +8,7 @@ public class AIDeathState : AIState
         agent.id = GestoreScena.GenerateId(agent.gameObject, agent.transform);
         agent.player.hasEnemyDetectedPlayer = false;
         agent.ragdollManager.TriggerRagdoll();
+        agent.PlayAudio(3, false);
 
         // Disattiva i componenti dell'agente
         agent.navMeshAgent.enabled = false;
