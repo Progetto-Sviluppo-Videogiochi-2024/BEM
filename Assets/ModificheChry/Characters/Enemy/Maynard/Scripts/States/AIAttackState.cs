@@ -13,6 +13,7 @@ public class AIAttackState : AIState
         isAttacking = false; // Resetta lo stato d'attacco
         agent.mutantAttack.AttackState ??= this;
         agent.mutantAttack.Agent ??= agent;
+        timeSinceLastAttack = agent.attackCooldown;
     }
 
     public void Exit(AIAgent agent)
