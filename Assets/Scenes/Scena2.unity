@@ -22935,6 +22935,7 @@ GameObject:
   - component: {fileID: 1649984673}
   - component: {fileID: 1649984674}
   - component: {fileID: 1649984675}
+  - component: {fileID: 1649984676}
   m_Layer: 0
   m_Name: Wolf
   m_TagString: NPCDynamic
@@ -27748,6 +27749,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1180137783}
     m_Modifications:
+    - target: {fileID: 2506295404697276759, guid: aec8969d0290c6d4cbc587ef85a01ce4, type: 3}
+      propertyPath: m_FadeMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2506295404697276759, guid: aec8969d0290c6d4cbc587ef85a01ce4, type: 3}
+      propertyPath: m_LODs.Array.data[0].renderers.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2506295404697276759, guid: aec8969d0290c6d4cbc587ef85a01ce4, type: 3}
+      propertyPath: m_LODs.Array.data[1].renderers.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1635908320903400605, guid: d1f70b40c48b823429bc0d9adc4c0a09, type: 3}
       propertyPath: m_Name
       value: Sausages
@@ -27802,18 +27815,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2159539104901879335, guid: d1f70b40c48b823429bc0d9adc4c0a09, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2506295404697276759, guid: aec8969d0290c6d4cbc587ef85a01ce4, type: 3}
-      propertyPath: m_FadeMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2506295404697276759, guid: aec8969d0290c6d4cbc587ef85a01ce4, type: 3}
-      propertyPath: m_LODs.Array.data[0].renderers.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2506295404697276759, guid: aec8969d0290c6d4cbc587ef85a01ce4, type: 3}
-      propertyPath: m_LODs.Array.data[1].renderers.Array.size
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -37097,13 +37098,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6586e08088cd749ba80d7d6e07ff22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSightDistance: 2
+  stopDistance: 1.5
+  rotationSpeed: 10
+  distanceAttackMelee: 1.5
+  melee1Damage: -25
   diario: {fileID: 1575244069}
   growl: {fileID: 8300000, guid: f884118c9f793af4db85f79dc6b7a37b, type: 3}
   conversations:
   - {fileID: 125598349}
   - {fileID: 1238364274}
   targetPositionStop: {fileID: 2102451450}
-  wolf: {fileID: 11400000, guid: 08410caec5beb174ba79fd22ddb53509, type: 2}
 --- !u!65 &1649984674
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37221,6 +37226,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1649984676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022022494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73a79cdad32f4424e8d81dce97248745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1652907496
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42156,6 +42173,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6819991973633934550, guid: f2d8b0cff325fd2458c4cb962118acd0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6924213578033965128, guid: f2d8b0cff325fd2458c4cb962118acd0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 704.79224
@@ -43430,6 +43451,7 @@ MonoBehaviour:
       questAttive: []
       questCompletate: []
     collectedItemIds: []
+    killedEnemyIds: []
 --- !u!4 &1918932420
 Transform:
   m_ObjectHideFlags: 0

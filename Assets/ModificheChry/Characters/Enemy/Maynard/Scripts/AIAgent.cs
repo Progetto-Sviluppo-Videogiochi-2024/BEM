@@ -64,11 +64,13 @@ public class AIAgent : MonoBehaviour
 
     public void PlayAudio(int index, bool loop)
     {
-        if (audioSource.isPlaying) audioSource.Stop();
+        StopAudio();
         audioSource.loop = loop;
         audioSource.clip = soundsAI[index];
         audioSource.Play();
     }
+
+    public void StopAudio() => audioSource.Stop();
 
     public IEnumerator PlayNextAudio(int index)
     {

@@ -11,6 +11,7 @@ public class AIChasePlayerState : AIState
 
     public void Update(AIAgent agent)
     {
+        if (agent.player.IsDead()) { agent.StopAudio(); return; } // Se il player è morto, non fare nulla
         if (!agent.enabled) return;
 
         // Se il nemico è abbastanza vicino al giocatore, attaccalo

@@ -27,7 +27,7 @@ public class AIAttackState : AIState
     {
         if (agent.player.isDead)
         {
-            agent.audioSource.Stop();
+            agent.StopAudio();
             agent.stateMachine.ChangeState(AIStateId.Patrol);
             return;
         }

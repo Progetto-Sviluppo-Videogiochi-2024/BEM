@@ -2,21 +2,18 @@ using UnityEngine;
 
 public class PlaySoundOnTrigger : MonoBehaviour
 {
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip collisionSound;
+    private AudioSource audioSource;
+    [SerializeField] AudioClip collisionSound;
     private bool oneTime = false;
 
     private void Start()
     {
-        if (audioSource == null)
-        {
-            audioSource = GetComponent<AudioSource>();
-        }
+        audioSource ??= GetComponent<AudioSource>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider _)
     {
-        if (audioSource != null && collisionSound != null && !oneTime)
+        if (!oneTime && !BooleanAccessor.istance.GetBoolFromThis("stealth"))
         {
             audioSource.PlayOneShot(collisionSound);
             oneTime = true;

@@ -71,10 +71,11 @@ public class GameLevelData : MonoBehaviour, IBind<LevelData>
         data.characters.Clear(); // Svuoto la lista per evitare duplicati
         foreach (var character in characters)
         {
+            var stateProvider = character.GetComponent<INPCStateProvider>();
             data.characters.Add(
                 new(
                     $"{character.name}_{SceneManager.GetActiveScene().name}",
-                    booleanAccessor.GetBoolFromThis("wolfDone") ? "Movement" : "Breath", // Richiede che speed = 0, per la sit del lupo // TODO: farlo generico
+                    stateProvider != null ? stateProvider.GetCurrentState() : "Default",
                     character.transform.position,
                     character.transform.rotation)
             );

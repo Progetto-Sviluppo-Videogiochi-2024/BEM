@@ -5534,6 +5534,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d4f7fa9b292706f4f9e922fb6153c520, type: 3}
+      propertyPath: m_TagString
+      value: NPCDynamic
+      objectReference: {fileID: 0}
     - target: {fileID: 1238381914527795252, guid: d4f7fa9b292706f4f9e922fb6153c520, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.000000044947015
@@ -5986,6 +5990,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d4f7fa9b292706f4f9e922fb6153c520, type: 3}
       insertIndex: -1
       addedObject: {fileID: 144678446}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d4f7fa9b292706f4f9e922fb6153c520, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 144678448}
   m_SourcePrefab: {fileID: 100100000, guid: d4f7fa9b292706f4f9e922fb6153c520, type: 3}
 --- !u!4 &144678437 stripped
 Transform:
@@ -6084,6 +6091,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &144678448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144678438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc44a5f43c5bea544b46a478b2d2c7ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &153061423
 GameObject:
   m_ObjectHideFlags: 0
@@ -24179,7 +24198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9a9305e4eefd9d4a984851cc42edb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
   collisionSound: {fileID: 8300000, guid: fb52a5fc75b887847b456d2550b8912a, type: 3}
 --- !u!82 &1037229078
 AudioSource:
