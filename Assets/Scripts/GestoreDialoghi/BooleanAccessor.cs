@@ -34,6 +34,7 @@ public class BooleanAccessor : MonoBehaviour
         { "postHitBallJA", false }, // Se il giocatore ha finito il dialogo Post-HitBall di Angelica e Jacob in scena3
         { "postHitBallSG", false }, // Se il giocatore ha finito il dialogo Post-HitBall di Stefano e Gaia in scena3
         { "stealth", false}, // Se il giocatore ha finito il dialogo dello stealth in scena3
+        { "GaiaArmi", false }, // Quando Gaia ha visto delle armi vicino al Ghoulant
         { "videoMutant", false }, // Se il giocatore ha finito il dialogo del video del mutante in scena3
         { "entryGhostCity", false }, // Se il giocatore ha finito il dialogo di entrata in GhostCity in scena3
     };

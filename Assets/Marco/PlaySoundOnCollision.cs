@@ -6,15 +6,16 @@ public class PlaySoundOnTrigger : MonoBehaviour
     [SerializeField] AudioClip collisionSound;
     private bool oneTime = false;
     public Player player;
+    public string boolName;
 
-    private void Start()
+    void Start()
     {
         audioSource ??= GetComponent<AudioSource>();
     }
 
-    private void OnTriggerEnter(Collider _)
+    void OnTriggerEnter(Collider other)
     {
-        if (!oneTime && !player.hasEnemyDetectedPlayer && !BooleanAccessor.istance.GetBoolFromThis("stealth"))
+        if (!oneTime && other.CompareTag("Player") && !player.hasEnemyDetectedPlayer && !BooleanAccessor.istance.GetBoolFromThis(boolName))
         {
             audioSource.PlayOneShot(collisionSound);
             oneTime = true;
