@@ -11,7 +11,7 @@ public class AIPatrolState : AIState
 
     public void Enter(AIAgent agent)
     {
-        Debug.Log("Enter Patrol State");
+        if (agent.player.IsDead()) return; // Se il giocatore è morto, non fare nulla
         SetPatrolArea(agent.patrolArea);
         SetRandomPatrolDestination(agent);
         agent.PlayAudio(0, true);
@@ -31,7 +31,7 @@ public class AIPatrolState : AIState
             patrolDestination = GetRandomPointInCollider(agent, patrolAreaCollider); // Calcola una nuova destinazione valida
             agent.navMeshAgent.SetDestination(patrolDestination); // Forza il rientro
             agent.locomotion.MoveTowardsTarget(patrolDestination, agent.locomotion.walkSpeed, 5f);
-            Debug.DrawLine(agent.transform.position, patrolDestination, Color.yellow, 1.5f);
+            Debug.DrawLine(agent.transform.position, patrolDestination, Color.yellow, 1.5f); // Per debug
             return; // Evita ulteriori aggiornamenti in questo frame
         }
         else if (!agent.navMeshAgent.pathPending && agent.navMeshAgent.remainingDistance < 1f) SetRandomPatrolDestination(agent); // Se raggiunge la destinazione, ne calcola una nuova

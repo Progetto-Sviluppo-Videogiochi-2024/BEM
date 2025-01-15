@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AIChasePlayerState : AIState
 {
-    public void Enter(AIAgent agent) { Debug.Log("Enter Chase Player State"); agent.StartCoroutine(agent.PlayNextAudio(1)); }
+    public void Enter(AIAgent agent) => agent.StartCoroutine(agent.PlayNextAudio(1));
 
     public void Exit(AIAgent agent) { }
 

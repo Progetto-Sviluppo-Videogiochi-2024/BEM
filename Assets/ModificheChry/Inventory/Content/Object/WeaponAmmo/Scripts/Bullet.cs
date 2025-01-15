@@ -23,6 +23,7 @@ public class Bullet : MonoBehaviour
         GameObject hitObject = hit.transform.gameObject;
         print("Bullet hit: " + hitObject.name);
 
+        // Per le bottiglie da colpire di Scena2
         var booleanAccessor = BooleanAccessor.istance;
         if (hitObject.CompareTag("Shootable") && hitObject.name.Contains("Shootable") && booleanAccessor.GetBoolFromThis("cocaCola"))
         {
@@ -33,16 +34,18 @@ public class Bullet : MonoBehaviour
                 PlayerPrefs.Save();
             }
         }
-        if (hitObject.transform.root.gameObject.GetComponent<AIStatus>())
-        {
-            AIStatus enemyHealth = hitObject.transform.root.gameObject.GetComponent<AIStatus>();
-            enemyHealth.TakeDamage(weapon.damage);
 
-            if (enemyHealth.health <= 0 && !enemyHealth.isDead)
+        // Per i mutanti di Scena3
+        var mutant = hitObject.transform.GetComponentInParent<AIStatus>();
+        if (mutant != null)
+        {
+            mutant.TakeDamage(weapon.damage);
+
+            if (mutant.health <= 0 && !mutant.isDead)
             {
                 Rigidbody rb = hitObject.GetComponent<Rigidbody>();
                 rb.AddForce(direction * weapon.enemykickBackForce, ForceMode.Impulse);
-                enemyHealth.isDead = true;
+                mutant.isDead = true;
             }
         }
 

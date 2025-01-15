@@ -82,6 +82,23 @@ public class GamePlayMenuManager : MonoBehaviour
         }
         if (diario != null) diario.enabled = !visible; // Per il diario
         ConversationManager.Instance.enabled = !visible; // Per le conversazioni
+
+        ToggleNearbyMutantAudio(!visible); // Per l'audio dei mutanti
+    }
+
+    private void ToggleNearbyMutantAudio(bool enable)
+    {
+        // Controlla se il nome della scena è "Scena3"
+        if (SceneManager.GetActiveScene().name != "Scena3") return;
+
+        float detectionRadius = 20f; // Raggio di rilevamento per i mutanti
+        LayerMask mutantLayer = LayerMask.GetMask("Enemy"); // Assicurati che i mutanti siano in un layer specifico
+        Collider[] nearbyObjects = Physics.OverlapSphere(player.transform.position, detectionRadius, mutantLayer);
+        foreach (Collider obj in nearbyObjects)
+        {
+            AIAgent mutant = obj.GetComponent<AIAgent>();
+            if (mutant != null && mutant.audioSource != null) mutant.audioSource.mute = !enable;
+        }
     }
 
     private void ResumeGame() => ToggleMenu(false); // Metodo per ripristinare Time.timeScale e chiudere il menu

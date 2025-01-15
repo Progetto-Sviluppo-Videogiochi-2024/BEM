@@ -59638,7 +59638,6 @@ GameObject:
   - component: {fileID: 5866666020308342753}
   - component: {fileID: 5866666020308342754}
   - component: {fileID: 5866666020308342760}
-  - component: {fileID: 5866666020308342761}
   - component: {fileID: 5866666020308342755}
   - component: {fileID: 5866666020308342757}
   - component: {fileID: 5866666020308342756}
@@ -59647,7 +59646,7 @@ GameObject:
   - component: {fileID: 5866666020308342762}
   - component: {fileID: 5866666020308342763}
   - component: {fileID: 5866666020308342764}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ghoulant
   m_TagString: Mutant
   m_Icon: {fileID: 0}
@@ -61422,11 +61421,9 @@ MonoBehaviour:
   id: 
   initialState: 0
   minDistanceAttack: 2
-  minChaseDistance: 5
   attackCooldown: 2.5
   patrolArea: {fileID: 1080670859}
   player: {fileID: 953578922}
-  rb: {fileID: 0}
   navMeshAgent: {fileID: 0}
   locomotion: {fileID: 0}
   status: {fileID: 0}
@@ -61495,33 +61492,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 8
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &5866666020308342761
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132147537205025}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 1
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &5866666020308342762
 MonoBehaviour:
   m_ObjectHideFlags: 0

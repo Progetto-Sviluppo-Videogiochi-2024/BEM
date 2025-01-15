@@ -6,10 +6,9 @@ public class GhoulantAttack : MonoBehaviour, IAttackAI
     public AIAgent Agent { get; set; }
     public Dictionary<string, (float probability, int damage)> Attacks { get; } = new()
     {
-        { "swiping", (30f, 15) },
-        { "bite", (25f, 20) },
+        { "swiping", (40f, 15) },
+        { "bite", (30f, 20) },
         { "punching", (20f, 10) },
-        { "jump", (15f, 25) },
         { "scream", (10f, 0) }
     };
 
@@ -27,15 +26,6 @@ public class GhoulantAttack : MonoBehaviour, IAttackAI
         CurrentAttack = selectedAttack;
         CurrentDamage = Attacks[selectedAttack].damage;
 
-        float distanceToPlayer = Vector3.Distance(agent.transform.position, agent.player.transform.position);
-        if (selectedAttack == "jump" && distanceToPlayer <= 2.5f && distanceToPlayer > 1.3f)
-        {
-            agent.animator.SetTrigger("jump");
-            // PerformJump(Agent); // Invocato già dall'animazione
-            // AttackState.ApplyDamage(agent, CurrentDamage); // Invocato già dall'animazione
-            return;
-        }
-
         // Attiva l'animazione corrispondente e applica l'effetto
         switch (selectedAttack)
         {
@@ -51,37 +41,10 @@ public class GhoulantAttack : MonoBehaviour, IAttackAI
                 // Non infligge danno diretto
                 break;
 
-            case "jump":
-                Debug.Log("Attacco: Jump (distanza non valida, disponibile solo tra 1.3 e 2.5 metri dal giocatore)");
-                break;
-
             default:
                 Debug.LogWarning($"Attack {selectedAttack} not exists!");
                 break;
         }
-    }
-
-    public void PerformJump() // Invocata dall'animazione del salto di Ghoulant, non appena l'animazione inizia
-    {
-        if (Agent.rb == null) return;
-        Agent.rb.isKinematic = false;
-
-        // Calcolare la direzione del salto (orizzontale)
-        Vector3 jumpDirection = Agent.transform.forward.normalized; // Movimento in avanti normalizzato
-        float jumpDistance = 5f; // Distanza orizzontale da percorrere
-
-        // Resetta la velocità verticale per evitare che il Rigidbody influenzi il salto in modo indesiderato
-        Agent.rb.velocity = new(Agent.rb.velocity.x, 0f, Agent.rb.velocity.z);
-
-        // Calcolo della forza orizzontale basata sulla distanza
-        float horizontalForce = jumpDistance * 2f; // Valore moltiplicatore per regolare la forza
-        Agent.rb.AddForce(jumpDirection * horizontalForce, ForceMode.Impulse);
-
-        // Aggiungere componente verticale per il salto
-        float verticalForce = Mathf.Sqrt(2 * 9.81f * jumpDistance); // Forza per raggiungere l'altezza in base alla distanza
-        Agent.rb.AddForce(Vector3.up * verticalForce, ForceMode.Impulse);
-
-        Agent.rb.isKinematic = true;
     }
 
     public void HitPlayer() => AttackState.ApplyDamage(Agent, CurrentDamage); // Invocata dall'animazione dell'attacco di Ghoulant, non appena avviene la collisione

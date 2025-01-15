@@ -18,7 +18,6 @@ public class AIAgent : MonoBehaviour
     [Header("Config AI")]
     #region Config AI
     public float minDistanceAttack = 2f; // Distanza minima per attaccare il giocatore
-    public float minChaseDistance = 5f; // Distanza minima per iniziare a inseguire il giocatore
     public float attackCooldown = 2.5f; // Tempo di cooldown tra un attacco e l'altro
     #endregion
 
@@ -26,7 +25,6 @@ public class AIAgent : MonoBehaviour
     #region References
     public Collider patrolArea; // Area di pattugliamento
     public Player player; // Riferimento al giocatore
-    [HideInInspector] public Rigidbody rb; // Riferimento al corpo rigidbody
     [HideInInspector] public NavMeshAgent navMeshAgent; // Riferimento all'agente di navigazione
     [HideInInspector] public AILocomotion locomotion; // Riferimento al componente di locomozione
     [HideInInspector] public AIStatus status; // Riferimento allo stato dell'IA
@@ -49,7 +47,6 @@ public class AIAgent : MonoBehaviour
         status = GetComponent<AIStatus>();
         detection = GetComponent<AIDetection>();
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
         mutantAttack = GetComponent<IAttackAI>();
         ragdollManager = GetComponent<RagdollManager>();
         audioSource = GetComponent<AudioSource>();

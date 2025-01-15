@@ -9,7 +9,6 @@ public class AIAttackState : AIState
 
     public void Enter(AIAgent agent)
     {
-        Debug.Log("Enter Attack State");
         agent.navMeshAgent.isStopped = true; // Blocca il movimento durante l'attacco
         isAttacking = false; // Resetta lo stato d'attacco
         agent.mutantAttack.AttackState ??= this;
@@ -28,13 +27,14 @@ public class AIAttackState : AIState
     {
         if (agent.player.isDead)
         {
+            agent.audioSource.Stop();
             agent.stateMachine.ChangeState(AIStateId.Patrol);
             return;
         }
 
         // Controllo distanza per tornare allo stato di inseguimento
         float distanceToPlayer = Vector3.Distance(agent.transform.position, agent.player.transform.position);
-        if (!isAttacking && distanceToPlayer > agent.minChaseDistance)
+        if (!isAttacking && distanceToPlayer > agent.minDistanceAttack)
         {
             agent.stateMachine.ChangeState(AIStateId.ChasePlayer);
             return;

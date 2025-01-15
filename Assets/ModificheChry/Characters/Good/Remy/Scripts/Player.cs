@@ -84,14 +84,13 @@ public class Player : MonoBehaviour
         if (IsDead()) return;
     }
 
-    private bool IsDead()
+    public bool IsDead()
     {
-        if (health <= 0) // Se è appena morto
+        if (isDead) return true; // Se è già morto
+        else if (health <= 0) // Se è appena morto
         {
             if (breathingSource != null && breathingSource.isPlaying)
-            {
                 breathingSource.Stop(); // Ferma l'audio solo se è in riproduzione
-            }
             Ragdoll();
             StartCoroutine(TimeoutToGameOver());
             health = 0;
@@ -137,12 +136,6 @@ public class Player : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // if (hit.collider.CompareTag("Mutant")) // Se è un mutante e se il player sta salendo o spingendo verso l'alto, fermalo e correggi la sua posizione
-        // {
-        //     print($"Player colpito da {hit.collider.name}, velocità {controller.velocity.y}");
-        //     if (controller.velocity.y < 0f) transform.position = new(transform.position.x, hit.collider.bounds.max.y, transform.position.z);
-        // }
-
         NPCConversation conversation = null;
         if (hit.gameObject.CompareTag("Wall") && CanReadDE()) conversation = conversations[0];
         if (hit.gameObject.CompareTag("WallConfine")) conversation = conversations[1];
