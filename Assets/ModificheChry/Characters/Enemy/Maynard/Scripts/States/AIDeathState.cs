@@ -13,7 +13,6 @@ public class AIDeathState : AIState
         agent.ragdollManager.TriggerRagdoll();
         agent.StartCoroutine(PlayDeathAudio(agent));
 
-
         if (agent.gameObject.name.Contains("Ghoulant") && agent.nameBoolBA != null && !BooleanAccessor.istance.GetBoolFromThis(agent.nameBoolBA))
         {
             SaveLoadSystem.Instance.SaveCheckpoint();

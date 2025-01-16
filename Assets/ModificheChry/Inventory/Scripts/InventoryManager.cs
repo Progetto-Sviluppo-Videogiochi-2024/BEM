@@ -23,7 +23,7 @@ public class InventoryManager : MonoBehaviour
 
     [Header("References Scripts")]
     [HideInInspector] public WeaponClassManager weaponClassManager; // Script che gestisce le armi equipaggiabili
-    private ItemClassManager itemClassManager; // Script che gestisce gli oggetti consumabili
+    [HideInInspector] public ItemClassManager itemClassManager; // Script che gestisce gli oggetti consumabili
 
     void Awake()
     {
@@ -247,7 +247,6 @@ public class InventoryManager : MonoBehaviour
 
     public InventoryItemController SearchItemController(Item item)
     {
-        InventoryUIController.instance.ListItems(items);
         foreach (var inventoryItem in inventoryItems)
         {
             if (inventoryItem == null) continue;

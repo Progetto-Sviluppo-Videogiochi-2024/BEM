@@ -98,13 +98,13 @@ public class AIAgent : MonoBehaviour
     {
         GestoreScena.ChangeCursorActiveStatus(true, "DeathState.AiAgent.StartConversation: " + gameObject.name);
         ConversationManager.Instance.StartConversation(conversation);
+        BooleanAccessor.istance.SetBoolOnDialogueE(nameBoolBA);
         ConversationManager.OnConversationEnded += OnDialogueEnded;
     }
 
     void OnDialogueEnded()
     {
         GestoreScena.ChangeCursorActiveStatus(false, "AiAgent.OnDialogueEnded: " + gameObject.name);
-        BooleanAccessor.istance.SetBoolOnDialogueE(nameBoolBA);
         ConversationManager.OnConversationEnded -= OnDialogueEnded;
     }
 }
