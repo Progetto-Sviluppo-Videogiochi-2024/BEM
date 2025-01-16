@@ -53,6 +53,7 @@ public class GameLevelData : MonoBehaviour, IBind<LevelData>
         data.playerPrefs.Add(new PlayerPrefsData("hasBait", PlayerPrefs.GetInt("hasBait")));
         data.playerPrefs.Add(new PlayerPrefsData("nTargetHit", PlayerPrefs.GetInt("nTargetHit")));
         data.playerPrefs.Add(new PlayerPrefsData("nInteractionBookShelf", PlayerPrefs.GetInt("nInteractionBookShelf")));
+        data.playerPrefs.Add(new PlayerPrefsData("videoMutantCP", PlayerPrefs.GetInt("videoMutantCP")));
 
         // BA
         var booleanAccessor = BooleanAccessor.istance;

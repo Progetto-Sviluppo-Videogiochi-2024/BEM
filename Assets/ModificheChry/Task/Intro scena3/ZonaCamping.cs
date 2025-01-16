@@ -67,6 +67,12 @@ public class ZonaCamping : MonoBehaviour
             jacob.gameObject.SetActive(false);
             conversationManager.StartConversation(conversations[3]);
             diario.AggiungiMissione("Trova i tuoi amici");
+            if (PlayerPrefs.GetInt("videoMutantCP") == 0)
+            {
+                PlayerPrefs.SetInt("videoMutantCP", 1);
+                PlayerPrefs.Save();
+                SaveLoadSystem.Instance.SaveCheckpoint();
+            }
             enabled = false;
             return;
         }
