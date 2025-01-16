@@ -846,6 +846,7 @@ MonoBehaviour:
       questAttive: []
       questCompletate: []
     collectedItemIds: []
+    killedEnemyIds: []
 --- !u!4 &279627016
 Transform:
   m_ObjectHideFlags: 0
@@ -3912,6 +3913,22 @@ PrefabInstance:
     - target: {fileID: 918733820578042128, guid: c45ace4233347524c9f5523729a68a99, type: 3}
       propertyPath: m_Name
       value: SpriteManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184226823835455580, guid: c45ace4233347524c9f5523729a68a99, type: 3}
+      propertyPath: spritePairEntries.Array.size
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184226823835455580, guid: c45ace4233347524c9f5523729a68a99, type: 3}
+      propertyPath: spritePairEntries.Array.data[25].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 514abb40e3c586648974a711b1a6ad3d, type: 3}
+    - target: {fileID: 8184226823835455580, guid: c45ace4233347524c9f5523729a68a99, type: 3}
+      propertyPath: spritePairEntries.Array.data[25].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 9f5b7994629bd2b47a74497a7747c41c, type: 3}
+    - target: {fileID: 8184226823835455580, guid: c45ace4233347524c9f5523729a68a99, type: 3}
+      propertyPath: spritePairEntries.Array.data[25].objectName
+      value: Smartphone A.
       objectReference: {fileID: 0}
     - target: {fileID: 8538643884281219726, guid: c45ace4233347524c9f5523729a68a99, type: 3}
       propertyPath: m_LocalPosition.x
