@@ -13,6 +13,11 @@ public class AIDeathState : AIState
         agent.ragdollManager.TriggerRagdoll();
         agent.StartCoroutine(PlayDeathAudio(agent));
 
+        if (agent.nameBoolBA != null && !BooleanAccessor.istance.GetBoolFromThis(agent.nameBoolBA))
+        {
+            agent.StartConversation();
+        }
+
         // Disattiva i componenti dell'agente
         agent.enabled = false;
         agent.navMeshAgent.enabled = false;

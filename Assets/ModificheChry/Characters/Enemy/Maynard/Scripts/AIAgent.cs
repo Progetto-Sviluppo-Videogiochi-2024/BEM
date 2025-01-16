@@ -1,4 +1,5 @@
 using System.Collections;
+using DialogueEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,7 +22,19 @@ public class AIAgent : MonoBehaviour
     public float attackCooldown = 2.5f; // Tempo di cooldown tra un attacco e l'altro
     #endregion
 
-    [Header("References")]
+    [Header("SFX")]
+    #region SFX
+    [SerializeField] private AudioClip[] soundsAI; // Suoni dell'IA: 0 = non triggerato, 1 = triggerato, 2 = insegue, 3 = morte
+    [HideInInspector] public AudioSource audioSource; // Riferimento all'audio source
+    #endregion
+
+    [Header("Conversations")]
+    #region Conversations
+    public string nameBoolBA; // Nome del boolean accessor da settare
+    public NPCConversation conversation; // Conversazione che si avvia quando il giocatore uccide il mutante
+    #endregion
+
+    [Header("AI References")]
     #region References
     public Collider patrolArea; // Area di pattugliamento
     public Player player; // Riferimento al giocatore
@@ -33,8 +46,6 @@ public class AIAgent : MonoBehaviour
     [SerializeField] public LayerMask layerMask; // LayerMask per il rilevamento e gli attacchi
     [HideInInspector] public IAttackAI mutantAttack; // Riferimento al componente script dell'attacco di ogni mutante
     [HideInInspector] public RagdollManager ragdollManager; // Riferimento al componente di gestione del ragdoll
-    [HideInInspector] public AudioSource audioSource; // Riferimento all'audio source
-    [SerializeField] private AudioClip[] soundsAI; // Suoni dell'IA: 0 = non triggerato, 1 = triggerato, 2 = insegue, 3 = morte
     #endregion
 
     void Start()
@@ -74,12 +85,26 @@ public class AIAgent : MonoBehaviour
 
     public IEnumerator PlayNextAudio(int index)
     {
-        if (status.IsEnemyAlive()) yield break; // Interrompe immediatamente la coroutine
+        if (!status.IsEnemyAlive()) yield break; // Interrompe immediatamente la coroutine
         PlayAudio(index, false);
 
         yield return new WaitForSeconds(audioSource.clip.length);
 
-        if (status.IsEnemyAlive()) yield break; // Interrompe immediatamente la coroutine
+        if (!status.IsEnemyAlive()) yield break; // Interrompe immediatamente la coroutine
         PlayAudio(index + 1, true);
+    }
+
+    public void StartConversation()
+    {
+        GestoreScena.ChangeCursorActiveStatus(true, "DeathState.AiAgent.StartConversation: " + gameObject.name);
+        ConversationManager.Instance.StartConversation(conversation);
+        ConversationManager.OnConversationEnded += OnDialogueEnded;
+    }
+
+    void OnDialogueEnded()
+    {
+        GestoreScena.ChangeCursorActiveStatus(false, "AiAgent.OnDialogueEnded: " + gameObject.name);
+        BooleanAccessor.istance.SetBoolOnDialogueE(nameBoolBA);
+        ConversationManager.OnConversationEnded -= OnDialogueEnded;
     }
 }

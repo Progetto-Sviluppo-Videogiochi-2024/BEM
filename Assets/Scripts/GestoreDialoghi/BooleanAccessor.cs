@@ -36,6 +36,7 @@ public class BooleanAccessor : MonoBehaviour
         { "stealth", false}, // Se il giocatore ha finito il dialogo dello stealth in scena3
         { "GaiaArmi", false }, // Quando Gaia ha visto delle armi vicino al Ghoulant
         { "videoMutant", false }, // Se il giocatore ha finito il dialogo del video del mutante in scena3
+        { "killGhoulant", false }, // Se il giocatore ha ucciso il Ghoulant in Scena3
         { "entryGhostCity", false }, // Se il giocatore ha finito il dialogo di entrata in GhostCity in scena3
     };
     #endregion
