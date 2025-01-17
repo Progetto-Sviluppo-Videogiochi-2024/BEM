@@ -4,7 +4,7 @@ public class AIChasePlayerState : AIState
 {
     public void Enter(AIAgent agent) => agent.StartCoroutine(agent.PlayNextAudio(1));
 
-    public void Exit(AIAgent agent) { }
+    public void Exit(AIAgent agent) { if (agent.gameObject.name.Contains("Scarnix")) agent.mutantAttack.hasPerformedFlyKick = false; }
 
     public AIStateId GetId() => AIStateId.ChasePlayer;
 
@@ -20,8 +20,8 @@ public class AIChasePlayerState : AIState
             return;
         }
 
-        // Se il nemico ha perso il giocatore (opzione 1: distanza troppo lunga o visibilità persa), torna al pattugliamento
-        if (!agent.player.hasEnemyDetectedPlayer)
+        // Se il nemico ha perso il giocatore, torna a pattugliare
+        if (!agent.detection.enemyInDetectionRange)
         {
             agent.stateMachine.ChangeState(AIStateId.Patrol);
             return;
@@ -30,7 +30,7 @@ public class AIChasePlayerState : AIState
         // Se l'agente non ha ancora un percorso o è necessario calcolarlo di nuovo, aggiorna la destinazione
         if (!agent.navMeshAgent.hasPath || agent.navMeshAgent.destination != agent.player.transform.position)
         {
-            agent.navMeshAgent.SetDestination(agent.player.transform.position);  // Calcola automaticamente il percorso verso il giocatore
+            agent.navMeshAgent.SetDestination(agent.player.transform.position); // Calcola automaticamente il percorso verso il giocatore
         }
         // L'agente calcolerà il percorso ottimale per arrivare a Stefano, aumentando la difficoltà di gioco
     }

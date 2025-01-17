@@ -10,5 +10,6 @@ public interface IAttackAI
     [Tooltip("Riferimento allo stato attacco dell'AI")] AIAttackState AttackState { get; set; }
     [Tooltip("Attacco corrente dell'AI")] string CurrentAttack { get; set; }
     [Tooltip("Danno dell'attacco corrente dell'AI")] int CurrentDamage { get; set; }
+    [Tooltip("Indica se il flyKick è stato eseguito (solo per Scarnix)")] bool hasPerformedFlyKick { get; set; }
     void PerformRandomAttack(AIAgent agent);
 }

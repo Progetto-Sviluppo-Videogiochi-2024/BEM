@@ -7,6 +7,7 @@ public class AIDetection : MonoBehaviour
     [SerializeField] float lookDistance = 30f; // Distanza di vista
     [SerializeField] float fov = 120f; // Campo visivo
     private bool isPlayerHeard = false; // Stato del rilevamento acustico
+    [HideInInspector] public bool enemyInDetectionRange = false; // Flag per il rilevamento del giocatore da parte di questo nemico
     [SerializeField] LayerMask layerMask; // Maschera per il rilevamento
     #endregion
 
@@ -32,11 +33,11 @@ public class AIDetection : MonoBehaviour
     private void FixedUpdate()
     {
         // Se il player è visto o sentito dal mutante (vivo)
-        player.hasEnemyDetectedPlayer = 
-            aIStatus.IsEnemyAlive() &&
-            !player.IsDead() &&
-            // TODO: aggiungere quando il pg è nascosto dietro oggetti o nei cespugli purché non sia già stato rilevato
-            (IsPlayerSeen() || isPlayerHeard);
+        if (aIStatus.IsEnemyAlive() && !player.IsDead())
+        {
+            enemyInDetectionRange = IsPlayerSeen() || isPlayerHeard;
+            player.hasEnemyDetectedPlayer = enemyInDetectionRange; // Modificato a livello di singolo nemico
+        }
     }
 
     public bool IsPlayerSeen()

@@ -65,6 +65,7 @@ public class AIAgent : MonoBehaviour
 
         stateMachine = new(this);
         stateMachine.RegisterState(new AIPatrolState());
+        // stateMachine.RegisterState(gameObject.name.Contains("Scarnix") ? new AIPatrolScarnix() : new AIPatrolState());
         stateMachine.RegisterState(new AIChasePlayerState());
         stateMachine.RegisterState(new AIAttackState());
         stateMachine.RegisterState(new AIDeathState());

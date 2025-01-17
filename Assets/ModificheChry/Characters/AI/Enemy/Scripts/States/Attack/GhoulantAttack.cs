@@ -8,6 +8,10 @@ public class GhoulantAttack : MonoBehaviour, IAttackAI
     public int damageBite = 25;
     public int damagePunching = 20;
     public AIAgent Agent { get; set; }
+    public AIAttackState AttackState { get; set; }
+    public string CurrentAttack { get; set; }
+    public int CurrentDamage { get; set; }
+    public bool hasPerformedFlyKick { get; set; } = false; // Indica se il flyKick è stato eseguito (solo per Scarnix)
     public Dictionary<string, (float probability, int damage)> Attacks { get; } = new()
     {
         { "swiping", (40f, 0) }, // Temporanei
@@ -24,10 +28,6 @@ public class GhoulantAttack : MonoBehaviour, IAttackAI
         Attacks["punching"] = (Attacks["punching"].probability, damagePunching);
         // scream rimane invariato perché ha danno 0
     }
-
-    public AIAttackState AttackState { get; set; }
-    public string CurrentAttack { get; set; }
-    public int CurrentDamage { get; set; }
 
     public void PerformRandomAttack(AIAgent agent)
     {

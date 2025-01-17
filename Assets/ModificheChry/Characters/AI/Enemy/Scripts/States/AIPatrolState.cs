@@ -6,8 +6,8 @@ using UnityEngine.AI;
 // non raggiunge una destinazione.
 public class AIPatrolState : AIState
 {
-    private Vector3 patrolDestination; // Destinazione di pattugliamento
-    private Collider patrolAreaCollider; // Riferimento al Collider dell'area di pattugliamento
+    protected Vector3 patrolDestination; // Destinazione di pattugliamento
+    protected Collider patrolAreaCollider; // Riferimento al Collider dell'area di pattugliamento
 
     public void Enter(AIAgent agent)
     {
@@ -25,7 +25,7 @@ public class AIPatrolState : AIState
         if (agent.player.IsDead()) { agent.StopAudio(); return; } // Se il player è morto, non fare nulla
 
         bool isInsidePatrolArea = patrolAreaCollider.bounds.Contains(new(agent.transform.position.x, patrolAreaCollider.bounds.center.y, agent.transform.position.z));
-        if (agent.player.hasEnemyDetectedPlayer) // Se rileva o sente il giocatore
+        if (agent.detection.enemyInDetectionRange) // Se rileva o sente il giocatore
         {
             agent.stateMachine.ChangeState(AIStateId.ChasePlayer);
             return;
@@ -35,7 +35,6 @@ public class AIPatrolState : AIState
             patrolDestination = GetRandomPointInCollider(agent, patrolAreaCollider); // Calcola una nuova destinazione valida
             agent.navMeshAgent.SetDestination(patrolDestination); // Forza il rientro
             agent.locomotion.MoveTowardsTarget(patrolDestination, agent.locomotion.walkSpeed, 5f);
-            Debug.DrawLine(agent.transform.position, patrolDestination, Color.yellow, 1.5f); // Per debug
             return; // Evita ulteriori aggiornamenti in questo frame
         }
         else if (!agent.navMeshAgent.pathPending && agent.navMeshAgent.remainingDistance < 1f) SetRandomPatrolDestination(agent); // Se raggiunge la destinazione, ne calcola una nuova
@@ -54,7 +53,7 @@ public class AIPatrolState : AIState
         agent.navMeshAgent.SetDestination(patrolDestination);
     }
 
-    private void SetRandomPatrolDestination(AIAgent agent)
+    protected virtual void SetRandomPatrolDestination(AIAgent agent)
     {
         Vector3 newDestination;
         int attempts = 0;
@@ -72,10 +71,9 @@ public class AIPatrolState : AIState
         agent.navMeshAgent.SetDestination(newDestination);
         patrolDestination = newDestination;
         agent.locomotion.MoveTowardsTarget(patrolDestination, agent.locomotion.walkSpeed, 5f);
-        Debug.DrawLine(agent.transform.position, patrolDestination, Color.yellow, 1.5f);
     }
 
-    private Vector3 GetRandomPointInCollider(AIAgent agent, Collider collider)
+    protected virtual Vector3 GetRandomPointInCollider(AIAgent agent, Collider collider)
     {
         const int maxAttempts = 20;
         for (int i = 0; i < maxAttempts; i++)
@@ -83,7 +81,7 @@ public class AIPatrolState : AIState
             // Generazione casuale di un punto all'interno del collider
             float randomX = Random.Range(collider.bounds.min.x, collider.bounds.max.x);
             float randomZ = Random.Range(collider.bounds.min.z, collider.bounds.max.z);
-            float randomY = collider.bounds.center.y; // Manteniamo l'altezza fissa
+            float randomY = collider.bounds.min.y;
 
             Vector3 randomPoint = new(randomX, randomY, randomZ);
 

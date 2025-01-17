@@ -55,6 +55,7 @@ public class GamePlayMenuManager : MonoBehaviour
 
     private bool CanOpenMenu() =>
         !(player?.GetComponent<Animator>()?.GetBool("sit") ?? false) && // Player non è seduto o è null
+        !(player?.GetComponent<Player>().IsDead() ?? false) && // Player non è morto o è null
         !confirmPanel.activeSelf && // Se il pannello di conferma è attivo
         !saveSlot.loadSavePanel.activeSelf && // Se il pannello di salvataggio è attivo
         !loadSlot.loadSavePanel.activeSelf && // Se il pannello di caricamento è attivo
