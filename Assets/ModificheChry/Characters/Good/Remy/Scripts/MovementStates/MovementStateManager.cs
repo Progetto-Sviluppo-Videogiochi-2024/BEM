@@ -181,7 +181,7 @@ public class MovementStateManager : MonoBehaviour
     public void PlayRunning()
     {
         audioSource.clip = runClip;
-        audioSource.volume = 0.1f;
+        audioSource.volume = 0.15f;
         if (audioSource.clip != null) audioSource.Play();
     }
 
