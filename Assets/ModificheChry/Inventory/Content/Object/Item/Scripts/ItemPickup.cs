@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ItemPickup : MonoBehaviour
 {
@@ -14,12 +13,12 @@ public class ItemPickup : MonoBehaviour
 
     [Header("Camera Pickup Settings")]
     #region Camera Pickup Settings
-    private Transform camFollowPosition;
+    private Transform camFollowPosition; // Posizione della telecamera durante il pickup
     #endregion
 
     [Header("References")]
     #region References
-    private Transform player;
+    private Transform player; // Riferimento al giocatore
     public Tooltip tooltip; // Riferimento al tooltip
     private Animator animator; // Riferimento all'Animator del giocatore
     #endregion

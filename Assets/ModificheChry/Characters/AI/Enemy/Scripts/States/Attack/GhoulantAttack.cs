@@ -65,13 +65,13 @@ public class GhoulantAttack : MonoBehaviour, IAttackAI
 
     public void PerformBite() // Invocata dall'animazione del morso di Ghoulant
     {
-        if (Vector3.Distance(Agent.transform.position, Agent.player.transform.position) < 1.5f)
-        {
-            var player = Agent.player;
-            player.GetComponent<MovementStateManager>().enabled = false;
-            player.GetComponent<Animator>().enabled = false;
-            StartCoroutine(MovePlayerToBiteTarget(player.transform));
-        }
+        // if (Vector3.Distance(Agent.transform.position, Agent.player.transform.position) < 1.5f)
+        // {
+        //     var player = Agent.player;
+        //     player.GetComponent<MovementStateManager>().enabled = false;
+        //     player.GetComponent<Animator>().enabled = false;
+        //     StartCoroutine(MovePlayerToBiteTarget(player.transform));
+        // }
     }
 
     private IEnumerator MovePlayerToBiteTarget(Transform player)
@@ -88,10 +88,10 @@ public class GhoulantAttack : MonoBehaviour, IAttackAI
 
     public void ResetBite()
     {
-        var player = Agent.player;
-        if (player.IsDead()) return;
-        player.GetComponent<MovementStateManager>().enabled = true;
-        player.GetComponent<Animator>().enabled = true;
+        // var player = Agent.player;
+        // if (player.IsDead()) return;
+        // player.GetComponent<MovementStateManager>().enabled = true;
+        // player.GetComponent<Animator>().enabled = true;
     }
 
     public void HitPlayer() => AttackState.ApplyDamage(Agent, CurrentDamage); // Invocata dall'animazione dell'attacco di Ghoulant, non appena avviene la collisione
