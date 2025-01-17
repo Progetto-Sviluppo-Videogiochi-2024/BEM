@@ -145,6 +145,9 @@ public class ItemPickup : MonoBehaviour
     public void SetWAmmo(Weapon weapon)
     {
         var weaponAmmo = weapon.prefab.GetComponent<WeaponAmmo>();
+        weaponAmmo.data = weapon.ammo;
+        weapon.prefab.GetComponent<WeaponManager>().ammo = weaponAmmo;
+        weaponAmmo.InitAmmo();
         if (!InventoryManager.instance.SearchAmmo(weapon)) return;
         weaponAmmo.UpdateAmmo(weapon.ammo, false);
     }

@@ -17,6 +17,7 @@ public class PlaySoundOnTrigger : MonoBehaviour
     {
         if (!oneTime && other.CompareTag("Player") && !player.hasEnemyDetectedPlayer && !BooleanAccessor.istance.GetBoolFromThis(boolName))
         {
+            BooleanAccessor.istance.SetBoolOnDialogueE(boolName);
             audioSource.PlayOneShot(collisionSound);
             oneTime = true;
         }

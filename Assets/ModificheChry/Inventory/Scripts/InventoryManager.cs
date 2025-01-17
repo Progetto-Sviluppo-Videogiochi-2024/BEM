@@ -73,6 +73,9 @@ public class InventoryManager : MonoBehaviour
         var prefab = PrefabManager.Instance.GetGO(weapon.nameItem);
         prefab.GetComponent<ItemController>().item = weapon;
         weapon.prefab = Instantiate(prefab);
+        var weaponAmmo = weapon.prefab.GetComponent<WeaponAmmo>();
+        weaponAmmo.data = weapon.ammo;
+        weaponAmmo.SetAmmo(weapon.prefab.GetComponent<ItemController>().item as Weapon);
         prefab.SetActive(false);
     }
 
@@ -266,12 +269,12 @@ public class InventoryManager : MonoBehaviour
         return null; // Sse non ho l'arma | non ho raccolto munizioni per quell'arma
     }
 
-    public Weapon SearchWeapon(string nameItemToSearch)
+    public Weapon SearchWeapon(string ammo)
     {
         foreach (var item in items)
         {
             if (item is not Weapon weapon) continue;
-            if (weapon.nameItem != nameItemToSearch) continue;
+            if (weapon.ammo.nameItem != ammo) continue;
             return weapon;
         }
         return null; // Sse non ho l'arma

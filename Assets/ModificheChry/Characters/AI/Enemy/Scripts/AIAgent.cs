@@ -50,8 +50,8 @@ public class AIAgent : MonoBehaviour
 
     void Start()
     {
-        // Al caricamento della scena, se l'agente è stato ucciso precedentemente, disattivalo
-        if (GestoreScena.killedEnemyIds.Contains(id)) { gameObject.SetActive(false); return; }
+        // Al caricamento della scena, se l'agente è stato ucciso precedentemente || il video non è stato ancora visto, disattivalo
+        // if (GestoreScena.killedEnemyIds.Contains(id) || !BooleanAccessor.istance.GetBoolFromThis("videoMutant")) { gameObject.SetActive(false); return; } // TODO: da scommentare a fine gioco
 
         navMeshAgent = GetComponent<NavMeshAgent>();
         locomotion = GetComponent<AILocomotion>();

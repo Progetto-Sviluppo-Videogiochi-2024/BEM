@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class GhoulantAttack : MonoBehaviour, IAttackAI
 {
+    public int damageSwiping = 20;
+    public int damageBite = 25;
+    public int damagePunching = 20;
     public AIAgent Agent { get; set; }
     public Dictionary<string, (float probability, int damage)> Attacks { get; } = new()
     {
-        { "swiping", (40f, 15) },
-        { "bite", (30f, 20) },
-        { "punching", (20f, 10) },
+        { "swiping", (40f, 0) }, // Temporanei
+        { "bite", (30f, 0) },
+        { "punching", (20f, 0) },
         { "scream", (10f, 0) }
     };
+
+    void Start()
+    {
+        // Assegna i valori di danno definitivi al dizionario
+        Attacks["swiping"] = (Attacks["swiping"].probability, damageSwiping);
+        Attacks["bite"] = (Attacks["bite"].probability, damageBite);
+        Attacks["punching"] = (Attacks["punching"].probability, damagePunching);
+        // scream rimane invariato perché ha danno 0
+    }
 
     public AIAttackState AttackState { get; set; }
     public string CurrentAttack { get; set; }
@@ -39,7 +51,10 @@ public class GhoulantAttack : MonoBehaviour, IAttackAI
 
             case "scream":
                 agent.animator.SetTrigger("scream");
-                // Non infligge danno diretto
+                agent.player.UpdateStatusPlayer(0, -5);
+                damageSwiping += 2;
+                damageBite += 2;
+                damagePunching += 2;
                 break;
 
             default:

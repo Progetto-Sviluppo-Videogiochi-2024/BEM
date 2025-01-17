@@ -10,45 +10,31 @@ public class WeaponAmmo : MonoBehaviour
     [HideInInspector] public int currentAmmo; // Munizioni attuali nel caricatore corrente
     #endregion
 
-    [Header("Settings")]
-    #region Settings
-    public static HashSet<string> collectedAmmoTypes = new(); // Tipi di munizioni raccolte (es: 9mm, 12mm, ecc), non lo salvo nel file perché ho già isLoadingSlot 
-    [HideInInspector] public bool isLoadingSlot; // Flag indicante se il load slot è da caricare
-    #endregion
-
     [Header("References")]
     #region References
     [HideInInspector] public Ammo data; // Dati delle munizioni
     #endregion
 
-    public void Init()
+    public void InitAmmo() // Quando raccolgo l'arma per la prima volta l'arma
     {
         if (data == null) return;
-
         clipSize = data.nAmmo;
-        string ammoId = data.name;
-
-        if (!collectedAmmoTypes.Contains(ammoId))
-        {
-            collectedAmmoTypes.Add(ammoId);
-            currentAmmo = data.maxAmmo; // Prima raccolta
-            extraAmmo = 0;
-
-            if (isLoadingSlot) return;
-        }
-        if (isLoadingSlot)
-        {
-            var weapon = GetComponent<ItemController>().item as Weapon;
-            currentAmmo = weapon.currentAmmo;
-            extraAmmo = weapon.extraAmmo;
-        }
+        currentAmmo = data.maxAmmo;
+        extraAmmo = 0;
     }
 
-    public void UpdateAmmo(Ammo ammo, bool isAmmo)
+    public void UpdateAmmo(Ammo ammo, bool isAmmo) // Quando raccolgo munizioni o armi
     {
         var ammoToAdd = isAmmo ? ammo.ammoToAdd : ammo.qta * ammo.ammoToAdd;
-        data = ammo;
+        data ??= ammo;
         extraAmmo += ammoToAdd;
+    }
+
+    public void SetAmmo(Weapon weapon) // Quando carico lo slot di salvataggio
+    {
+        currentAmmo = weapon.currentAmmo;
+        extraAmmo = weapon.extraAmmo;
+        clipSize = data.nAmmo;
     }
 
     public void Reload()

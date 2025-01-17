@@ -90,9 +90,7 @@ public class WeaponManager : MonoBehaviour
 
         damage = weapon.ammo.damageAmmo;
         ammo = GetComponent<WeaponAmmo>();
-        ammo.data = weapon.ammo;
-        ammo.isLoadingSlot = (GetComponent<ItemController>().item as Weapon).isLoadingSlot;
-        ammo.Init();
+        // ammo.data = weapon.ammo;
         isInitialized = true;
     }
 

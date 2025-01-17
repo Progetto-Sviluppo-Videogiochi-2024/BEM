@@ -20,8 +20,6 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
             IterateOnList<Weapon, WeaponData>(data.weaponItems, inventory);
             IterateOnList<Ammo, AmmoData>(data.ammoItems, inventory);
         }
-
-        WeaponAmmo.collectedAmmoTypes = new(data.ammoIdCollected);
     }
 
     private void IterateOnList<T, TData>(List<TData> datas, InventoryManager inventory) where T : Item, new()
@@ -63,11 +61,6 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
                     var itemData = new ItemData(item);
                     data.items.Add(itemData);
                 }
-            }
-
-            foreach (string ammo in WeaponAmmo.collectedAmmoTypes)
-            {
-                data.ammoIdCollected.Add(ammo);
             }
         }
     }

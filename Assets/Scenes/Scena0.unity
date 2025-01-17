@@ -6057,7 +6057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f557ab99d4a3215428186d46bc10ef12, type: 3}
       propertyPath: m_Name
-      value: Scarnix@Thriller Idle
+      value: Scarnix
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: f557ab99d4a3215428186d46bc10ef12, type: 3}
       propertyPath: m_Controller
@@ -6692,6 +6692,7 @@ MonoBehaviour:
       questAttive: []
       questCompletate: []
     collectedItemIds: []
+    killedEnemyIds: []
 --- !u!4 &478439213
 Transform:
   m_ObjectHideFlags: 0
@@ -30681,6 +30682,10 @@ PrefabInstance:
       propertyPath: inventoryCanvas
       value: 
       objectReference: {fileID: 1454359375}
+    - target: {fileID: 4064054824870630185, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
+      propertyPath: m_RigLayers.Array.data[0].m_Rig
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5908160136775216700, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
       propertyPath: m_Name
       value: Stefano
@@ -30694,7 +30699,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 541495859}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3268450462182553065, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
