@@ -11,7 +11,7 @@ public class CombinazioneManager : MonoBehaviour
     #region References
     public GameObject CombinazioneCanvas; // Il canvas che contiene la UI della Combinazione
     public Button CloseCombinazioneUI; // Il pulsante per chiudere la UI della Combinazione
-    private Transform player; // Il giocatore
+    public Transform player; // Il giocatore
     [SerializeField] private AudioClip combinazione; // Audio che viene riprodotto quando la combinazione è corretta
     public GameObject oggettoDaDisattivare; // Oggetto da disattivare quando la combinazione è corretta
     public ManagerScena3 managerScena3; // Riferimento al ManagerScena3
@@ -28,8 +28,8 @@ public class CombinazioneManager : MonoBehaviour
 
     void Start()
     {
-        player = FindAnyObjectByType<Player>().transform;
-        CombinazioneCanvas.SetActive(false);
+        //player = FindAnyObjectByType<Player>().transform;
+        //CombinazioneCanvas.SetActive(false);
         CloseCombinazioneUI.onClick.AddListener(() => { ToggleCombinazione(false); RemoveButtonFocus(); });
 
         // Imposta il listener per i cambiamenti nei dropdown
