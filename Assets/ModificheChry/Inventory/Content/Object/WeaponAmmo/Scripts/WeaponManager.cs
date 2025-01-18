@@ -172,9 +172,8 @@ public class WeaponManager : MonoBehaviour
         bulletConsumed++;
         if (bulletConsumed >= ammo.clipSize && ammo.extraAmmo >= 0 && ammo.currentAmmo >= 0)
         {
-            InventoryManager.instance.Remove(weapon.ammo, true);
+            InventoryManager.instance.Remove(ammo.data, true);
             bulletConsumed = 0; // Reset del contatore dopo aver rimosso il caricatore
-            print($"Caricatore rimosso: {ammo.extraAmmo} + {ammo.currentAmmo} munizioni rimanenti.\nCaricatori restanti: {ammo.extraAmmo / ammo.clipSize}");
         }
     }
 

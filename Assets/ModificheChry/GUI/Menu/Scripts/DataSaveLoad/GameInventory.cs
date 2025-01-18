@@ -17,8 +17,8 @@ public class GameInventory : MonoBehaviour, IBind<InventoryData>
             inventory.ClearInventory(); // Pulisce l'inventario prima di caricare i dati
 
             IterateOnList<Item, ItemData>(data.items, inventory);
-            IterateOnList<Weapon, WeaponData>(data.weaponItems, inventory);
             IterateOnList<Ammo, AmmoData>(data.ammoItems, inventory);
+            IterateOnList<Weapon, WeaponData>(data.weaponItems, inventory);
         }
     }
 

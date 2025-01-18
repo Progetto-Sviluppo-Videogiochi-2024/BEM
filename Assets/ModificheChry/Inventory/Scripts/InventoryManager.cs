@@ -113,7 +113,9 @@ public class InventoryManager : MonoBehaviour
         if (item == null) return;
 
         if (item.qta > 0 && canDecreaseQta)
+        {
             item.qta--;
+        }
 
         if (item.qta == 0)
         {
@@ -256,6 +258,15 @@ public class InventoryManager : MonoBehaviour
             if (inventoryItem.item.nameItem == item.nameItem) return inventoryItem;
         }
         return null; // Non dovrebbe mai accadere
+    }
+
+    public Item SearchItem(string itemName)
+    {
+        foreach (var item in items)
+        {
+            if (item.nameItem == itemName) return item;
+        }
+        return null; // Se non ho l'oggetto
     }
 
     public Weapon SearchWeapon(Ammo ammoPickup)

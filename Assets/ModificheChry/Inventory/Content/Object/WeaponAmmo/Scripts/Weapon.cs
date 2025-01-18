@@ -65,7 +65,7 @@ public class Weapon : Item // Weapon estende Item
         image = sprites.image;
         weaponType = weaponData.weaponType;
         rangeType = weaponData.rangeType;
-        ammo = !string.IsNullOrEmpty(weaponData.ammoName) ? ItemManager.Instance.GetItemByName(weaponData.ammoName) as Ammo : null;
+        ammo = InventoryManager.instance.SearchItem(weaponData.ammoName) as Ammo ?? ItemManager.Instance.GetItemByName(weaponData.ammoName) as Ammo;
         distance = weaponData.distance;
         semiAuto = weaponData.semiAuto;
         isThrowable = weaponData.isThrowable;
