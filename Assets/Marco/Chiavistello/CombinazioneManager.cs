@@ -10,43 +10,42 @@ public class CombinazioneManager : MonoBehaviour
     [Header("References")]
     #region References
     public GameObject CombinazioneCanvas; // Il canvas che contiene la UI della Combinazione
-    public Button CloseCombinazioneUI; // Il pulsante per chiudere la UI della Combinazione
-    public Transform player; // Il giocatore
+    private Button CloseCombinazioneUI; // Il pulsante per chiudere la UI della Combinazione
+    List<TMP_Dropdown> dropdowns = new(); // Lista di dropdown per la combinazione
+    public Player player; // Riferimento al giocatore
     [SerializeField] private AudioClip combinazione; // Audio che viene riprodotto quando la combinazione è corretta
-    public GameObject oggettoDaDisattivare; // Oggetto da disattivare quando la combinazione è corretta
+    public GameObject doorToOpen; // Porta da aprire quando la combinazione è corretta
+    public GameObject doorToClose; // Porta da chiudere quando la combinazione è corretta 
     public ManagerScena3 managerScena3; // Riferimento al ManagerScena3
     #endregion
 
-    private bool isInRange = false; // Indica se il giocatore è vicino alla Combinazione
-    private bool isCombinazioneOpen = false; // Indica se il canvas della radio è aperto
-    public bool sbloccato = false; // Stato di sblocco (combinazione corretta o no)
-
-    public TMP_Dropdown dropdown0; // Riferimento al primo dropdown (7)
-    public TMP_Dropdown dropdown1; // Riferimento al secondo dropdown (0)
-    public TMP_Dropdown dropdown2; // Riferimento al terzo dropdown (7)
-    public TMP_Dropdown dropdown3; // Riferimento al quarto dropdown (0)
+    bool isInRange = false; // Indica se il giocatore è vicino alla Combinazione
+    bool isCombinazioneOpen = false; // Indica se il canvas della Combinazione è aperto
+    bool sbloccato = false; // Stato di sblocco (combinazione corretta o no)
 
     void Start()
     {
-        //player = FindAnyObjectByType<Player>().transform;
-        //CombinazioneCanvas.SetActive(false);
+        doorToOpen.SetActive(false); // La porta da aprire è inizialmente chiusa
+        CloseCombinazioneUI = CombinazioneCanvas.transform.GetChild(1).GetComponent<Button>(); // Il pulsante per chiudere la UI della Combinazione
         CloseCombinazioneUI.onClick.AddListener(() => { ToggleCombinazione(false); RemoveButtonFocus(); });
 
         // Imposta il listener per i cambiamenti nei dropdown
-        dropdown0.onValueChanged.AddListener(delegate { VerificaCombinazione(); });
-        dropdown1.onValueChanged.AddListener(delegate { VerificaCombinazione(); });
-        dropdown2.onValueChanged.AddListener(delegate { VerificaCombinazione(); });
-        dropdown3.onValueChanged.AddListener(delegate { VerificaCombinazione(); });
+        var panel = CombinazioneCanvas.transform.GetChild(0); // Il pannello che contiene i dropdown
+        foreach (Transform child in panel)
+        {
+            dropdowns.Add(child.GetComponent<TMP_Dropdown>());
+            dropdowns[^1].onValueChanged.AddListener(delegate { VerificaCombinazione(); }); // Aggiunge all'ultimo corrente il listener per la verifica
+        }
     }
 
     void Update()
     {
-        if (isInRange && Input.GetKeyDown(KeyCode.Space)) // Se il giocatore è vicino alla combinazione
+        if (!sbloccato && !player.hasEnemyDetectedPlayer && isInRange && Input.GetKeyDown(KeyCode.Space)) // Se il giocatore è vicino alla combinazione
         {
             ToggleCombinazione(!isCombinazioneOpen);
         }
 
-        if (isCombinazioneOpen && Input.GetMouseButtonDown(0) && !IsPointerOverUI()) // Se il canvas della radio è aperto e il click non è sulla UI della radio
+        if (isCombinazioneOpen && Input.GetMouseButtonDown(0) && !IsPointerOverUI()) // Se il canvas è aperto e non stai cliccando su un elemento UI
         {
             ToggleCombinazione(false);
         }
@@ -54,11 +53,12 @@ public class CombinazioneManager : MonoBehaviour
 
     void VerificaCombinazione()
     {
-        if (dropdown0.value == 7 && dropdown1.value == 0 && dropdown2.value == 7 && dropdown3.value == 0)
+        if (dropdowns[0].value == 7 && dropdowns[1].value == 0 && dropdowns[2].value == 7 && dropdowns[3].value == 0) // 7 0 7 0
         {
             sbloccato = true;
             StartCoroutine(managerScena3.PlayAudioAndWait(2f, combinazione));
-            oggettoDaDisattivare?.SetActive(false);
+            doorToClose.SetActive(false);
+            doorToOpen.SetActive(true);
             ToggleCombinazione(false);
         }
         else sbloccato = false;
