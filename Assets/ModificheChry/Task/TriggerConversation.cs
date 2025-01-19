@@ -4,14 +4,12 @@ using UnityEngine;
 public class TriggerConversation : MonoBehaviour
 {
     private bool oneTimeDialogue = false; // Flag per riprodurre la conversazione una sola volta
-    private bool isDialogueActive = false; // Flag per evitare chiamate multiple
     public NPCConversation[] conversations; // Array di dialoghi
     public Player player; // Riferimento al giocatore
     public string nomeBoolBA; // Nome del boolean accessor da settare
 
     void OnDialogueEnded()
     {
-        isDialogueActive = false;
         oneTimeDialogue = true;
 
         GestoreScena.ChangeCursorActiveStatus(false, "NPCDialogueBase.update: " + gameObject.transform.parent.name);
@@ -23,10 +21,10 @@ public class TriggerConversation : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!player.hasEnemyDetectedPlayer && !oneTimeDialogue && !isDialogueActive && other.CompareTag("Player"))
+        if (!player.hasEnemyDetectedPlayer && !BooleanAccessor.istance.GetBoolFromThis(nomeBoolBA) && !oneTimeDialogue && other.CompareTag("Player"))
         {
+            SaveLoadSystem.Instance.SaveCheckpoint();
             GestoreScena.ChangeCursorActiveStatus(true, "TriggerConversation.OnTriggerEnter: " + gameObject.name);
-            isDialogueActive = true;
             ConversationManager.Instance.StartConversation(conversations[0]);
             ConversationManager.OnConversationEnded += OnDialogueEnded;
         }
