@@ -44,6 +44,9 @@ public class ZonaCamping : MonoBehaviour
         jacob = characters.GetChild(2);
         angelica = characters.GetChild(3);
 
+        PlayerPrefs.SetInt("videoMutantCP", 0);
+        PlayerPrefs.Save();
+
         if (!booleanAccessor.GetBoolFromThis("videoMutant"))
         {
             jacob.GetComponent<Animator>().SetBool("Portiere", true);
