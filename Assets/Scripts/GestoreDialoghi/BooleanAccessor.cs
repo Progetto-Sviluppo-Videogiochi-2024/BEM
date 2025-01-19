@@ -39,6 +39,7 @@ public class BooleanAccessor : MonoBehaviour
         { "videoMutant", false }, // Se il giocatore ha finito il dialogo del video del mutante in scena3
         { "killGhoulant", false }, // Se il giocatore ha ucciso il Ghoulant in Scena3
         { "entryGhostCity", false }, // Se il giocatore ha finito il dialogo di entrata in GhostCity in scena3
+        { "doorUnlocked", false } // Se il giocatore ha sbloccato la porta per accedere alla zona del boss in scena3
     };
     #endregion
 

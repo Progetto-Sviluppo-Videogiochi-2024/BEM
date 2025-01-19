@@ -25,7 +25,8 @@ public class CombinazioneManager : MonoBehaviour
 
     void Start()
     {
-        doorToOpen.SetActive(false); // La porta da aprire è inizialmente chiusa
+        if (BooleanAccessor.istance.GetBoolFromThis("doorUnlocked")) { ToggleDoor(true); return; }
+        else ToggleDoor(false);
         CloseCombinazioneUI = CombinazioneCanvas.transform.GetChild(1).GetComponent<Button>(); // Il pulsante per chiudere la UI della Combinazione
         CloseCombinazioneUI.onClick.AddListener(() => { ToggleCombinazione(false); RemoveButtonFocus(); });
 
@@ -56,12 +57,17 @@ public class CombinazioneManager : MonoBehaviour
         if (dropdowns[0].value == 7 && dropdowns[1].value == 0 && dropdowns[2].value == 7 && dropdowns[3].value == 0) // 7 0 7 0
         {
             sbloccato = true;
-            StartCoroutine(managerScena3.PlayAudioAndWait(2f, combinazione));
-            doorToClose.SetActive(false);
-            doorToOpen.SetActive(true);
+            BooleanAccessor.istance.SetBoolOnDialogueE("doorUnlocked"); // Per il LG
+            managerScena3.PlayThisAudioInCoroutine(combinazione);
+            ToggleDoor(true);
             ToggleCombinazione(false);
         }
-        else sbloccato = false;
+    }
+
+    private void ToggleDoor(bool isOpen)
+    {
+        doorToOpen.SetActive(isOpen);
+        doorToClose.SetActive(!isOpen);
     }
 
     private void ToggleCombinazione(bool isOpen)
