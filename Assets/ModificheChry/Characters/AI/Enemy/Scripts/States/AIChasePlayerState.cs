@@ -4,7 +4,7 @@ public class AIChasePlayerState : AIState
 {
     public void Enter(AIAgent agent) => agent.StartCoroutine(agent.PlayNextAudio(1));
 
-    public void Exit(AIAgent agent) { if (agent.gameObject.name.Contains("Scarnix")) agent.mutantAttack.hasPerformedFlyKick = false; }
+    public void Exit(AIAgent agent) { }
 
     public AIStateId GetId() => AIStateId.ChasePlayer;
 

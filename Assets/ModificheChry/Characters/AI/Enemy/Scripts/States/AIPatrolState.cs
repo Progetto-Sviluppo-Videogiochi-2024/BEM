@@ -14,6 +14,7 @@ public class AIPatrolState : AIState
         SetPatrolArea(agent.patrolArea);
         SetRandomPatrolDestination(agent);
         agent.PlayAudio(0, true);
+        if (agent.gameObject.name.Contains("Scarnix")) agent.mutantAttack.hasPerformedFlyKick = false;
     }
 
     public void Exit(AIAgent agent) { }

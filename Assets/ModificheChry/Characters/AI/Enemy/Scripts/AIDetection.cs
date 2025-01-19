@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AIDetection : MonoBehaviour
@@ -17,8 +18,9 @@ public class AIDetection : MonoBehaviour
     Transform playerHead;
     private Transform playerTransform;
     private Player player;
-    GestoreScena gestoreScena;
+    public GestoreScena gestoreScena;
     [HideInInspector] AIStatus aIStatus;
+    private static List<AIDetection> detectingEnemies = new(); // Lista di nemici che rilevano il giocatore
     #endregion
 
     void Start()
@@ -26,7 +28,6 @@ public class AIDetection : MonoBehaviour
         playerTransform = GetComponent<AIAgent>().player.transform;
         player = playerTransform.GetComponent<Player>();
         aIStatus = GetComponent<AIStatus>();
-        gestoreScena = FindObjectOfType<GestoreScena>();
         playerHead = gestoreScena?.playerHead;
     }
 
@@ -36,7 +37,20 @@ public class AIDetection : MonoBehaviour
         if (aIStatus.IsEnemyAlive() && !player.IsDead())
         {
             enemyInDetectionRange = IsPlayerSeen() || isPlayerHeard;
-            player.hasEnemyDetectedPlayer = enemyInDetectionRange; // Modificato a livello di singolo nemico
+
+            // Aggiorna lo stato di rilevamento globale
+            if (enemyInDetectionRange)
+                detectingEnemies.Add(this); // Aggiungi il nemico alla lista
+            else
+                detectingEnemies.Remove(this); // Rimuovi il nemico dalla lista
+
+            // Imposta il valore finale basandoti su tutti i nemici
+            player.hasEnemyDetectedPlayer = detectingEnemies.Count > 0;
+        }
+        else
+        {
+            detectingEnemies.Remove(this); // Rimuovi se il nemico non è attivo
+            player.hasEnemyDetectedPlayer = detectingEnemies.Count > 0;
         }
     }
 
