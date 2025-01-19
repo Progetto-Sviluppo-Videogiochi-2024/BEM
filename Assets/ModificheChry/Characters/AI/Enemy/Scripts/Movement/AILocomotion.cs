@@ -32,8 +32,8 @@ public class AILocomotion : NPCAIBase
         // Se lo stato è Chase, muovi l'IA verso il giocatore, else non inseguirlo
         if (aIAgent.stateMachine.currentState == AIStateId.ChasePlayer)
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-            MoveTowardsTarget(player.position, (distanceToPlayer > minDistanceToRunToPlayer) ? runSpeed : walkSpeed, interpolationSpeed);
+            float distanceToPlayer = Vector3.Distance(transform.position, player.gameObject.transform.position);
+            MoveTowardsTarget(player.gameObject.transform.position, (distanceToPlayer > minDistanceToRunToPlayer) ? runSpeed : walkSpeed, interpolationSpeed);
         }
     }
 }

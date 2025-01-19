@@ -10,7 +10,7 @@ public class NPCAIBase : MonoBehaviour
 
     [Header("References")]
     #region References
-    public Transform player; // Riferimento al player
+    public Player player; // Riferimento al player
     protected MovementStateManager movementStateManager; // Riferimento allo stato di movimento del player
     protected NavMeshAgent agent; // Riferimento all'agente di navigazione
     protected Animator animator; // Riferimento all'animator dell'agente
@@ -28,7 +28,7 @@ public class NPCAIBase : MonoBehaviour
     {
         if (agent == null || !agent.isActiveAndEnabled || !agent.isOnNavMesh) return; // Se l'agente non è attivo o non è sulla navmesh
 
-        if (target != null) MoveTowardsTarget(target.position, movementStateManager.currentMoveSpeed <= 2f ? 2f : 5f, 5f);
+        if (target != null && !player.hasEnemyDetectedPlayer) MoveTowardsTarget(target.position, movementStateManager.currentMoveSpeed <= 2f ? 2f : 5f, 5f);
     }
 
     public virtual void MoveTowardsTarget(Vector3 destination, float speed, float interpolationSpeed)
@@ -37,7 +37,6 @@ public class NPCAIBase : MonoBehaviour
 
         // Se è vicino alla distanza di stop, ferma l'agente
         if (distanceToPlayer <= stopDistance) { StopAgent(); return; }
-
         // else se è abbastanza lontano, l'agente si muove verso il target
         float targetSpeed = speed;
         MoveAgent(destination, Mathf.Lerp(agent.speed, targetSpeed, Time.deltaTime * interpolationSpeed)); // Interpolazione graduale
