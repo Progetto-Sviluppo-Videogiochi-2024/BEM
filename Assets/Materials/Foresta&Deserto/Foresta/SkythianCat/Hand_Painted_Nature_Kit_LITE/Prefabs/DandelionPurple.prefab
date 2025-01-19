@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 33688910611669928}
   - component: {fileID: 23723036162004832}
   - component: {fileID: 815591066889071944}
+  - component: {fileID: 246518368635094290}
+  - component: {fileID: -5619236592542999979}
   m_Layer: 0
   m_Name: DandelionPurple
   m_TagString: Untagged
@@ -29,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000021855694, y: -1.1102232e-16, z: 1.1102232e-16, w: 1}
   m_LocalPosition: {x: 0.0017064, y: -0.017, z: -0.0475}
-  m_LocalScale: {x: 0.90976, y: 0.717204, z: 0.7512}
+  m_LocalScale: {x: 1.4331, y: 1.4331, z: 1.4331}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -103,5 +105,32 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7, y: 0.4308651, z: 0.8}
+  m_Size: {x: 2, y: 0.4308651, z: 3}
   m_Center: {x: 0.018909872, y: 0.15517822, z: 0.014695853}
+--- !u!114 &246518368635094290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364588959314324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08a1b27a68c7ab74da7dc2887f2c2944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 332af22f299e2a544bd5a67718c7709c, type: 2}
+--- !u!114 &-5619236592542999979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364588959314324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f037fcaa8790f994aa9ba325c56a4c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  tooltip: {fileID: 3987314480948296827, guid: 2713c73e375d2374ca951ea2246250da, type: 3}
