@@ -1,13 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-public class AIDeathState : AIState
+public class AIDeathState : AIState<AIAgent>
 {
     public void Enter(AIAgent agent)
     {
         // Status dell'agente
-        if (agent.status.isDead) return; // Se l'agente è già morto, non fare nulla
-        agent.status.isDead = true;
+        if (agent.status.IsDead) return; // Se l'agente è già morto, non fare nulla
+        agent.status.IsDead = true;
         agent.id = GestoreScena.GenerateId(agent.gameObject, agent.transform);
         agent.player.hasEnemyDetectedPlayer = false;
         agent.detection.enemyInDetectionRange = false;

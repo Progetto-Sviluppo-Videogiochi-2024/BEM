@@ -13,10 +13,7 @@ public class Bullet : MonoBehaviour
     [HideInInspector] public WeaponManager weapon;
     #endregion
 
-    private void Start()
-    {
-        Destroy(this.gameObject, timeToDestroy);
-    }
+    void Start() => Destroy(this.gameObject, timeToDestroy);
 
     public void Hit(RaycastHit hit)
     {
@@ -36,15 +33,17 @@ public class Bullet : MonoBehaviour
         }
 
         // Per i mutanti di Scena3
-        var mutant = hitObject.transform.GetComponentInParent<AIStatus>();
+        var mutant = hitObject.transform.GetComponentInParent<IEnemyStatus>();
         if (mutant != null)
         {
             mutant.TakeDamage(weapon.damage);
-            if (mutant.health <= 0 && !mutant.isDead)
+            if (!mutant.IsEnemyAlive())
             {
                 Rigidbody rb = hitObject.GetComponent<Rigidbody>();
+                rb ??= hitObject.GetComponentInParent<Rigidbody>();
+                rb ??= hitObject.GetComponentInChildren<Rigidbody>();
+                rb ??= hitObject.AddComponent<Rigidbody>();
                 rb.AddForce(direction * weapon.enemykickBackForce, ForceMode.Impulse);
-                mutant.isDead = true;
             }
         }
 

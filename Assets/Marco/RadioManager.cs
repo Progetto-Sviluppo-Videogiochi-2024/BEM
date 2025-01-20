@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using DialogueEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -32,18 +31,15 @@ public class RadioManager : MonoBehaviour
 
     [Header("References")]
     #region References
-    private Transform player; // Il giocatore
+    public Transform player; // Il giocatore
     private Player playerScript; // Lo script del giocatore
     private AudioSource audioSource; // L'audio source della radio
     #endregion
 
     void Start()
     {
-        player = FindAnyObjectByType<Player>().transform;
         playerScript = player.GetComponent<Player>();
-
         radioCanvas.SetActive(false);
-
         audioSource = GetComponent<AudioSource>();
         if (SceneManager.GetActiveScene().name == "Scena0") PlayAudio();
 

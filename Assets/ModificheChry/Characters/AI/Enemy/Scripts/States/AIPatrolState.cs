@@ -4,7 +4,7 @@ using UnityEngine.AI;
 // Comportamento in cui il nemico si muove in modo casuale o predeterminato all'interno di un'area, senza un obiettivo preciso (come inseguire o attaccare).
 // Simula un'azione di "sorveglianza" o "pattugliamento", durante il quale il nemico esplora e si sposta a caso, finché non rileva il giocatore o
 // non raggiunge una destinazione.
-public class AIPatrolState : AIState
+public class AIPatrolState : AIState<AIAgent>
 {
     protected Vector3 patrolDestination; // Destinazione di pattugliamento
     protected Collider patrolAreaCollider; // Riferimento al Collider dell'area di pattugliamento

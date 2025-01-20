@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class AIStatus : MonoBehaviour, IEnemyStatus
+public class AIBossStatus : MonoBehaviour, IEnemyStatus
 {
     [Header("Settings")]
     #region Enemy Settings
@@ -13,12 +13,12 @@ public class AIStatus : MonoBehaviour, IEnemyStatus
 
     [Header("References")]
     #region References
-    AIAgent agent; // Riferimento alla macchina a stati
+    AIBossAgent bossAgent; // Riferimento alla macchina a stati
     #endregion
 
     void Start()
     {
-        agent = GetComponent<AIAgent>();
+        bossAgent = GetComponent<AIBossAgent>();
     }
 
     public void TakeDamage(float damage)
@@ -27,7 +27,7 @@ public class AIStatus : MonoBehaviour, IEnemyStatus
         if (!IsEnemyAlive()) return;
 
         Health -= damage;
-        if (!IsEnemyAlive()) { Health = 0; agent.stateMachine.ChangeState(AIStateId.Death); }
+        if (!IsEnemyAlive()) { Health = 0; bossAgent.stateMachine.ChangeState(AIStateId.Death); }
     }
 
     public bool IsEnemyAlive() => Health > 0;

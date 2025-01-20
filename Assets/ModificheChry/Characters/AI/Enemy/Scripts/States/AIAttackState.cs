@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class AIAttackState : AIState
+public class AIAttackState : AIState<AIAgent>
 {
     [HideInInspector] public bool isAttacking = false; // Indica se l'AI sta attaccando
     private float timeSinceLastAttack = 0f; // Tempo trascorso dall'ultimo attacco
@@ -75,7 +75,7 @@ public class AIAttackState : AIState
         if (Physics.Raycast(agent.transform.position, rayDirection, out RaycastHit _, 2f, agent.layerMask)) // Se colpisce il player
         {
             agent.player.UpdateStatusPlayer(-damage, -10);
-            Debug.Log($"{agent.name}.'{agent.mutantAttack.CurrentAttack}': (HP, SM) = (-{damage}, -10) -> ({agent.player.health}, {agent.player.sanitaMentale})");
+            // Debug.Log($"{agent.name}.'{agent.mutantAttack.CurrentAttack}': (HP, SM) = (-{damage}, -10) -> ({agent.player.health}, {agent.player.sanitaMentale})");
 
             if (agent.player.health > 0) return; // Se è ancora vivo, non fare nulla
             agent.player.GetComponentInChildren<Rigidbody>().AddForce(rayDirection * 5f, ForceMode.Impulse);

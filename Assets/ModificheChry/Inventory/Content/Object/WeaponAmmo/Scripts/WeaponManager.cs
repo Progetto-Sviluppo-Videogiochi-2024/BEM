@@ -150,7 +150,7 @@ public class WeaponManager : MonoBehaviour
         TriggerMuzzleFlash();
         ammo.currentAmmo--;
 
-        if (!isSphereRadiusIncrease) StartCoroutine(ChangeNoiseAuraRadius(3f, 9f, noiseAura.radius));
+        if (!isSphereRadiusIncrease && noiseAura != null) StartCoroutine(ChangeNoiseAuraRadius(3f, 9f, noiseAura.radius));
 
         for (int i = 0; i < bulletsPerShot; i++)
         {

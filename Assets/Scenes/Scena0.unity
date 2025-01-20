@@ -6679,7 +6679,6 @@ MonoBehaviour:
       items: []
       weaponItems: []
       ammoItems: []
-      ammoIdCollected: []
     levelData:
       <Id>k__BackingField:
         Part1: 307944450
@@ -30704,6 +30703,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
+--- !u!4 &827961967819521874 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1413829023850466260, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
+  m_PrefabInstance: {fileID: 827961967819521873}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2930461916536318918 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8660649209917382326, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
@@ -30866,6 +30870,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8048108807985119874, guid: 227559add021ee449aeae1cd62f77734, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 827961967819521874}
     - target: {fileID: 8048108807985119874, guid: 227559add021ee449aeae1cd62f77734, type: 3}
       propertyPath: songs.Array.data[0]
       value: 

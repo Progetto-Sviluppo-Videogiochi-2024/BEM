@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AIChasePlayerState : AIState
+public class AIChasePlayerState : AIState<AIAgent>
 {
     public void Enter(AIAgent agent) => agent.StartCoroutine(agent.PlayNextAudio(1));
 

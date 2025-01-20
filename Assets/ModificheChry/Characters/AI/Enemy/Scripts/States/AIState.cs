@@ -7,10 +7,10 @@ public enum AIStateId
     Death
 }
 
-public interface AIState
+public interface AIState<TAgent>
 {
     AIStateId GetId();
-    void Enter(AIAgent agent);
-    void Update(AIAgent agent);
-    void Exit(AIAgent agent);
+    void Enter(TAgent agent);
+    void Update(TAgent agent);
+    void Exit(TAgent agent);
 }

@@ -13,7 +13,7 @@ public class AIAgent : MonoBehaviour
     [Header("State Machine")]
     #region State Machine
     public AIStateId initialState; // Stato iniziale
-    public AIStateMachine stateMachine; // Macchina a stati finitia
+    public AIStateMachine<AIAgent> stateMachine; // Macchina a stati finitia
     #endregion
 
     [Header("Config AI")]
@@ -63,9 +63,8 @@ public class AIAgent : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         PlayAudio(0, true);
 
-        stateMachine = new(this);
+        stateMachine = new AIStateMachine<AIAgent>(this);
         stateMachine.RegisterState(new AIPatrolState());
-        // stateMachine.RegisterState(gameObject.name.Contains("Scarnix") ? new AIPatrolScarnix() : new AIPatrolState());
         stateMachine.RegisterState(new AIChasePlayerState());
         stateMachine.RegisterState(new AIAttackState());
         stateMachine.RegisterState(new AIDeathState());

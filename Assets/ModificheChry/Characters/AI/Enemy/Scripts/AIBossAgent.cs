@@ -1,0 +1,54 @@
+using UnityEngine;
+using UnityEngine.AI;
+
+public class AIBossAgent : MonoBehaviour
+{
+    [Header("Settings")]
+    #region Settings
+    [HideInInspector] public string id = ""; // ID dell'IA: utile nel caricamento dei dati per capire se è stato ucciso 
+    #endregion
+
+    [Header("State Machine")]
+    #region State Machine
+    public AIStateId initialState; // Stato iniziale
+    public AIStateMachine<AIBossAgent> stateMachine; // Macchina a stati finitia
+    #endregion
+
+    [Header("Config AI")]
+    #region Config AI
+    public float minDistanceAttack = 2f; // Distanza minima per attaccare il giocatore
+    public float attackCooldown = 2.5f; // Tempo di cooldown tra un attacco e l'altro
+    #endregion
+
+    [Header("SFX")]
+    #region SFX
+    [SerializeField] private AudioClip[] soundsAI; // Suoni dell'IA: 0 = non triggerato, 1 = triggerato, 2 = insegue, 3 = morte
+    [HideInInspector] public AudioSource audioSource; // Riferimento all'audio source
+    #endregion
+
+    [Header("AI References")]
+    #region References
+    public Player player; // Riferimento al giocatore
+    [HideInInspector] public NavMeshAgent navMeshAgent; // Riferimento all'agente di navigazione
+    [HideInInspector] public AIBossStatus status; // Riferimento allo stato dell'IA
+    [HideInInspector] public Animator animator; // Riferimento all'animatore
+    [SerializeField] public LayerMask layerMask; // LayerMask per il rilevamento e gli attacchi
+    [HideInInspector] public IAttackAI mutantAttack; // Riferimento al componente script dell'attacco di ogni mutante
+    #endregion
+
+    void Start()
+    {
+        // Al caricamento della scena, se l'agente è stato ucciso precedentemente || il video non è stato ancora visto, disattivalo
+        // if (GestoreScena.killedEnemyIds.Contains(id) || !BooleanAccessor.istance.GetBoolFromThis("videoMutant")) { gameObject.SetActive(false); return; } // TODO: da scommentare a fine gioco
+
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        status = GetComponent<AIBossStatus>();
+        animator = GetComponent<Animator>();
+        mutantAttack = GetComponent<IAttackAI>();
+
+        stateMachine = new AIStateMachine<AIBossAgent>(this);
+        stateMachine.RegisterState(new AIBossChasePlayerState());
+        stateMachine.RegisterState(new AIBossAttackState());
+        stateMachine.RegisterState(new AIBossDeathState());
+    }
+}
