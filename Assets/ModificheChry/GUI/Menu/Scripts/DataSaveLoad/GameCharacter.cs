@@ -19,6 +19,7 @@ public class GameCharacter : MonoBehaviour, IBind<PlayerData>
             player.isDead = data.isDead;
             player.menteSana = data.menteSana;
             player.transform.GetChild(0).SetPositionAndRotation(data.positionVcam, data.rotationVcam); // Set "CameraFollowPosition"
+            player.hasEnemyDetectedPlayer = false;
         }
     }
 

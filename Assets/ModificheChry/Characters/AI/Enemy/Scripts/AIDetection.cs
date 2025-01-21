@@ -25,6 +25,7 @@ public class AIDetection : MonoBehaviour
 
     void Start()
     {
+        detectingEnemies = new List<AIDetection>();
         playerTransform = GetComponent<AIAgent>().player.transform;
         player = playerTransform.GetComponent<Player>();
         aIStatus = GetComponent<AIStatus>();
