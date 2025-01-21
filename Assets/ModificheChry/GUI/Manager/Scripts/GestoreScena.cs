@@ -77,6 +77,7 @@ public class GestoreScena : MonoBehaviour
         PlayerPrefs.Save();
         if (nextScene == "Scena0")
         {
+            SaveLoadSystem.Instance.DeleteGame("Checkpoint");
             collectedItemIds.Clear();
             Destroy(SaveLoadSystem.Instance.gameObject);
         }
