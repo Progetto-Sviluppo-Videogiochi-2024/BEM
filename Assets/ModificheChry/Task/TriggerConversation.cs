@@ -12,6 +12,7 @@ public class TriggerConversation : MonoBehaviour
     {
         oneTimeDialogue = true;
 
+        SaveLoadSystem.Instance.SaveCheckpoint();
         GestoreScena.ChangeCursorActiveStatus(false, "NPCDialogueBase.update: " + gameObject.transform.parent.name);
         player.GetComponent<MovementStateManager>().enabled = true;
         BooleanAccessor.istance.SetBoolOnDialogueE(nomeBoolBA);
@@ -23,7 +24,6 @@ public class TriggerConversation : MonoBehaviour
     {
         if (!player.hasEnemyDetectedPlayer && !BooleanAccessor.istance.GetBoolFromThis(nomeBoolBA) && !oneTimeDialogue && other.CompareTag("Player"))
         {
-            SaveLoadSystem.Instance.SaveCheckpoint();
             GestoreScena.ChangeCursorActiveStatus(true, "TriggerConversation.OnTriggerEnter: " + gameObject.name);
             ConversationManager.Instance.StartConversation(conversations[0]);
             ConversationManager.OnConversationEnded += OnDialogueEnded;

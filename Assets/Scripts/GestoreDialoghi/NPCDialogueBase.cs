@@ -55,7 +55,7 @@ public abstract class NPCDialogueBase : MonoBehaviour
 
     protected void StartConversation(NPCConversation dialog)
     {
-        GestoreScena.ChangeCursorActiveStatus(true, "NPCDialogueBase.StartConversation: " + gameObject.transform.parent.name);
+        GestoreScena.ChangeCursorActiveStatus(true, "NPCDialogueBase.StartConversation: " + gameObject.name);
 
         player.GetComponent<Animator>().SetFloat("hInput", 0);
         player.GetComponent<Animator>().SetFloat("vInput", 0);
