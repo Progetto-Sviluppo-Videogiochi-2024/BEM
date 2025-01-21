@@ -26,7 +26,7 @@ public class GhoulantAttack : MonoBehaviour, IAttackAI
         Attacks["swiping"] = (Attacks["swiping"].probability, damageSwiping);
         Attacks["bite"] = (Attacks["bite"].probability, damageBite);
         Attacks["punching"] = (Attacks["punching"].probability, damagePunching);
-        // scream rimane invariato perché ha danno 0
+        // scream rimane invariato perché il mutante si triggera e aumenta la sua potenza di attacco
     }
 
     public void PerformRandomAttack(AIAgent agent)
@@ -74,17 +74,17 @@ public class GhoulantAttack : MonoBehaviour, IAttackAI
         // }
     }
 
-    private IEnumerator MovePlayerToBiteTarget(Transform player)
-    {
-        while (true)
-        {
-            Vector3 directionToPlayer = (player.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new(directionToPlayer.x, 0, directionToPlayer.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
-            if (Quaternion.Angle(transform.rotation, lookRotation) < 5f) yield break;
-            yield return null;
-        }
-    }
+    // private IEnumerator MovePlayerToBiteTarget(Transform player)
+    // {
+    //     while (true)
+    //     {
+    //         Vector3 directionToPlayer = (player.position - transform.position).normalized;
+    //         Quaternion lookRotation = Quaternion.LookRotation(new(directionToPlayer.x, 0, directionToPlayer.z));
+    //         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+    //         if (Quaternion.Angle(transform.rotation, lookRotation) < 5f) yield break;
+    //         yield return null;
+    //     }
+    // }
 
     public void ResetBite()
     {

@@ -1,26 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AIBossChasePlayerState : AIState<AIBossAgent>
 {
     public void Enter(AIBossAgent agent)
     {
-        Debug.Log("Chase Player");
+        Debug.Log("ChasePlayer");
+        agent.PlayAudio(0, true); // Suono di inseguimento
     }
 
     public void Exit(AIBossAgent agent)
     {
-        Debug.Log("Exit Chase Player");
+        agent.audioSource.Stop(); // Ferma l'audio
+        agent.navMeshAgent.ResetPath(); // Ferma il movimento
     }
 
-    public AIStateId GetId()
-    {
-        return AIStateId.ChasePlayer;
-    }
+    public AIStateId GetId() => AIStateId.ChasePlayer;
 
     public void Update(AIBossAgent agent)
     {
-        Debug.Log("Update Chase Player");
+        if (agent.player.IsDead()) { agent.StopAudio(); return; }
+        if (!agent.enabled) return;
+
+        float distanceToPlayer = Vector3.Distance(agent.transform.position, agent.player.transform.position);
+        Debug.Log($"Distance to player: {distanceToPlayer}");
+
+        if (distanceToPlayer <= agent.distanceMelee)
+        {
+            Debug.Log("Player is near, attack!");
+            agent.stateMachine.ChangeState(AIStateId.Attack); // Attacco ravvicinato (melee)
+            return;
+        }
+
+        // if (distanceToPlayer > agent.minDistanceRange && distanceToPlayer <= agent.maxDistanceRange)
+        // {
+        //     if (Random.value > 0.5f) // 50% di probabilità
+        //     {
+        //         agent.stateMachine.ChangeState(AIStateId.Attack); // Attacco a distanza (range)
+        //         return;
+        //     }
+        // }
+
+        // Movimento verso il giocatore
+        if (!agent.navMeshAgent.hasPath || agent.navMeshAgent.destination != agent.player.transform.position)
+        {
+            Debug.Log("ChasePlayer locomotion");
+            agent.navMeshAgent.SetDestination(agent.player.transform.position);
+        }
     }
 }

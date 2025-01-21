@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,7 +17,9 @@ public class AIBossAgent : MonoBehaviour
 
     [Header("Config AI")]
     #region Config AI
-    public float minDistanceAttack = 2f; // Distanza minima per attaccare il giocatore
+    public float distanceMelee = 2f; // Distanza minima per l'attacco ravvicinato (melee)
+    public float minDistanceRange = 6f; // Distanza minima per l'attacco a distanza (range)
+    public float maxDistanceRange = 10f; // Distanza massima per l'attacco a distanza (range)
     public float attackCooldown = 2.5f; // Tempo di cooldown tra un attacco e l'altro
     #endregion
 
@@ -31,9 +34,10 @@ public class AIBossAgent : MonoBehaviour
     public Player player; // Riferimento al giocatore
     [HideInInspector] public NavMeshAgent navMeshAgent; // Riferimento all'agente di navigazione
     [HideInInspector] public AIBossStatus status; // Riferimento allo stato dell'IA
+    [HideInInspector] public AIBossLocomotion locomotion; // Riferimento al componente di movimento
     [HideInInspector] public Animator animator; // Riferimento all'animatore
     [SerializeField] public LayerMask layerMask; // LayerMask per il rilevamento e gli attacchi
-    [HideInInspector] public IAttackAI mutantAttack; // Riferimento al componente script dell'attacco di ogni mutante
+    [HideInInspector] public StygianAttack mutantAttack; // Riferimento al componente script dell'attacco di ogni mutante
     #endregion
 
     void Start()
@@ -44,11 +48,33 @@ public class AIBossAgent : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         status = GetComponent<AIBossStatus>();
         animator = GetComponent<Animator>();
-        mutantAttack = GetComponent<IAttackAI>();
+        mutantAttack = GetComponent<StygianAttack>();
+        locomotion = GetComponent<AIBossLocomotion>();
 
         stateMachine = new AIStateMachine<AIBossAgent>(this);
         stateMachine.RegisterState(new AIBossChasePlayerState());
         stateMachine.RegisterState(new AIBossAttackState());
         stateMachine.RegisterState(new AIBossDeathState());
+    }
+
+    public void PlayAudio(int index, bool loop)
+    {
+        StopAudio();
+        audioSource.loop = loop;
+        audioSource.clip = soundsAI[index];
+        audioSource.Play();
+    }
+
+    public void StopAudio() => audioSource.Stop();
+
+    public IEnumerator PlayNextAudio(int index)
+    {
+        if (!status.IsEnemyAlive()) yield break; // Interrompe immediatamente la coroutine
+        PlayAudio(index, false);
+
+        yield return new WaitForSeconds(audioSource.clip.length);
+
+        if (!status.IsEnemyAlive()) yield break; // Interrompe immediatamente la coroutine
+        PlayAudio(index + 1, true);
     }
 }
