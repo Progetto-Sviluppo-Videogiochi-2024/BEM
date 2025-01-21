@@ -27,6 +27,7 @@ public class AIWolf : MonoBehaviour
 
     [Header("References")]
     #region References
+    public Transform wolfPostLoad; // Riferimento al lupo post SLS
     public Diario diario; // Riferimento al diario
     public AudioClip growl; // Riferimento al suono del ringhio
     private AudioSource audioSource; // Riferimento all'audio source del lupo
@@ -41,6 +42,7 @@ public class AIWolf : MonoBehaviour
 
     void Start()
     {
+        wolfPostLoad.gameObject.SetActive(false);
         booleanAccessor = BooleanAccessor.istance;
         conversationManager = ConversationManager.Instance;
         agent = GetComponent<NavMeshAgent>();
@@ -50,6 +52,8 @@ public class AIWolf : MonoBehaviour
 
         PlayerPrefs.SetInt("hasBait", SaveLoadSystem.Instance.gameData.levelData.playerPrefs.Where(p => p.key == "hasBait").Select(p => p.value).FirstOrDefault());
         PlayerPrefs.Save();
+
+        if (booleanAccessor.GetBoolFromThis("wolfDone")) ResetPostLoad(); // Se la quest è completata, toggle delle due lupe
     }
 
     void Update()
@@ -163,6 +167,14 @@ public class AIWolf : MonoBehaviour
         agent.velocity = Vector3.zero;
         agent.isStopped = true;
         agent.ResetPath();
+    }
+
+    public void ResetPostLoad()
+    {
+        wolfPostLoad.gameObject.SetActive(true);
+        wolfPostLoad.GetComponent<Animator>().SetTrigger("sit");
+        this.gameObject.SetActive(false);
+        this.enabled = false;
     }
 
     private IEnumerator RotateTowardsPlayerAndAttack()
