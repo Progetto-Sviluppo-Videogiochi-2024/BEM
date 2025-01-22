@@ -50,11 +50,13 @@ public class AIBossAgent : MonoBehaviour
         animator = GetComponent<Animator>();
         mutantAttack = GetComponent<StygianAttack>();
         locomotion = GetComponent<AIBossLocomotion>();
+        audioSource = GetComponent<AudioSource>();
 
         stateMachine = new AIStateMachine<AIBossAgent>(this);
         stateMachine.RegisterState(new AIBossChasePlayerState());
         stateMachine.RegisterState(new AIBossAttackState());
         stateMachine.RegisterState(new AIBossDeathState());
+        stateMachine.ChangeState(initialState);
     }
 
     public void PlayAudio(int index, bool loop)

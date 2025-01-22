@@ -36,7 +36,6 @@ public class AIBossLocomotion : MonoBehaviour
         // Se lo stato è Chase, muovi l'IA verso il giocatore, else non inseguirlo
         if (agent.stateMachine.currentState == AIStateId.ChasePlayer)
         {
-            Debug.Log("ChasePlayer locomotion");
             float distanceToPlayer = Vector3.Distance(transform.position, player.gameObject.transform.position);
             MoveTowardsTarget(player.gameObject.transform.position, (distanceToPlayer > minDistanceToRunToPlayer) ? runSpeed : walkSpeed, interpolationSpeed);
         }
@@ -47,7 +46,6 @@ public class AIBossLocomotion : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, destination);
 
         // Se è vicino alla distanza di stop, ferma l'agente
-        print($"Distance: {gameObject.name} - {distanceToPlayer}");
         if (distanceToPlayer <= stopDistance) { StopAgent(); return; }
 
         // else se è abbastanza lontano, l'agente si muove verso il target
@@ -60,7 +58,6 @@ public class AIBossLocomotion : MonoBehaviour
         agent.navMeshAgent.SetDestination(destination);
         agent.navMeshAgent.isStopped = false;
         animator.SetFloat("speed", speed);
-        print($"Speed: {gameObject.name} - {speed}");
     }
 
     void StopAgent()

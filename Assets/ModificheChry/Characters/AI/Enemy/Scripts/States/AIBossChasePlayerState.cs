@@ -11,7 +11,6 @@ public class AIBossChasePlayerState : AIState<AIBossAgent>
     public void Exit(AIBossAgent agent)
     {
         agent.audioSource.Stop(); // Ferma l'audio
-        agent.navMeshAgent.ResetPath(); // Ferma il movimento
     }
 
     public AIStateId GetId() => AIStateId.ChasePlayer;
