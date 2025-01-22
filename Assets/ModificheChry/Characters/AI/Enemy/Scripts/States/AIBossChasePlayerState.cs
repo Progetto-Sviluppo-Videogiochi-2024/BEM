@@ -42,7 +42,6 @@ public class AIBossChasePlayerState : AIState<AIBossAgent>
         // Movimento verso il giocatore
         if (!agent.navMeshAgent.hasPath || agent.navMeshAgent.destination != agent.player.transform.position)
         {
-            Debug.Log("ChasePlayer locomotion");
             agent.navMeshAgent.SetDestination(agent.player.transform.position);
         }
     }
