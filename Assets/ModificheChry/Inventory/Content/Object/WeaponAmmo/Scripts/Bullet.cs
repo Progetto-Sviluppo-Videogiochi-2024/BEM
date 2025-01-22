@@ -34,18 +34,12 @@ public class Bullet : MonoBehaviour
 
         // Per i mutanti di Scena3
         var mutant = hitObject.transform.GetComponentInParent<IEnemyStatus>();
-        if (mutant != null)
-        {
-            mutant.TakeDamage(weapon.damage);
-            if (!mutant.IsEnemyAlive())
-            {
-                Rigidbody rb = hitObject.GetComponent<Rigidbody>();
-                rb ??= hitObject.GetComponentInParent<Rigidbody>();
-                rb ??= hitObject.GetComponentInChildren<Rigidbody>();
-                rb ??= hitObject.AddComponent<Rigidbody>();
-                rb.AddForce(direction * weapon.enemykickBackForce, ForceMode.Impulse);
-            }
-        }
+        mutant?.TakeDamage(weapon.damage);
+        // if (!mutant.IsEnemyAlive())
+        // {
+        //     Rigidbody rb = hitObject.GetComponent<Rigidbody>();
+        //     rb?.AddForce(direction * weapon.enemykickBackForce, ForceMode.Impulse);
+        // }
 
         Destroy(this.gameObject);
     }

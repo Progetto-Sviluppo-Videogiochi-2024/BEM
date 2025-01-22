@@ -9,8 +9,10 @@ public class AIDeathState : AIState<AIAgent>
         if (agent.status.IsDead) return; // Se l'agente è già morto, non fare nulla
         agent.status.IsDead = true;
         agent.id = GestoreScena.GenerateId(agent.gameObject, agent.transform);
+        if (GestoreScena.detectingEnemies.Contains(agent.gameObject.name))
+            GestoreScena.detectingEnemies.Remove(agent.gameObject.name);
         agent.player.hasEnemyDetectedPlayer = false;
-        agent.detection.enemyInDetectionRange = false;
+        agent.detection.enemyInDetectionRange = GestoreScena.detectingEnemies.Count > 0;
         agent.ragdollManager.TriggerRagdoll();
         agent.StartCoroutine(PlayDeathAudio(agent));
 

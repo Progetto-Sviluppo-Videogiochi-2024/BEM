@@ -142,7 +142,7 @@ public class ZonaCamping : MonoBehaviour
         booleanAccessor.SetBoolOnDialogueE("postHitBallSG");
     }
 
-    public void CharacterMovement()
+    public void CharacterMovement() // Invocato al terzultimo nodo del secondo dialogo di Angelica e Jacob
     {
         agentJacob.enabled = true;
         agentAngelica.MoveTowardsStopTarget(agentAngelica.stopTarget);

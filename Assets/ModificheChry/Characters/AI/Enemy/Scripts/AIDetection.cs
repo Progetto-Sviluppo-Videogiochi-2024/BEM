@@ -8,7 +8,7 @@ public class AIDetection : MonoBehaviour
     [SerializeField] float lookDistance = 30f; // Distanza di vista
     [SerializeField] float fov = 120f; // Campo visivo
     private bool isPlayerHeard = false; // Stato del rilevamento acustico
-    [HideInInspector] public bool enemyInDetectionRange = false; // Flag per il rilevamento del giocatore da parte di questo nemico
+    public bool enemyInDetectionRange = false; // Flag per il rilevamento del giocatore da parte di questo nemico
     [SerializeField] LayerMask layerMask; // Maschera per il rilevamento
     #endregion
 
@@ -20,19 +20,17 @@ public class AIDetection : MonoBehaviour
     private Player player;
     public GestoreScena gestoreScena;
     [HideInInspector] AIStatus aIStatus;
-    private static List<AIDetection> detectingEnemies = new(); // Lista di nemici che rilevano il giocatore
     #endregion
 
     void Start()
     {
-        detectingEnemies = new List<AIDetection>();
         playerTransform = GetComponent<AIAgent>().player.transform;
         player = playerTransform.GetComponent<Player>();
         aIStatus = GetComponent<AIStatus>();
         playerHead = gestoreScena?.playerHead;
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         // Se il player è visto o sentito dal mutante (vivo)
         if (aIStatus.IsEnemyAlive() && !player.IsDead())
@@ -40,22 +38,17 @@ public class AIDetection : MonoBehaviour
             enemyInDetectionRange = IsPlayerSeen() || isPlayerHeard;
 
             // Aggiorna lo stato di rilevamento globale
-            if (enemyInDetectionRange)
-                detectingEnemies.Add(this); // Aggiungi il nemico alla lista
-            else
-                detectingEnemies.Remove(this); // Rimuovi il nemico dalla lista
+            if (!GestoreScena.detectingEnemies.Contains(this.gameObject.name) && enemyInDetectionRange)
+                GestoreScena.detectingEnemies.Add(this.gameObject.name); // Aggiungi il nemico alla lista
+            else if (GestoreScena.detectingEnemies.Contains(this.gameObject.name) && !enemyInDetectionRange)
+                GestoreScena.detectingEnemies.Remove(this.gameObject.name); // Rimuovi il nemico dalla lista
 
             // Imposta il valore finale basandoti su tutti i nemici
-            player.hasEnemyDetectedPlayer = detectingEnemies.Count > 0;
-        }
-        else
-        {
-            detectingEnemies.Remove(this); // Rimuovi se il nemico non è attivo
-            player.hasEnemyDetectedPlayer = detectingEnemies.Count > 0;
+            player.hasEnemyDetectedPlayer = GestoreScena.detectingEnemies.Count > 0;
         }
     }
 
-    public bool IsPlayerSeen()
+    bool IsPlayerSeen()
     {
         if (Vector3.Distance(enemyEyes.position, playerHead.position) > lookDistance) return false;
 
@@ -76,12 +69,12 @@ public class AIDetection : MonoBehaviour
         return false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) isPlayerHeard = true;
     }
 
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player")) isPlayerHeard = false;
     }

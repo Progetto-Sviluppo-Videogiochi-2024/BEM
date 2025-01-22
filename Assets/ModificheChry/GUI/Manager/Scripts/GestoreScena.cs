@@ -15,6 +15,7 @@ public class GestoreScena : MonoBehaviour
     private static int nUIOpen = 0; // Numero di UI aperte nella scena corrente
     public static List<string> collectedItemIds = new(); // Lista degli ID degli oggetti raccolti o interagiti
     public static List<string> killedEnemyIds = new(); // Lista degli ID dei nemici uccisi
+    public static List<string> detectingEnemies = new(); // Lista di nemici che rilevano il giocatore
     #endregion
 
     [Header("References")]
@@ -27,6 +28,7 @@ public class GestoreScena : MonoBehaviour
 
     void Awake()
     {
+        detectingEnemies = new List<string>();
         nUIOpen = 0; // Resettata a ogni nuova scena per evitare problemi (la precedente viene distrutta, quindi, anche se alcune saranno aperte prima del cambio, io la azzero all'inizio della nuova scena)
         ToggleCursor(SceneManager.GetActiveScene().name == "MainMenu");
     }
