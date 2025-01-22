@@ -59,6 +59,8 @@ public class AIBossAgent : MonoBehaviour
         stateMachine.ChangeState(initialState);
     }
 
+    void Update() => stateMachine?.Update();
+
     public void PlayAudio(int index, bool loop)
     {
         StopAudio();
@@ -79,4 +81,33 @@ public class AIBossAgent : MonoBehaviour
         if (!status.IsEnemyAlive()) yield break; // Interrompe immediatamente la coroutine
         PlayAudio(index + 1, true);
     }
+
+    public bool ShouldChase()
+    {
+        // Definisci un range per determinare la probabilità di inseguire
+        // Ad esempio, potremmo voler aumentare la probabilità di inseguire se il mutante è in difficoltà
+        // o se il giocatore ha pochi HP, e diminuirla altrimenti
+        float chaseProbability = CalculateChaseProbability(status.Health / 700f, player.health / player.maxHealth); // % di HP rimasti per il mutante e per il giocatore
+        return Random.Range(0f, 1f) < chaseProbability;
+    }
+
+    private float CalculateChaseProbability(float mutantHealthPercentage, float playerHealthPercentage)
+    {
+        // La probabilità di inseguire varia da 0 a 1
+        // Formula che bilancia gli HP del mutante e del giocatore
+
+        // Se il mutante ha poca salute, la probabilità di inseguire aumenta
+        float mutantFactor = 1 - mutantHealthPercentage; // Maggiore la salute persa, maggiore la probabilità
+
+        // Se il giocatore ha poca salute, la probabilità di inseguire aumenta
+        float playerFactor = 1 - playerHealthPercentage; // Maggiore la salute persa, maggiore la probabilità
+
+        // Combinazione dei due fattori (puoi aggiungere pesi o modificare come preferisci)
+        float probability = (mutantFactor + playerFactor) / 2f;
+
+        // Limita la probabilità tra 0 e 1
+        return Mathf.Clamp(probability, 0f, 1f);
+    }
+
+    public bool Range(float distance, float minDistance, float maxDistance) => distance > minDistance && distance <= maxDistance;
 }

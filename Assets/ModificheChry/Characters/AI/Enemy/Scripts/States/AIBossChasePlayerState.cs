@@ -4,7 +4,6 @@ public class AIBossChasePlayerState : AIState<AIBossAgent>
 {
     public void Enter(AIBossAgent agent)
     {
-        Debug.Log("ChasePlayer");
         agent.PlayAudio(0, true); // Suono di inseguimento
     }
 
@@ -17,27 +16,30 @@ public class AIBossChasePlayerState : AIState<AIBossAgent>
 
     public void Update(AIBossAgent agent)
     {
-        if (agent.player.IsDead()) { agent.StopAudio(); return; }
+        // Precondizioni necessarie
+        if (agent == null || !agent.navMeshAgent.isActiveAndEnabled || !agent.navMeshAgent.isOnNavMesh)
+        {
+            Debug.LogError($"Agent is null ? {agent == null}\nis isOnNavMesh ? {agent.navMeshAgent.isOnNavMesh}\nis isActiveAndEnabled ? {agent.navMeshAgent.isActiveAndEnabled}");
+            return;
+        }
         if (!agent.enabled) return;
+        if (agent.player.IsDead()) { agent.StopAudio(); return; }
 
+        // Calcolo della distanza per verificare se può attaccare
         float distanceToPlayer = Vector3.Distance(agent.transform.position, agent.player.transform.position);
-        Debug.Log($"Distance to player: {distanceToPlayer}");
-
         if (distanceToPlayer <= agent.distanceMelee)
         {
-            Debug.Log("Player is near, attack!");
             agent.stateMachine.ChangeState(AIStateId.Attack); // Attacco ravvicinato (melee)
             return;
         }
-
-        // if (distanceToPlayer > agent.minDistanceRange && distanceToPlayer <= agent.maxDistanceRange)
-        // {
-        //     if (Random.value > 0.5f) // 50% di probabilità
-        //     {
-        //         agent.stateMachine.ChangeState(AIStateId.Attack); // Attacco a distanza (range)
-        //         return;
-        //     }
-        // }
+        else if (agent.Range(distanceToPlayer, agent.minDistanceRange, agent.maxDistanceRange))
+        {
+            if (agent.ShouldChase()) // 50% di probabilità
+            {
+                agent.stateMachine.ChangeState(AIStateId.Attack); // Attacco a distanza (range)
+                return;
+            }
+        }
 
         // Movimento verso il giocatore
         if (!agent.navMeshAgent.hasPath || agent.navMeshAgent.destination != agent.player.transform.position)
