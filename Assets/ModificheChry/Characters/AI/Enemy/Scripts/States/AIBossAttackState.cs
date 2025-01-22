@@ -22,9 +22,10 @@ public class AIBossAttackState : AIState<AIBossAgent>
     public void Update(AIBossAgent agent)
     {
         if (!agent.status.IsEnemyAlive()) return;
+        if (agent.mutantAttack.isAttacking) return;
 
         float distanceToPlayer = Vector3.Distance(agent.transform.position, agent.player.transform.position);
-        if (!agent.mutantAttack.isAttacking && (agent.Range(distanceToPlayer, agent.minDistanceRange, agent.maxDistanceRange) || distanceToPlayer > agent.distanceMelee))
+        if (!agent.Range(distanceToPlayer, agent.minDistanceRange, agent.maxDistanceRange) && distanceToPlayer > agent.distanceMelee)
         {
             agent.stateMachine.ChangeState(AIStateId.ChasePlayer);
             return;
@@ -32,12 +33,12 @@ public class AIBossAttackState : AIState<AIBossAgent>
 
         // Decidi il tipo di attacco
         agent.mutantAttack.timeSinceLastAttack += Time.deltaTime;
-        if (agent.mutantAttack.isAttacking || agent.mutantAttack.timeSinceLastAttack <= agent.attackCooldown) return;
-        if (!agent.mutantAttack.isAttacking && distanceToPlayer <= agent.distanceMelee) // Attacco ravvicinato (melee)
+        if (agent.mutantAttack.timeSinceLastAttack <= agent.attackCooldown) return;
+        if (distanceToPlayer <= agent.distanceMelee) // Attacco ravvicinato (melee)
         {
             agent.mutantAttack.PerformMeleeAttack(agent);
         }
-        else if (!agent.mutantAttack.isAttacking && agent.Range(distanceToPlayer, agent.minDistanceRange, agent.maxDistanceRange)) // Attacco a distanza (range)
+        else if (agent.Range(distanceToPlayer, agent.minDistanceRange, agent.maxDistanceRange)) // Attacco a distanza (range)
         {
             if (agent.ShouldChase())
             {
@@ -61,7 +62,6 @@ public class AIBossAttackState : AIState<AIBossAgent>
             if (agent.player.health > 0) return; // Se è ancora vivo, non fare nulla
             agent.player.GetComponentInChildren<Rigidbody>().AddForce(rayDirection * 5f, ForceMode.Impulse);
         }
-        // ResetAttackState(agent);
     }
 
     public void ResetAttackState(AIBossAgent agent) // Invocato dall'animazione di attacco, quando termina l'attacco
@@ -69,5 +69,10 @@ public class AIBossAttackState : AIState<AIBossAgent>
         agent.mutantAttack.isAttacking = false;
         agent.navMeshAgent.isStopped = false;
         if (agent.mutantAttack.hasSpasm) agent.mutantAttack.hasSpasm = false;
+        if (!agent.player.animator.enabled && agent.player.isBlocked)
+        {
+            agent.player.animator.enabled = true;
+            agent.player.isBlocked = false;
+        }
     }
 }

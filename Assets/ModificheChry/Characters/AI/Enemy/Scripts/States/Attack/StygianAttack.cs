@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class StygianAttack : MonoBehaviour
     public int damagePunch = 20;
     public int damageJumpBall = 30;
     public int damagePunchBall = 25;
-    public int damageThrowBall = 20;
+    public int damageThrowBall = 10;
     public int damageShootLaser = 30;
     public List<float> rageThresholds = new() { 0.2f, 0.1f }; // Percentuali (dal valore più alto al più basso)
 
@@ -24,15 +25,15 @@ public class StygianAttack : MonoBehaviour
         { "punch", (40f, 0) }, // Temporanei
         { "jumpBall", (35f, 0) },
         { "punchBall", (25f, 0) },
-        { "spasm", (0f, 0) } // Solo quando arriva a 30% di vita e si triggera per aumentare la potenza di attacco
+        { "spasm", (0f, 0) } // Solo quando arriva a 10-20% di vita e si triggera per aumentare la potenza di attacco
     };
 
     Dictionary<string, (float probability, int damage)> RangeAttacks { get; } = new()
     {
         { "telepathic", (25f, 0) }, // Temporanei
-        { "throwBall", (40f, 0) },
-        { "shootLaser", (35f, 0) },
-        { "spasm", (0f, 0) } // Solo quando arriva a 30% di vita e si triggera per aumentare la potenza di attacco
+        { "throwBall", (60f, 0) },
+        { "shootLaser", (15f, 0) },
+        { "spasm", (0f, 0) } // Solo quando arriva a 10-20% di vita e si triggera per aumentare la potenza di attacco
     };
 
     void Start()
@@ -50,17 +51,17 @@ public class StygianAttack : MonoBehaviour
         // spasm rimane invariato perché si ha quando il mutante si triggera e aumenta la sua potenza di attacco
     }
 
-    void SetCurrentAttackDamage(AIBossAgent agent)
+    void SetCurrentAttackDamage(AIBossAgent agent, Dictionary<string, (float probability, int damage)> attacks)
     {
         isAttacking = true; // L'AI è ora in stato di attacco
         agent.navMeshAgent.isStopped = true; // Blocca il movimento durante l'attacco
 
         // Calcola l'attacco basato sulle probabilità
-        string selectedAttack = GetAttackByProbability(MeleeAttacks);
+        string selectedAttack = GetAttackByProbability(attacks);
         CurrentAttack = selectedAttack;
-        CurrentDamage = MeleeAttacks[selectedAttack].damage;
+        CurrentDamage = attacks[selectedAttack].damage;
 
-        if (!hasSpasm && agent.status.Health <= rageThresholds[0]) CurrentAttack = "spasm"; // Se arriva a 20% di vita, si triggera per aumentare la potenza di attacco
+        if (!hasSpasm && rageThresholds.Count > 0 && agent.status.Health <= rageThresholds[0]) CurrentAttack = "spasm";
     }
 
     string GetAttackByProbability(Dictionary<string, (float probability, int damage)> attacks)
@@ -82,7 +83,7 @@ public class StygianAttack : MonoBehaviour
 
     public void PerformMeleeAttack(AIBossAgent agent)
     {
-        SetCurrentAttackDamage(agent);
+        SetCurrentAttackDamage(agent, MeleeAttacks);
         print($"Melee: {CurrentAttack}");
 
         switch (CurrentAttack)
@@ -106,29 +107,29 @@ public class StygianAttack : MonoBehaviour
                 break;
 
             default:
-                Debug.LogWarning($"Attack {CurrentAttack} not exists!");
+                Debug.LogWarning($"Attack melee {CurrentAttack} not exists!");
                 break;
         }
     }
 
     public void PerformRangeAttack(AIBossAgent agent)
     {
-        SetCurrentAttackDamage(agent);
+        SetCurrentAttackDamage(agent, RangeAttacks);
+        // CurrentAttack = "telepathic"; // Forza questo attacco per il testing
         print($"Range: {CurrentAttack}");
 
         switch (CurrentAttack)
         {
             // TODO: implementare la SFX VFX e logica per questi attacchi: telepatia, spara laser e lancia palla
             case "telepathic":
-                ResetAttackState();
-                // agent.animator.SetTrigger(CurrentAttack);
-                // ApplyDamage(); // Invocato già dall'animazione
+                agent.animator.SetTrigger(CurrentAttack);
+                // ApplyDamage(); // Telecinesi non applica danni al player, lo avvicina solo all'AI
                 break;
 
             case "throwBall":
-                ResetAttackState();
-                // agent.animator.SetTrigger(CurrentAttack);
-                // ApplyDamage(); // Invocato già dall'animazione
+                agent.ironBall.damage = CurrentDamage;
+                agent.animator.SetTrigger(CurrentAttack);
+                // ApplyDamage(); // Invocato già dallo script di ProjectileCollision presente nella palla di ferro
                 break;
 
             case "shootLaser":
@@ -149,7 +150,7 @@ public class StygianAttack : MonoBehaviour
                 break;
 
             default:
-                Debug.LogWarning($"Attack {CurrentAttack} not exists!");
+                Debug.LogWarning($"Attack range {CurrentAttack} not exists!");
                 break;
         }
     }
@@ -165,7 +166,37 @@ public class StygianAttack : MonoBehaviour
         SetDamageAttacks();
     }
 
-    public void HitPlayer() => AttackState.ApplyDamage(Agent);
+    public void PerformTelepathic() // Invocata dall'animazione di Telepatia
+    {
+        // Esegue il Raycast per verificare se il boss "prende" il player
+        Vector3 directionToPlayer = (Agent.player.transform.position - Agent.transform.position).normalized;
+        if (Physics.Raycast(Agent.transform.position, directionToPlayer, out RaycastHit hit, Agent.maxDistanceRange, Agent.layerMask))
+        {
+            var player = hit.collider.gameObject.GetComponentInParent<Player>();
+            if (player == null) return; // Se non è il player, esce dalla funzione
+
+            Agent.player.animator.enabled = false;
+            Agent.player.isBlocked = true;
+            Vector3 targetPosition = Agent.transform.position + (directionToPlayer * 1.5f);
+            StartCoroutine(MovePlayerToTarget(player, targetPosition));
+        }
+    }
+
+    private IEnumerator MovePlayerToTarget(Player player, Vector3 targetPosition)
+    {
+        while (Vector3.Distance(player.transform.position, targetPosition) > 0.75f) // Continua fino a che non raggiunge la posizione target
+        {
+            player.transform.position = Vector3.MoveTowards(player.transform.position, targetPosition, 5f * Time.deltaTime);
+            yield return null; // Attende il prossimo frame
+        }
+        yield break;
+    }
+
+    public void PerformThrowBall() => Agent.ironBall.isActive = true; // Invocato dall'animazione di lancio
+
+    public void ResetThrowBall() => Agent.ironBall.isActive = false; // Invocato dall'animazione di lancio
+
+    public void HitPlayer() => AttackState.ApplyDamage(Agent); // Invocato dall'animazione di attacco, quando colpisce il player
 
     public void ResetAttackState() => AttackState.ResetAttackState(Agent);
 }

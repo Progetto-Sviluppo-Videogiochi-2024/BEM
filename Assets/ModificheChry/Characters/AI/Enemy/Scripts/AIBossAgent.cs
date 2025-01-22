@@ -32,6 +32,7 @@ public class AIBossAgent : MonoBehaviour
     [Header("AI References")]
     #region References
     public Player player; // Riferimento al giocatore
+    [HideInInspector] public ProjectileCollision ironBall; // Riferimento al proiettile dell'IA (palla di ferro)
     [HideInInspector] public NavMeshAgent navMeshAgent; // Riferimento all'agente di navigazione
     [HideInInspector] public AIBossStatus status; // Riferimento allo stato dell'IA
     [HideInInspector] public AIBossLocomotion locomotion; // Riferimento al componente di movimento
@@ -51,6 +52,7 @@ public class AIBossAgent : MonoBehaviour
         mutantAttack = GetComponent<StygianAttack>();
         locomotion = GetComponent<AIBossLocomotion>();
         audioSource = GetComponent<AudioSource>();
+        ironBall = GetComponentInChildren<ProjectileCollision>();
 
         stateMachine = new AIStateMachine<AIBossAgent>(this);
         stateMachine.RegisterState(new AIBossChasePlayerState());

@@ -55,6 +55,7 @@ public class MovementStateManager : MonoBehaviour
 
     [Header("References")]
     #region References
+    [HideInInspector] public Player player; // Riferimento al giocatore 
     private CharacterController controller; // Controller per il movimento
     [HideInInspector] public Animator animator; // Animator per le animazioni
     private AudioSource audioSource; // AudioSource per l'audio
@@ -63,6 +64,7 @@ public class MovementStateManager : MonoBehaviour
 
     void Start()
     {
+        player = GetComponent<Player>();
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
@@ -73,7 +75,7 @@ public class MovementStateManager : MonoBehaviour
 
     void Update()
     {
-        GetDirectionAndMove();
+        if (!player.isBlocked) GetDirectionAndMove();
         Gravity();
 
         if (!CanInactivity()) ToggleInactivity(animator, false);

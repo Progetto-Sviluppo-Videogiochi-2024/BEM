@@ -23,7 +23,8 @@ public class Player : MonoBehaviour
     public PlayerUIController playerUIController; // Riferimento al componente PlayerUIController
     private RagdollManager ragdollManager; // Riferimento al componente RagdollManager
     public GameOverMenuManager gameOverMenuManager; // Riferimento al componente GameOverMenuManager
-    private CharacterController controller; // Riferimento al CharacterController
+    public Animator animator; // Riferimento all'Animator
+    public bool isBlocked = false; // Flag per il blocco del movimento del giocatore
     #endregion
 
     [Header("Audio Settings")]
@@ -38,11 +39,12 @@ public class Player : MonoBehaviour
     void Start()
     {
         // Init delle variabili
+        isBlocked = false;
         breathingSource = gameObject.AddComponent<AudioSource>();
         hitSource = gameObject.AddComponent<AudioSource>();
         weaponClassManager = GetComponent<WeaponClassManager>();
         ragdollManager = GetComponent<RagdollManager>();
-        controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
 
         // Aggiorna l'UI del giocatore (anche se non ha subito danni -> per il caricamento dei dati)
         UpdateStatusPlayer(0, 0);
