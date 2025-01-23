@@ -32,6 +32,8 @@ public class AIBossAgent : MonoBehaviour
     [Header("AI References")]
     #region References
     public Player player; // Riferimento al giocatore
+    public GameObject vfxLaser; // Riferimento all'effetto visivo del laser
+    public Transform laserSpawnPoint; // Punto di spawn del laser
     [HideInInspector] public ProjectileCollision ironBall; // Riferimento al proiettile dell'IA (palla di ferro)
     [HideInInspector] public NavMeshAgent navMeshAgent; // Riferimento all'agente di navigazione
     [HideInInspector] public AIBossStatus status; // Riferimento allo stato dell'IA

@@ -81,8 +81,20 @@ public class StygianAttack : MonoBehaviour
         return attacks.Keys.First(); // Fall-back di sicurezza (non dovrebbe mai accadere)
     }
 
+    void AlignToPlayer(AIBossAgent agent)
+    {
+        Vector3 directionToPlayer = (agent.player.transform.position - agent.transform.position).normalized;
+        directionToPlayer.y = 0; // Ignora la componente verticale per evitare inclinazioni
+        if (directionToPlayer != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+            agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, targetRotation, Time.deltaTime * 5f); // Interpolazione fluida
+        }
+    }
+
     public void PerformMeleeAttack(AIBossAgent agent)
     {
+        AlignToPlayer(agent);
         SetCurrentAttackDamage(agent, MeleeAttacks);
         print($"Melee: {CurrentAttack}");
 
@@ -114,8 +126,8 @@ public class StygianAttack : MonoBehaviour
 
     public void PerformRangeAttack(AIBossAgent agent)
     {
+        AlignToPlayer(agent);
         SetCurrentAttackDamage(agent, RangeAttacks);
-        // CurrentAttack = "telepathic"; // Forza questo attacco per il testing
         print($"Range: {CurrentAttack}");
 
         switch (CurrentAttack)
@@ -133,8 +145,8 @@ public class StygianAttack : MonoBehaviour
                 break;
 
             case "shootLaser":
-                ResetAttackState();
-                // agent.animator.SetTrigger(CurrentAttack);
+                // ResetAttackState();
+                agent.animator.SetTrigger(CurrentAttack);
                 // ApplyDamage(); // Invocato già dall'animazione
                 break;
 
@@ -166,7 +178,28 @@ public class StygianAttack : MonoBehaviour
         SetDamageAttacks();
     }
 
-    public void PerformTelepathic() // Invocata dall'animazione di Telepatia
+    public void PerformShootLaser() // Invocata dall'animazione di sparo del laser
+    {
+        // Calcola la direzione verso il player
+        Vector3 directionToPlayer = (Agent.player.transform.position - Agent.laserSpawnPoint.position).normalized;
+
+        // Lancia un raycast nella direzione del player
+        Ray ray = new(Agent.laserSpawnPoint.position, directionToPlayer);
+        if (Physics.Raycast(ray, out RaycastHit hit, Agent.maxDistanceRange, Agent.layerMask))
+        {
+            // Istanzia la VFX nel punto in cui il raycast ha colpito
+            GameObject vfxInstance = Instantiate(Agent.vfxLaser, hit.point, Quaternion.identity);
+            if (hit.collider.GetComponentInParent<Player>().CompareTag("Player"))
+            {
+                Agent.player.UpdateStatusPlayer(-CurrentDamage, 0); // Riduce gli HP del player
+            }
+
+            // Distruggi la VFX dopo un certo tempo
+            Destroy(vfxInstance, 2f);
+        }
+    }
+
+    public void PerformTelepathic() // Invocata dall'animazione di Telecinesi
     {
         // Esegue il Raycast per verificare se il boss "prende" il player
         Vector3 directionToPlayer = (Agent.player.transform.position - Agent.transform.position).normalized;
@@ -184,7 +217,7 @@ public class StygianAttack : MonoBehaviour
 
     private IEnumerator MovePlayerToTarget(Player player, Vector3 targetPosition)
     {
-        while (Vector3.Distance(player.transform.position, targetPosition) > 0.75f) // Continua fino a che non raggiunge la posizione target
+        while (Vector3.Distance(player.transform.position, targetPosition) > 0.75f) // Continua finché non raggiunge la posizione target
         {
             player.transform.position = Vector3.MoveTowards(player.transform.position, targetPosition, 5f * Time.deltaTime);
             yield return null; // Attende il prossimo frame
