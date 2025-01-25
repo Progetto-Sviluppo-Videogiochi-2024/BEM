@@ -36,17 +36,13 @@ public class Bullet : MonoBehaviour
 
         var mutant = hitObject.transform.GetComponentInParent<IEnemyStatus>();
         if (mutant != null)
-        {   print("Muntante colpito 1");
+        {
             var partSystem = hitObject.transform.GetChild(0).gameObject.GetComponent<TriggerParticles>();
-            partSystem.PlayParticles();
-            print("Muntante colpito 2");
+            partSystem?.PlayParticles();
             mutant.TakeDamage(weapon.damage);
             if (!mutant.IsEnemyAlive())
             {
                 Rigidbody rb = hitObject.GetComponent<Rigidbody>();
-                rb ??= hitObject.GetComponentInParent<Rigidbody>();
-                rb ??= hitObject.GetComponentInChildren<Rigidbody>();
-                rb ??= hitObject.AddComponent<Rigidbody>();
                 rb?.AddForce(direction * weapon.enemykickBackForce, ForceMode.Impulse);
             }
         }

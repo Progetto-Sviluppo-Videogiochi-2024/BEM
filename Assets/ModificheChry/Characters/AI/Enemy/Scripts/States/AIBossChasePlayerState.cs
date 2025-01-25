@@ -23,7 +23,16 @@ public class AIBossChasePlayerState : AIState<AIBossAgent>
             return;
         }
         if (!agent.enabled) return;
+
+        if (!agent.status.IsEnemyAlive()) { agent.stateMachine.ChangeState(AIStateId.Death); return; }
         if (agent.player.IsDead()) { agent.StopAudio(); return; }
+        if (agent.status.isStunned) {Debug.Log("Chase. if stunned"); return;}
+
+        if (Input.GetKeyDown(KeyCode.Space)) // Debug per lo stordimento
+        {
+            agent.status.TakeDamage(150);
+            return;
+        }
 
         // Calcolo della distanza per verificare se può attaccare
         float distanceToPlayer = Vector3.Distance(agent.transform.position, agent.player.transform.position);

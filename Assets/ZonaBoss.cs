@@ -67,4 +67,15 @@ public class ZonaBoss : MonoBehaviour
         animator.SetTrigger("hanging");
         animator.SetBool("isHanging", true);
     }
+
+    public void BossRecovery() => StartCoroutine(WaitForBossRecovery());
+
+    IEnumerator WaitForBossRecovery()
+    {
+        var bossAgent = boss.GetComponent<AIBossAgent>();
+        yield return new WaitForSeconds(7.5f);
+        bossAgent.status.isStunned = false;
+        bossAgent.animator.SetBool("isStunned", false);
+        bossAgent.stateMachine.ChangeState(AIStateId.ChasePlayer);
+    }
 }

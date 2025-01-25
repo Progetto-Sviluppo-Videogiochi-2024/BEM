@@ -21,7 +21,7 @@ public class AIBossAttackState : AIState<AIBossAgent>
 
     public void Update(AIBossAgent agent)
     {
-        if (!agent.status.IsEnemyAlive()) return;
+        if (!agent.status.IsEnemyAlive()) { agent.stateMachine.ChangeState(AIStateId.Death); return; }
         if (agent.mutantAttack.isAttacking) return;
 
         float distanceToPlayer = Vector3.Distance(agent.transform.position, agent.player.transform.position);

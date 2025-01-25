@@ -6,6 +6,7 @@ public class AIBossDeathState : AIState<AIBossAgent>
     public void Enter(AIBossAgent agent)
     {
         // Status dell'agente
+        if (agent.status.Health >= 0 && agent.animator.GetBool("isStunned")) return; // Non deve far nulla se è stordito
         if (agent.status.IsDead) return; // Se l'agente è già morto, non fare nulla
         agent.status.IsDead = true;
         agent.id = GestoreScena.GenerateId(agent.gameObject, agent.transform);

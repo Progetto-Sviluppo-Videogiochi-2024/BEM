@@ -27,9 +27,12 @@ public class AIBossLocomotion : MonoBehaviour
 
     void Update()
     {
+        if (!agent.status.IsEnemyAlive() || agent.status.isStunned) { StopAgent(); return; }
         if (agent.navMeshAgent == null || !agent.navMeshAgent.isActiveAndEnabled || !agent.navMeshAgent.isOnNavMesh)
         {
-            Debug.LogError($"Agent is null ? {agent.navMeshAgent == null}\nis isOnNavMesh ? {agent.navMeshAgent.isOnNavMesh}\nis isActiveAndEnabled ? {agent.navMeshAgent.isActiveAndEnabled}");
+            Debug.LogError($"Agent is null ? {agent.navMeshAgent == null}\n" +
+                $"is isOnNavMesh ? {agent.navMeshAgent.isOnNavMesh}\n" +
+                $"is isActiveAndEnabled ? {agent.navMeshAgent.isActiveAndEnabled}");
             return;
         }
 
