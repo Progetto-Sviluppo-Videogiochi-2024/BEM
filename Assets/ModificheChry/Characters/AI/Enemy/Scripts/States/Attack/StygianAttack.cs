@@ -7,6 +7,19 @@ public class StygianAttack : MonoBehaviour
 {
     [HideInInspector] public bool isAttacking = false; // Indica se l'AI sta attaccando
     [HideInInspector] public bool hasSpasm = false; // Indica se il mutante si è triggerato
+
+    [Header("Audio Settings")]
+    #region Audio Settings
+    private AudioSource TelepathicSource; // Riferimento all'AudioSource
+    private AudioSource RayLaserEsplosioneSource; // Riferimento all'AudioSource
+    private AudioSource RayLaserLungoSource; // Riferimento all'AudioSource
+    private AudioSource SpasmSource; // Riferimento all'AudioSource
+    [SerializeField] private AudioClip TelepathicClip; // Clip audio per l'attacco telepatico
+    [SerializeField] private AudioClip RayLaserEsplosioneClip; // Clip audio per l'esplosione del laser
+    [SerializeField] private AudioClip RayLaserLungoClip; // Clip audio per il raggio laser   
+    [SerializeField] private AudioClip SpasmClip; // Clip audio per lo scatto di risata
+    
+    #endregion
     public float timeSinceLastAttack = 0f; // Tempo trascorso dall'ultimo attacco
 
     public int damagePunch = 20;
@@ -39,6 +52,10 @@ public class StygianAttack : MonoBehaviour
     void Start()
     {
         SetDamageAttacks();
+        TelepathicSource = gameObject.AddComponent<AudioSource>();
+        RayLaserEsplosioneSource = gameObject.AddComponent<AudioSource>();
+        RayLaserLungoSource = gameObject.AddComponent<AudioSource>();
+        SpasmSource = gameObject.AddComponent<AudioSource>();
     }
 
     void SetDamageAttacks()
@@ -124,24 +141,28 @@ public class StygianAttack : MonoBehaviour
             // TODO: implementare la SFX VFX e logica per questi attacchi: telepatia, spara laser e lancia palla
             case "telepathic":
                 agent.animator.SetTrigger(CurrentAttack);
+                PlayHitSoundAttack("telepathic");
                 // ApplyDamage(); // Telecinesi non applica danni al player, lo avvicina solo all'AI
                 break;
 
             case "throwBall":
                 agent.ironBall.damage = CurrentDamage;
                 agent.animator.SetTrigger(CurrentAttack);
+                PlayHitSoundAttack("throwBall");
                 // ApplyDamage(); // Invocato già dallo script di ProjectileCollision presente nella palla di ferro
                 break;
 
             case "shootLaser":
                 // ResetAttackState();
                 agent.animator.SetTrigger(CurrentAttack);
+                PlayHitSoundAttack("shootLaser");
                 // ApplyDamage(); // Invocato già dall'animazione
                 break;
 
             case "spasm":
                 hasSpasm = true;
                 agent.animator.SetTrigger(CurrentAttack);
+                PlayHitSoundAttack("spasm");
                 agent.player.UpdateStatusPlayer(0, -5);
                 if (rageThresholds.Count > 0)
                 {
@@ -221,4 +242,38 @@ public class StygianAttack : MonoBehaviour
     public void HitPlayer() => AttackState.ApplyDamage(Agent); // Invocato dall'animazione di attacco, quando colpisce il player
 
     public void ResetAttackState() => AttackState.ResetAttackState(Agent);
+    private void PlayHitSoundAttack(string attackType)
+    {
+        switch (attackType)
+        {
+            case "telepathic":
+                if (TelepathicClip != null)
+                {
+                    TelepathicSource.PlayOneShot(TelepathicClip);
+                }
+                break;
+            case "throwBall":
+                if (RayLaserEsplosioneClip != null)
+                {
+                    RayLaserEsplosioneSource.PlayOneShot(RayLaserEsplosioneClip);
+                }
+                break;
+            case "shootLaser":
+                if (RayLaserLungoClip != null)
+                {
+                    RayLaserLungoSource.PlayOneShot(RayLaserLungoClip);
+                }
+                break;
+            case "spasm":
+                if (SpasmClip != null)
+                {
+                    SpasmSource.PlayOneShot(SpasmClip);
+                }
+                break;
+            default:
+                Debug.LogWarning("Unknown attack type: " + attackType);
+                break;
+        }
+    }
+    
 }

@@ -18,8 +18,8 @@ public class AIBossAgent : MonoBehaviour
     [Header("Config AI")]
     #region Config AI
     public float distanceMelee = 2f; // Distanza minima per l'attacco ravvicinato (melee)
-    public float minDistanceRange = 6f; // Distanza minima per l'attacco a distanza (range)
-    public float maxDistanceRange = 10f; // Distanza massima per l'attacco a distanza (range)
+    public float minDistanceRange = 4f; // Distanza minima per l'attacco a distanza (range)
+    public float maxDistanceRange = 15f; // Distanza massima per l'attacco a distanza (range)
     public float attackCooldown = 2.5f; // Tempo di cooldown tra un attacco e l'altro
     #endregion
 
