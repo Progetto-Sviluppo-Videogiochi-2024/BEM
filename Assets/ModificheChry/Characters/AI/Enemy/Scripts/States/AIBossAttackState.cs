@@ -69,10 +69,6 @@ public class AIBossAttackState : AIState<AIBossAgent>
         agent.mutantAttack.isAttacking = false;
         agent.navMeshAgent.isStopped = false;
         if (agent.mutantAttack.hasSpasm) agent.mutantAttack.hasSpasm = false;
-        if (!agent.player.animator.enabled && agent.player.isBlocked)
-        {
-            agent.player.animator.enabled = true;
-            agent.player.isBlocked = false;
-        }
+        if (agent.player.isBlocked) agent.player.isBlocked = false;
     }
 }

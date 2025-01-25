@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     public PlayerUIController playerUIController; // Riferimento al componente PlayerUIController
     private RagdollManager ragdollManager; // Riferimento al componente RagdollManager
     public GameOverMenuManager gameOverMenuManager; // Riferimento al componente GameOverMenuManager
-    public Animator animator; // Riferimento all'Animator
+    [HideInInspector] public Animator animator; // Riferimento all'Animator
     public bool isBlocked = false; // Flag per il blocco del movimento del giocatore
     #endregion
 

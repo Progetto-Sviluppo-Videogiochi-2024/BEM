@@ -18,7 +18,7 @@ public class StygianAttack : MonoBehaviour
     [SerializeField] private AudioClip RayLaserEsplosioneClip; // Clip audio per l'esplosione del laser
     [SerializeField] private AudioClip RayLaserLungoClip; // Clip audio per il raggio laser   
     [SerializeField] private AudioClip SpasmClip; // Clip audio per lo scatto di risata
-    
+
     #endregion
     public float timeSinceLastAttack = 0f; // Tempo trascorso dall'ultimo attacco
 
@@ -218,7 +218,6 @@ public class StygianAttack : MonoBehaviour
             var player = hit.collider.gameObject.GetComponentInParent<Player>();
             if (player == null) return; // Se non è il player, esce dalla funzione
 
-            Agent.player.animator.enabled = false;
             Agent.player.isBlocked = true;
             Vector3 targetPosition = Agent.transform.position + (directionToPlayer * 1.5f);
             StartCoroutine(MovePlayerToTarget(player, targetPosition));
@@ -228,13 +227,25 @@ public class StygianAttack : MonoBehaviour
     private IEnumerator MovePlayerToTarget(Player player, Vector3 targetPosition)
     {
         float startTime = Time.time; // Registra il tempo di inizio
-        while (Vector3.Distance(player.transform.position, targetPosition) > 0.75f || (Time.time - startTime) < 3f) // Continua finché non raggiunge la posizione target o il tempo massimo di 3 secondi
+        float duration = 3f; // Durata massima
+        float speed = 5f; // Velocità di movimento
+
+        while (true)
         {
-            player.transform.position = Vector3.MoveTowards(player.transform.position, targetPosition, 5f * Time.deltaTime);
+            // Calcola il tempo trascorso
+            float elapsedTime = Time.time - startTime;
+
+            // Muovi il player verso il target
+            player.transform.position = Vector3.MoveTowards(player.transform.position, targetPosition, speed * Time.deltaTime);
+
+            // Controlla se ha raggiunto la distanza desiderata o se è scaduto il tempo massimo
+            if (Vector3.Distance(player.transform.position, targetPosition) <= 0.75f || elapsedTime >= duration)
+            {
+                break; // Esce dal loop se uno dei criteri è soddisfatto
+            }
+
             yield return null; // Attende il prossimo frame
         }
-        Debug.Log("Player reached the target position or time limit exceeded.");
-        yield break;
     }
 
     public void PerformThrowBall() => Agent.ironBall.isActive = true; // Invocato dall'animazione di lancio
@@ -277,5 +288,4 @@ public class StygianAttack : MonoBehaviour
                 break;
         }
     }
-    
 }
