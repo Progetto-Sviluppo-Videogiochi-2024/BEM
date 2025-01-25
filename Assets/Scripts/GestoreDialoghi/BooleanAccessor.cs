@@ -40,7 +40,8 @@ public class BooleanAccessor : MonoBehaviour
         { "killGhoulant", false }, // Se il giocatore ha ucciso il Ghoulant in Scena3
         { "entryGhostCity", false }, // Se il giocatore ha finito il dialogo di entrata in GhostCity in scena3
         { "doorUnlocked", false }, // Se il giocatore ha sbloccato la porta per accedere alla zona del boss in scena3
-        { "bossAppeared", false } // Se il boss è apparso nella zona boss in scena3
+        { "bossAppeared", false }, // Se il boss è apparso nella zona boss in scena3
+        { "bossIsStunded", false } // Se il boss è stordito"}
     };
     #endregion
 

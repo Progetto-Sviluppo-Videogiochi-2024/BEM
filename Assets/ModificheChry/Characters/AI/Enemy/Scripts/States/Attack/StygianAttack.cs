@@ -227,11 +227,13 @@ public class StygianAttack : MonoBehaviour
 
     private IEnumerator MovePlayerToTarget(Player player, Vector3 targetPosition)
     {
-        while (Vector3.Distance(player.transform.position, targetPosition) > 0.75f) // Continua finché non raggiunge la posizione target
+        float startTime = Time.time; // Registra il tempo di inizio
+        while (Vector3.Distance(player.transform.position, targetPosition) > 0.75f || (Time.time - startTime) < 3f) // Continua finché non raggiunge la posizione target o il tempo massimo di 3 secondi
         {
             player.transform.position = Vector3.MoveTowards(player.transform.position, targetPosition, 5f * Time.deltaTime);
             yield return null; // Attende il prossimo frame
         }
+        Debug.Log("Player reached the target position or time limit exceeded.");
         yield break;
     }
 

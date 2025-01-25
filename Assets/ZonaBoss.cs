@@ -1,15 +1,28 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using DialogueEditor;
 
 public class ZonaBoss : MonoBehaviour
 {
+    [Header("Riferimenti-Tranform")]
+    #region Riferimenti
     public Transform characters; // Riferimento ai personaggi della zona boss
     public Transform gaia; // Riferimento a Gaia
     private Transform angelica; // Riferimento ad Angelica
     private Transform jacob; // Riferimento a Jacob
     private Transform boss; // Riferimento al boss
     public CombinazioneManager combinazioneManager; // Riferimento al CombinazioneManager
+    #endregion
+
+    [Header("Conversations")]
+    #region Conversations
+    public NPCConversation[] conversations;
+    private ConversationManager conversationManager;
+    private bool JacobAngelicaLiberi = false; // Flag per riprodurre la conversazione una sola volta
+    #endregion
+
+    //Le missioni le stiamo gestendo dai due dialoghi Riunione&Boss e BossStunned  
 
     void Start()
     {
@@ -21,6 +34,7 @@ public class ZonaBoss : MonoBehaviour
         angelica.gameObject.SetActive(doorUnlock);
         jacob.gameObject.SetActive(doorUnlock);
         boss.gameObject.SetActive(false); // Il boss solo quando parla Stygian
+        conversationManager = ConversationManager.Instance;
     }
 
     public void BossAppeared() // Invocato nel nodo del DE quando parla per la prima volta Stygian
@@ -72,6 +86,12 @@ public class ZonaBoss : MonoBehaviour
 
     IEnumerator WaitForBossRecovery()
     {
+        // Se non è già stato liberato Jacob e Angelica
+        if (!JacobAngelicaLiberi)
+        {
+            conversationManager.StartConversation(conversations[0]);
+            JacobAngelicaLiberi = true;
+        }
         var bossAgent = boss.GetComponent<AIBossAgent>();
         yield return new WaitForSeconds(7.5f);
         bossAgent.status.isStunned = false;
