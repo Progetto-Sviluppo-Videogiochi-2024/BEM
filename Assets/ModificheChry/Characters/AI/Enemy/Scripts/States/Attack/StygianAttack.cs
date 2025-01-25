@@ -81,20 +81,9 @@ public class StygianAttack : MonoBehaviour
         return attacks.Keys.First(); // Fall-back di sicurezza (non dovrebbe mai accadere)
     }
 
-    void AlignToPlayer(AIBossAgent agent)
-    {
-        Vector3 directionToPlayer = (agent.player.transform.position - agent.transform.position).normalized;
-        directionToPlayer.y = 0; // Ignora la componente verticale per evitare inclinazioni
-        if (directionToPlayer != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-            agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, targetRotation, Time.deltaTime * 5f); // Interpolazione fluida
-        }
-    }
-
     public void PerformMeleeAttack(AIBossAgent agent)
     {
-        AlignToPlayer(agent);
+        agent.AlignToPlayer();
         SetCurrentAttackDamage(agent, MeleeAttacks);
         print($"Melee: {CurrentAttack}");
 
@@ -126,7 +115,7 @@ public class StygianAttack : MonoBehaviour
 
     public void PerformRangeAttack(AIBossAgent agent)
     {
-        AlignToPlayer(agent);
+        agent.AlignToPlayer();
         SetCurrentAttackDamage(agent, RangeAttacks);
         print($"Range: {CurrentAttack}");
 

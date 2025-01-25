@@ -5,12 +5,6 @@ public class TriggerDialogue : NPCDialogueBase
 {
     protected bool hasDialogueBeenShown = false; // Flag per evitare che il dialogo venga mostrato più volte
 
-    protected override void Start()
-    {
-        base.Start(); // Mantieni la logica della classe base (opzionale)
-        if (BooleanAccessor.istance.GetBoolFromThis("stealth")) gameObject.SetActive(false);
-    }
-
     protected override void StartDialogue()
     {
         StartConversation(conversations[0]);

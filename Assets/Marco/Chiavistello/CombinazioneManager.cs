@@ -17,11 +17,12 @@ public class CombinazioneManager : MonoBehaviour
     public GameObject doorToOpen; // Porta da aprire quando la combinazione è corretta
     public GameObject doorToClose; // Porta da chiudere quando la combinazione è corretta 
     public ManagerScena3 managerScena3; // Riferimento al ManagerScena3
+    public Transform charactersZonaBoss; // Riferimento ai personaggi della zona boss
     #endregion
 
     bool isInRange = false; // Indica se il giocatore è vicino alla Combinazione
     bool isCombinazioneOpen = false; // Indica se il canvas della Combinazione è aperto
-    bool sbloccato = false; // Stato di sblocco (combinazione corretta o no)
+    public bool sbloccato = false; // Stato di sblocco (combinazione corretta o no)
 
     void Start()
     {
@@ -62,10 +63,14 @@ public class CombinazioneManager : MonoBehaviour
             SaveLoadSystem.Instance.SaveCheckpoint();
             ToggleDoor(true);
             ToggleCombinazione(false);
+
+            charactersZonaBoss.GetChild(0).gameObject.SetActive(true); // Angelica
+            charactersZonaBoss.GetChild(1).gameObject.SetActive(true); // Jacob
+            // Stygian no perché quello avviene durante il dialogo
         }
     }
 
-    private void ToggleDoor(bool isOpen)
+    public void ToggleDoor(bool isOpen)
     {
         doorToOpen.SetActive(isOpen);
         doorToClose.SetActive(!isOpen);

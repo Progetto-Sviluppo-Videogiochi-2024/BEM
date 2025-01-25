@@ -86,6 +86,17 @@ public class AIBossAgent : MonoBehaviour
         PlayAudio(index + 1, true);
     }
 
+    public void AlignToPlayer()
+    {
+        Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+        directionToPlayer.y = 0; // Ignora la componente verticale per evitare inclinazioni
+        if (directionToPlayer != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f); // Interpolazione fluida
+        }
+    }
+
     public bool ShouldChase()
     {
         // Definisci un range per determinare la probabilità di inseguire

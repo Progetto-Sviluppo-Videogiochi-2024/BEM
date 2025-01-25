@@ -13,9 +13,9 @@ public class AIBossLocomotion : MonoBehaviour
 
     [Header("References")]
     #region References
-    Player player;
-    Animator animator;
-    AIBossAgent agent;
+    Player player; // Riferimento al player
+    Animator animator; // Riferimento all'animator
+    AIBossAgent agent; // Riferimento all'agente
     #endregion
 
     void Start()
@@ -37,20 +37,13 @@ public class AIBossLocomotion : MonoBehaviour
         if (agent.stateMachine.currentState == AIStateId.ChasePlayer)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.gameObject.transform.position);
+            if (distanceToPlayer <= stopDistance) { StopAgent(); return; }
             MoveTowardsTarget(player.gameObject.transform.position, (distanceToPlayer > minDistanceToRunToPlayer) ? runSpeed : walkSpeed, interpolationSpeed);
         }
     }
 
-    void MoveTowardsTarget(Vector3 destination, float speed, float interpolationSpeed)
-    {
-        float distanceToPlayer = Vector3.Distance(transform.position, destination);
-
-        // Se è vicino alla distanza di stop, ferma l'agente
-        if (distanceToPlayer <= stopDistance) { StopAgent(); return; }
-
-        // else se è abbastanza lontano, l'agente si muove verso il target
+    void MoveTowardsTarget(Vector3 destination, float speed, float interpolationSpeed) =>
         MoveAgent(destination, Mathf.Lerp(agent.navMeshAgent.speed, speed, Time.deltaTime * interpolationSpeed)); // Interpolazione graduale
-    }
 
     void MoveAgent(Vector3 destination, float speed)
     {
