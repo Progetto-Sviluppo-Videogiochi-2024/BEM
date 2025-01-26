@@ -97,7 +97,7 @@ public class ZonaBoss : MonoBehaviour
         // Per il rigidbody
         if (obj.TryGetComponent(out Rigidbody rb))
         {
-            rb.isKinematic = disable;
+            rb.isKinematic = true;
             rb.useGravity = !disable;
         }
 

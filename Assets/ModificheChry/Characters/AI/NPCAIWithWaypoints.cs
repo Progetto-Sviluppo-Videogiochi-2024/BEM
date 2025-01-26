@@ -13,29 +13,32 @@ public class NPCAIWithWaypoints : NPCAIBase
 
     protected override void Update()
     {
-        base.Update();
-
-        if (agent == null || !agent.isActiveAndEnabled || !agent.isOnNavMesh) return;
-
-        // Se non ci sono waypoint, non fare nulla
-        if (waypoints == null || waypoints.Length == 0) return;
-        if (currentWaypointIndex >= waypoints.Length) { StopAgent(); return; }
+        if (!enabled) return; // Se l'AI è disabilitata, non fare nulla
+        if (agent == null || !agent.isActiveAndEnabled || !agent.isOnNavMesh) return; // Se l'agent non è attivo o non è su un NavMesh, non fare nulla
+        if (waypoints == null || waypoints.Length == 0) return; // Se non ci sono waypoint, non fare nulla
 
         if (currentWaypointIndex != waypoints.Length - 1) // Se non è l'ultimo waypoint
             MoveTowardsTarget(waypoints[currentWaypointIndex].position, 6.5f, 5f);
-        else // Se deve andare all'ultimo waypoint
+        else // Se deve andare all'ultimo waypoint (dinamite)
         {
-            if (!isRotating)
+            if (!isRotating) // Per far vedere che vedono la dinamite
             {
                 StopAgent();
                 StartCoroutine(RotateTowardsCoroutine(dinamite));
                 isRotating = true;
             }
-            else if (BooleanAccessor.istance.GetBoolFromThis("LandslideCollapsed"))
+            else if (BooleanAccessor.istance.GetBoolFromThis("LandslideCollapsed")) // Se la frana è crollata, segui il player
             {
-                MoveTowardsTarget(waypoints[currentWaypointIndex].position, 6.5f, 5f);
+                MoveTowardsTarget(player.transform.position, 6.5f, 5f);
             }
         }
+    }
+
+    public void DisableAI()
+    {
+        StartCoroutine(RotateTowardsCoroutine(waypoints[^1]));
+        StopAgent();
+        enabled = false;
     }
 
     public void SetWaypoints(Transform[] newWaypoints)
@@ -44,7 +47,7 @@ public class NPCAIWithWaypoints : NPCAIBase
         currentWaypointIndex = 0; // Resetta l'indice al primo waypoint
     }
 
-    IEnumerator RotateTowardsCoroutine(Transform targetTransform)
+    public IEnumerator RotateTowardsCoroutine(Transform targetTransform)
     {
         while (true)
         {
