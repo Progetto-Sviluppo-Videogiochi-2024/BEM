@@ -14,7 +14,7 @@ public class NPCAIBase : MonoBehaviour
     protected MovementStateManager movementStateManager; // Riferimento allo stato di movimento del player
     protected NavMeshAgent agent; // Riferimento all'agente di navigazione
     protected Animator animator; // Riferimento all'animator dell'agente
-    [SerializeField] protected Transform target; // Riferimento al target dell'agente
+    [SerializeField] public Transform target; // Riferimento al target dell'agente
     #endregion
 
     protected virtual void Start()

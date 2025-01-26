@@ -26,7 +26,7 @@ public class BallLauncher : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // Controlla se il personaggio entra nel trigger
-        if (!kickBall && other.CompareTag("Angelica"))
+        if (!kickBall && other.transform.name.Contains("Angelica"))
         {
             kickBall = true;
             animatorHuman.SetTrigger("KickBall");
