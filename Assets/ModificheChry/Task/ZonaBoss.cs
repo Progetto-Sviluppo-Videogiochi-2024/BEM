@@ -11,11 +11,12 @@ public class ZonaBoss : MonoBehaviour
     public Transform gaia; // Riferimento a Gaia
     private Transform angelica; // Riferimento ad Angelica
     private Transform jacob; // Riferimento a Jacob
-    public Transform player; // Riferimento al player
     private Transform boss; // Riferimento al boss
     public CombinazioneManager combinazioneManager; // Riferimento al CombinazioneManager
     public Transform[] newWaypoints; // Nuovi waypoints per Jacob, Angelica e Gaia
     public Transform hideoutGaia; // Nascondiglio di Gaia quando Stefano combatte con il boss
+    public Transform wallBossFightMiniera; // Muro per evitare il passaggio nella miniera
+    public GameObject vfxWallBossFightMiniera; // Effetto visivo per la zona boss
     #endregion
 
     [Header("Conversations")]
@@ -49,6 +50,36 @@ public class ZonaBoss : MonoBehaviour
         boss.GetComponent<AIBossLocomotion>().enabled = false;
         boss.GetComponent<Animator>().SetTrigger("entry");
         combinazioneManager.ToggleDoor(false); // La porta della zona boss si chiude
+        ShowVFXBossFight();
+    }
+
+    void ShowVFXBossFight()
+    {
+        if (!wallBossFightMiniera.TryGetComponent<BoxCollider>(out var boxCollider))
+        {
+            Debug.LogError("Nessun BoxCollider trovato sull'oggetto!");
+            return;
+        }
+
+        // Calcola il centro e le dimensioni del BoxCollider
+        Vector3 colliderCenter = boxCollider.center; // Centro locale del BoxCollider
+        Vector3 colliderSize = boxCollider.size;    // Dimensioni locali del BoxCollider
+
+        for (int i = 0; i < 1; i++)
+        {
+            // Genera una posizione casuale all'interno del volume (locale)
+            Vector3 randomPositionLocal = new(
+                Random.Range(-colliderSize.x / 2, colliderSize.x / 2),
+                Random.Range(-colliderSize.y / 2, colliderSize.y / 2),
+                Random.Range(-colliderSize.z / 2, colliderSize.z / 2)
+            );
+
+            // Trasforma la posizione locale in globale
+            Vector3 randomPositionWorld = wallBossFightMiniera.transform.TransformPoint(colliderCenter + randomPositionLocal);
+
+            // Istanzia il VFX come figlio del muro
+            Instantiate(vfxWallBossFightMiniera, randomPositionWorld, Quaternion.identity, wallBossFightMiniera.transform);
+        }
     }
 
     public void EndEntryBoss() // Invocato alla fine del dialogo del boss
@@ -121,6 +152,8 @@ public class ZonaBoss : MonoBehaviour
 
     public void UnlockFriends() // Invocata nel primo nodo del DE quando Stygian è stordito e gli amici vengono liberati
     {
+        wallBossFightMiniera.gameObject.SetActive(false);
+
         ToggleObj(angelica.gameObject, false);
         ToggleObj(jacob.gameObject, false);
 
