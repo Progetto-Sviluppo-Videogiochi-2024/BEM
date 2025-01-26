@@ -41,7 +41,8 @@ public class BooleanAccessor : MonoBehaviour
         { "entryGhostCity", false }, // Se il giocatore ha finito il dialogo di entrata in GhostCity in scena3
         { "doorUnlocked", false }, // Se il giocatore ha sbloccato la porta per accedere alla zona del boss in scena3
         { "bossAppeared", false }, // Se il boss è apparso nella zona boss in scena3
-        { "bossIsStunded", false } // Se il boss è stordito"}
+        { "bossIsStunded", false }, // Se il boss è stato stordito in scena3 
+        { "LandslideCollapsed", false } // Se la frana nel tunnel è crollata in scena3
     };
     #endregion
 
