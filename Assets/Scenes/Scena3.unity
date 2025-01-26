@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.009012707, g: 0.013102867, b: 0.020503506, a: 1}
+  m_IndirectSpecularColor: {r: 0.009011039, g: 0.0131015815, b: 0.020505467, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5357,6 +5357,10 @@ PrefabInstance:
       value: Angelica2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: db2ab498431a1094ea62d3ee7671d170, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: db2ab498431a1094ea62d3ee7671d170, type: 3}
       propertyPath: m_TagString
       value: Angelica
       objectReference: {fileID: 0}
@@ -10136,7 +10140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &224220603
 Transform:
   m_ObjectHideFlags: 0
@@ -16097,7 +16101,7 @@ Transform:
   m_GameObject: {fileID: 397217732}
   serializedVersion: 2
   m_LocalRotation: {x: -0.01599787, y: 0.9752806, z: -0.075331725, w: -0.20711607}
-  m_LocalPosition: {x: 516.5924, y: 96.16431, z: 229.57835}
+  m_LocalPosition: {x: 712.10236, y: 143.3603, z: 231.25836}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30589,7 +30593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2527535119766831068, guid: c3b3de99364f15944a8bc4a735371601, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2527535119766831068, guid: c3b3de99364f15944a8bc4a735371601, type: 3}
       propertyPath: m_TagString
@@ -51372,15 +51376,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1413829023850466260, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.59
+      value: 200.1
       objectReference: {fileID: 0}
     - target: {fileID: 1413829023850466260, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -29.596
+      value: 17.6
       objectReference: {fileID: 0}
     - target: {fileID: 1413829023850466260, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -57.38
+      value: -55.7
       objectReference: {fileID: 0}
     - target: {fileID: 1413829023850466260, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -51856,7 +51860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4640591102148984104, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.69069666
+      value: 0.690773
       objectReference: {fileID: 0}
     - target: {fileID: 4640591102148984104, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
       propertyPath: m_LocalPosition.y
@@ -51864,7 +51868,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4640591102148984104, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.21831
+      value: -7.2182937
       objectReference: {fileID: 0}
     - target: {fileID: 4640591102148984104, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -53290,7 +53294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1305140921
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -86633,6 +86637,7 @@ MonoBehaviour:
   player: {fileID: 953578922}
   vfxLaser: {fileID: 100002, guid: 5aed69264a3e2b240b5ed825972be476, type: 3}
   laserSpawnPoint: {fileID: 1956910497}
+  vfxRing: {fileID: 100002, guid: 3a5baf7eac067c44bb7b1d01c0801651, type: 3}
   ironBall: {fileID: 0}
   navMeshAgent: {fileID: 0}
   status: {fileID: 0}

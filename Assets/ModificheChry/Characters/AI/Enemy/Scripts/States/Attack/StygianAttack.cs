@@ -134,6 +134,7 @@ public class StygianAttack : MonoBehaviour
     {
         agent.AlignToPlayer();
         SetCurrentAttackDamage(agent, RangeAttacks);
+        CurrentAttack = "throwBall"; // Forzato per test
         print($"Range: {CurrentAttack}");
 
         switch (CurrentAttack)
@@ -148,6 +149,8 @@ public class StygianAttack : MonoBehaviour
             case "throwBall":
                 agent.ironBall.damage = CurrentDamage;
                 agent.animator.SetTrigger(CurrentAttack);
+                GameObject sfxRingIstance = Instantiate(agent.vfxRing, agent.transform.position, Quaternion.identity);
+                Destroy(sfxRingIstance, 5f);
                 PlayHitSoundAttack("throwBall");
                 // ApplyDamage(); // Invocato già dallo script di ProjectileCollision presente nella palla di ferro
                 break;
