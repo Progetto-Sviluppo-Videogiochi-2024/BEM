@@ -124,9 +124,10 @@ public class ZonaBoss : MonoBehaviour
         ToggleObj(angelica.gameObject, false);
         ToggleObj(jacob.gameObject, false);
 
-        var npcGaia = gaia.GetComponent<AIGaiaNPC>();
-        npcGaia.enabled = false;
-        npcGaia.target = player;
+        gaia.GetComponent<AIGaiaNPC>().enabled = false;
         gaia.GetComponent<Animator>().SetBool("crouching", false);
+        var npc = gaia.GetComponent<NPCAIWithWaypoints>();
+        npc.enabled = true;
+        npc.SetWaypoints(newWaypoints);
     }
 }
