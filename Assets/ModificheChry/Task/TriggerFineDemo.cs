@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class TriggerFineDemo : MonoBehaviour
 {
@@ -11,6 +13,12 @@ public class TriggerFineDemo : MonoBehaviour
 
     bool isTriggered = false; // Flag per controllare se il trigger è stato attivato
 
+    IEnumerator EndDemo()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Ringraziamenti");
+    }
+
     void OnTriggerEnter(Collider other)
     {
         // Per il player
@@ -18,6 +26,7 @@ public class TriggerFineDemo : MonoBehaviour
         {
             isTriggered = true;
             diario.CompletaMissione("Fuggi nel tunnel");
+            BooleanAccessor.istance.SetBoolOnDialogueE("EndDemo");
 
             var animator = player.GetComponent<Animator>();
             player.GetComponent<MovementStateManager>().enabled = false;
@@ -27,7 +36,8 @@ public class TriggerFineDemo : MonoBehaviour
             animator.SetFloat("hInput", 0);
             animator.SetFloat("vInput", 0);
 
-            // TODO: Fare altro per concludere la demo @marcoWarrior @NicL28
+            if (BooleanAccessor.istance.GetBoolFromThis("endDemo") && BooleanAccessor.istance.GetBoolFromThis("postFrana"))
+                StartCoroutine(EndDemo());
         }
 
         // Per le AI NPC

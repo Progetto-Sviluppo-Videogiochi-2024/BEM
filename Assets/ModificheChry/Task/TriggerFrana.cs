@@ -1,6 +1,7 @@
 using System.Collections;
 using DialogueEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TriggerFrana : MonoBehaviour
 {
@@ -61,7 +62,16 @@ public class TriggerFrana : MonoBehaviour
     void OnConversationEnded()
     {
         ConversationManager.OnConversationEnded -= OnConversationEnded;
+        BooleanAccessor.istance.SetBoolOnDialogueE("postFrana");
         GestoreScena.ChangeCursorActiveStatus(false, "TriggerFrana: OnConversationEnded");
+        if (BooleanAccessor.istance.GetBoolFromThis("endDemo") && BooleanAccessor.istance.GetBoolFromThis("postFrana"))
+            StartCoroutine(EndDemo());
+    }
+
+    IEnumerator EndDemo()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Ringraziamenti");
     }
 
     void OnTriggerEnter(Collider other)
