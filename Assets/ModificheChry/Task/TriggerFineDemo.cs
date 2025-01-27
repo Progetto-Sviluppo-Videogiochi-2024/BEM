@@ -7,6 +7,7 @@ public class TriggerFineDemo : MonoBehaviour
     public NPCAIWithWaypoints gaia; // Riferimento all'AI di Gaia
     public NPCAIWithWaypoints jacob; // Riferimento all'AI di Jacob
     public NPCAIWithWaypoints angelica; // Riferimento all'AI di Angelica
+    public Diario diario; // Riferimento al diario
 
     bool isTriggered = false; // Flag per controllare se il trigger è stato attivato
 
@@ -16,6 +17,7 @@ public class TriggerFineDemo : MonoBehaviour
         if (!isTriggered && other.CompareTag("Player"))
         {
             isTriggered = true;
+            diario.CompletaMissione("Fuggi nel tunnel");
 
             var animator = player.GetComponent<Animator>();
             player.GetComponent<MovementStateManager>().enabled = false;

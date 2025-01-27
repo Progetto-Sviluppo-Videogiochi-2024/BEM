@@ -93,7 +93,7 @@ public class LevelData : ISaveable
     public List<PlayerPrefsData> playerPrefs = new(); // Lista per memorizzare i dati di PlayerPrefs
 
     [Header("Dati livello")]
-    // TODO: Dati importanti della scena attuale per le statistiche
+    // Dati importanti della scena attuale per le statistiche
     public List<CharacterData> characters = new(); // Lista per memorizzare i dati dei personaggi dinamici
 
     [Header("Dati del BA")]

@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
     }
 
     public void UpdateStatusPlayer(int amountHealth, int amountSanita)
-    {   // TODO: distinguere tipo di cura se per la salute o per la sanità mentale  // TODO: trovare un modo per distinguere la cura della sanità mentale da quella della salute
+    {
         if (isDead) return;
 
         health += amountHealth;

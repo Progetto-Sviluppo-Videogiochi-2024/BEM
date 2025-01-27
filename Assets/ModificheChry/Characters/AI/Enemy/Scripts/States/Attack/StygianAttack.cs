@@ -139,7 +139,6 @@ public class StygianAttack : MonoBehaviour
 
         switch (CurrentAttack)
         {
-            // TODO: implementare la SFX VFX e logica per questi attacchi: telepatia, spara laser e lancia palla
             case "telepathic":
                 agent.animator.SetTrigger(CurrentAttack);
                 PlayHitSoundAttack("telepathic");
