@@ -27,7 +27,7 @@ public class StygianAttack : MonoBehaviour
     public int damagePunchBall = 25;
     public int damageThrowBall = 10;
     public int damageShootLaser = 30;
-    public List<float> rageThresholds = new() { 0.2f, 0.1f }; // Percentuali (dal valore più alto al più basso)
+    public List<float> rageThresholds = new() { 0.50f, 0.3f }; // Percentuali (dal valore più alto al più basso)
 
     public AIBossAttackState AttackState { get; set; }
     public AIBossAgent Agent { get; set; }
@@ -44,8 +44,8 @@ public class StygianAttack : MonoBehaviour
     Dictionary<string, (float probability, int damage)> RangeAttacks { get; } = new()
     {
         { "telepathic", (25f, 0) }, // Temporanei
-        { "throwBall", (60f, 0) },
-        { "shootLaser", (15f, 0) },
+        { "throwBall", (45f, 0) },
+        { "shootLaser", (30f, 0) },
         { "spasm", (0f, 0) } // Solo quando arriva a 10-20% di vita e si triggera per aumentare la potenza di attacco
     };
 
