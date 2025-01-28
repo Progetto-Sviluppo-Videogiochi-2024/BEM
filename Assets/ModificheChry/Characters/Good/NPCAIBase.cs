@@ -22,6 +22,8 @@ public class NPCAIBase : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         movementStateManager = player.GetComponent<MovementStateManager>();
+
+        agent.stoppingDistance = stopDistance;
     }
 
     protected virtual void Update()
@@ -36,8 +38,11 @@ public class NPCAIBase : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, destination);
 
         // Se è vicino alla distanza di stop, ferma l'agente
-        if (distanceToPlayer <= stopDistance) { StopAgent(); return; }
-        // else se è abbastanza lontano, l'agente si muove verso il target
+        if (distanceToPlayer <= stopDistance + 0.3f) // Così sembra non glitchare più
+        {
+            if (!agent.isStopped) StopAgent();
+            return;
+        }
         float targetSpeed = speed;
         MoveAgent(destination, Mathf.Lerp(agent.speed, targetSpeed, Time.deltaTime * interpolationSpeed)); // Interpolazione graduale
     }
@@ -56,6 +61,6 @@ public class NPCAIBase : MonoBehaviour
         agent.ResetPath();
         agent.velocity = Vector3.zero;
         agent.speed = 0f;
-        animator?.SetFloat("speed", Mathf.Lerp(animator.GetFloat("speed"), 0f, Time.deltaTime * 5f));
+        animator?.SetFloat("speed", 0f); //Mathf.Lerp(animator.GetFloat("speed"), 0f, Time.deltaTime * 5f)); questo causa il glitch quando si ferma
     }
 }
