@@ -8,6 +8,7 @@ public class ZonaBoss : MonoBehaviour
     [Header("References")]
     #region References
     public Transform characters; // Riferimento ai personaggi della zona boss
+    public Player player; // Riferimento al giocatore
     public Transform gaia; // Riferimento a Gaia
     private Transform angelica; // Riferimento ad Angelica
     private Transform jacob; // Riferimento a Jacob
@@ -43,12 +44,13 @@ public class ZonaBoss : MonoBehaviour
 
     public void BossAppeared() // Invocato nel nodo del DE quando parla per la prima volta Stygian
     {
+        player.isEntryBossFight = true;
         boss.gameObject.SetActive(true);
         var bossAgent = boss.GetComponent<AIBossAgent>();
         bossAgent.enabled = false;
         bossAgent.AlignToPlayer();
         boss.GetComponent<AIBossLocomotion>().enabled = false;
-        boss.GetComponent<Animator>().SetTrigger("entry");
+        boss.GetComponent<Animator>().SetBool("entry", true);
         combinazioneManager.ToggleDoor(false); // La porta della zona boss si chiude
         ShowVFXBossFight();
     }
@@ -84,7 +86,8 @@ public class ZonaBoss : MonoBehaviour
 
     public void EndEntryBoss() // Invocato alla fine del dialogo del boss
     {
-        boss.GetComponent<Animator>().SetTrigger("endEntry");
+        player.isEntryBossFight = false;
+        boss.GetComponent<Animator>().SetBool("entry", false);
         boss.GetComponent<AIBossAgent>().enabled = true;
         boss.GetComponent<AIBossLocomotion>().enabled = true;
         gaia.GetComponent<AIGaiaNPC>().target = hideoutGaia;

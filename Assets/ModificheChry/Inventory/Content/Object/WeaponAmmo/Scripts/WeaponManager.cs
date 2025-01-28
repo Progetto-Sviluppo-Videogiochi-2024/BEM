@@ -57,12 +57,14 @@ public class WeaponManager : MonoBehaviour
     [HideInInspector] public WeaponClassManager weaponClassManager; // Riferimento allo script WeaponClassManager
     SphereCollider noiseAura; // Riferimento allo script Player
     [HideInInspector] public Weapon weapon; // Riferimento allo script Weapon
+    Player player; // Riferimento allo script Player
     #endregion
 
     private void Awake()
     {
         weapon = GetComponent<ItemController>().item as Weapon;
         weaponClassManager = FindAnyObjectByType<WeaponClassManager>();
+        player = weaponClassManager.GetComponent<Player>();
         noiseAura = weaponClassManager.GetComponent<SphereCollider>();
         recoil = GetComponent<WeaponRecoil>();
         recoil.recoilFollowPosition = weaponClassManager.recoilFollowPosition;
@@ -104,7 +106,7 @@ public class WeaponManager : MonoBehaviour
         if (!isValidate) return;
 
         if (ShouldFire()) Fire();
-        if (!Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.Mouse0)) isEmptyAmmoSoundPlayed = false;
+        if (isEmptyAmmoSoundPlayed && !Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.Mouse0)) isEmptyAmmoSoundPlayed = false;
     }
 
     private bool Validate() => GetComponent<ItemController>() != null && transform.root.GetChild(0).CompareTag("Player"); // Se l'oggetto ha un ItemController e il padre ha il tag "Player"
@@ -120,6 +122,7 @@ public class WeaponManager : MonoBehaviour
     bool ShouldFire()
     {
         fireRateTimer += Time.deltaTime;
+        if (player.isEntryBossFight) return false; // Se la boss fight è iniziato, non sparare 
         if (aim.currentState == aim.rifleIdleState) return false; // Se sta in idle con l'arma, non sparare
         if (fireRateTimer < fireRate) return false; // Se il timer non è ancora scaduto, non sparare
         if (ammo.currentAmmo == 0 || (ammo.currentAmmo == 0 && ammo.extraAmmo == 0))
