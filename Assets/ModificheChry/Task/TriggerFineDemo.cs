@@ -17,7 +17,6 @@ public class TriggerFineDemo : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         gestore.GoToTransitionScene();
-        //SceneManager.LoadScene("Ringraziamenti");
     }
 
     void OnTriggerEnter(Collider other)
@@ -37,8 +36,6 @@ public class TriggerFineDemo : MonoBehaviour
             animator.SetFloat("hInput", 0);
             animator.SetFloat("vInput", 0);
 
-           
-            BooleanAccessor.istance.SetBoolOnDialogueE("endDemo");
             if (BooleanAccessor.istance.GetBoolFromThis("endDemo") && BooleanAccessor.istance.GetBoolFromThis("postFrana"))
                 StartCoroutine(EndDemo());
         }

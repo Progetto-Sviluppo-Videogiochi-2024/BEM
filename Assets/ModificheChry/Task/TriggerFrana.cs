@@ -13,6 +13,7 @@ public class TriggerFrana : MonoBehaviour
     public AudioClip bossSound; // Riferimento all'audio del boss quando viene bloccato
     public TriggerPlayer safeZonePlayer; // Riferimento alla safe zone del player dopo la zona frana
     public NPCConversation postFrana; // Riferimento alla conversazione post frana tra i personaggi
+    public GestoreScena gestoreScena; // Riferimento al gestore della scena
 
     bool playerPassed = false; // Flag per controllare se il player ha superato il boss
     bool mutantBlocked = false; // Flag per controllare se il boss è bloccato dalla frana caduta su di lui
@@ -71,7 +72,7 @@ public class TriggerFrana : MonoBehaviour
     IEnumerator EndDemo()
     {
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("Ringraziamenti");
+        gestoreScena.GoToTransitionScene();
     }
 
     void OnTriggerEnter(Collider other)
