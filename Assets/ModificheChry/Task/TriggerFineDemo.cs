@@ -10,13 +10,14 @@ public class TriggerFineDemo : MonoBehaviour
     public NPCAIWithWaypoints jacob; // Riferimento all'AI di Jacob
     public NPCAIWithWaypoints angelica; // Riferimento all'AI di Angelica
     public Diario diario; // Riferimento al diario
-
+    public GestoreScena gestore;
     bool isTriggered = false; // Flag per controllare se il trigger è stato attivato
 
     IEnumerator EndDemo()
     {
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("Ringraziamenti");
+        gestore.GoToTransitionScene();
+        //SceneManager.LoadScene("Ringraziamenti");
     }
 
     void OnTriggerEnter(Collider other)
@@ -36,6 +37,8 @@ public class TriggerFineDemo : MonoBehaviour
             animator.SetFloat("hInput", 0);
             animator.SetFloat("vInput", 0);
 
+           
+            BooleanAccessor.istance.SetBoolOnDialogueE("endDemo");
             if (BooleanAccessor.istance.GetBoolFromThis("endDemo") && BooleanAccessor.istance.GetBoolFromThis("postFrana"))
                 StartCoroutine(EndDemo());
         }
