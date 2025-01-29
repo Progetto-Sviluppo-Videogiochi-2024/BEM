@@ -39,7 +39,7 @@ public class OpenInventory : MonoBehaviour
 
     private void ActivateInventory()
     {
-        // if (PlayerPrefs.GetInt("hasBackpack") != 1) return; // TODO: scommentare a fine gioco
+        // if (PlayerPrefs.GetInt("hasBackpack") != 1) return; // TODO: IDK se farlo o meno
 
         if (Input.GetKeyDown(KeyCode.I))
         {
