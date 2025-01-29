@@ -38,7 +38,7 @@ public class NPCAIBase : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, destination);
 
         // Se è vicino alla distanza di stop, ferma l'agente
-        if (distanceToPlayer <= stopDistance + 0.3f) // Così sembra non glitchare più
+        if (distanceToPlayer <= stopDistance)
         {
             if (!agent.isStopped) StopAgent();
             return;

@@ -16265,7 +16265,7 @@ Transform:
   m_GameObject: {fileID: 397217732}
   serializedVersion: 2
   m_LocalRotation: {x: -0.01599787, y: 0.9752806, z: -0.075331725, w: -0.20711607}
-  m_LocalPosition: {x: 476.52243, y: 90.8103, z: 320.29837}
+  m_LocalPosition: {x: 453.70242, y: 94.55031, z: 226.75836}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21434,6 +21434,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 953578892}
+    - target: {fileID: 436223578025785764, guid: 9f11c66308dd91748ae78f0fcd3722f8, type: 3}
+      propertyPath: stopDistance
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 892534867205158684, guid: 9f11c66308dd91748ae78f0fcd3722f8, type: 3}
       propertyPath: m_Volume
       value: 1
@@ -21506,6 +21510,10 @@ PrefabInstance:
       propertyPath: conversation
       value: 
       objectReference: {fileID: 1737866965}
+    - target: {fileID: 3558667071508670426, guid: 9f11c66308dd91748ae78f0fcd3722f8, type: 3}
+      propertyPath: minDistanceAttack
+      value: 2.25
+      objectReference: {fileID: 0}
     - target: {fileID: 6287481966563166922, guid: 9f11c66308dd91748ae78f0fcd3722f8, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -21513,6 +21521,18 @@ PrefabInstance:
     - target: {fileID: 6560707394776297827, guid: 9f11c66308dd91748ae78f0fcd3722f8, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916271936593455020, guid: 9f11c66308dd91748ae78f0fcd3722f8, type: 3}
+      propertyPath: damageBite
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916271936593455020, guid: 9f11c66308dd91748ae78f0fcd3722f8, type: 3}
+      propertyPath: damageSwiping
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916271936593455020, guid: 9f11c66308dd91748ae78f0fcd3722f8, type: 3}
+      propertyPath: damagePunching
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7496771605417573573, guid: 9f11c66308dd91748ae78f0fcd3722f8, type: 3}
       propertyPath: gestoreScena
@@ -37965,7 +37985,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148169650}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8e8c7a0cd485e3479e3ee11f05e8003, type: 3}
   m_Name: 
@@ -52105,15 +52125,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1413829023850466260, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -35.48
+      value: -58.3
       objectReference: {fileID: 0}
     - target: {fileID: 1413829023850466260, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -34.95
+      value: -31.21
       objectReference: {fileID: 0}
     - target: {fileID: 1413829023850466260, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 33.34
+      value: -60.2
       objectReference: {fileID: 0}
     - target: {fileID: 1413829023850466260, guid: b229ede79bd56eb41846573d9fb6f8ed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -54581,6 +54601,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 953578892}
+    - target: {fileID: 41164734731445314, guid: 885142277a605e44799f6d00e24e36f2, type: 3}
+      propertyPath: stopDistance
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 222185509950912870, guid: 885142277a605e44799f6d00e24e36f2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.00047703474
@@ -55333,6 +55357,10 @@ PrefabInstance:
       propertyPath: patrolArea
       value: 
       objectReference: {fileID: 804668740}
+    - target: {fileID: 4562592474662041433, guid: 885142277a605e44799f6d00e24e36f2, type: 3}
+      propertyPath: minDistanceAttack
+      value: 2.25
+      objectReference: {fileID: 0}
     - target: {fileID: 4792269542405144518, guid: 885142277a605e44799f6d00e24e36f2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.00072552427
@@ -87824,6 +87852,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 953578892}
+    - target: {fileID: 41164734731445314, guid: 885142277a605e44799f6d00e24e36f2, type: 3}
+      propertyPath: stopDistance
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 222185509950912870, guid: 885142277a605e44799f6d00e24e36f2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.00047703474
@@ -88640,6 +88672,10 @@ PrefabInstance:
       propertyPath: patrolArea
       value: 
       objectReference: {fileID: 354058740}
+    - target: {fileID: 4562592474662041433, guid: 885142277a605e44799f6d00e24e36f2, type: 3}
+      propertyPath: minDistanceAttack
+      value: 2.25
+      objectReference: {fileID: 0}
     - target: {fileID: 4566596022122276367, guid: 885142277a605e44799f6d00e24e36f2, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: -0.07952866
