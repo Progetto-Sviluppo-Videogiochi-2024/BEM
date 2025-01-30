@@ -14,6 +14,7 @@ public class TriggerFrana : MonoBehaviour
     public TriggerPlayer safeZonePlayer; // Riferimento alla safe zone del player dopo la zona frana
     public NPCConversation postFrana; // Riferimento alla conversazione post frana tra i personaggi
     public GestoreScena gestoreScena; // Riferimento al gestore della scena
+    public GameObject colliderNonCadere; // Riferimento al collider (metodo forzato) per evitare che il player cada (bug trovato dai test)
 
     bool playerPassed = false; // Flag per controllare se il player ha superato il boss
     bool mutantBlocked = false; // Flag per controllare se il boss è bloccato dalla frana caduta su di lui
@@ -23,6 +24,7 @@ public class TriggerFrana : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         frana = transform.GetChild(0);
         frana.gameObject.SetActive(false);
+        colliderNonCadere.SetActive(false);
     }
 
     IEnumerator CheckPlayerSafeZone()
@@ -54,6 +56,7 @@ public class TriggerFrana : MonoBehaviour
         BooleanAccessor.istance.SetBoolOnDialogueE("LandslideCollapsed");
         frana.gameObject.SetActive(true);
         boss.gameObject.SetActive(false);
+        colliderNonCadere.SetActive(true);
 
         ConversationManager.Instance.StartConversation(postFrana);
         GestoreScena.ChangeCursorActiveStatus(true, "TriggerFrana: TriggerLandslide");
