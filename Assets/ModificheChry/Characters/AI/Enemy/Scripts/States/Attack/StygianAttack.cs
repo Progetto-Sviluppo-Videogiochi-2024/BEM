@@ -56,6 +56,10 @@ public class StygianAttack : MonoBehaviour
         RayLaserEsplosioneSource = gameObject.AddComponent<AudioSource>();
         RayLaserLungoSource = gameObject.AddComponent<AudioSource>();
         SpasmSource = gameObject.AddComponent<AudioSource>();
+        TelepathicSource.volume=0.05f;
+        RayLaserEsplosioneSource.volume=0.05f;
+        RayLaserLungoSource.volume=0.05f;
+        SpasmSource.volume=0.05f;
     }
 
     void SetDamageAttacks()
