@@ -138,8 +138,8 @@ public class WeaponManager : MonoBehaviour
         if (actions.currentState == actions.swapState) return false; // Se si sta cambiando arma, non sparare
         if (EventSystem.current.IsPointerOverGameObject()) return false; // Se il mouse è sopra un UI, non sparare
         if (IsClickingOnInteractiveObject()) return false; // Se si sta cliccando su un oggetto interattivo (raccoglibile, ecc.), non sparare
-        if (weapon.semiAuto && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))) return true; // Se l'arma è semi automatica e si preme il tasto sinistro del mouse, sparare
-        if (!weapon.semiAuto && (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0))) return true; // Se l'arma è automatica e si tiene premuto il tasto sinistro del mouse, sparare
+        if (weapon.semiAuto && Input.GetKeyDown(KeyCode.Mouse0)) return true; // Se l'arma è semi automatica e si preme il tasto sinistro del mouse, sparare
+        if (!weapon.semiAuto && Input.GetKey(KeyCode.Mouse0)) return true; // Se l'arma è automatica e si tiene premuto il tasto sinistro del mouse, sparare
         return false;
     }
 
