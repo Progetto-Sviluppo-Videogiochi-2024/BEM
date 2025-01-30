@@ -26,7 +26,7 @@ public class TriggerFineDemo : MonoBehaviour
         {
             isTriggered = true;
             diario.CompletaMissione("Fuggi nel tunnel");
-            BooleanAccessor.istance.SetBoolOnDialogueE("EndDemo");
+            BooleanAccessor.istance.SetBoolOnDialogueE("endDemo");
 
             var animator = player.GetComponent<Animator>();
             player.GetComponent<MovementStateManager>().enabled = false;

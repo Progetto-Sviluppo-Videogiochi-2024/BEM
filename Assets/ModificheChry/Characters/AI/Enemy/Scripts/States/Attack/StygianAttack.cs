@@ -46,7 +46,7 @@ public class StygianAttack : MonoBehaviour
         { "telepathic", (25f, 0) }, // Temporanei
         { "throwBall", (45f, 0) },
         { "shootLaser", (30f, 0) },
-        { "spasm", (0f, 0) } // Solo quando arriva a 10-20% di vita e si triggera per aumentare la potenza di attacco
+        { "spasm", (0f, 0) } // Solo quando arriva a 30-50% di vita e si triggera per aumentare la potenza di attacco
     };
 
     void Start()
@@ -138,8 +138,7 @@ public class StygianAttack : MonoBehaviour
     {
         agent.AlignToPlayer();
         SetCurrentAttackDamage(agent, RangeAttacks);
-        CurrentAttack = "throwBall"; // Forzato per test
-        print($"Range: {CurrentAttack}");
+        // print($"Range: {CurrentAttack}");
 
         switch (CurrentAttack)
         {
