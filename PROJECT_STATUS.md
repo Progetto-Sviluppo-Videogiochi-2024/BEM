@@ -79,7 +79,7 @@ The project is fully set up and ready for:
 ## How to Continue Development
 
 ### Prerequisites
-- Unity 2022.3.28f1 or compatible version
+- Unity 2022.3.28f1 (recommended) or Unity 2022.3.x LTS (minimum 2022.3.0f1)
 - Git installed
 - C# development environment (Visual Studio, VS Code, or Rider)
 

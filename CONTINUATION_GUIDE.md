@@ -41,7 +41,7 @@ Per lavorare manualmente:
 # Il progetto si trova in:
 /home/runner/work/BEM/BEM
 
-# Apri con Unity 2022.3.28f1 o versione compatibile
+# Apri con Unity 2022.3.28f1 (raccomandato) o Unity 2022.3.x LTS (minimo 2022.3.0f1)
 ```
 
 #### Opzione 3: Revisionare il Codice Esistente
@@ -111,7 +111,7 @@ To work manually:
 # The project is located at:
 /home/runner/work/BEM/BEM
 
-# Open with Unity 2022.3.28f1 or compatible version
+# Open with Unity 2022.3.28f1 (recommended) or Unity 2022.3.x LTS (minimum 2022.3.0f1)
 ```
 
 #### Option 3: Review Existing Code
